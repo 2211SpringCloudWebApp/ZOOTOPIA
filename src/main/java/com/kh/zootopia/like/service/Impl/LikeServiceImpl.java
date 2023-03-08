@@ -2,6 +2,7 @@ package com.kh.zootopia.like.service.Impl;
 
 import java.util.List;
 
+import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -21,7 +22,7 @@ public class LikeServiceImpl implements LikeService {
 	@Override
 	public int checkLike(Like like) {
 		
-		int result = likeStore.findLike(session, like);
+		int result = likeStore.checkLike(session, like);
 		
 		return result;
 

@@ -8,7 +8,6 @@ import com.kh.zootopia.review.domain.PageInfo;
 import com.kh.zootopia.review.domain.Review;
 import com.kh.zootopia.review.domain.Search;
 
-@Service
 public interface ReviewService {
 
 	/**

@@ -3,13 +3,11 @@ package com.kh.zootopia.review.store;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
-import org.springframework.stereotype.Repository;
 
 import com.kh.zootopia.review.domain.PageInfo;
 import com.kh.zootopia.review.domain.Review;
 import com.kh.zootopia.review.domain.Search;
 
-@Repository
 public interface ReviewStore {
 	
 	/**

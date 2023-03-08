@@ -1,11 +1,13 @@
 package com.kh.zootopia.animal.store.logic;
 
 import org.apache.ibatis.session.SqlSession;
+import org.springframework.stereotype.Repository;
 
 import com.kh.zootopia.animal.domain.Adopt;
 import com.kh.zootopia.animal.domain.Animal;
 import com.kh.zootopia.animal.store.AnimalStore;
 
+@Repository
 public class AnimalStoreLogic implements AnimalStore {
 
 	@Override

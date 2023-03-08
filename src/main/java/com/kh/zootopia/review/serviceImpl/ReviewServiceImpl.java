@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.kh.zootopia.review.domain.PageInfo;
 import com.kh.zootopia.review.domain.Review;
@@ -11,6 +12,7 @@ import com.kh.zootopia.review.domain.Search;
 import com.kh.zootopia.review.service.ReviewService;
 import com.kh.zootopia.review.store.ReviewStore;
 
+@Service
 public class ReviewServiceImpl implements ReviewService {
 
 	@Autowired

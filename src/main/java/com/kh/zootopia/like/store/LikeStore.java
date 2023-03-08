@@ -1,5 +1,7 @@
 package com.kh.zootopia.like.store;
 
+import org.apache.ibatis.session.SqlSession;
+
 import com.kh.zootopia.like.domain.Like;
 
 public interface LikeStore {

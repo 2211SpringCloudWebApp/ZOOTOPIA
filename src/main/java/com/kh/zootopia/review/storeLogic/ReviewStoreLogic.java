@@ -4,12 +4,14 @@ import java.util.List;
 
 import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
+import org.springframework.stereotype.Repository;
 
 import com.kh.zootopia.review.domain.PageInfo;
 import com.kh.zootopia.review.domain.Review;
 import com.kh.zootopia.review.domain.Search;
 import com.kh.zootopia.review.store.ReviewStore;
 
+@Repository
 public class ReviewStoreLogic implements ReviewStore {
 
 	@Override

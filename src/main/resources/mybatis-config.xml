@@ -15,8 +15,8 @@
 		<typeAlias type="com.kh.zootopia.review.domain.Review" alias="Review"/>
 		<typeAlias type="com.kh.zootopia.review.domain.Search" alias="Search"/>
 	</typeAliases>
-	<mappers>
+<!-- 	<mappers>
 		<mapper resource="mappers/member-mapper.xml"/>
 		<mapper resource="mappers/animal-mapper.xml"/>
-	</mappers>
+	</mappers> -->
 </configuration>

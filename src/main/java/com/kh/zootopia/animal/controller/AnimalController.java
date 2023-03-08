@@ -21,12 +21,18 @@ import com.kh.zootopia.animal.service.AnimalService;
 public class AnimalController {
 
 	@Autowired
-	public AnimalService aService;
+	private AnimalService aService;
 	
 	// 입양 공고 등록 화면
 	@RequestMapping(value="/animal/registerView.ztp", method=RequestMethod.GET)
 	public String adoptRegisterView() {
-		return "animal/register";
+		try {
+			
+			return "animal/register";
+		} catch (Exception e) {
+			
+			return "";
+		}
 	}
 	
 	// 입양 공고 등록

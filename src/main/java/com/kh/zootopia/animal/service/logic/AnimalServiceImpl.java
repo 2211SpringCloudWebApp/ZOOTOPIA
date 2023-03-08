@@ -2,12 +2,14 @@ package com.kh.zootopia.animal.service.logic;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.kh.zootopia.animal.domain.Adopt;
 import com.kh.zootopia.animal.domain.Animal;
 import com.kh.zootopia.animal.service.AnimalService;
 import com.kh.zootopia.animal.store.AnimalStore;
 
+@Service
 public class AnimalServiceImpl implements AnimalService {
 
 	@Autowired

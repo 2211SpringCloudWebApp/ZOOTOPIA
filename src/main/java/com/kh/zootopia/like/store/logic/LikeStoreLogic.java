@@ -1,10 +1,10 @@
 package com.kh.zootopia.like.store.logic;
 
+import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.kh.zootopia.like.domain.Like;
 import com.kh.zootopia.like.store.LikeStore;
-import com.kh.zootopia.like.store.SqlSession;
 
 @Repository
 public class LikeStoreLogic implements LikeStore {
