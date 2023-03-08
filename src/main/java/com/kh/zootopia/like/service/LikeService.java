@@ -7,6 +7,11 @@ import com.kh.zootopia.like.domain.Like;
 @Service
 public interface LikeService {
 
+	/**
+	 * 좋아요 확인
+	 * @param like
+	 * @return int
+	 */
 	public int checkLike(Like like);
 
 }

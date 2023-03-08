@@ -17,14 +17,23 @@ public class LikeController {
 	
 	/**
 	 * 좋아요 확인
+	 * jsp에서 게시판ID, 게시글NO, 회원ID의 정보를 받아온 후 해당 글에 좋아요가 있는지 확인 후 출력
 	 */
-	public void checkLike(
-			@ModelAttribute Like like,
-			@RequestParam(value = "page", required = false, defaultValue = "1") Integer page,
-			Model model) {
+	public void checkLike(@ModelAttribute Like like, Model model) {
+		
+		// like 안에는 게시판ID(동물/후기), 게시글NO, 회원ID의 정보가 저장됨
 		
 		int result = likeService.checkLike(like);
-		model.addAttribute("result", result);
+
+		if (result > 0) {
+		
+			model.addAttribute("result", result);
+			
+		} else {
+			
+			model.addAttribute(model);
+			
+		}
 		
 		return null;
 		
