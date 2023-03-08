@@ -26,8 +26,11 @@ public class LikeServiceImpl implements LikeService {
 	}
 
 	@Override
-	public int insertLike() {
-		return 0;
+	public int insertLike(Like like) {
+		
+		int result = likeStore.insertLike(session, like);
+		
+		return result;
 	}
 
 }
