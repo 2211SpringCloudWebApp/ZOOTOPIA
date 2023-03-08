@@ -33,4 +33,13 @@ public class LikeServiceImpl implements LikeService {
 		return result;
 	}
 
+	@Override
+	public int cancelLike(Like like) {
+		
+		int result = likeStore.cancelLike(session, like);
+		
+		return result;
+		
+	}
+
 }

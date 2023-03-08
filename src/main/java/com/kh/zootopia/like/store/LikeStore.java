@@ -21,5 +21,13 @@ public interface LikeStore {
 	 * @param like
 	 * @return int
 	 */
-	public int insertLike(SqlSession session, Like like)
+	public int insertLike(SqlSession session, Like like);
+	
+	/**
+	 * 좋아요 취소
+	 * @param session
+	 * @param like
+	 * @return int
+	 */
+	public int cancelLike(SqlSession session, Like like);
 }

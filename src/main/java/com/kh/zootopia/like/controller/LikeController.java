@@ -28,7 +28,7 @@ public class LikeController {
 			if (result > 0) {
 				
 				model.addAttribute("like", 1);
-				return ""; // XXX.jsp의 XXX에 1이 들어가면 좋아요가 클릭된 상태로 표시 
+				return ""; // XXX.jsp의 XXX에 1이 들어가면 좋아요가 클릭된 상태로 표시, 좋아요 한 번 더 클릭 시 취소
 				
 			} else {
 				
@@ -50,7 +50,6 @@ public class LikeController {
 	 * 좋아요 등록
 	 * : jsp에서 좋아요를 클릭하면 hidden input을 통해 게시판ID, 게시글NO, 회원ID가 넘어오고,
 	 * 그걸 이용해 LIKE_TBL에 INSERT INTO LIKE_TBL 클릭한 회원ID WHERE 게시판ID AND 게시글NO; 수행
-	 * @return 
 	 */
 	public String insertLike(@ModelAttribute Like like, Model model) {
 		
@@ -67,7 +66,28 @@ public class LikeController {
 			
 		}
 		
-		
+	}
+	
+	/**
+	 * 좋아요 취소
+	 * : jsp에서 좋아요가 이미 클릭된 상태에서 한 번 더 클릭할 경우 마찬가지로 hidden input을 통해 게시판ID, 게시글NO, 회원ID가 넘어오고,
+	 * LIKE_TBL에서 DELETE 회원ID FROM LIKE_TBL WHERE 게시판ID AND 게시판NO; 수행 
+	 */
+	public String cancelLike(@ModelAttribute Like like, Model model) {
+	
+		try {
+			
+			int result = likeService.cancelLike(like);
+			
+			return "";
+			
+		} catch (Exception e) {
+
+			model.addAttribute("message", e.getMessage());
+			return "common/error";
+			
+		}
+
 	}
 	
 }

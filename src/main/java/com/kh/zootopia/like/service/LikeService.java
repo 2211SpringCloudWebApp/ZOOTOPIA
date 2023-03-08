@@ -21,4 +21,11 @@ public interface LikeService {
 	 */
 	public int insertLike(Like like);
 
+	/**
+	 * 좋아요 취소
+	 * @param like
+	 * @return int
+	 */
+	public int cancelLike(Like like);
+
 }
