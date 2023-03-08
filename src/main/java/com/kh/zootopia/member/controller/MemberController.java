@@ -22,14 +22,14 @@ public class MemberController {
 	 * @param model
 	 * @return String
 	 */
-	@RequestMapping(value="/member/list.ztp", method= {RequestMethod.GET})
+	@RequestMapping(value="/member/list.ztp", method= RequestMethod.GET)
 	public String selectMembers(Model model) {
 		try {
 			List<Member> mList = mService.selectMembers();
 			model.addAttribute("mList", mList);
-			return "member/list";			
+			return "manager/list";
 		} catch (Exception e) {
-			model.addAttribute("msg", e.getMessage());
+			model.addAttribute("message", e.getMessage());
 			return "common/error";
 		}
 	}
