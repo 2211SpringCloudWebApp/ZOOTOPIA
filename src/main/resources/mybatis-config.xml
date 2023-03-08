@@ -17,5 +17,6 @@
 	</typeAliases>
 	<mappers>
 		<mapper resource="mappers/member-mapper.xml"/>
+		<mapper resource="mappers/animal-mapper.xml"/>
 	</mappers>
 </configuration>
