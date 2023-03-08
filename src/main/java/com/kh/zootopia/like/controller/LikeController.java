@@ -57,7 +57,15 @@ public class LikeController {
 			
 			int result = likeService.insertLike(like);
 			
-			return "";
+			if (result > 0) {
+				
+				return "";
+				
+			} else {
+				
+				return "";
+				
+			}
 			
 		} catch (Exception e) {
 
@@ -79,7 +87,15 @@ public class LikeController {
 			
 			int result = likeService.cancelLike(like);
 			
-			return "";
+			if (result > 0) {
+				
+				return "";
+				
+			} else {
+				
+				return "";
+				
+			}
 			
 		} catch (Exception e) {
 
