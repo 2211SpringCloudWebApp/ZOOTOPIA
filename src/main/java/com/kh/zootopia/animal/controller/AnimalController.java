@@ -15,10 +15,12 @@ public class AnimalController {
 	
 	// 입양 공고 등록 화면
 	@RequestMapping(value="/animal/regist", method=RequestMethod.GET)
-	public String rigisterView() {
+	public String registerView() {
 		return "animal/register";
 	}
 	
 	// 입양 공고 등록
-	
+	public void adoptRegister() {
+		
+	}
 }
