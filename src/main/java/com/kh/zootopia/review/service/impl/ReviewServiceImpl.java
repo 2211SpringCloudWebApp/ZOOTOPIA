@@ -1,4 +1,4 @@
-package com.kh.zootopia.review.serviceImpl;
+package com.kh.zootopia.review.service.impl;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.kh.zootopia.review.storeLogic;
+package com.kh.zootopia.review.store.logic;
 
 import java.util.List;
 

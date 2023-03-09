@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="LikeMapper">
+
+	<select id="checkLike" parameterType="Like" resultType="_int">
+		SELECT COUNT(*) FROM LIKE_TBL WHERE BOARD_ID = #{boardId} AND POST_NO = #{postNo}
+	</select>
+	
+	<insert id="insertLike" parameterMap="Like">
+		INSERT INTO LIKE_TBL VALUES (#{boardId}, #{postNo}, #{likeMemberId})
+	</insert>
+
+	<delete id="cancelLike" parameterMap="Like">
+		DELETE #{likeMemberId} FROM LIKE_TBL WHERE BOARD_ID = #{boardId} AND POST_NO = #{postNo}
+	</delete>
+	
+</mapper>
