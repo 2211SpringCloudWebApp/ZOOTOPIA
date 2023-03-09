@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.zootopia.review.domain.PageInfo;
 import com.kh.zootopia.review.domain.Review;
@@ -44,11 +45,11 @@ public class ReviewController {
 	 * @return String
 	 */
 	@RequestMapping(value = "/review/write.ztp", method = RequestMethod.POST)
-	public String reviewWrite(
+	public ModelAndView reviewWrite(
 			@ModelAttribute Review review,
 			@RequestParam(value = "uploadFile", required = false) MultipartFile uploadFile,
 			HttpServletRequest request,
-			Model model) {
+			ModelAndView mv) {
 		
 		try {
 			
@@ -64,19 +65,23 @@ public class ReviewController {
 			
 			if (result > 0) {
 				
-				return "redirect:/review/list";
+				mv.setViewName("redirect:/review/list");
 				
 			} else {
 				
-				model.addAttribute("message", "등록 오류");
-				return "common/error";
+				mv.addObject("message", "등록 오류");
+				mv.setViewName("common/error");
+				
 			}
 			
 		} catch (Exception e) {
 
-			model.addAttribute("message", e.getMessage());
-			return "common/error";
+			mv.addObject("message", e.getMessage());
+			mv.setViewName("common/error");
+			
 		}
+		
+		return mv;
 		
 	}
 	
@@ -167,22 +172,22 @@ public class ReviewController {
 	 * @return 
 	 */
 	@RequestMapping(value = "/review/detail.ztp", method = RequestMethod.GET)
-	public String reviewDetail(@RequestParam("reviewNo") int reviewNo, Model model) {
+	public ModelAndView reviewDetail(@RequestParam("reviewNo") int reviewNo, ModelAndView mv) {
 		
 		try {
 			
 			Review review = reviewService.selectReview(reviewNo);
 			
-			model.addAttribute("review", review);
-			
-			return "review/detail";
+			mv.addObject("review", review).setViewName("review/detail");
 			
 		} catch (Exception e) {
 			
-			model.addAttribute("message", e.getMessage());
-			return "common/error";
+			mv.addObject("message", e.getMessage()).setViewName("common/error");
 			
 		}
+		
+		return mv;
+		
 	}
 	
 	/**
