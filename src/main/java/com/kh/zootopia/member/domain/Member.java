@@ -14,7 +14,6 @@ public class Member {
 	private String memberPhone;
 	private String memberAddr1;
 	private String memberAddr2;
-	private String memberAddr3;
 	private String mAdminYN;
 	private Timestamp mEnrollDate;
 	private Timestamp mUpdateDate;
@@ -23,6 +22,21 @@ public class Member {
 	
 	public Member() {}
 	
+	public Member(String memberId, String memberPw) {
+		super();
+		this.memberId = memberId;
+		this.memberPw = memberPw;
+	}
+
+	
+	
+	public Member(String memberId, String memberName, String memberEmail) {
+		super();
+		this.memberId = memberId;
+		this.memberName = memberName;
+		this.memberEmail = memberEmail;
+	}
+
 	public Member(String memberId, String memberName, Timestamp mEnrollDate) {
 		super();
 		this.memberId = memberId;
@@ -102,14 +116,6 @@ public class Member {
 		this.memberAddr2 = memberAddr2;
 	}
 
-	public String getMemberAddr3() {
-		return memberAddr3;
-	}
-
-	public void setMemberAddr3(String memberAddr3) {
-		this.memberAddr3 = memberAddr3;
-	}
-
 	public String getmAdminYN() {
 		return mAdminYN;
 	}
@@ -155,7 +161,7 @@ public class Member {
 		return "Member [memberId=" + memberId + ", memberPw=" + memberPw + ", memberName=" + memberName
 				+ ", memberBirthday=" + memberBirthday + ", memberGender=" + memberGender + ", memberEmail="
 				+ memberEmail + ", memberPhone=" + memberPhone + ", memberAddr1=" + memberAddr1 + ", memberAddr2="
-				+ memberAddr2 + ", memberAddr3=" + memberAddr3 + ", mAdminYN=" + mAdminYN + ", mEnrollDate="
+				+ memberAddr2 + ", memberAddr3=" + ", mAdminYN=" + mAdminYN + ", mEnrollDate="
 				+ mEnrollDate + ", mUpdateDate=" + mUpdateDate + ", mWithdrawalYN=" + mWithdrawalYN
 				+ ", mWithdrawalDate=" + mWithdrawalDate + "]";
 	}
