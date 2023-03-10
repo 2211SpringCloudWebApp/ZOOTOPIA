@@ -7,6 +7,12 @@ public class AdoptAnimalPost {
 	private AdoptPost adoptPost;
 	
 	public AdoptAnimalPost() {}
+	
+	public AdoptAnimalPost(Animal animal, AdoptPost adoptPost) {
+		super();
+		this.animal = animal;
+		this.adoptPost = adoptPost;
+	}
 
 	public Animal getAnimal() {
 		return animal;

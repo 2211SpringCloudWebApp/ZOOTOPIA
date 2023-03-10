@@ -21,6 +21,8 @@
 	
 	</resultMap>
 	
-	
+	<insert id="insertAdoptPost">
+		INSERT INTO ADOPT_POST_TBL VALUES (SEQ_ADOPTPOSTNO.NEXTVAL, DEFAULT, #{adoptWriterId }, #{adoptContent }, #{adoptImageName }, #{adoptImagePath }, DEFAULT, NULL, DEFAULT, SEQ_ANIMALNO.CURRVAL)
+	</insert>
 	
 </mapper>
