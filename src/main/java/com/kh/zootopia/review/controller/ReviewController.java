@@ -27,9 +27,18 @@ public class ReviewController {
 	private ReviewService reviewService;
 	
 	/**
+	 * 후기 redirect
+	 */
+	public void reviewViewPage() {
+		
+		
+		
+	}
+	
+	/**
 	 * 후기 등록 페이지
 	 */
-	@RequestMapping(value = "/review/writeView", method = RequestMethod.GET)
+	@RequestMapping(value = "/review/writeView.ztp", method = RequestMethod.GET)
 	public String reviewWriteView() {
 	
 		return "review/write";
@@ -38,26 +47,33 @@ public class ReviewController {
 	
 	/**
 	 * 후기 등록
-	 * @param review
-	 * @param uploadFile
-	 * @param request
-	 * @param model
-	 * @return String
+	 * : write.jsp에서 각각의 name에 해당하는 값을 가져와 객체화 시킴,
+	 * 파일이 있을 경우 파일을 업로드,
+	 * 후기 작성일은 mapper에서 default(sysdate)로 해줌.
 	 */
 	@RequestMapping(value = "/review/write.ztp", method = RequestMethod.POST)
 	public ModelAndView reviewWrite(
-			@ModelAttribute Review review,
-			@RequestParam(value = "uploadFile", required = false) MultipartFile uploadFile,
-			HttpServletRequest request,
-			ModelAndView mv) {
+			int reviewPostNo, String animalNo, String reviewTitle, String reviewContent, String reviewWriterId, String reviewImageName, String reviewVideoName
+			, @RequestParam(value = "uploadFile", required = false) MultipartFile uploadFile
+			, HttpServletRequest request, ModelAndView mv
+			) {
 		
 		try {
+			
+			Review review = new Review();
+			review.setAnimalNo(animalNo);
+			review.setReviewPostNo(reviewPostNo);
+			review.setReviewTitle(reviewTitle);
+			review.setReviewContent(reviewContent);
+			review.setReviewWriterId(reviewWriterId);
+			review.setReviewImageName(reviewImageName);
+			review.setReviewVideoName(reviewVideoName);
 			
 			if (!uploadFile.getOriginalFilename().equals("")) {
 				
 				String filePath = saveFile(uploadFile, request);
-				review.setReviewFileName(uploadFile.getOriginalFilename());
-				review.setReviewFilePath(filePath);
+				review.setReviewImageName(uploadFile.getOriginalFilename());
+				review.setReviewImagePath(filePath);
 				
 			}
 			
@@ -124,9 +140,7 @@ public class ReviewController {
 	
 	/**
 	 * 후기 목록
-	 * @param model
-	 * @param page
-	 * @return 
+	 *
 	 */
 	@RequestMapping(value = "/review/list.ztp", method = RequestMethod.GET)
 	public String reviewList(Model model, @RequestParam(value = "page", required = false, defaultValue = "1") Integer page) {

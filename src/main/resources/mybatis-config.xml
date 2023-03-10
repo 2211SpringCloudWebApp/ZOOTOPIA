@@ -7,16 +7,17 @@
 	</settings>
 	<typeAliases>
 		<typeAlias type="com.kh.zootopia.member.domain.Member" alias="Member"/>
-		<typeAlias type="com.kh.zootopia.animal.domain.Animal" alias="Animal"/>
-		<typeAlias type="com.kh.zootopia.animal.domain.Adopt" alias="Adopt"/>
 		<typeAlias type="com.kh.zootopia.comment.domain.Comment" alias="Comment"/>
 		<typeAlias type="com.kh.zootopia.like.domain.Like" alias="Like"/>
-		<typeAlias type="com.kh.zootopia.review.domain.PageInfo" alias="PageInfo"/>
 		<typeAlias type="com.kh.zootopia.review.domain.Review" alias="Review"/>
-		<typeAlias type="com.kh.zootopia.review.domain.Search" alias="Search"/>
 	</typeAliases>
-<!-- 	<mappers>
+	<mappers>
 		<mapper resource="mappers/member-mapper.xml"/>
-		<mapper resource="mappers/animal-mapper.xml"/>
-	</mappers> -->
+		<!-- <mapper resource="mappers/animal-mapper.xml"/> -->
+		<!-- <mapper resource="mappers/review-mapper.xml"/>
+		<mapper resource="mappers/like-mapper.xml"/>
+		<mapper resource="mappers/adoptpost-mapper.xml"/>
+		<mapper resource="mappers/comment-mapper.xml"/>
+		<mapper resource="mappers/reservation-mapper.xml"/> -->
+	</mappers>
 </configuration>

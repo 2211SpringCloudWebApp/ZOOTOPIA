@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ReviewMapper">
+
+	<resultMap type="Review" id="reviewResultMap">
+		<id property="reviewPostNo" column="REVIEW_POST_NO"/>
+		<result property="boardId" column="BOARD_ID"/>
+		<result property="reviewWriterId" column="REVIEW_WRITER_ID"/>
+		<result property="animalNo" column="ANIMAL_NO"/>
+		<result property="reviewTitle" column="REVIEW_TITLE"/>
+		<result property="reviewContent" column="REVIEW_CONTENT"/>
+		<result property="reviewImageName" column="REVIEW_IMAGE_NAME"/>
+		<result property="reviewImagePath" column="REVIEW_IMAGE_PATH"/>
+		<result property="reviewVideoName" column="REVIEW_VIDEO_NAME"/>
+		<result property="reviewVideoPath" column="REVIEW_VIDEO_PATH"/>
+		<result property="reviewCreateDate" column="REVIEW_CREATE_DATE"/>
+		<result property="reviewUpdateDate" column="REVIEW_UPDATE_DATE"/>
+		<result property="reviewViewCount" column="REVIEW_VIEW_COUNT"/>
+	</resultMap>
+	
+	<select id="showReviewList" resultMap="">
+		SELECT * FROM REVIEW_POST_TBL
+	</select>
+	
+	<select id="selectReview" resultMap="">
+		SELECT * FROM REVIEW_POST_TBL WHERE REVIEW_NO = ${reviewNo}		
+	</select>
+	
+	<insert id="insertReview" parameterType="review">
+	
+	</insert>
+	
+	<update id="modifyReview">
+	
+	</update>
+	
+	<delete id="deleteReview">
+	
+	</delete>
+	
+</mapper>

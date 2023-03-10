@@ -2,20 +2,22 @@ package com.kh.zootopia.comment.domain;
 
 public class Comment {
 
-	private String boardID;
-	private int postNo;
-	private int commentNo;
-	private int parentCommentNo;
-	private String commentContent;
+	private String boardID;			// 게시판 ID
+	private int postNo;				// 게시물 번호
+	private int commentNo;			// 댓글 번호
+	private int parentCommentNo;	// 부모 댓글 번호
+	private String commentContent;	// 댓글 내용
+	private String commentWriterId;	// 댓글 작성자 ID
 	
 	public Comment() {}
 
-	public Comment(String boardID, int postNo, int commentNo, int parentCommentNo, String commentContent) {
+	public Comment(String boardID, int postNo, int commentNo, int parentCommentNo, String commentContent, String commentWriterId) {
 		this.boardID = boardID;
 		this.postNo = postNo;
 		this.commentNo = commentNo;
 		this.parentCommentNo = parentCommentNo;
 		this.commentContent = commentContent;
+		this.commentWriterId = commentWriterId;
 	}
 
 	public String getBoardID() {
@@ -58,9 +60,18 @@ public class Comment {
 		this.commentContent = commentContent;
 	}
 
+	public String getCommentWriterId() {
+		return commentWriterId;
+	}
+
+	public void setCommentWriterId(String commentWriterId) {
+		this.commentWriterId = commentWriterId;
+	}
+
 	@Override
 	public String toString() {
-		return "Comment [boardID=" + boardID + ", postNo=" + postNo + ", commentNo=" + commentNo + ", parentCommentNo=" + parentCommentNo + ", commentContent=" + commentContent + "]";
+		return "Comment [boardID=" + boardID + ", postNo=" + postNo + ", commentNo=" + commentNo + ", parentCommentNo=" + parentCommentNo + ", commentContent=" + commentContent + ", commentWriterId=" + commentWriterId + "]";
 	}
+
 	
 }

@@ -1,0 +1,79 @@
+<!-- <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>메인페이지</title>
+    <style>
+        
+        #main-container {
+            position: relative;
+            width: 1200px;
+            height: 600px;
+            margin: 0 auto;
+        }
+
+        .main-image {
+            position: absolute;
+        }
+            .image1 {
+                top: 60px;
+                left: 200px;
+                width: 260px;
+                height: 260px;
+            }
+                .image1 img {
+                    width: 260px;
+                    height: 260px;
+                    border-radius: 50px;
+                    border: 1px solid #ccc;
+                }
+            .image2 {
+                top: 200px;
+                left: 320px;
+                width: 320px;
+                height: 320px;
+            }
+                .image2 img {
+                    width: 320px;
+                    height: 320px;
+                    border-radius: 50px;
+                    border: 1px solid #ccc;
+                }
+
+        .main-button {
+            position: absolute;
+            left: 720px;
+        }
+        .btn1 {
+            top: 400px;
+        }
+        .btn2 {
+            top: 460px;
+        }
+            .button {
+                display: inline-block;
+                width: 15em;
+                height: 2em;
+                border: 0;
+                border-radius: 30px;
+                font-size: 1.2em;
+                font-weight: 800;
+                background-color: #EEE5C6;
+                box-shadow: 2px 3px 5px 0px;
+                cursor: pointer;
+            }
+
+    </style>
+</head>
+<body>
+    <div id="main-container">
+        <div class="main-image image1"><img src="../resources/images/고8.jpg"></div>
+        <div class="main-image image2"><img src="../resources/images/강8.jpg"></div>
+        <div class="main-button btn1"><button class="button" onclick="location.href='';">입양 글 등록하기 ></button></div>
+        <div class="main-button btn2"><button class="button" onclick="location.href='';">등록 동물 확인하기 ></button></div>
+    </div>
+</body>
+</html>
