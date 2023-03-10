@@ -50,13 +50,13 @@ public interface ReviewStore {
 	 */
 	public int getListCount(SqlSession session, Search search);
 
-	/**
-	 * 후기 삭제 Store
-	 * @param session
-	 * @param reviewNo
-	 * @return int
-	 */
-	public int deleteReview(SqlSession session, int reviewNo);
+//	/**
+//	 * 후기 삭제 Store
+//	 * @param session
+//	 * @param reviewNo
+//	 * @return int
+//	 */
+//	public int deleteReview(SqlSession session, int reviewNo);
 
 	/**
 	 * 후기 상세 페이지 Store
@@ -65,5 +65,12 @@ public interface ReviewStore {
 	 * @return Review
 	 */
 	public Review selectReview(SqlSession session, int reviewNo);
+
+	/**
+	 * 후기 조회수 증가 Store
+	 * @param session
+	 * @param reviewPostNo
+	 */
+	public void viewCount(SqlSession session, int reviewPostNo);
 
 }

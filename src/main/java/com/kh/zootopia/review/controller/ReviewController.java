@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kh.zootopia.member.domain.Member;
 import com.kh.zootopia.review.domain.PageInfo;
 import com.kh.zootopia.review.domain.Review;
 import com.kh.zootopia.review.domain.Search;
@@ -25,15 +27,6 @@ public class ReviewController {
 
 	@Autowired
 	private ReviewService reviewService;
-	
-	/**
-	 * 후기 redirect
-	 */
-	public void reviewViewPage() {
-		
-		
-		
-	}
 	
 	/**
 	 * 후기 등록 페이지
@@ -50,38 +43,44 @@ public class ReviewController {
 	 * : write.jsp에서 각각의 name에 해당하는 값을 가져와 객체화 시킴,
 	 * 파일이 있을 경우 파일을 업로드,
 	 * 후기 작성일은 mapper에서 default(sysdate)로 해줌.
+	 * 후기는 session이 있는 사용자만 입력가능.
 	 */
 	@RequestMapping(value = "/review/write.ztp", method = RequestMethod.POST)
 	public ModelAndView reviewWrite(
-			int reviewPostNo, String animalNo, String reviewTitle, String reviewContent, String reviewWriterId, String reviewImageName, String reviewVideoName
-			, @RequestParam(value = "uploadFile", required = false) MultipartFile uploadFile
+			String reviewTitle, String reviewContent
+			, HttpSession session
+//			, @RequestParam("reviewImageName") MultipartFile uploadImageFile
+//			, @RequestParam("reviewVideoName") MultipartFile uploadVideoFile
 			, HttpServletRequest request, ModelAndView mv
 			) {
 		
 		try {
 			
+			Member member = (Member) session.getAttribute("loginUser");
+			String reviewWriterId = member.getMemberId();
+			
 			Review review = new Review();
-			review.setAnimalNo(animalNo);
-			review.setReviewPostNo(reviewPostNo);
 			review.setReviewTitle(reviewTitle);
 			review.setReviewContent(reviewContent);
 			review.setReviewWriterId(reviewWriterId);
-			review.setReviewImageName(reviewImageName);
-			review.setReviewVideoName(reviewVideoName);
+//			review.setReviewImageName(uploadImageFile);
+//			review.setReviewVideoName(reviewVideoName);
 			
-			if (!uploadFile.getOriginalFilename().equals("")) {
-				
-				String filePath = saveFile(uploadFile, request);
-				review.setReviewImageName(uploadFile.getOriginalFilename());
-				review.setReviewImagePath(filePath);
-				
-			}
+//			if (!uploadImageFile.getOriginalFilename().equals("")) {
+//				
+//				String filePath = saveFile(uploadImageFile, request);
+//				review.setReviewImageName(uploadImageFile.getOriginalFilename());
+//				review.setReviewImagePath(filePath);
+//				
+//			}
+			
+			System.out.println("Controller review : " + review);
 			
 			int result = reviewService.insertReview(review);
 			
 			if (result > 0) {
 				
-				mv.setViewName("redirect:/review/list");
+				mv.setViewName("review/list");
 				
 			} else {
 				
@@ -101,46 +100,42 @@ public class ReviewController {
 		
 	}
 	
-	/**
-	 * 파일 저장
-	 * @param uploadFile
-	 * @param request
-	 * @return 
-	 */
-	public String saveFile(MultipartFile uploadFile, HttpServletRequest request) {
-		
-		try {
-			
-			String root = request.getSession().getServletContext().getRealPath("resources");
-			String savePath = root + "\\uploadFiles";
-			
-			File folder = new File(savePath);
-			if (!folder.exists()) {
-				
-				folder.mkdir();
-				
-			}
-			
-			String filePath = savePath + "\\" + uploadFile.getOriginalFilename();
-			File file = new File(filePath);
-			
-			uploadFile.transferTo(file);
-			
-			return filePath;
-			
-		} catch (Exception e) {
-
-			e.printStackTrace();
-			
-			return null;
-			
-		}
-		
-	}
-	
+//	/**
+//	 * 파일 저장
+//	 */
+//	public String saveFile(MultipartFile reviewImageName, HttpServletRequest request) {
+//		
+//		try {
+//			
+//			String root = request.getSession().getServletContext().getRealPath("resources");
+//			String savePath = root + "\\uploadFiles";
+//			
+//			File folder = new File(savePath);
+//			if (!folder.exists()) {
+//				
+//				folder.mkdir();
+//				
+//			}
+//			
+//			String filePath = savePath + "\\" + reviewImageName.getOriginalFilename();
+//			File file = new File(filePath);
+//			
+//			reviewImageName.transferTo(file);
+//			
+//			return filePath;
+//			
+//		} catch (Exception e) {
+//
+//			e.printStackTrace();
+//			
+//			return null;
+//			
+//		}
+//		
+//	}
+//	
 	/**
 	 * 후기 목록
-	 *
 	 */
 	@RequestMapping(value = "/review/list.ztp", method = RequestMethod.GET)
 	public String reviewList(Model model, @RequestParam(value = "page", required = false, defaultValue = "1") Integer page) {
@@ -158,13 +153,10 @@ public class ReviewController {
 	
 	/**
 	 * Navigator Start/End값 설정
-	 * @param currentPage
-	 * @param totalCount
-	 * @return PageInfo
 	 */
 	private PageInfo getPageInfo(int currentPage, int totalCount) {
 		
-		int boardLimit = 20;
+		int boardLimit = 10;
 		int navLimit = 10;
 		int maxPage = (int) Math.ceil((double) totalCount / boardLimit);	// navTotalCount
 		int startNav = (((int)((double) currentPage / navLimit + 0.9)) - 1) * navLimit + 1;
@@ -181,17 +173,14 @@ public class ReviewController {
 	
 	/**
 	 * 후기 상세 페이지
-	 * @param reviewNo
-	 * @param model
-	 * @return 
 	 */
 	@RequestMapping(value = "/review/detail.ztp", method = RequestMethod.GET)
-	public ModelAndView reviewDetail(@RequestParam("reviewNo") int reviewNo, ModelAndView mv) {
+	public ModelAndView reviewDetail(@RequestParam("reviewPostNo") int reviewPostNo, ModelAndView mv) {
 		
 		try {
 			
-			Review review = reviewService.selectReview(reviewNo);
-			
+			Review review = reviewService.selectReview(reviewPostNo);
+			reviewService.viewCount(reviewPostNo);
 			mv.addObject("review", review).setViewName("review/detail");
 			
 		} catch (Exception e) {
@@ -203,38 +192,35 @@ public class ReviewController {
 		return mv;
 		
 	}
-	
-	/**
-	 * 후기 삭제
-	 * @param reviewNo
-	 * @param model
-	 * @return 
-	 */
-	@RequestMapping(value = "/review/delete.ztp", method = RequestMethod.GET)
-	public String reviewDelete(@RequestParam("reviewNo") int reviewNo, Model model) {
-		
-		try {
-			
-			int result = reviewService.deleteReview(reviewNo);
-			
-			if (result > 0) {
-				
-				return "redirect:/review/list";
-				
-			} else {
-				
-				model.addAttribute("message", "삭제 오류");
-				return "common/error";
-			}
-			
-		} catch (Exception e) {
-
-			model.addAttribute("message", e.getMessage());
-			return "common/error";
-			
-		}
-	}
-	
+//	
+//	/**
+//	 * 후기 삭제
+//	 */
+//	@RequestMapping(value = "/review/delete.ztp", method = RequestMethod.GET)
+//	public String reviewDelete(@RequestParam("reviewNo") int reviewNo, Model model) {
+//		
+//		try {
+//			
+//			int result = reviewService.deleteReview(reviewNo);
+//			
+//			if (result > 0) {
+//				
+//				return "redirect:/review/list";
+//				
+//			} else {
+//				
+//				model.addAttribute("message", "삭제 오류");
+//				return "common/error";
+//			}
+//			
+//		} catch (Exception e) {
+//
+//			model.addAttribute("message", e.getMessage());
+//			return "common/error";
+//			
+//		}
+//	}
+//	
 	/**
 	 * 후기 검색
 	 * @param review

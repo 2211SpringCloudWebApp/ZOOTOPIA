@@ -60,20 +60,27 @@ public class ReviewServiceImpl implements ReviewService {
 		return result;
 	}
 
-	@Override
-	public int deleteReview(int reviewNo) {
-
-		int result = reviewStore.deleteReview(session, reviewNo);
-		
-		return 0;
-	}
+//	@Override
+//	public int deleteReview(int reviewNo) {
+//
+//		int result = reviewStore.deleteReview(session, reviewNo);
+//		
+//		return 0;
+//	}
 
 	@Override
 	public Review selectReview(int reviewNo) {
 
 		Review review = reviewStore.selectReview(session, reviewNo);
 		
-		return null;
+		return review;
+	}
+
+	@Override
+	public void viewCount(int reviewPostNo) {
+		
+		reviewStore.viewCount(session, reviewPostNo);
+		
 	}
 
 }

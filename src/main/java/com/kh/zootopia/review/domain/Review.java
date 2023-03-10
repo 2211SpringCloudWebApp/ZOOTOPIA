@@ -1,6 +1,6 @@
 package com.kh.zootopia.review.domain;
 
-import java.security.Timestamp;
+import java.sql.Timestamp;
 
 public class Review {
 

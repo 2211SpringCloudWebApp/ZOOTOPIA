@@ -19,13 +19,6 @@
     <form action="/review/write.ztp" method="POST">
         <table>
             <tr>
-                <td>입양된 동물</td>
-                <td><input type="radio" name="adopt-animal">테스트-입양된 동물1<br><input type="radio" name="adopt-animal">테스트-입양된 동물2<br><input type="radio" name="adopt-animal">테스트-입양된 동물3</td>
-                <!-- <td>
-                    <c:forEach var="" items="">
-                </td> -->
-            </tr>
-            <tr>
                 <td>제목</td>
                 <td><input type="text" name="reviewTitle" placeholder="제목을 입력해 주세요" required></td>
             </tr>
@@ -34,10 +27,16 @@
                 <td><textarea name="reviewContent" id="" cols="30" rows="10" placeholder="내용을 입력해 주세요" required></textarea></td>
             </tr>
             <tr>
-                <td>첨부파일</td>
-                <td><img src="#" id="attachment_image" onclick="document.getElementById('file').click();"><input type="file" id="file" name="reviewFileName" style="display:none"></td>
+                <td>첨부파일 (사진)</td>
+                <td><img src="#" class="attachment_image" onclick="document.getElementById('file').click();"><input type="file" id="file" name="reviewImageName" style="display:none"></td>
+            </tr>
+            <tr>
+                <td>첨부파일 (영상)</td>
+                <td><img src="#" class="attachment_image" onclick="document.getElementById('file').click();"><input type="file" id="file" name="reviewVideoName" style="display:none"></td>
             </tr>
         </table>
+        <input type="hidden" name="reviewWriterId">
+        <input type="hidden" name="animalNo">
         <button type="submit">등록</button>
         <button type="reset">취소</button>
     </form>

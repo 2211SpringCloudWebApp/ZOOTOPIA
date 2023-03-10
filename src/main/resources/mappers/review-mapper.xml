@@ -18,24 +18,49 @@
 		<result property="reviewViewCount" column="REVIEW_VIEW_COUNT"/>
 	</resultMap>
 	
-	<select id="showReviewList" resultMap="">
+	<select id="selectReviewList" resultMap="reviewResultMap">
 		SELECT * FROM REVIEW_POST_TBL
 	</select>
 	
-	<select id="selectReview" resultMap="">
-		SELECT * FROM REVIEW_POST_TBL WHERE REVIEW_NO = ${reviewNo}		
+	<select id="selectReview" resultMap="reviewResultMap">
+		SELECT * FROM REVIEW_POST_TBL WHERE REVIEW_POST_NO = ${reviewPostNo}
 	</select>
 	
-	<insert id="insertReview" parameterType="review">
+	<select id="selectReviewCount" resultType="_int">
+		SELECT COUNT(*) FROM REVIEW_POST_TBL
+	</select>
 	
+	<select id="searchReview" resultMap="reviewResultMap">
+		SELECT * FROM REVIEW_POST_TBL WHERE
+		<if test="condition == 'all'">REVIEW_TITLE LIKE '%' || #{keyword} || '%' OR REVIEW_WRITER_ID LIKE '%' || #{keyword} || '%' OR REVIEW_CONTENT LIKE '%' || #{keyword} || '%' </if>
+		<if test="condition == 'title'">REVIEW_TITLE LIKE '%' || #{keyword} || '%' </if>
+		<if test="condition == 'writer'">REVIEW_WRITER_ID LIKE '%' || #{keyword} || '%' </if>
+		<if test="condition == 'content'">REVIEW_CONTENT LIKE '%' || #{keyword} || '%' </if>
+		ORDER BY REVIEW_CREATE_DATE
+	</select>
+	
+	<select id="searchReviewCount" resultType="_int">
+		SELECT COUNT(*) FROM REVIEW_POST_TBL WHERE
+		<if test="condition == 'all'">REVIEW_TITLE LIKE '%' || #{keyword} || '%' OR REVIEW_WRITER_ID LIKE '%' || #{keyword} || '%' OR REVIEW_CONTENT LIKE '%' || #{keyword} || '%' </if>
+		<if test="condition == 'title'">REVIEW_TITLE LIKE '%' || #{keyword} || '%' </if>
+		<if test="condition == 'writer'">REVIEW_WRITER_ID LIKE '%' || #{keyword} || '%' </if>
+		<if test="condition == 'content'">REVIEW_CONTENT LIKE '%' || #{keyword} || '%' </if>
+	</select>
+
+	<insert id="insertReview" parameterType="review">
+		INSERT INTO REVIEW_POST_TBL VALUES (#{reviewPostNo}, 'R', #{reviewWriterId}, 123, #{reviewTitle}, #{reviewContent}, #{reviewImageName}, #{reviewImagePath}, #{reviewVideoName}, #{reviewVideoPath}, DEFAULT, DEFAULT, #{reviewViewCount})	
 	</insert>
 	
+	<update id="reviewViewCount">
+		UPDATE REVIEW_POST_TBL SET REVIEW_VIEW_COUNT = REVIEW_VIEW_COUNT + 1 WHERE REVIEW_POST_NO = #{reviewPostNo}
+	</update>
+<!-- 	
 	<update id="modifyReview">
 	
 	</update>
 	
 	<delete id="deleteReview">
 	
-	</delete>
+	</delete> -->
 	
 </mapper>

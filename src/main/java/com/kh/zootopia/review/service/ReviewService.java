@@ -2,8 +2,6 @@ package com.kh.zootopia.review.service;
 
 import java.util.List;
 
-import org.springframework.stereotype.Service;
-
 import com.kh.zootopia.review.domain.PageInfo;
 import com.kh.zootopia.review.domain.Review;
 import com.kh.zootopia.review.domain.Search;
@@ -44,18 +42,24 @@ public interface ReviewService {
 	 */
 	public int getListCount(Search search);
 
-	/**
-	 * 후기 삭제 Service
-	 * @param reviewNo
-	 * @return int
-	 */
-	public int deleteReview(int reviewNo);
+//	/**
+//	 * 후기 삭제 Service
+//	 * @param reviewPostNo
+//	 * @return int
+//	 */
+//	public int deleteReview(int reviewNo);
 
 	/**
 	 * 후기 상세 페이지 Service
-	 * @param reviewNo
+	 * @param reviewPostNo
 	 * @return Review
 	 */
-	public Review selectReview(int reviewNo);
+	public Review selectReview(int reviewPostNo);
+	
+	/**
+	 * 후기 조회수 증가 Service
+	 * @param reviewPostNo
+	 */
+	public void viewCount(int reviewPostNo);
 
 }

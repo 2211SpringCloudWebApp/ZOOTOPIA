@@ -12,27 +12,27 @@
 <body>
 
     <form role="form" action="/review/modify.ztp" method="post">
-        <!-- 제목 및 좋아요/공유/댓글버튼 -->
-        <div>
-            <div id="review-detail-header-left">${reviewTitle}</div>
-            <div id="review-detail-header-right">
-                <c:if test="${like == 1}"><img scr="#" alt="좋아요 활성" onclick=""></c:if>
-                <c:if test="${like == 0}"><img scr="#" alt="좋아요 비활성" onclick=""></c:if>
-                <img src="#" alt="공유" onclick="shareReview()">
-                <img src="#" alt="댓글" onclick="commentReview()">
-            </div>
-        </div>
+        <table>
+            <thead>
+                <!-- 제목 및 좋아요/공유/댓글버튼 -->
+                <tr>
+                    <td>제목 : ${review.reviewTitle}</td>
+                    <td rowspan="2">
+                        <c:if test="${like == 1}"><button>좋아요 취소</button></c:if>
+                        <c:if test="${like == 0}"><button>좋아요</button></c:if>
+                        <button>공유</button>
+                        <button>댓글</button>
+                    </td>
+                </tr>
+                <tr>
+                	<td>작성자 : ${review.reviewWriterId}</td>
+                </tr>
+            </thead>
+        </table>
 
         <!-- 후기 내용 -->
         <div id="review-detail-content">
-            <!-- ${reviewContent} -->
-            테스트
-            테스트
-            테스트
-            테스트
-            테스트
-            테스트
-            테스트
+            ${review.reviewContent}
         </div>
         <div>
             <img src="#" alt="첨부파일1">
@@ -88,11 +88,11 @@
 
         function deleteReview() {
 
-            var reviewNo = "${review.reviewNo}";
+            var reviewPostNo = "${review.reviewPostNo}";
 
             if(confirm("정말로 삭제하시겠습니까?")) {
 
-                    location.href = "/review/delete.ztp?reviewNo=" + reviewNo;
+                    location.href = "/review/delete.ztp?reviewPostNo=" + reviewPostNo;
 
             }
 
