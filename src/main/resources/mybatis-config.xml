@@ -10,14 +10,22 @@
 		<typeAlias type="com.kh.zootopia.comment.domain.Comment" alias="Comment"/>
 		<typeAlias type="com.kh.zootopia.like.domain.Like" alias="Like"/>
 		<typeAlias type="com.kh.zootopia.review.domain.Review" alias="Review"/>
+		
+		<typeAlias type="com.kh.zootopia.AdoptAnimalPost.domain.Animal" alias="Animal"/>
+		<typeAlias type="com.kh.zootopia.AdoptAnimalPost.domain.AdoptPost" alias="AdoptPost"/>
+		
 	</typeAliases>
 	<mappers>
+	
 		<mapper resource="mappers/member-mapper.xml"/>
-		<!-- <mapper resource="mappers/animal-mapper.xml"/> -->
-		<!-- <mapper resource="mappers/review-mapper.xml"/>
-		<mapper resource="mappers/like-mapper.xml"/>
+		<mapper resource="mappers/animal-mapper.xml"/>
 		<mapper resource="mappers/adoptpost-mapper.xml"/>
+		<!--
+		<mapper resource="mappers/review-mapper.xml"/>
+		<mapper resource="mappers/like-mapper.xml"/>
 		<mapper resource="mappers/comment-mapper.xml"/>
-		<mapper resource="mappers/reservation-mapper.xml"/> -->
+		<mapper resource="mappers/reservation-mapper.xml"/>
+		 -->
+		 
 	</mappers>
 </configuration>
