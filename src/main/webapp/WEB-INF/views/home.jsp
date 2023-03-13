@@ -59,8 +59,8 @@
 
 						<div>
 							<c:if test="${sessionScope.memberId eq null }">
-								<input type="button" value="회원가입">
-								<input type="button" value="로그인" >
+								<input type="button" onclick="location.href='/member/registerView.ztp'" value="회원가입">
+								<input type="button" onclick="location.href='/member/loginView.ztp'" value="로그인" >
 							</c:if>
 							<c:if test="${sessionScope.memberId ne null }">
 								<div>${memberName }님 환영합니다!</div>

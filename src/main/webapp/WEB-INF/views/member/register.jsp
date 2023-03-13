@@ -25,7 +25,7 @@
 				</div>
 				<div class="field">
 					<b>비밀번호 재확인</b> <br>
-					<input class="userpw-confirm" type="password" name="memberPw">
+					<input class="userpw-confirm" type="password" name="memberPw-check">
 				</div>
 				<div class="field">
 					<b>이름</b> <br>
@@ -36,23 +36,23 @@
 				<div class="field birth">
 					<b>생년월일</b> <br>
 					<div>
-						<input type="number" placeholder="년(4자)">
-						<select>
+						<input type="number" name="year" placeholder="년(4자)">
+						<select name="month">
 							<option value="">월</option>
-							<option value="">1월</option>
-							<option value="">2월</option>
-							<option value="">3월</option>
-							<option value="">4월</option>
-							<option value="">5월</option>
-							<option value="">6월</option>
-							<option value="">7월</option>
-							<option value="">8월</option>
-							<option value="">9월</option>
-							<option value="">10월</option>
-							<option value="">11월</option>
-							<option value="">12월</option>
+							<option value="1">1월</option>
+							<option value="2">2월</option>
+							<option value="3">3월</option>
+							<option value="4">4월</option>
+							<option value="5">5월</option>
+							<option value="6">6월</option>
+							<option value="7">7월</option>
+							<option value="8">8월</option>
+							<option value="9">9월</option>
+							<option value="10">10월</option>
+							<option value="11">11월</option>
+							<option value="12">12월</option>
 						</select> 
-						<input type="number" placeholder="일">
+						<input type="number" name="day" placeholder="일">
 					</div>
 				</div>
 	
@@ -60,9 +60,8 @@
 				<div class="field gender">
 					<b>성별</b> <br>
 					<div>
-						<label><input type="radio" name="gender">남자</label> 
-						<label><input type="radio" name="gender">여자</label>
-						<label><input type="radio" name="gender">선택안함</label>
+						<label><input type="radio" name="memberGender" value ="M">남자</label> 
+						<label><input type="radio" name="memberGender" value ="F">여자</label>
 					</div>
 				</div>
 	
@@ -77,7 +76,7 @@
 					<select>
 						<option value="">대한민국 +82</option>
 					</select>
-					<div>
+					<div>                                                
 						<input type="tel" name="memberPhone" placeholder="전화번호 입력"> 
 						<input type="button" value="인증번호 받기">
 					</div>

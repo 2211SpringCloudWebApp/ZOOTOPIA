@@ -18,7 +18,7 @@
 		<result property="mWithdrawalDate" column="M_WITHDRAWAL_DATE"/>
 	</resultMap>
 	<insert id="insertMember">
-		INSERT INTO MEMBER_TBL VALUES( #{memberId}, #{memberPw}, #{memberName}, #{memberBirthday}, #{memberGender}, #{memberEmail}, #{memberPhone}, #{memberAddr1}, #{MEMBER_ADDR2}, #{M_ADMIN_YN}, #{M_ENROLL_DATE}, #{M_UPDATE_DATE}, #{M_WITHDRAWAL_YN}, #{M_WITHDRAWAL_DATE})
+		INSERT INTO MEMBER_TBL VALUES( #{memberId}, #{memberPw}, #{memberName}, #{memberBirthday}, #{memberGender}, #{memberEmail}, #{memberPhone}, #{memberAddr1}, #{memberAddr2}, DEFAULT, DEFAULT, DEFAULT, DEFAULT, NULL)
 	</insert>
 	<update id="updateMember">
 		UPDATE MEMBER_TBL SET MEMBER_PW =#{memberPw}, MEMBER_EMAIL= #{memberEmail}, MEMBER_PHONE = #{memberPhone}, MEMBER_ADDR = #{memberAddr} WHERE MEMBER_ID = #{memberId}
@@ -27,7 +27,7 @@
 		DELETE FROM MEMBER_TBL WHERE MEMBER_ID = #{memberId}
 	</delete>
 	<select id="checkMemberLogin" resultMap="memberResultMap">
-		SELECT MEMBER_ID, MEMBER_NAME FROM MEMBER_TBL WHERE MEMBER_ID = #{memberId} AND MEMBER_PW = #{memberPw}
+		SELECT * FROM MEMBER_TBL WHERE MEMBER_ID = #{memberId} AND MEMBER_PW = #{memberPw}
 	</select>
 	<select id="findId" resultMap="memberResultMap">
 		SELECT MEMBER_ID FROM MEMBER_TBL WHERE MEMBER_NAME = #{memberName} AND MEMBER_EMAIL = #{memberEmail}

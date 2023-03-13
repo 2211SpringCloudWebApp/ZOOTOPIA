@@ -1,6 +1,8 @@
 package com.kh.zootopia.member.controller;
 
 
+import java.sql.Date;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -10,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kh.zootopia.member.domain.Member;
 import com.kh.zootopia.member.service.MemberService;
@@ -23,9 +26,20 @@ public class MemberController {
 	// 로그인 페이지 출력
 	@RequestMapping(value = "/member/loginView.ztp", method = RequestMethod.GET)
 	public String loginView() {
-		
 		return "member/login";
 		
+	}
+	
+	// 회원가입 페이지 출력
+	@RequestMapping(value = "/member/registerView" , method = RequestMethod.GET)
+	public String RegisterView() {
+		return "member/register";
+	}
+	
+	// 회원탈퇴 페이지 출력
+	@RequestMapping(value= "/member/removeView.ztp" , method = RequestMethod.GET)
+	public String memberRemoveView() {
+		return "member/mypageRemove";
 	}
 	
 //	@RequestMapping(value = "", method = RequestMethod.POST)
@@ -38,20 +52,27 @@ public class MemberController {
 	public String memberRegister(
 			HttpServletRequest request
 			, @ModelAttribute Member member
+			, String year
+			, String month
+			, String day
 			, Model model
 			) {
 			try {
+				String birthDay = year + "-" + month + "-" + day;
+				Date birthDate = Date.valueOf(birthDay);
+				member.setMemberBirthday(birthDate);
+				System.out.println(member);
 				request.setCharacterEncoding("UTF-8");
 				int result = mService.insertMember(member);
 				if(result> 0) {
 					return "redirect:/index.jsp";
 				}else {
-					model.addAttribute("msg" , "회원가입이 완료되지 않았습니다");
+					model.addAttribute("message" , "회원가입이 완료되지 않았습니다");
 					return "common/error";
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
-				model.addAttribute("msg", e.getMessage());
+				model.addAttribute("message", e.getMessage());
 				return "common/error";
 			}
 		
@@ -68,18 +89,18 @@ public class MemberController {
 				if(result > 0 ) {
 					return "redirect:/index.jsp";
 				}else {
-					model.addAttribute("msg" , "회원 정보 수정에 실패");
+					model.addAttribute("message" , "회원 정보 수정에 실패");
 					return "common/error";
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
-				model.addAttribute("msg", e.getMessage());
+				model.addAttribute("message", e.getMessage());
 				return "common/error";
 			}
 	}
 	
 	// 멤버 삭제
-	@RequestMapping(value = "/member/Remove.ztp" , method = RequestMethod.POST)
+	@RequestMapping(value = "/member/Remove.ztp" , method = RequestMethod.GET)
 	public String memberRemove(
 			String memberId
 			,Model model
@@ -89,12 +110,12 @@ public class MemberController {
 				if(result > 0) {
 					return "redirect:/member/logout.ztp";
 				}else {
-					model.addAttribute("msg" , "회원탈퇴에 실패");
+					model.addAttribute("message" , "회원탈퇴에 실패");
 					return "common/error";
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
-				model.addAttribute("msg", e.getMessage());
+				model.addAttribute("message", e.getMessage());
 				return "common/error";
 			}
 	} 
@@ -113,9 +134,9 @@ public class MemberController {
 				HttpSession session = request.getSession();
 				if(member!= null) {
 					session.setAttribute("longinUser", member);
-					return "redirect:/메인페이지";
+					return "redirect:/index.jsp";
 				}else {
-					model.addAttribute("msg", "로그인 실패");
+					model.addAttribute("message", "로그인 실패");
 					return "common/error";
 				}
 			} catch (Exception e) {
@@ -130,9 +151,9 @@ public class MemberController {
 	public String memberLogout(HttpSession session, Model model) {
 		if(session != null) {
 			session.invalidate();
-			return "redirect:/메인페이지";
+			return "redirect:/index.jsp";
 		}else {
-			model.addAttribute("msg" ,"로그아웃을 완료 못함");
+			model.addAttribute("message" ,"로그아웃을 완료 못함");
 			return "common/error";
 		}	
 	}
@@ -190,15 +211,44 @@ public class MemberController {
 		}
 	}
 	
-	//
-	public String showMypage() {
-		
+	// 마이페이지로 이동
+	@RequestMapping(value="/member/mypage.ztp" , method = RequestMethod.GET)
+	public String MypageInfo(HttpSession session, Model model) {
+		Member member = (Member)session.getAttribute("loginUser");
+		model.addAttribute("member", member);
+		return "member/mypageInfo";
+	}
+	
+	// 마이페이지 검색
+	@RequestMapping(value="/member/search.ztp" , method = RequestMethod.POST)
+	public String MypageSearch() {
 		return "";
 	}
 	
-	public String showMembers() {
-		
+	// 마이페이지 게시글 삭제
+	@RequestMapping(value="/member/deleteMembers.ztp" , method = RequestMethod.POST)
+	public String MypageDelete() {
 		return "";
+	}
+	// 마이페이지 작성한 게시글 
+	@RequestMapping(value = "/member/mypageList.ztp" , method = RequestMethod.GET)
+	public String MypageList() {
+		
+		return "member/mypageList";
+	}
+	
+	// 마이페이지 작성한 댓글
+	@RequestMapping(value = "/member/mypageComment.ztp" , method = RequestMethod.POST)
+	public String MypageComment() {
+		
+		return "member/mypageComment";
+	}
+	
+	// 마이페이지 좋아요 누른 글
+	@RequestMapping(value = "/member/mypageLike.ztp" , method = RequestMethod.POST)
+	public String MypageLike() {
+		
+		return "member/mypageLike";
 	}
 
 }
