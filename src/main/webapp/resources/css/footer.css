@@ -1,0 +1,71 @@
+@charset "UTF-8";
+@font-face{
+    font-family: 'jua';
+    src: url(../font/BMJUA_ttf.ttf);
+}
+@font-face{
+    font-family: 'hanna';
+    src : url(../font/BMHANNAAir_ttf.ttf);
+    /* unicode-range: U+0020-007F; */
+}
+#content-6 {
+    /* height: 45vh; */
+    height: 270px;
+    background-color: grey;
+    font-family: 'hanna';
+    font-weight: 100;
+    font-size: 10pt;
+}
+    #footer-up {
+        height: 15%;
+        background-color: #EEE5C6;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0px -10px 15px 0px lightgrey;
+    }
+        #footer-up-list {
+            width: 660px;
+        }  
+            #footer-up-list ul {
+                display: flex;
+            }
+                #footer-up-list li {
+                        float: left;
+                        list-style-type: none;
+                        font-weight: 900;
+
+                        /* 이용약관, 개인정보취급방침 간격 */
+                        padding-right: 15px;
+                    }
+                        #footer-up-list a {
+                            color: #1C1C1B;
+                            text-decoration: none;
+                        }
+            
+    #footer-down {
+        height: 85%;
+        background-color: #332a1a;
+        box-shadow: inset 0px -10px 20px #1c1509;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #ffffff60;
+
+    }
+        #footer-text {
+            height: 75%;
+        }
+        [id^=footer-text-line] {
+            padding-block: 5px;
+        }
+            #footer-logo div:nth-child(1){
+                font-family: 'jua';
+                font-size: 30pt;
+            }
+            #footer-logo div:nth-child(2){
+                width: 660px;
+                height: 1px;
+                background-color: #ffffff60;
+                margin-block: 10px;
+            }
