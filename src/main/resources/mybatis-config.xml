@@ -28,6 +28,6 @@
         <mapper resource="mappers/notice-mapper.xml"/>
         <mapper resource="mappers/reservation-mapper.xml"/>
         <mapper resource="mappers/review-mapper.xml"/>
-
     </mappers>
+
 </configuration>
