@@ -132,4 +132,26 @@ public class ManagerController {
 			return "common/error";
 		}
 	}
+
+	/**
+	 * 미승인 입양공고리스트에서 승인 Controller
+	 * @param adoptPostNos
+	 * @return
+	 */
+	@RequestMapping(value="/manager/approveAdopt.ztp", method=RequestMethod.POST)
+	public String approveAdopts(@RequestParam("rowcheck") List<Integer> adoptPostNos) {
+		for(int adoptPostNo : adoptPostNos) mService.approveAdopts(adoptPostNo);
+		return "redirect:/manager/selectAdopt.ztp";
+	}
+	
+	/**
+	 * 입양공고리스트 내 여러개 삭제 Controller
+	 * @param animalNos
+	 * @return
+	 */
+	@RequestMapping(value="/manager/deleteAdopts.ztp", method=RequestMethod.POST)
+	public String deleteAdopts(@RequestParam("animalNo") List<Integer> animalNos) {
+		for(int animalNo : animalNos) mService.deleteAdopts(animalNo);
+		return "redirect:/adoptAnimal/list.ztp";
+	}
 }

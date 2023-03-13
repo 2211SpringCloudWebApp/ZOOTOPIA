@@ -45,7 +45,17 @@ public class ManagerStoreLogic implements ManagerStore{
 	@Override
 	public List<AdoptPost> selectAdopt(SqlSession session) {
 		List<AdoptPost> aList = session.selectList("AdoptPostMapper.selectAdopt");
-		return null;
+		return aList;
+	}
+
+	@Override
+	public void approveAdopts(SqlSession session, int adoptPostNo) {
+		session.update("AdoptPostMapper.approveAdopt", adoptPostNo );
+	}
+
+	@Override
+	public void deleteAdopts(SqlSession session, int animalNo) {
+		session.delete("AdoptPostMapper.deleteAdopts", animalNo);
 	}
 
 }

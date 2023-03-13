@@ -22,5 +22,9 @@ public interface ManagerStore {
 
 	List<AdoptPost> selectAdopt(SqlSession session);
 
+	void approveAdopts(SqlSession session, int adoptPostNo);
+
+	void deleteAdopts(SqlSession session, int animalNo);
+
 
 }

@@ -56,4 +56,14 @@ public class ManagerServiceImpl implements ManagerService{
 		return aList;
 	}
 
+	@Override
+	public void approveAdopts(int adoptPostNo) {
+		mStore.approveAdopts(session, adoptPostNo);
+	}
+
+	@Override
+	public void deleteAdopts(int animalNo) {
+		mStore.deleteAdopts(session, animalNo);
+	}
+
 }

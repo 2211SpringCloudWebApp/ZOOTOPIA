@@ -20,5 +20,9 @@ public interface ManagerService {
 
 	List<AdoptPost> selectAdopt();
 
+	void approveAdopts(int adoptPostNo);
+
+	void deleteAdopts(int animalNo);
+
 
 }
