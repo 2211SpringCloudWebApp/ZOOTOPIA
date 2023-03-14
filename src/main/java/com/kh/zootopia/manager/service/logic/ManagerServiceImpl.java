@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.zootopia.AdoptAnimalPost.domain.AdoptPost;
+import com.kh.zootopia.manager.domain.DateDTO;
 import com.kh.zootopia.manager.domain.Search;
 import com.kh.zootopia.manager.service.ManagerService;
 import com.kh.zootopia.manager.store.ManagerStore;
@@ -64,6 +65,13 @@ public class ManagerServiceImpl implements ManagerService{
 	@Override
 	public void deleteAdopts(int animalNo) {
 		mStore.deleteAdopts(session, animalNo);
+	}
+
+	//예약페이지
+	@Override
+	public List<AdoptPost> viewReservation(DateDTO dateDTO) {
+		List<AdoptPost> aList = mStore.viewReservation(session, dateDTO);
+		return aList;
 	}
 
 }

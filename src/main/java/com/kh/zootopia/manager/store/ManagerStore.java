@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 
 import com.kh.zootopia.AdoptAnimalPost.domain.AdoptPost;
+import com.kh.zootopia.manager.domain.DateDTO;
 import com.kh.zootopia.manager.domain.Search;
 import com.kh.zootopia.member.domain.Member;
 
@@ -25,6 +26,9 @@ public interface ManagerStore {
 	void approveAdopts(SqlSession session, int adoptPostNo);
 
 	void deleteAdopts(SqlSession session, int animalNo);
+
+	//예약페이지
+	List<AdoptPost> viewReservation(SqlSession session, DateDTO dateDTO);
 
 
 }

@@ -3,6 +3,7 @@ package com.kh.zootopia.manager.service;
 import java.util.List;
 
 import com.kh.zootopia.AdoptAnimalPost.domain.AdoptPost;
+import com.kh.zootopia.manager.domain.DateDTO;
 import com.kh.zootopia.manager.domain.Search;
 import com.kh.zootopia.member.domain.Member;
 
@@ -23,6 +24,9 @@ public interface ManagerService {
 	void approveAdopts(int adoptPostNo);
 
 	void deleteAdopts(int animalNo);
+
+//	예약페이지
+	List<AdoptPost> viewReservation(DateDTO dateDTO);
 
 
 }

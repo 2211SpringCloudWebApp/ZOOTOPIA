@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kh.zootopia.AdoptAnimalPost.domain.AdoptPost;
+import com.kh.zootopia.manager.domain.DateDTO;
 import com.kh.zootopia.manager.domain.Search;
 import com.kh.zootopia.manager.service.ManagerService;
 import com.kh.zootopia.member.domain.Member;
@@ -153,5 +154,32 @@ public class ManagerController {
 	public String deleteAdopts(@RequestParam("animalNo") List<Integer> animalNos) {
 		for(int animalNo : animalNos) mService.deleteAdopts(animalNo);
 		return "redirect:/adoptAnimal/list.ztp";
+	}
+	
+	/**
+	 * 예약페이지View Controller
+	 * @return
+	 */
+	@RequestMapping(value="/manager/viewReservation.ztp", method=RequestMethod.POST)
+	public String viewReservation(Model model,
+			@RequestParam("year") String year,
+			@RequestParam("month") String month,
+			@RequestParam("date") String date
+			) {
+		try {
+//			String dateString = year + "-" + month + "-" + date;
+			System.out.println(year + month + date);
+			DateDTO dateDTO = new DateDTO(year, month, date);
+			List<AdoptPost> aList = mService.viewReservation(dateDTO);
+			model.addAttribute("aList", aList);
+			return "manager/reservation";
+		} catch (Exception e) {
+			model.addAttribute("message", e.getMessage());
+			return "common/error";
+		}
+	}
+	@RequestMapping(value="/manager/viewReservation.ztp", method=RequestMethod.GET)
+	public String viewReservation() {
+		return "manager/reservation";
 	}
 }
