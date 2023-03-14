@@ -11,30 +11,49 @@ import com.kh.zootopia.comment.store.CommentStore;
 @Repository
 public class CommentStoreLogic implements CommentStore {
 
+//	@Override
+//	public List<Comment> selectCommentList(SqlSession session, PageInfo pageInfo, Comment comment) {
+//		
+//		int limit = pageInfo.getBoardLimit();
+//		int currentPage = pageInfo.getCurrentPage();
+//		int offset = (currentPage - 1) * limit;
+//		RowBounds rowBounds = new RowBounds(offset, limit);
+//		
+//		List<Comment> commentList = session.selectList("CommentMapper.selectCommentList", comment, rowBounds);
+//		
+//		return commentList;
+//		
+//	}
+//	
+//	@Override
+//	public int getListCount(SqlSession session, Comment comment) {
+//		
+//		int result = session.selectOne("CommentMapper.getListCount", comment);
+//		
+//		return result;
+//	}
+	
 	@Override
-	public List<Comment> showCommentList(SqlSession session, String boardId, int postNo) {
+	public List<Comment> selectCommentList(SqlSession session, Comment comment) {
 		
-		Comment comment = new Comment();
-		comment.setBoardID(boardId);
-		comment.setPostNo(postNo);
-		
-		List<Comment> commentList = session.selectList("CommentMapper.showCommentList", comment);
+		List<Comment> commentList = session.selectList("CommentMapper.selectCommentList", comment);
 		
 		return commentList;
-		
 	}
 
 	@Override
-	public int writeComment(SqlSession session, Comment comment) {
+	public void insertComment(SqlSession session, Comment comment) {
 		
-		int result = session.insert("CommentMapper.insertComment", comment);
-		
-		return 0;
+		session.insert("CommentMapper.insertComment", comment);
+
 	}
 
 	@Override
 	public int deleteComment(SqlSession session, Comment comment) {
-		return 0;
+		
+		int result = session.delete("CommentMapper.deleteComment", comment);
+		
+		return result;
 	}
 
 }

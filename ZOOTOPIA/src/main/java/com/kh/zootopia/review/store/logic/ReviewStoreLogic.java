@@ -48,8 +48,6 @@ public class ReviewStoreLogic implements ReviewStore {
 	@Override
 	public List<Review> searchReview(SqlSession session, PageInfo pageInfo, Search search) {
 
-		System.out.println(search);
-		System.out.println(pageInfo);
 		int limit = pageInfo.getBoardLimit();
 		int currentPage = pageInfo.getCurrentPage();
 		int offset = (currentPage - 1) * limit;
@@ -72,7 +70,7 @@ public class ReviewStoreLogic implements ReviewStore {
 	@Override
 	public int deleteReview(SqlSession session, int reviewPostNo) {
 
-		int result = session.delete("ReviewMapper.deleteNotice", reviewPostNo);
+		int result = session.delete("ReviewMapper.deleteReview", reviewPostNo);
 		
 		return result;
 	}

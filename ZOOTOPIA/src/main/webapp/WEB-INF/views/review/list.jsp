@@ -16,7 +16,7 @@
 </head>
 <body>
     <h1>입양 후기</h1>
-    <div>
+    <div class="list">
  		<table>
 	 		<tbody>
 	        <!-- 리스트 -->
@@ -24,18 +24,18 @@
 	 		<c:set var="j" value="2" />
   			<c:choose>
    				<c:when test="${reviewList != null}">
-    				<c:forEach items="${reviewList}" var="review">
+    				<c:forEach items="${reviewList}" var="reviewList">
      					<c:if test="${i % j == 0}"><tr></c:if>
      						<td>
-     							<table onclick="location.href='/review/detail.ztp?reviewPostNo=${review.reviewPostNo}';">
+     							<table onclick="location.href='/review/detail.ztp?reviewPostNo=${reviewList.reviewPostNo}';">
 	     							<tr>
-	     								<td rowspan="3"><img src="${review.reviewImageName}" style="width: 100px; height: 100px"></td>
-	     								<td>${review.reviewTitle}</td>
+	     								<td rowspan="3"><img src="${reviewList.reviewImageName}" style="width: 100px; height: 100px"></td>
+	     								<th>${reviewList.reviewTitle}</th>
 	     							</tr>
-	     								<td>${review.animalNo}</td>
+	     								<td>${reviewList.animalNo}</td>
 	     							</tr>
 	     							<tr>
-	     								<td>${review.reviewWriterId}</td>
+	     								<td>${reviewList.reviewWriterId}</td>
 	     							</tr>
      							</table>
      						</td>
@@ -94,6 +94,7 @@
        		</tfoot>
 		</table>
     </div>
+
 </body>
 </html>
 

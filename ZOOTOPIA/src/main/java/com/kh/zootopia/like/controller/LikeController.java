@@ -6,7 +6,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.zootopia.like.domain.Like;
 import com.kh.zootopia.like.service.LikeService;
@@ -46,7 +45,10 @@ public class LikeController {
 	 * JSP의 주소를 hidden값으로 가져와서(viewAddress), 메소드 수행 후 그 주소로 이동.
 	 * 그걸 이용해 LIKE_TBL에 INSERT INTO LIKE_TBL 클릭한 회원ID WHERE 게시판ID AND 게시글NO; 수행.
 	 */
+	@RequestMapping(value = "/like/insertLike.ztp", method = RequestMethod.POST)
 	public String insertLike(@ModelAttribute Like like, String viewAddress, Model model) {
+		
+		System.out.println("좋아요 : " + like);
 		
 		try {
 			
@@ -77,8 +79,11 @@ public class LikeController {
 	 * JSP의 주소를 hidden값으로 가져와서(viewAddress), 메소드 수행 후 그 주소로 이동.
 	 * LIKE_TBL에서 DELETE 회원ID FROM LIKE_TBL WHERE 게시판ID AND 게시판NO; 수행.
 	 */
+	@RequestMapping(value = "/like/cancelLike.ztp", method = RequestMethod.POST)
 	public String cancelLike(@ModelAttribute Like like, String viewAddress, Model model) {
 	
+		System.out.println("좋아요 취소 : " + like);
+		
 		try {
 			
 			int result = likeService.cancelLike(like);

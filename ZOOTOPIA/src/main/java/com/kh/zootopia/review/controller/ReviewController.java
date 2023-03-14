@@ -1,6 +1,5 @@
 package com.kh.zootopia.review.controller;
 
-import java.io.File;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,9 +12,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kh.zootopia.comment.controller.CommentController;
+import com.kh.zootopia.comment.domain.Comment;
 import com.kh.zootopia.like.controller.LikeController;
 import com.kh.zootopia.like.domain.Like;
 import com.kh.zootopia.member.domain.Member;
@@ -31,6 +31,8 @@ public class ReviewController {
 	private ReviewService reviewService;
 	@Autowired
 	private LikeController likeController;
+	@Autowired
+	private CommentController commentController;
 	
 	/**
 	 * 후기 등록 페이지
@@ -60,8 +62,9 @@ public class ReviewController {
 		
 		try {
 			
-			Member member = (Member) session.getAttribute("loginUser");
-			String reviewWriterId = member.getMemberId();
+//			Member member = (Member) session.getAttribute("loginUser");
+//			String reviewWriterId = member.getMemberId();
+			String reviewWriterId = "test05"; // 테스트 중
 			
 			Review review = new Review();
 			review.setReviewTitle(reviewTitle);
@@ -69,7 +72,7 @@ public class ReviewController {
 			review.setReviewWriterId(reviewWriterId);
 //			review.setReviewImageName(uploadImageFile);
 //			review.setReviewVideoName(reviewVideoName);
-			
+//			
 //			if (!uploadImageFile.getOriginalFilename().equals("")) {
 //				
 //				String filePath = saveFile(uploadImageFile, request);
@@ -137,7 +140,7 @@ public class ReviewController {
 //		}
 //		
 //	}
-//	
+	
 	/**
 	 * 후기 목록
 	 */
@@ -160,7 +163,7 @@ public class ReviewController {
 	 */
 	private PageInfo getPageInfo(int currentPage, int totalCount) {
 		
-		int boardLimit = 10;
+		int boardLimit = 4;
 		int navLimit = 10;
 		int maxPage = (int) Math.ceil((double) totalCount / boardLimit);	// navTotalCount
 		int startNav = (((int)((double) currentPage / navLimit + 0.9)) - 1) * navLimit + 1;
@@ -198,15 +201,23 @@ public class ReviewController {
 				memberId = member.getMemberId();
 			}
 			
-			memberId = "test08"; // 테스트중
+			memberId = "test04"; // 테스트중
 			
-			Review review = reviewService.selectReview(reviewPostNo);
+			Review review = reviewService.selectReview(reviewPostNo); // 해당 review게시물 내용 가져오기 
+			
 			Like like = new Like("R", reviewPostNo, memberId);
-			int likeResult = likeController.checkLike(like);
-			reviewService.viewCount(reviewPostNo);
+			int likeResult = likeController.checkLike(like); // 해당 게시물의 like 유/무 가져오기
+			
+			Comment comment = new Comment();
+			comment.setBoardId("R");
+			comment.setPostNo(reviewPostNo);
+			List<Comment> commentList = commentController.commentList(comment); // 해당 게시물의 댓글 가져오기
+			
+			reviewService.viewCount(reviewPostNo); // 조회수 1 증가
 			
 			mv.addObject("like", likeResult); // 좋아요 유무
 			mv.addObject("review", review); // 게시물 정보 
+			mv.addObject("commentList", commentList); // 댓글 정보
 			mv.addObject("memberId", memberId); // 로그인 상태 확인 → 좋아요/댓글 사용 가능 유/무의 판단 기준
 			mv.setViewName("review/detail");
 			
@@ -232,7 +243,7 @@ public class ReviewController {
 			
 			if (result > 0) {
 				
-				return "redirect:/review/list";
+				return "review/list";
 				
 			} else {
 				

@@ -1,1 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="CommentMapper">
+
+	<resultMap type="Comment" id="commentResultMap">
+		<id property="commentNo" column="COMMENT_NO"/>
+		<result property="boardId" column="BOARD_ID"/>
+		<result property="postNo" column="POST_NO"/>
+		<result property="parentCommentNo" column="PARENT_COMMENT_NO"/>
+		<result property="commentContent" column="COMMENT_CONTENT"/>
+		<result property="commentWriterId" column="COMMENT_WRITER_ID"/>
+
+	</resultMap>
+	
+	<select id="selectCommentList" parameterType="comment" resultMap="commentResultMap">
+		SELECT * FROM COMMENT_TBL WHERE BOARD_ID = #{boardId} AND POST_NO = #{postNo}
+	</select>
+	
+	<select id="getListCount" resultType="_int">
+		SELECT COUNT(*) FROM COMMENT_TBL WHERE BOARD_ID = #{boardId} AND POST_NO = #{postNo}
+	</select>
+	
+	<insert id="insertComment" parameterType="comment">
+		INSERT INTO COMMENT_TBL VALUES (#{boardId}, #{postNo}, SEQ_COMMENT.NEXTVAL, #{parentCommentNo}, #{commentContent}, #{commentWriterId})
+	</insert>
+	
+	<delete id="deleteComment" parameterType="comment">
+		DELETE FROM COMMENT_TBL WHERE BOARD_ID = #{boardId} AND POST_NO = #{postNo} AND COMMENT_NO = #{commentNo}
+	</delete>
+</mapper>

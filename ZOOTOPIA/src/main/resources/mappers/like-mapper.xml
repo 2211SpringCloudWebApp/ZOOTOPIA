@@ -11,7 +11,7 @@
 	</insert>
 
 	<delete id="cancelLike" parameterType="Like">
-		DELETE #{likeMemberId} FROM LIKE_TBL WHERE BOARD_ID = #{boardId} AND POST_NO = #{postNo}
+		DELETE FROM LIKE_TBL WHERE BOARD_ID = #{boardId} AND POST_NO = #{postNo} AND LIKE_MEMBER_ID = #{likeMemberId}
 	</delete>
 	
 </mapper>
