@@ -30,6 +30,7 @@ public class MemberController {
 		
 	}
 	
+
 	// 회원가입 페이지 출력
 	@RequestMapping(value = "/member/registerView" , method = RequestMethod.GET)
 	public String RegisterView() {
@@ -44,11 +45,7 @@ public class MemberController {
 		return "member/mypageRemove";
 	}
 	
-//	@RequestMapping(value = "", method = RequestMethod.POST)
-//	public String registerView() {
-//		
-//		return "";
-//	}
+
 	// 멤버 회원가입
 	@RequestMapping(value = "/member/register.ztp" , method = RequestMethod.POST)
 	public String memberRegister(
