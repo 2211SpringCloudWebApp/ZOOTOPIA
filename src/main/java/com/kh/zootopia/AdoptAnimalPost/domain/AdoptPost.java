@@ -1,5 +1,6 @@
 package com.kh.zootopia.AdoptAnimalPost.domain;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 
 public class AdoptPost {
@@ -12,7 +13,7 @@ public class AdoptPost {
 	private String adoptImageName;
 	private String adoptImagePath;
 	
-	private Timestamp adoptCreateDate;
+	private Date adoptCreateDate;
 	private Timestamp adoptUpdateDate;
 	private String adoptApprovalYN;
 	
@@ -84,13 +85,21 @@ public class AdoptPost {
 	}
 
 
-	public Timestamp getAdoptCreateDate() {
+	public Date getAdoptCreateDate() {
 		return adoptCreateDate;
 	}
+	
+//	public Timestamp getAdoptCreateDate() {
+//		return adoptCreateDate;
+//	}
 
 
+//	public void setAdoptCreateDate(Timestamp adoptCreateDate) {
+//		this.adoptCreateDate = adoptCreateDate;
+//	}
+	
 	public void setAdoptCreateDate(Timestamp adoptCreateDate) {
-		this.adoptCreateDate = adoptCreateDate;
+	    this.adoptCreateDate = new Date(adoptCreateDate.getTime());
 	}
 
 

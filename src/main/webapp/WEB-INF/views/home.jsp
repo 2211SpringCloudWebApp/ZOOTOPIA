@@ -3,175 +3,125 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 	<head>
-		<title>주토피아 메인 페이지</title>
+		<title>ZOOTOPIA</title>
 		<link rel="stylesheet" href="../../resources/css/home.css">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 	</head>
 	<body>
 		<div id="container">
-			<header>
-	
-					<div id="mainLogo-area" onclick="location.href='#">
-						<!-- 로고 누르면 메인페이지로 이동하게 할 거임! -->
-						<div id="mainLogo-img">
-							<img src="../../resources/img/logo-img-white.png" alt="">
+
+			<div id="header-top">
+				<div>
+					<c:if test="${sessionScope.memberId eq null }">
+						<!-- 로그인, 회원가입 페이지로 이동하는 링크 -->
+						
+						<div onclick="location.href='#'" class="main-header-btn">
+							<img src="../../resources/img/login-icon.png" alt="" class="log-img">
+							LOGIN
 						</div>
-						<div id="mainLogo-txt">
-							<div>ZOOTOPIA</div>
+						<div>|</div>
+						<div onclick="location.href='#'" class="main-header-btn">
+							<img src="../../resources/img/join-icon.png" alt="" class="log-img">
+							JOIN
 						</div>
-					</div>
-	
-					<div id="navigation-bar">
-						<ul>
-							<li>
-								<div class="menu-list">
-									<div>ADOPT</div>
-									<div class="drop-down">
-										<div>입양글 등록</div>
-										<div>입양글 확인</div>
-									</div>
-								</div>
-							</li>
-							<li>
-								<div class="menu-list">
-									<div>REVIEW</div>
-								</div>
-							</li>
-							<li>
-								<div class="menu-list">
-									<div>MATCHING</div>
-								</div>
-							</li>
-						</ul>
-					</div>
-	
-			</header>
+					</c:if>
+					<c:if test="${sessionScope.memberId ne null }">
+						<!-- 로그아웃, 마이페이지로 이동하는 링크 -->
+						<div onclick="location.href='#'" class="main-header-btn">
+							<img src="../../resources/img/logout-icon.png" alt="" class="log-img">
+							LOGOUT
+						</div>
+						<div>|</div>
+						
+						<!-- 관리자가 아니라면 마이페이지 -->
+						<c:if test="${sessionScope.mAdminYN eq 'N' }">
+							<div onclick="location.href='#'" class="main-header-btn">
+								<img src="../../resources/img/mypage-icon.png" alt="" class="log-img">
+								<span>${memberName } </span>님 마이페이지
+							</div>
+						</c:if>
+						
+						<!-- 관리자가 맞다면 관리자페이지 -->
+						<c:if test="${sessionScope.mAdminYN ne 'N' }">
+							<div onclick="location.href='#'" class="main-header-btn">
+								<img src="../../resources/img/mypage-icon.png" alt="" class="log-img">
+								<span>관리자 </span>페이지
+							</div>
+						</c:if>
+						
+					</c:if>
+					
+				</div>
+			</div>
+			
 			<main>
 				<aside id="left-aside">
-					<button>MAIN</button>
-					<button>ADOPT</button>
-					<button>REVIEW</button>
-					<button>MATCHING</button>
-					<button>dddd</button>
-				</aside>
+	                <button>MAIN</button>
+	                <button>ADOPT</button>
+	                <button>REVIEW</button>
+	                <button>MATCHING</button>
+	                <button>NOTICE</button>
+            	</aside>
 				<section>
 					<div id="content-1">
-
-						<div>
-							<c:if test="${sessionScope.memberId eq null }">
-								<input type="button" value="회원가입">
-								<input type="button" value="로그인" >
-							</c:if>
-							<c:if test="${sessionScope.memberId ne null }">
-								<div>${memberName }님 환영합니다!</div>
-							</c:if>
-
-						</div>
-
+						<div id="background-img"></div>
 					</div>
 
 					<div id="content-2">
-						<!-- 입양 공고 관련 -->
-						<div id="main-container">
-							<div class="main-image image1"><img src="../resources/images/고8.jpg"></div>
-							<div class="main-image image2"><img src="../resources/images/강8.jpg"></div>
-							<div class="main-button btn1"><button class="button" onclick="location.href='';">입양 글 등록하기 ></button></div>
-							<div class="main-button btn2"><button class="button" onclick="location.href='';">등록 동물 확인하기 ></button></div>
+						<div>
+							<!-- 입양 공고 관련 -->
+							<h1>테스트입니다</h1>
+							<h1 onclick="location.href='#'">입양 공고 등록하기</h1>
+							<h1 onclick="location.href='#'">입양 공고 확인하기</h1>
 						</div>
 					</div>
 
 					<div id="content-3">
-						<!-- 입양 후기 관련 -->
+						<div>
+							<!-- 입양 후기 관련 -->
+							<!--
+								후기는 본인만 쓸 수 있으니까 후기 등록 버튼 누르면
+								내 입양 동물 목록으로 이동
+								비로그인 상태라면 로그인해야 이용할 수 있다고 팝업 띄우고
+								로그인 페이지로 이동
+							-->
+							<h1>테스트입니다</h1>
+							
+							<c:if test="${sessionScope.memberId ne null }">
+								<!-- 로그인 상태라면 내 입양 동물 목록으로 -->
+								<h1 onclick="location.href='#'">입양 후기 등록하기 - 로그인 상태</h1>
+							</c:if>
+							<c:if test="${sessionScope.memberId eq null }">
+								<!-- 비로그인 상태라면 로그인해야 이용 가능하단 팝업
+									띄우고 로그인 페이지로 이동 -->
+								<h1 onclick="location.href='#'">입양 후기 등록하기 - 비로그인상태</h1>
+							</c:if>
+							
+							<h1 onclick="location.href='#'">입양 후기 확인하기</h1>
+						</div>
 					</div>
 
 					<div id="content-4">
-						<!-- 매칭 관련 -->
-					</div>
-					
-					<div id="content-5"></div>
-				</section>
-				<aside id="right-aside">
-					<button onclick="#">
-						<div class="right-aside-line2">로그인 / <br>회원가입</div>
-					</button>
-					<button>
-						<div class="right-aside-line1">어쩌구</div>
-						<div class="right-aside-line2">1588-<br>0000</div>
-					</button>
-					<button>
-						<div class="right-aside-line1">고객센터</div>
-						<div class="right-aside-line2">1588-<br>0000</div>
-					</button>
-					<button>
-						<div class="right-aside-line1">gdgdg</div>
-						<div class="right-aside-line2">저쩌구<br>어쩌구</div>
-					</button>
-				</aside>
-			</main>
-			<footer>
-				<div id="content-6">
-					<div id="footer-yellow">
-						<div id="footer-yellow-list">
-							<ul>
-								<li>
-									<a href="#">이용약관</a>
-								</li>
-								<li>
-									<a href="#">개인정보취급방침</a>
-								</li>
-							</ul>
+						<div>
+							<!-- 매칭 관련 -->
+							<h1>테스트입니다</h1>
+							<h1 onclick="location.href='#'">매칭 페이지로 이동하기</h1>
 						</div>
 					</div>
-					<div id="footer-black">
-						<section id="footer-black-section1">
-							<div id="footer-logo-n-sns">
-								<div id="footer-logo">
-									<img src="" alt="">
-								</div>
-								<div id="footer-sns">
-	
-									<div class="footer-sns-list">
-										<div class="footer-sns-btn-circle">
-											<img src="" alt="">
-										</div>
-									</div>
-	
-									<div class="footer-sns-list">
-										<div class="footer-sns-btn-circle">
-											<img src="" alt="">
-										</div>
-									</div>
-	
-									<div class="footer-sns-list">
-										<div class="footer-sns-btn-circle">
-											<img src="" alt="">
-										</div>
-									</div>
-								
-								</div>
-							</div>
-							<div id="footer-text">
-								<div id="footer-text-line1">
-									<span>주식회사 앤하우스</span>
-									<span>대표자 이유정</span>
-									<span>본사대표번호 02-335-0656</span>
-									<span>FAX 02-325-5199</span>
-								</div>
-								<div id="footer-text-line2">
-									<span>사업자등록번호 105-87-51467</span>
-									<span>서울특별시 강남구 강남대로 518 11층, 13층 (주)앤하우스</span>
-								</div>
-								<div id="footer-text-line3">
-									<span>개인정보보호 관리책임자 이호민</span>
-								</div>
-							</div>
-						</section>
-						<section id="footer-black-section2">
-							footer section2
-						</section>
+					
+					<div id="content-5">
+						<div>
+							<!-- 공지 관련 -->
+							<h1>테스트입니다</h1>
+							<h1 onclick="location.href='#'">공지 페이지로 이동하기</h1>
+						</div>
 					</div>
-				</div>
-			</footer>
+
+				</section>
+			</main>
+
+			<jsp:include page="./common/footer.jsp" />
+			
 		</div>
 	
 		<script>

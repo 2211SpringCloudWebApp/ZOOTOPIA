@@ -1,6 +1,7 @@
 package com.kh.zootopia.AdoptAnimalPost.controller;
 
 import java.io.File;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -24,12 +25,14 @@ public class AdoptAnimalPostController {
 	@Autowired
 	private AdoptAnimalService aService;
 	
+	// 등록입니다
+	
 	/**
 	 * 입양 공고 등록 폼
 	 * @return
 	 */
 	@RequestMapping(value = "/adoptAnimal/registerView.ztp", method = RequestMethod.GET)
-	public String AnimalRegisterView() {
+	public String animalRegisterView() {
 		return "adoptAnimalPost/register";
 	}
 	
@@ -47,10 +50,16 @@ public class AdoptAnimalPostController {
 			HttpServletRequest request
 //			, @ModelAttribute Animal animal
 //			, @ModelAttribute AdoptPost adoptPost
-			, String loginUserId
+			
+//			, String loginUserId
+			,@RequestParam("adoptWriterId") String adoptWriterId
+
 			, String animalSpecies
 			, String animalGender
-			, String animalWeight
+			
+//			, String animalWeight
+			,@RequestParam("animalWeight") String animalWeight
+			
 			, String animalAge
 			, String neuterYN
 			, String animalAddr
@@ -64,6 +73,9 @@ public class AdoptAnimalPostController {
 			
 			request.setCharacterEncoding("UTF-8");
 			
+			System.out.println(adoptWriterId);
+			System.out.println(animalWeight);
+			
 			// 수정할 부분!
 			Animal animal = new Animal();
 			animal.setAnimalSpecies(animalSpecies);
@@ -73,14 +85,13 @@ public class AdoptAnimalPostController {
 			animal.setNeuterYN(neuterYN);
 			animal.setAnimalAddr(animalAddr);
 			animal.setAnimalCharacter(animalCharacter);
-			animal.setAnimalFosterId(loginUserId);
+			animal.setAnimalFosterId(adoptWriterId);
 			
 			AdoptPost adoptPost = new AdoptPost();
-			adoptPost.setAdoptWriterId(loginUserId);
+			adoptPost.setAdoptWriterId(adoptWriterId);
 			adoptPost.setAdoptContent(adoptContent);
 			
-			System.out.println(animal);
-			System.out.println(adoptPost);
+			
 			
 			// 이미지 이름, 경로 가져오기
 			String adoptImageName = uploadFile.getOriginalFilename();
@@ -130,7 +141,7 @@ public class AdoptAnimalPostController {
 			// 어느 컴퓨터에서 실행하든 프로젝트 경로 찾을 수 있도록하기! - resources의 실제 경로 갖고오기!
 			String root = request.getSession().getServletContext().getRealPath("resources"); 
 			
-			String savePath = root + "\\nuploadFiles";
+			String savePath = root + "\\uploadFiles";
 			
 			// 폴더가 없을 경우 resources아래 폴더 자동 생성
 			File folder = new File(savePath);
@@ -149,6 +160,62 @@ public class AdoptAnimalPostController {
 			e.printStackTrace();
 			return null;
 		}
+	}
+	
+	// 출력입니다
+	
+	/**
+	 * 입양 공고 목록 출력
+	 * @param mv
+	 * @return
+	 */
+	@RequestMapping(value = "/adoptAnimal/list.ztp", method = RequestMethod.GET)
+	public ModelAndView animalListView(ModelAndView mv) {
+		
+		try {
+			
+			List<AdoptAnimalPost> aPostList = aService.selectAllAnimal();
+			
+			if (!aPostList.isEmpty()) {
+				mv.addObject("aPostList", aPostList).setViewName("adoptAnimalPost/list");
+			} else {
+				// 동물 리스트 조회 실패
+				mv.addObject("message", "동물 리스트 조회 실패").setViewName("common/error");
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			mv.addObject("message", e.getMessage()).setViewName("common/error");
+		}
+		
+		return mv;
+	}
+	
+
+	/**
+	 * 동물 디테일 출력
+	 * @param animalNo
+	 * @param mv
+	 * @return
+	 */
+	@RequestMapping(value = "/adoptAnimal/detailView.ztp", method = RequestMethod.GET)
+	public ModelAndView animalDetailView(
+			int animalNo
+			, ModelAndView mv) {
+		
+		try {
+			AdoptAnimalPost aPost = aService.selectOneByAnimalNo(animalNo);
+			if (aPost != null) {
+				mv.addObject("aPost", aPost).setViewName("adoptAnimalPost/detail");
+			} else {
+				mv.addObject("message", "동물 디테일 조회 실패").setViewName("common/error");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			mv.addObject("message", e.getMessage()).setViewName("common/error");
+		}
+		
+		return mv;
 	}
 	
 }

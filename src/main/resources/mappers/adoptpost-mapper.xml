@@ -25,4 +25,12 @@
 		INSERT INTO ADOPT_POST_TBL VALUES (SEQ_ADOPTPOSTNO.NEXTVAL, DEFAULT, #{adoptWriterId }, #{adoptContent }, #{adoptImageName }, #{adoptImagePath }, DEFAULT, NULL, DEFAULT, SEQ_ANIMALNO.CURRVAL)
 	</insert>
 	
+	<select id="selectAllPost" resultMap="adoptPostResultMap">
+		SELECT * FROM ADOPT_POST_TBL
+	</select>
+	
+	<select id="selectOneByAnimalNo" resultMap="adoptPostResultMap">
+		SELECT * FROM ADOPT_POST_TBL WHERE ANIMAL_NO = #{animalNo }
+	</select>
+	
 </mapper>

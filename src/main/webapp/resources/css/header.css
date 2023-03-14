@@ -8,36 +8,84 @@
     src : url(../font/BMHANNAAir_ttf.ttf);
     /* unicode-range: U+0020-007F; */
 }
+
 header {
+    position: fixed;
+    top: 0;
+    z-index: 200;
+    
+    /* display: flex;
+    justify-content: center;
+    flex-direction: column; */
+}
+
+/* 갈색 바 : 로그인아웃, 회원가입, 마이페이지 버튼 있는 부분 시작*/
+#header-top{
+    background-color: #4E422D;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 12pt;
+    font-weight: 100;
+    font-family: 'hanna';
+
+    width: 100vw;
+    height: 25px;
+
+    display: flex;
+    justify-content: end;
+    align-items: center;
+}
+    #header-top>div {
+        display: flex;
+        flex-direction: row;
+        padding-right: 30px;
+        /* background-color: red; */
+    }
+        .main-header-btn {
+            cursor: pointer;
+            padding-inline: 20px;
+        }
+            .main-header-btn span {
+                color: white;
+                /* font-weight: 900; */
+            }
+            .log-img {
+                width: 12px;
+                opacity: 0.5;
+            }
+
+        .main-header-btn:hover {
+            color: white;
+        }
+        .main-header-btn:hover .log-img {
+            opacity: 1;
+        }
+/* 갈색 바 : 로그인아웃, 회원가입, 마이페이지 버튼 있는 부분  끝!*/
+
+/* 흰색 바 : 로고, 내비게이션바 있는 부분 시작! */
+#navigation-bar {
     background-color: white;
     color: #4E422D;
     font-family: 'jua';
+    box-shadow: 0px 10px 15px 0px lightgrey;
 
     width: 100vw;
     height: 100px;
 
-    position: fixed;
-    top: 0;
-    z-index: 200;
-    box-shadow: 0px 10px 15px 0px lightgrey;
-
-    transition-duration: 0.2s;
-
     display: flex;
     justify-content: center;
+
+    transition-duration: 0.2s;
 }
-header:hover {
+#navigation-bar:hover {
     height: 200px;
     box-shadow: 0px 5px 10px 0px lightgrey;
 }
-header:hover .menu-list {
+#navigation-bar:hover .menu-list {
     height: 200px;
 }
 
     #mainLogo-area {
         height: 100px;
-        /* float: left; */
-        /* background-color: yellow; */
 
         display: flex;
         align-items: center;
@@ -90,13 +138,13 @@ header:hover .menu-list {
             border-radius: 50px;
             background-color: #4E422D;
         }
-        header:hover .drop-down {
+        #navigation-bar:hover .drop-down {
             display: block;            
 
         }
         .menu-list > div:nth-child(1) {
             position: fixed;
-            top: 40px;
+            top: 65px;
 
             width: 80px;
 
@@ -129,49 +177,4 @@ header:hover .menu-list {
 
                 display : block;
             }
-
-aside {
-    z-index: 100;
-}
-#right-aside {
-    width: 110px;
-    position: fixed;
-    bottom: 10px;
-    right: 0px;
-}
-#right-aside button {
-        width: 80px;
-        height: 80px;
-        
-        /* 버튼끼리 간격 */
-        margin-bottom: 20px;
-        
-        display: block;
-        outline: none;
-        border: none;
-        border-radius: 30%;
-        box-shadow: 0px 5px 10px 0px rgb(0 0 0 / 30%);
-        cursor: pointer;
-        
-        font-family: 'jua';
-        font-size: 15pt;
-    }
-    #right-aside button img {
-        width: 30px;
-    }
-        #log-btn {
-            background-color: #EEE5C6;
-            color: #4E422D;
-        }
-        #mypage-btn {
-            background-color: #C6BDAD;
-        }
-
-    #right-aside button:hover {
-        background-color: #4E422D;
-        color: #fff;
-        
-    }
-    #right-aside button:hover img {
-        content: url("../img/myPage.png");
-    }
+/* 흰색 바 : 로고, 내비게이션바 있는 부분 시작! */

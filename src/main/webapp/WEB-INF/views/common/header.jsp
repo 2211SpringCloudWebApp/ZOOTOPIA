@@ -1,10 +1,41 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="../../../resources/css/header.css">
 </head>
 <header>
+
+	<div id="header-top">
+		<div>
+			<c:if test="${sessionScope.memberId eq null }">
+				<!-- 로그인, 회원가입 페이지로 이동하는 링크 -->
+				<div onclick="location.href='#'" class="main-header-btn">
+					<img src="../../resources/img/login-icon.png" alt="" class="log-img">
+					LOGIN
+				</div>
+				<div>|</div>
+				<div onclick="location.href='#'" class="main-header-btn">
+					<img src="../../resources/img/join-icon.png" alt="" class="log-img">
+					JOIN
+				</div>
+			</c:if>
+			<c:if test="${sessionScope.memberId ne null }">
+				<!-- 로그아웃, 마이페이지로 이동하는 링크 -->
+				<div onclick="location.href='#'" class="main-header-btn">
+					<img src="../../resources/img/logout-icon.png" alt="" class="log-img">
+					LOGOUT
+				</div>
+				<div>|</div>
+				<div onclick="location.href='#'" class="main-header-btn">
+					<img src="../../resources/img/mypage-icon.png" alt="" class="log-img">
+					<span>이유정 </span>님 마이페이지
+				</div>
+			</c:if>
+		</div>
+	</div>
+
 	<div id="navigation-bar">
 		<ul>
 
@@ -72,21 +103,4 @@
 	</div>
 
 </header>
-
-<aside id="right-aside">
-
-	<!-- 로그인 상태일 경우 로그아웃 버튼 -->
-	<button onclick="location.href='#'" id="log-btn">
-		<div>
-			LOG<br>IN
-		</div>
-	</button>
-
-	<!-- 얘는 아예 로그인 상태일 경우에만 노출 -->
-	<button onclick="location.href='#'" id="mypage-btn">
-		<div>
-			<img src="../../../resources/img/myPage-brown.png" alt="마이페이지">
-		</div>
-	</button>
-</aside>
 
