@@ -21,7 +21,7 @@
 		INSERT INTO MEMBER_TBL VALUES( #{memberId}, #{memberPw}, #{memberName}, #{memberBirthday}, #{memberGender}, #{memberEmail}, #{memberPhone}, #{memberAddr1}, #{memberAddr2}, DEFAULT, DEFAULT, DEFAULT, DEFAULT, NULL)
 	</insert>
 	<update id="updateMember">
-		UPDATE MEMBER_TBL SET MEMBER_PW =#{memberPw}, MEMBER_EMAIL= #{memberEmail}, MEMBER_PHONE = #{memberPhone}, MEMBER_ADDR = #{memberAddr} WHERE MEMBER_ID = #{memberId}
+		UPDATE MEMBER_TBL SET MEMBER_PW =#{memberPw}, MEMBER_EMAIL= #{memberEmail}, MEMBER_PHONE = #{memberPhone}, MEMBER_ADDR1 = #{memberAddr1}, MEMBER_ADDR2 = #{memberAddr2} WHERE MEMBER_ID = #{memberId}
 	</update>
 	<delete id="deleteMember">
 		DELETE FROM MEMBER_TBL WHERE MEMBER_ID = #{memberId}

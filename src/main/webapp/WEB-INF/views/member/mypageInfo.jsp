@@ -19,7 +19,7 @@
 			비밀번호 <br> 	
 			<input type="password" 	name="memberPw"		value=""> <br>
 			비밀번호 확인 <br> 
-			<input type="password"  name="memberPw"		value=""> <br>
+			<input type="password"  name=""		value=""> <br>
 			이름 <br>
 			<input type="text" 		name="memberName"   value="${member.memberName  }" readonly> <br>
 			이메일 <br>		
@@ -31,6 +31,6 @@
 			<input type="text"		name="memberAddr2"  value="${member.memberAddr2  }"> <br>
 			<input type="submit" name = "modify" value="수정하기">
 		</form>
-			<a href="/member/Remove.ztp">탈퇴하기</a>
+			<a href="/member/removeView.ztp?memberId=${member.memberId }">탈퇴하기</a>
 	</body>
 </html>

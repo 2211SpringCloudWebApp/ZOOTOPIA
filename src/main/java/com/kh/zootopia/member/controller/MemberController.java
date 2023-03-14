@@ -38,7 +38,9 @@ public class MemberController {
 	
 	// 회원탈퇴 페이지 출력
 	@RequestMapping(value= "/member/removeView.ztp" , method = RequestMethod.GET)
-	public String memberRemoveView() {
+	public String memberRemoveView(Model model, String memberId) {
+		System.out.println(memberId);
+		model.addAttribute("memberId" , memberId);
 		return "member/mypageRemove";
 	}
 	
@@ -82,11 +84,18 @@ public class MemberController {
 	@RequestMapping(value = "/member/modify.ztp" , method = RequestMethod.POST)
 	public String memberModify(
 			@ModelAttribute Member member
+			,HttpServletRequest request
+			,String memberId
+			,String memberPw
 			,Model model
 			) {
 			try {
 				int result = mService.updateMember(member);
 				if(result > 0 ) {
+					Member mParam = new Member(memberId, memberPw);
+					member = mService.checkMemberLogin(mParam);
+					HttpSession session = request.getSession();
+					session.setAttribute("loginUser", member);
 					return "redirect:/index.jsp";
 				}else {
 					model.addAttribute("message" , "회원 정보 수정에 실패");
@@ -100,11 +109,12 @@ public class MemberController {
 	}
 	
 	// 멤버 삭제
-	@RequestMapping(value = "/member/Remove.ztp" , method = RequestMethod.GET)
+	@RequestMapping(value = "/member/Remove.ztp" , method = RequestMethod.POST)
 	public String memberRemove(
 			String memberId
 			,Model model
 			) {
+		System.out.println(memberId);
 			try {
 				int result = mService.deleteMember(memberId);
 				if(result > 0) {
@@ -133,7 +143,7 @@ public class MemberController {
 				Member member = mService.checkMemberLogin(mParam);
 				HttpSession session = request.getSession();
 				if(member!= null) {
-					session.setAttribute("longinUser", member);
+					session.setAttribute("loginUser", member);
 					return "redirect:/index.jsp";
 				}else {
 					model.addAttribute("message", "로그인 실패");
@@ -215,13 +225,21 @@ public class MemberController {
 	@RequestMapping(value="/member/mypage.ztp" , method = RequestMethod.GET)
 	public String MypageInfo(HttpSession session, Model model) {
 		Member member = (Member)session.getAttribute("loginUser");
+		System.out.println(member);
 		model.addAttribute("member", member);
 		return "member/mypageInfo";
+	}
+	
+	// 마이페이지 작성한 게시글 
+	@RequestMapping(value = "/member/mypageList.ztp" , method = RequestMethod.GET)
+	public String MypageList() {
+		return "member/mypageList";
 	}
 	
 	// 마이페이지 검색
 	@RequestMapping(value="/member/search.ztp" , method = RequestMethod.POST)
 	public String MypageSearch() {
+		
 		return "";
 	}
 	
@@ -229,12 +247,6 @@ public class MemberController {
 	@RequestMapping(value="/member/deleteMembers.ztp" , method = RequestMethod.POST)
 	public String MypageDelete() {
 		return "";
-	}
-	// 마이페이지 작성한 게시글 
-	@RequestMapping(value = "/member/mypageList.ztp" , method = RequestMethod.GET)
-	public String MypageList() {
-		
-		return "member/mypageList";
 	}
 	
 	// 마이페이지 작성한 댓글

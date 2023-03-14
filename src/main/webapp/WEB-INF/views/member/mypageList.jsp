@@ -21,10 +21,10 @@
 	    <div id="container">
 		    <h1>검색 조건</h1>
 		    <div id="searchTag">
-		        <form action="/member/search.ztp" method="post">
+		        <form action="/member/search.ztp" method="get">
 		            <select name="condition" id="memberId-select">
 		                <option value="id">아이디</option>
-		                <option value="name">회원                                                                                                                                                                                                                                                  이름</option>
+		                <option value="name">회원이름</option>
 		            </select>
 		            <input type="text" name="keyword">
 		            <button type="submit">검색</button>
@@ -61,20 +61,21 @@
 	    <script>
 			
 	    	function allCheck(){
-	    		var allcheck = document.myform.allcheck;
-	    		var rowcheck = document.myform.rowcheck;
+	    		var ac = document.myform.allcheck;
+	    		var rc = document.myform.rowcheck;
 	    		
-	    		if(allcheck.checked == true){
-	    			for(i=0; i<rowcheck.length; i++){
-	    				rowcheck[i].checked = true;
+	    		if(ac.checked == true){
+	    			for(i=0; i<rc.length; i++){
+	    				rc[i].checked = true;
 	    			}
 	    		}else{
-	    			for(i=0; i<rowcheck.length; i++){
-	    				rowcheck[i].checked = false;
+	    			for(i=0; i<rc.length; i++){
+	    				rc[i].checked = false;
 	    			}
 	    		}
 	    	}
 	    	
 	    </script>
+		<option value=""></option>
 	</body>
 </html>

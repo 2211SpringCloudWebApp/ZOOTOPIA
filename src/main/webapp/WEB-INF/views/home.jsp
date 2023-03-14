@@ -58,16 +58,19 @@
 					<div id="content-1">
 
 						<div>
-							<c:if test="${sessionScope.memberId eq null }">
+						${sessionScope.member };
+							<c:if test="${sessionScope.loginUser eq null }">
 								<input type="button" onclick="location.href='/member/registerView.ztp'" value="회원가입">
 								<input type="button" onclick="location.href='/member/loginView.ztp'" value="로그인" >
 							</c:if>
-							<c:if test="${sessionScope.memberId ne null }">
-								<div>${memberName }님 환영합니다!</div>
+							<c:if test="${sessionScope.loginUser ne null }">
+								<div>${loginUser.memberName }님 환영합니다!</div>
+								<div><input type="button" onclick="location.href='/member/mypage.ztp'" value="마이페이지"></div>
+								<div><input type="button" onclick="location.href='/member/logout.ztp'" value="로그아웃"></div>
 							</c:if>
 
 						</div>
-
+						${sessionScope.memberId };
 					</div>
 
 					<div id="content-2">
