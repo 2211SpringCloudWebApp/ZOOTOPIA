@@ -162,9 +162,9 @@ public class ManagerController {
 	 */
 	@RequestMapping(value="/manager/viewReservation.ztp", method=RequestMethod.POST)
 	public String viewReservation(Model model,
-			@RequestParam("year") String year,
-			@RequestParam("month") String month,
-			@RequestParam("date") String date
+			@RequestParam("yearParam") String year,
+			@RequestParam("monthParam") String month,
+			@RequestParam("dateParam") String date
 			) {
 		try {
 //			String dateString = year + "-" + month + "-" + date;
