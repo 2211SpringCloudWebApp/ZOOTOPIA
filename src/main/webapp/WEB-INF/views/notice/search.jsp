@@ -7,6 +7,14 @@
 		<meta charset="UTF-8">
 		<title>공지사항 목록</title>
 		<style>
+			* {
+			    margin: 0;
+			    padding: 0;
+			}
+			main {
+			    width: 100vw;
+			    margin-top: 125px;
+			}		
 			table {
 				border : 1px solid black;
 				text-align : center;

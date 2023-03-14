@@ -46,14 +46,14 @@ public class NoticeController {
 		try {
 			request.setCharacterEncoding("UTF-8");
 			// 파일이 있을 경우
-//			if(!uploadFile.getOriginalFilename().equals("")) {
-//				// 파일 복사(지정한 경로 업로드)
-//				String filePath = saveFile(uploadFile, request);
-//				if(filePath != null) {
-//					notice.setNoticeImageName(uploadFile.getOriginalFilename());
-//					notice.setNoticeImagePath(filePath);
-//				}
-//			}			
+			if(!uploadFile.getOriginalFilename().equals("")) {
+				// 파일 복사(지정한 경로 업로드)
+				String filePath = saveFile(uploadFile, request);
+				if(filePath != null) {
+					notice.setNoticeImageName(uploadFile.getOriginalFilename());
+					notice.setNoticeImagePath(filePath);
+				}
+			}			
 			int result = nService.insertNotice(notice);
 			if(result > 0) {
 				return "redirect:/notice/list.ztp";
@@ -75,21 +75,21 @@ public class NoticeController {
 			, Model model
 			, HttpServletRequest request) {
 		try {
-//			// 수정할 때, 새로 업로드된 파일이 있는 경우
-//			if(!reloadFile.isEmpty()) {
-//				// 기존 업로드 된 파일 체크 후
-//				if(notice.getNoticeImageName() != null) {
-//					// 기존 파일 삭제
-//					this.deleteFile(notice.getNoticeImageName(), request);
-//				}
-//				// 새로 업로드 된 파일 복사(지정된 경로 업로드)
-//				String modifyPath = this.saveFile(reloadFile, request);
-//				if(modifyPath != null) {
-//					// notice에 새로운 파일 이름, 파일 경로 set
-//					notice.setNoticeImageName(reloadFile.getOriginalFilename());
-//					notice.setNoticeImagePath(modifyPath);
-//				}
-//			}				
+			// 수정할 때, 새로 업로드된 파일이 있는 경우
+			if(!reloadFile.isEmpty()) {
+				// 기존 업로드 된 파일 체크 후
+				if(notice.getNoticeImageName() != null) {
+					// 기존 파일 삭제
+					this.deleteFile(notice.getNoticeImageName(), request);
+				}
+				// 새로 업로드 된 파일 복사(지정된 경로 업로드)
+				String modifyPath = this.saveFile(reloadFile, request);
+				if(modifyPath != null) {
+					// notice에 새로운 파일 이름, 파일 경로 set
+					notice.setNoticeImageName(reloadFile.getOriginalFilename());
+					notice.setNoticeImagePath(modifyPath);
+				}
+			}				
 			int result = nService.updateNotice(notice);
 			if(result > 0) {
 				return "redirect:/notice/list.ztp";
@@ -217,7 +217,7 @@ public class NoticeController {
 		}
 	}
 	
-	// 파일 삭제
+	// 기존 파일 삭제
 	private void deleteFile(String filename, HttpServletRequest request) throws Exception {
 		String root = request.getSession().getServletContext().getRealPath("resources");
 		String delPath = root + "\\nuploadFiles";
