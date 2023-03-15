@@ -30,5 +30,7 @@ public interface ManagerStore {
 	//예약페이지
 	List<AdoptPost> viewReservation(SqlSession session, DateDTO dateDTO);
 
+	int approveReserv(SqlSession session, int reservationNo);
+
 
 }

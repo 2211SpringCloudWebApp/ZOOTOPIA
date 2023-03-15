@@ -66,4 +66,10 @@ public class ManagerStoreLogic implements ManagerStore{
 		return aList;
 	}
 
+	@Override
+	public int approveReserv(SqlSession session, int reservationNo) {
+		int result = session.update("ReservationMapper.approveReserv", reservationNo);
+		return result;
+	}
+
 }

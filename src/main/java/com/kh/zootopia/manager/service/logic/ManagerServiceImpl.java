@@ -74,4 +74,10 @@ public class ManagerServiceImpl implements ManagerService{
 		return aList;
 	}
 
+	@Override
+	public int approveReserv(int reservationNo) {
+		int result = mStore.approveReserv(session, reservationNo);
+		return result;
+	}
+
 }

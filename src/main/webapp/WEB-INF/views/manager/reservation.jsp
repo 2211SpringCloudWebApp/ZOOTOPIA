@@ -8,30 +8,47 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>예약페이지</title>
     <link rel="stylesheet" href="../../resources/css/reservation.css">
+    <!-- jQuery CDN -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    
 </head>
 <body>
     <div class="main">
         <div class="content-wrap">
           <div class="content-left">
-            <div class="main-wrap">
-              <div id="main-day" class="main-day"></div>
-              <div id="main-date" class="main-date"></div>
-            </div>
+<!--             <div class="main-wrap"> -->
+<!--               <div id="main-day" class="main-day"></div> -->
+<!--               <div id="main-date" class="main-date"></div> -->
+<!--             </div> -->
             <div class="todo-wrap">
               <div class="todo-title">Reservation List</div>
-              <div class="input-wrap">
-              <c:forEach items="${aList }" var="aList">
-              		<ul>
-              			<li>예약번호: ${aList.reservationNo }</li>
-              			<li>동물번호: ${aList.animalNo }</li>
-              			<li>입양희망자: ${aList.fosterId }</li>
-              			<li>입양보내는자: ${aList.adopterId }</li>
-              			<li>예약날짜: ${aList.reservationTime }</li>
-              		</ul>
-              </c:forEach>
-                <input type="text" placeholder="please write here!!" id="input-box" class="input-box">
-                <button type="button" id="input-data" class="input-data">INPUT</button>
-                <div id="input-list" class="input-list"></div>
+              <div class="input-wrap" id="input-wrap">
+<!--                 <input type="text" placeholder="please write here!!" id="input-box" class="input-box"> -->
+<!--                 <button type="button" id="input-data" class="input-data">INPUT</button> -->
+                <div id="input-list" class="input-list">
+              		<form action="/manager/approveReserv.ztp" method="post" id="approveform">
+	              		<table>
+	              			<tr>
+	              				<th></th>
+	              				<th>예약번호</th>
+	              				<th>동물번호</th>
+	              				<th>입양희망자</th>
+	              				<th>입양보내는자</th>
+	              				<th>예약날짜</th>
+	              			</tr>
+	              			<c:forEach items="${aList }" var="aList">
+			              			<tr>
+			              				<td>${aList.reservationNo }</td>
+			              				<td>${aList.animalNo }</td>
+			              				<td>${aList.fosterId }</td>
+			              				<td>${aList.adopterId }</td>
+			              				<td>${aList.reservationTime }</td>
+			              				<td><input type="hidden" name="reservationNo" value="${aList.reservationNo }"><button>승인</button></td>
+			              			</tr>
+	              			</c:forEach>
+	              		</table>
+              		</form>
+                </div>
               </div>
             </div>
           </div>
@@ -118,7 +135,7 @@
         }
 
         function prev(){
-            inputBox.value = "";
+//             inputBox.value = "";
             const $divs = document.querySelectorAll("#input-list > div");
             $divs.forEach(function(e){
             e.remove();
@@ -143,7 +160,7 @@
             currentTitle.innerHTML = monthList[first.getMonth()] + ", " + first.getFullYear();
             removeCalendar();
             showCalendar();
-            showMain();
+//             showMain();
             clickedDate1 = document.getElementById(today.getDate());
             clickedDate1.classList.add("active");
             clickStart();
@@ -151,7 +168,7 @@
         }
 
         function next(){
-            inputBox.value = "";
+//             inputBox.value = "";
             const $divs = document.querySelectorAll("#input-list > div");
             $divs.forEach(function(e){
             e.remove();
@@ -176,19 +193,20 @@
             currentTitle.innerHTML = monthList[first.getMonth()] + ", " + first.getFullYear();
             removeCalendar();
             showCalendar(); 
-            showMain();
+//             showMain();
             clickedDate1 = document.getElementById(today.getDate());
             clickedDate1.classList.add("active");  
             clickStart();
             reshowingList();
         }
 
-        function showMain(){
-            var mainTodayDay = document.querySelector("#main-day");
-            var mainTodayDate = document.querySelector("#main-date");
-            mainTodayDay.innerHTML = dayList[today.getDay()];
-            mainTodayDate.innerHTML = today.getDate();
-        }
+        // 선택한 날짜 왼편에 보여주기
+//         function showMain(){
+//             var mainTodayDay = document.querySelector("#main-day");
+//             var mainTodayDate = document.querySelector("#main-date");
+//             mainTodayDay.innerHTML = dayList[today.getDay()];
+//             mainTodayDate.innerHTML = today.getDate();
+//         }
 
         var clickedDate1 = document.getElementById(today.getDate());
         clickedDate1.classList.add("active");
@@ -214,7 +232,7 @@
             clickedDate1 = e.currentTarget;
             clickedDate1.classList.add("active");
             today = new Date(today.getFullYear(), today.getMonth(), clickedDate1.id);
-            showMain();
+//             showMain();
             keyValue = today.getFullYear() + "" + today.getMonth()+ "" + today.getDate();
             reshowingList();
             // 날짜 잘라내기
@@ -248,7 +266,7 @@
             }else if(month == "December"){
                 month = 12;
             }
-            console.log(year + "년" + month + "월" + date + "일");
+//             console.log(year + "년" + month + "월" + date + "일");
             
             // jsp내 날짜를 controller로 보내기
             $.ajax({
@@ -260,10 +278,41 @@
                 	dateParam: date
                 },
                 success: function(response) {
-                    console.log(response);
+//                 	var $data = $(response);
+                	
+//                 	console.log(response);
+// 					var myValue = myData
+                	// 데이터를 담을 HTML 테이블 요소 생성
+//                 	var table = $("<table>");
+                	// 테이블 헤더 추가
+//                 	table.append("<thead><tr><th>예약번호</th><th>동물번호</th><th>입양희망자</th><th>입양보내는자</th><th>예약날짜</th></tr></thead>")
+                	// 테이블의 바디 추가
+//                 	var tbody = $("<tbody>");
+//                 	for(var i = 0; i < response.length; i++){
+//                 		var row = $("<tr>");
+//                 		row.append("<td>" + response[i].column1 + "</td>");
+//                 		row.append("<td>" + response[i].column2 + "</td>");
+//                 		row.append("<td>" + response[i].column3 + "</td>");
+//                 		row.append("<td>" + response[i].column4 + "</td>");
+//                 		row.append("<td>" + response[i].column5 + "</td>");
+//                 		tbody.append(row);
+//                 	}
+//                 	table.append(tbody);
+                	// 생성된 테이블을 출력할 div요소 선택 후 추가
+//                 	$("#input-list").append(table)
+                    // JSP 파일을 jQuery 객체로 변환
+                    var $html = $(response);
+                    
+                    // div#result 태그의 내용 추출
+                    var resultText = $html.find("#input-list")[0].outerHTML;
+                    
+                    // 추출한 내용 출력
+//                     console.log(resultText)
+                    var targetDiv = document.getElementById("input-list");
+                    targetDiv.innerHTML = resultText;
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
-                    console.error(errorThrown);
+//                     console.error(errorThrown);
                 }
             });
         }
@@ -314,7 +363,7 @@
                     inputList.appendChild($btn);
                     $div.addEventListener('click',checkList);
                     $btn.addEventListener('click',deleteTodo);
-                    inputBox.value = '';
+//                     inputBox.value = '';
                     function deleteTodo(){
                         $div.remove();
                         $btn.remove();
@@ -323,40 +372,50 @@
             }
 
         }
-        var inputBox = document.getElementById('input-box');
-        var inputDate = document.getElementById('input-data');
+//         var inputBox = document.getElementById('input-box');
+//         var inputDate = document.getElementById('input-data');
         var inputList = document.getElementById('input-list');
         var delText = 'X';
-        inputDate.addEventListener('click',addTodoList);
+//         inputDate.addEventListener('click',addTodoList);
         var dataCnt = 1;
         var keyValue = today.getFullYear() + '' + today.getMonth()+ '' + today.getDate();
         let todoList = [];
         todoList[keyValue] = [];
-        function addTodoList(){
-            var $div = document.createElement('div');
-            $div.textContent = '-' + inputBox.value;
-            var $btn = document.createElement('button');
-            $btn.setAttribute('type', 'button'); 
-            $btn.setAttribute('id', 'del-ata');
-            $btn.setAttribute('id', dataCnt+keyValue);
-            $btn.setAttribute('class', "del-data");
-            $btn.textContent = delText;
-            inputList.appendChild($div);
-            inputList.appendChild($btn);
-            todoList[keyValue].push(inputBox.value);
-            dataCnt++;
-            inputBox.value = '';
-            $div.addEventListener('click',checkList);
-            $btn.addEventListener('click',deleteTodo);
-            function deleteTodo(){
-                $div.remove();
-                $btn.remove();
-            }
-        }
-        console.log(keyValue);
+        
+        // input버튼을 눌렀을 때 todo를 입력해주는 함수
+//         function addTodoList(){
+//             var $div = document.createElement('div');
+//             $div.textContent = '-' + inputBox.value;
+//             var $btn = document.createElement('button');
+//             $btn.setAttribute('type', 'button'); 
+//             $btn.setAttribute('id', 'del-ata');
+//             $btn.setAttribute('id', dataCnt+keyValue);
+//             $btn.setAttribute('class', "del-data");
+//             $btn.textContent = delText;
+//             inputList.appendChild($div);
+//             inputList.appendChild($btn);
+//             todoList[keyValue].push(inputBox.value);
+//             dataCnt++;
+//             inputBox.value = '';
+//             $div.addEventListener('click',checkList);
+//             $btn.addEventListener('click',deleteTodo);
+//             function deleteTodo(){
+//                 $div.remove();
+//                 $btn.remove();
+//             }
+//         }
+//         console.log(keyValue);
         function checkList(e){
             e.currentTarget.classList.add('checked');
         }
+        
+//         function approve(reservationNumber) {
+//         	event.preventDefault();
+//         	console.log(reservationNumber);
+//         	var approve = document.querySelector('#approveform');
+//         	console.log(approve);
+//         	approve.submit();
+//         }
     </script>
 </body>
 </html>

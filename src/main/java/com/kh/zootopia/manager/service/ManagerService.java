@@ -28,5 +28,7 @@ public interface ManagerService {
 //	예약페이지
 	List<AdoptPost> viewReservation(DateDTO dateDTO);
 
+	int approveReserv(int reservationNo);
+
 
 }
