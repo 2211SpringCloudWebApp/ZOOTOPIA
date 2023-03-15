@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.kh.zootopia.AdoptAnimalPost.domain.AdoptPost;
+import com.kh.zootopia.manager.domain.DateDTO;
 import com.kh.zootopia.manager.domain.Search;
 import com.kh.zootopia.manager.store.ManagerStore;
 import com.kh.zootopia.member.domain.Member;
@@ -56,6 +57,19 @@ public class ManagerStoreLogic implements ManagerStore{
 	@Override
 	public void deleteAdopts(SqlSession session, int animalNo) {
 		session.delete("AdoptPostMapper.deleteAdopts", animalNo);
+	}
+
+	// 예약페이지
+	@Override
+	public List<AdoptPost> viewReservation(SqlSession session, DateDTO dateDTO) {
+		List<AdoptPost> aList = session.selectList("ReservationMapper.selectReservations", dateDTO);
+		return aList;
+	}
+
+	@Override
+	public int approveReserv(SqlSession session, int reservationNo) {
+		int result = session.update("ReservationMapper.approveReserv", reservationNo);
+		return result;
 	}
 
 }
