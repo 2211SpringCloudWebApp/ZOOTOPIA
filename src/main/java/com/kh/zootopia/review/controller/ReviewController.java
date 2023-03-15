@@ -154,7 +154,7 @@ public class ReviewController {
 	/**
 	 * Navigator Start/End값 설정
 	 */
-	private PageInfo getPageInfo(int currentPage, int totalCount) {
+	public PageInfo getPageInfo(int currentPage, int totalCount) {
 		
 		int boardLimit = 10;
 		int navLimit = 10;

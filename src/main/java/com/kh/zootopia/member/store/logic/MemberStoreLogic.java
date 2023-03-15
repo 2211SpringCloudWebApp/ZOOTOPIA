@@ -1,6 +1,8 @@
 package com.kh.zootopia.member.store.logic;
 
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
@@ -51,6 +53,10 @@ public class MemberStoreLogic implements MemberStore{
 		Member member = session.selectOne("MemberMapper.findPw" , mParam);
 		return member;
 	}
+
+	
+
+	
 
 	
 }
