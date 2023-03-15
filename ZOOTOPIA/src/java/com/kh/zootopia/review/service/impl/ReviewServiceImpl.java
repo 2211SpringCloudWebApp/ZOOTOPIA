@@ -82,6 +82,7 @@ public class ReviewServiceImpl implements ReviewService {
 		reviewStore.viewCount(session, reviewPostNo);
 		
 	}
+<<<<<<< HEAD
 	
 	// 마이페이지 후기 조회
 	@Override
@@ -89,5 +90,7 @@ public class ReviewServiceImpl implements ReviewService {
 		List<Review> reviewList = reviewStore.mypageSelectReviewList(session, pageInfo , memberId);
 		return reviewList;
 	}
+=======
+>>>>>>> refs/heads/WhoAmI_0315
 
 }

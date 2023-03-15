@@ -72,6 +72,7 @@ public interface ReviewStore {
 	 * @param reviewPostNo
 	 */
 	public void viewCount(SqlSession session, int reviewPostNo);
+<<<<<<< HEAD
 	
 	/**
 	 * 후기 목록 조회 Store
@@ -80,5 +81,7 @@ public interface ReviewStore {
 	 * @return List<Review>
 	 */
 	public List<Review> mypageSelectReviewList(SqlSession session, PageInfo pageInfo , String memberid);
+=======
+>>>>>>> refs/heads/WhoAmI_0315
 
 }

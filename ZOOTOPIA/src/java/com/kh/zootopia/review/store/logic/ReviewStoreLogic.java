@@ -89,6 +89,7 @@ public class ReviewStoreLogic implements ReviewStore {
 		session.update("reviewViewCount", reviewPostNo);
 		
 	}
+<<<<<<< HEAD
 	
 	// 후기 목록 조회
 	@Override
@@ -103,5 +104,7 @@ public class ReviewStoreLogic implements ReviewStore {
 		return reviewList;
 		
 	}
+=======
+>>>>>>> refs/heads/WhoAmI_0315
 
 }
