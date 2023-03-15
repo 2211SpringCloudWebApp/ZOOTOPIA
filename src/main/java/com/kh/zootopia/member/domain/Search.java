@@ -1,13 +1,14 @@
-package com.kh.zootopia.review.domain;
+package com.kh.zootopia.member.domain;
 
 public class Search {
-
+	
 	private String keyword;
 	private String condition;
 	
 	public Search() {}
 
 	public Search(String keyword, String condition) {
+		super();
 		this.keyword = keyword;
 		this.condition = condition;
 	}

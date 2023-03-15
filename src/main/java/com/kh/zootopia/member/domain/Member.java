@@ -161,7 +161,7 @@ public class Member {
 		return "Member [memberId=" + memberId + ", memberPw=" + memberPw + ", memberName=" + memberName
 				+ ", memberBirthday=" + memberBirthday + ", memberGender=" + memberGender + ", memberEmail="
 				+ memberEmail + ", memberPhone=" + memberPhone + ", memberAddr1=" + memberAddr1 + ", memberAddr2="
-				+ memberAddr2 + ", memberAddr3=" + ", mAdminYN=" + mAdminYN + ", mEnrollDate="
+				+ memberAddr2 + ", mAdminYN=" + mAdminYN + ", mEnrollDate="
 				+ mEnrollDate + ", mUpdateDate=" + mUpdateDate + ", mWithdrawalYN=" + mWithdrawalYN
 				+ ", mWithdrawalDate=" + mWithdrawalDate + "]";
 	}

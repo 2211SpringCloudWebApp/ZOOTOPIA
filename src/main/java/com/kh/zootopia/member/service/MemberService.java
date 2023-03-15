@@ -1,5 +1,7 @@
 package com.kh.zootopia.member.service;
 
+import java.util.List;
+
 import com.kh.zootopia.member.domain.Member;
 
 public interface MemberService {
@@ -28,17 +30,41 @@ public interface MemberService {
 	 */
 	int deleteMember(String memberId);
 
-
-	// 멤버 로그인 Service
+	/**
+	 * 멤버 로그인 Service
+	 * @param mParam
+	 * @return
+	 */
 	Member checkMemberLogin(Member mParam);
 
 
-	// 멤버 아이디 찾기 Service
+	/**
+	 * 멤버 아이디 찾기 Service
+	 * @param mParam
+	 * @return
+	 */
 	Member findId(Member mParam);
 
-
-	// 멤버 비밀번호 찾기 Service
+	/**
+	 * 멤버 비밀번호 찾기 Service
+	 * @param mParam
+	 * @return
+	 */
 	Member findPw(Member mParam);
+
+
+	
+
+	
+
+
+
+
+
+	
+	
+
+
 
 
 

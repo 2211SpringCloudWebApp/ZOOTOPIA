@@ -9,9 +9,10 @@
 	<body>
 	<h1>회원 탈퇴</h1>
 	<hr>
-	<form action="" method="post">
-		아이디   <input type="text" name="memberId" value="${member.memberId}">
-		비밀번호 <input type="text" name="memberPw">
+	<form action="/member/Remove.ztp" method="post">
+		아이디   <input type="text" name="memberId" value="${memberId}"> <br>
+		비밀번호 <input type="password" name="memberPw"> <br>
+		<input type="submit" value="탈퇴하기">
 	</form>
 	</body>
 </html>
