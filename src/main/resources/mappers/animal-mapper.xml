@@ -23,6 +23,16 @@
 		INSERT INTO ANIMAL_TBL VALUES (SEQ_ANIMALNO.NEXTVAL, #{animalSpecies }, #{animalGender }, #{animalWeight }, #{animalAge }, #{neuterYN }, #{animalAddr }, #{animalCharacter }, #{animalFosterId }, NULL)
 	</insert>
 	
-
+	<select id="selectAllAnimal" resultMap="animalResultMap">
+		SELECT * FROM ANIMAL_TBL ORDER BY ANIMAL_NO DESC
+	</select>
+	
+	<select id="selectOneByAnimalNo" resultMap="animalResultMap">
+		SELECT * FROM ANIMAL_TBL WHERE ANIMAL_NO = #{animalNo }
+	</select>
+	
+	<select id="selectTotalAnimalCount" resultType="_int">
+		SELECT COUNT(*) FROM ANIMAL_TBL 
+	</select>
 	
 </mapper>

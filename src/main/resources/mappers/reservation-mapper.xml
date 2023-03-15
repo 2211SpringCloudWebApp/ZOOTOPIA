@@ -1,1 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ReservationMapper">
+
+	<resultMap type="Reservation" id="reservationResultMap">
+		<id 	property="reservationNo" 		column="RESERVATION_NO" />
+		<result property="animalNo" 			column="ANIMAL_NO" />
+		<result property="fosterId" 			column="FOSTER_ID" />
+		<result property="adopterId" 			column="ADOPTER_ID" />
+		<result property="adoptedYN" 			column="ADOPTED_YN" />
+		<result property="reservationTime" 			column="RESERVATION_TIME" />
+	</resultMap>
+	
+	<select id="selectAllapplicantByAnimalNo" resultMap="reservationResultMap">
+		SELECT * FROM ADOPT_RESERVATION_TBL WHERE ANIMAL_NO = #{animalNo }
+	</select>
+
+</mapper>

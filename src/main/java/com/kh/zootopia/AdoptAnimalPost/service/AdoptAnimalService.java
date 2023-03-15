@@ -1,6 +1,9 @@
 package com.kh.zootopia.AdoptAnimalPost.service;
 
+import java.util.List;
+
 import com.kh.zootopia.AdoptAnimalPost.domain.AdoptAnimalPost;
+import com.kh.zootopia.AdoptAnimalPost.domain.AnimalPaging;
 
 public interface AdoptAnimalService {
 
@@ -10,5 +13,26 @@ public interface AdoptAnimalService {
 	 * @return
 	 */
 	int insertPost(AdoptAnimalPost adoptAnimalPost);
+
+	/**
+	 * 입양 공고 목록 조회 Service
+	 * @param paging
+	 * @return
+	 */
+	List<AdoptAnimalPost> selectAllAnimal(AnimalPaging paging);
+
+	/**
+	 * 입양 공고 디테일 조회 Service
+	 * @param animalNo
+	 * @return
+	 */
+	AdoptAnimalPost selectOneByAnimalNo(int animalNo);
+
+	/**
+	 * 전체 동물 게시글 수 조회 Service
+	 * @return
+	 */
+	int selectTotalAnimalCount();
+
 
 }
