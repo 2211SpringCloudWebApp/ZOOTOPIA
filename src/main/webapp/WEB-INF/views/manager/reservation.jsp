@@ -13,6 +13,7 @@
     
 </head>
 <body>
+	<jsp:include page="../common/header.jsp"></jsp:include>
     <div class="main">
         <div class="content-wrap">
           <div class="content-left">
@@ -83,6 +84,8 @@
           </div>
         </div>
       </div>
+      
+      <jsp:include page="../common/footer.jsp" />
     <script>
         var current = document.querySelector("#current-year-month").innerHTML;
         var currentTitle = document.querySelector("#current-year-month");
@@ -408,14 +411,6 @@
         function checkList(e){
             e.currentTarget.classList.add('checked');
         }
-        
-//         function approve(reservationNumber) {
-//         	event.preventDefault();
-//         	console.log(reservationNumber);
-//         	var approve = document.querySelector('#approveform');
-//         	console.log(approve);
-//         	approve.submit();
-//         }
     </script>
 </body>
 </html>
