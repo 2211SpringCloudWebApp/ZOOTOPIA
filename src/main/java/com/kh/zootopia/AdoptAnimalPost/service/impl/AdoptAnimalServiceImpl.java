@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.zootopia.AdoptAnimalPost.domain.AdoptAnimalPost;
+import com.kh.zootopia.AdoptAnimalPost.domain.AnimalPaging;
 import com.kh.zootopia.AdoptAnimalPost.service.AdoptAnimalService;
 import com.kh.zootopia.AdoptAnimalPost.store.AdoptAnimalStore;
 
@@ -31,10 +32,11 @@ public class AdoptAnimalServiceImpl implements AdoptAnimalService{
 	 * 입양 공고 목록 조회 ServiceImpl
 	 */
 	@Override
-	public List<AdoptAnimalPost> selectAllAnimal() {
-		List<AdoptAnimalPost> aPostList = aStore.selectAllAnimal(session);
+	public List<AdoptAnimalPost> selectAllAnimal(AnimalPaging paging) {
+		List<AdoptAnimalPost> aPostList = aStore.selectAllAnimal(session, paging);
 		return aPostList;
 	}
+	
 
 	/**
 	 * 입양 공고 디테일 조회 ServiceImpl
@@ -44,5 +46,15 @@ public class AdoptAnimalServiceImpl implements AdoptAnimalService{
 		AdoptAnimalPost aPost = aStore.selectOneByAnimalNo(session, animalNo);
 		return aPost;
 	}
+
+	/**
+	 * 전체 동물 게시글 수 조회 ServiceImpl
+	 */
+	@Override
+	public int selectTotalAnimalCount() {
+		int totalAnimalCount = aStore.selectTotalAnimalCount(session);
+		return totalAnimalCount;
+	}
+	
 
 }

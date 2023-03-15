@@ -26,7 +26,7 @@
 	</insert>
 	
 	<select id="selectAllPost" resultMap="adoptPostResultMap">
-		SELECT * FROM ADOPT_POST_TBL
+		SELECT * FROM ADOPT_POST_TBL ORDER BY ANIMAL_NO DESC
 	</select>
 	
 	<select id="selectOneByAnimalNo" resultMap="adoptPostResultMap">

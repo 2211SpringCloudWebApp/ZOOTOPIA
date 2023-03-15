@@ -9,29 +9,42 @@
 
 	<div id="header-top">
 		<div>
-			<c:if test="${sessionScope.memberId eq null }">
+			<c:if test="${sessionScope.loginUser eq null }">
 				<!-- 로그인, 회원가입 페이지로 이동하는 링크 -->
-				<div onclick="location.href='#'" class="main-header-btn">
+				<div onclick="location.href='/member/loginView.ztp'" class="main-header-btn">
 					<img src="../../resources/img/login-icon.png" alt="" class="log-img">
 					LOGIN
 				</div>
 				<div>|</div>
-				<div onclick="location.href='#'" class="main-header-btn">
+				<div onclick="location.href='/member/registerView.ztp'" class="main-header-btn">
 					<img src="../../resources/img/join-icon.png" alt="" class="log-img">
 					JOIN
 				</div>
 			</c:if>
-			<c:if test="${sessionScope.memberId ne null }">
+			<c:if test="${sessionScope.loginUser ne null }">
 				<!-- 로그아웃, 마이페이지로 이동하는 링크 -->
-				<div onclick="location.href='#'" class="main-header-btn">
+				<div onclick="location.href='/member/logout.ztp'" class="main-header-btn">
 					<img src="../../resources/img/logout-icon.png" alt="" class="log-img">
 					LOGOUT
 				</div>
 				<div>|</div>
-				<div onclick="location.href='#'" class="main-header-btn">
-					<img src="../../resources/img/mypage-icon.png" alt="" class="log-img">
-					<span>이유정 </span>님 마이페이지
-				</div>
+				
+				<!-- 관리자가 아니라면 마이페이지 -->
+				<c:if test="${loginUser.mAdminYN eq 'N' }">
+					<div onclick="location.href='/member/mypage.ztp'" class="main-header-btn">
+						<img src="../../resources/img/mypage-icon.png" alt="" class="log-img">
+						<span>${loginUser.memberName } </span>님 마이페이지
+					</div>
+				</c:if>
+				
+				<!-- 관리자가 맞다면 관리자페이지 -->
+				<c:if test="${loginUser.mAdminYN ne 'N' }">
+					<div onclick="location.href='#'" class="main-header-btn">
+						<img src="../../resources/img/mypage-icon.png" alt="" class="log-img">
+						<span>관리자 </span>페이지
+					</div>
+				</c:if>
+
 			</c:if>
 		</div>
 	</div>
@@ -41,7 +54,7 @@
 
 			<li>
 				<!-- 로고 누르면 메인페이지로 이동하게 할 거임! -->
-				<div id="mainLogo-area" onclick="location.href='#">
+				<div id="mainLogo-area" onclick="location.href='/'">
 					<div id="mainLogo-img">
 						<img src="../../../resources/img/logo-img-white.png" alt="">
 					</div>
@@ -56,8 +69,8 @@
 					<div>ADOPT</div>
 					<div class="menu-list-bar"></div>
 					<div class="drop-down">
-						<div onclick="location.href='#'">입양공고 등록</div>
-						<div onclick="location.href='#'">입양공고 확인</div>
+						<div onclick="location.href='/adoptAnimal/registerView.ztp'">입양공고 등록</div>
+						<div onclick="location.href='/adoptAnimal/list.ztp'">입양공고 확인</div>
 					</div>
 				</div>
 			</li>
