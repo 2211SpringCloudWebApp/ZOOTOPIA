@@ -12,30 +12,62 @@
 			* {
 			    margin: 0;
 			    padding: 0;
+			    color: #4E422D;
 			}
 			main {
 			    width: 100vw;
-			    margin-top: 125px;
+			    margin-top: 230px;
+			    margin-bottom: 50px;
+			}
+			#registerArea {
+				text-align: right;
+				margin-right: 60px;
+				margin-bottom: 10px;
 			}
 			table {
-				border : 1px solid black;
 				text-align : center;
-				border-collapse : collapse;
-			}
-			th,td {
-				border : 1px solid black;
 			}
 			a:link, a:visited {
+				color : #4E422D;
 				text-decoration: none;
+			}
+			#searchBtn {
+				border: 1px solid #C6BDAD;
+				background-color: rgba(0,0,0,0);
+				color: #4E422D;
+				padding: 3px;
+				border-radius: 5px;
+			}
+			input[type=text] {
+				width: 200px;
+				height: 25px;
+				border: 1px solid #C6BDAD;
+				border-radius: 5px;
+				outline: none;
+			}
+			#registerBtn {
+				border: 1px solid #C6BDAD;
+				background-color: rgba(0,0,0,0);
+				color: #4E422D;
+				padding: 3px;
+				border-radius: 5px;			
+			}
+			#selectBtn {
+			
 			}
 		</style>
 	</head>
 	<body>
 		<header>
-<%-- 			<jsp:include page="../common/header.jsp" /> --%>
+			<jsp:include page="../common/header.jsp" />
 		</header>
 		<main>
-			<table>
+			<div id="registerArea">
+				<c:if test="${sessionScope.loginUser.memberId eq 'admin' }">
+					<button id="registerBtn" onclick="location.href='/notice/registerView.ztp'">글쓰기</button>
+				</c:if>	
+			</div>
+			<table class="table table-sm">
 				<thead>
 					<tr>
 						<th>번호</th>
@@ -53,7 +85,6 @@
 						<td><a href="/notice/detail.ztp?noticeNo=${notice.noticeNo }">${notice.noticeSubject }</a></td>
 						<td>${notice.noticeWriter }</td>
 						<td><fmt:formatDate pattern="yyyy-MM-dd" value="${notice.noticeCreateDate }"/></td>
-<%-- 						<td>${notice.noticeCreateDate }</td> --%>
 						<td>
 							<c:if test="${!empty notice.noticeImageName}">O</c:if>
 							<c:if test="${empty notice.noticeImagePath}">X</c:if>
@@ -75,7 +106,7 @@
 		        				<c:url var="pageUrl" value="/notice/list.ztp">
 		        					<c:param name="page" value="${page}" />
 		        				</c:url>
-		        				<a href="${pageUrl}" <c:if test="${pi.currentPage == page}">style="font-weight: 400; color: red"</c:if>>${page}</a>
+		        				<a href="${pageUrl}" <c:if test="${pi.currentPage == page}">style="font-weight: bold; color: #EEE5C6"</c:if>>${page}</a>
 		        			</c:forEach>
 		        			<c:if test="${pi.currentPage < pi.maxPage}">
 		        				<a href="/notice/list.ztp?page=${pi.currentPage + 1}" class="prev-next-page">다음</a>
@@ -86,29 +117,25 @@
 						</td>
 					</tr>
 					<tr>
-						<td colspan="5">
+						<td colspan="6">
 							<form action="/notice/search.ztp" method="get">
-								<select name="condition">
+								<select id="selectBtn" name="condition">
 									<option value="all">전체</option>
 									<option value="writer">작성자</option>
 									<option value="title">제목</option>
 									<option value="content">내용</option>
 								</select>
 								<input type="text" name="keyword" placeholder="검색어를 입력해주세요">
-								<input type="submit" value="검색">
+								<input type="submit" id="searchBtn" value="검색">
 							</form>
 						</td>
-<%-- 						<c:if test="${memberId == 관리자 }"> --%>
-						<td>
-							<button onclick="location.href='/notice/registerView.ztp'">글쓰기</button>
-						</td>
-<%-- 						</c:if> --%>
 					</tr>
 				</tfoot>			
 			</table>
+			
 		</main>
 		<footer>
-<%-- 			<jsp:include page="../common/footer.jsp" /> --%>
+			<jsp:include page="../common/footer.jsp" />
 		</footer>
 	</body>
 </html>

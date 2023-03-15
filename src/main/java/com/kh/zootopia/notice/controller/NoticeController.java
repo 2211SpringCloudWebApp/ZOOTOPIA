@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.kh.zootopia.comment.controller.CommentController;
+import com.kh.zootopia.comment.domain.Comment;
 import com.kh.zootopia.manager.domain.Search;
 import com.kh.zootopia.notice.domain.Notice;
 import com.kh.zootopia.notice.service.NoticeService;
@@ -25,6 +28,8 @@ public class NoticeController {
 
 	@Autowired
 	private NoticeService nService;
+	@Autowired
+	private CommentController commentController;
 	
 	// 공지사항 등록화면
 	@RequestMapping(value="/notice/registerView.ztp", method=RequestMethod.GET)
@@ -123,9 +128,11 @@ public class NoticeController {
 	// 공지사항 목록 조회
 	@RequestMapping(value="/notice/list.ztp", method=RequestMethod.GET)
 	public String noticeListView(
-			Model model
+			HttpSession session
+			, Model model
 			, @RequestParam(value="page", required=false, defaultValue="1") Integer page) {
 		int totalCount = nService.getListCount();
+		
 		PageInfo pi = this.getPageInfo(page, totalCount);		
 		List<Notice> nList = nService.selectNoticeList(pi);
 		model.addAttribute("pi", pi);
@@ -140,7 +147,14 @@ public class NoticeController {
 		try {
 			Notice notice = nService.selectOneByNo(noticeNo);
 			nService.updateNoticeView(noticeNo);
+			
+			Comment comment = new Comment();
+			comment.setBoardId("A");
+			comment.setPostNo(noticeNo);
+			List<Comment> commentList = commentController.commentList(comment); // 해당 게시물의 댓글 가져오기
+			
 			model.addAttribute("notice", notice);
+			model.addAttribute("commentList", commentList); // 댓글 정보
 			return "notice/detail";
 		} catch (Exception e) {
 			e.printStackTrace();
