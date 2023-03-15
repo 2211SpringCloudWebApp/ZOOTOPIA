@@ -82,5 +82,12 @@ public class ReviewServiceImpl implements ReviewService {
 		reviewStore.viewCount(session, reviewPostNo);
 		
 	}
+	
+	// 마이페이지 후기 조회
+	@Override
+	public List<Review> mypageSelectReviewList(PageInfo pageInfo, String memberId) {
+		List<Review> reviewList = reviewStore.mypageSelectReviewList(session, pageInfo , memberId);
+		return reviewList;
+	}
 
 }

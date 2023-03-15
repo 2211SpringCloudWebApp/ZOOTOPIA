@@ -42,9 +42,11 @@ public class CommentStoreLogic implements CommentStore {
 	}
 
 	@Override
-	public void insertComment(SqlSession session, Comment comment) {
+	public int insertComment(SqlSession session, Comment comment) {
 		
-		session.insert("CommentMapper.insertComment", comment);
+		int result = session.insert("CommentMapper.insertComment", comment);
+		
+		return result;
 
 	}
 

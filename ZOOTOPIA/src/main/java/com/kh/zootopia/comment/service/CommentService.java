@@ -34,7 +34,7 @@ public interface CommentService {
 	 * @param comment
 	 * @return int
 	 */
-	public void insertComment(Comment comment);
+	public int insertComment(Comment comment);
 
 	/**
 	 * 댓글 삭제

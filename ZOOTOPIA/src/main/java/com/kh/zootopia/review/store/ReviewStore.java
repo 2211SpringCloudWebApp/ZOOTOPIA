@@ -72,5 +72,13 @@ public interface ReviewStore {
 	 * @param reviewPostNo
 	 */
 	public void viewCount(SqlSession session, int reviewPostNo);
+	
+	/**
+	 * 후기 목록 조회 Store
+	 * @param session
+	 * @param pageInfo
+	 * @return List<Review>
+	 */
+	public List<Review> mypageSelectReviewList(SqlSession session, PageInfo pageInfo , String memberid);
 
 }

@@ -89,5 +89,19 @@ public class ReviewStoreLogic implements ReviewStore {
 		session.update("reviewViewCount", reviewPostNo);
 		
 	}
+	
+	// 후기 목록 조회
+	@Override
+	public List<Review> mypageSelectReviewList(SqlSession session, PageInfo pageInfo , String memberId ) {
+		
+		int limit = pageInfo.getBoardLimit();
+		int currentPage = pageInfo.getCurrentPage();
+		int offset = (currentPage - 1) * limit;
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		List<Review> reviewList = session.selectList("ReviewMapper.mypageSelectReviewList", memberId, rowBounds);
+		
+		return reviewList;
+		
+	}
 
 }

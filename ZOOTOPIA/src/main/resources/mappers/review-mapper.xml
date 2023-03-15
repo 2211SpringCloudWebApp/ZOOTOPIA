@@ -63,4 +63,8 @@
 		DELETE FROM REVIEW_POST_TBL WHERE REVIEW_POST_NO = #{reviewPostNo}
 	</delete>
 	
+	<select id="mypageSelectReviewList" resultMap="reviewResultMap" parameterType="String">
+		SELECT * FROM REVIEW_POST_TBL WHERE REVIEW_WRITER_ID = #{memberId}
+	</select>
+	
 </mapper>

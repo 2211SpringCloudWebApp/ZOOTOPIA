@@ -45,9 +45,11 @@ public class CommentServiceImpl implements CommentService {
 	}
 
 	@Override
-	public void insertComment(Comment comment) {
+	public int insertComment(Comment comment) {
 		
-		commentStore.insertComment(session, comment);
+		int result = commentStore.insertComment(session, comment);
+		
+		return result;
 		
 	}
 

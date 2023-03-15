@@ -67,12 +67,32 @@ public class CommentController {
 	
 	/**
 	 * 댓글 입력
-	 * : JSP에서 Input hidden형태로 boardId, postNo, 댓글작성자, 내용을 보내주면 그걸 modelattribute시켜서 가져옴
+	 * : JSP에서 boardId, postNo, 댓글작성자, 내용을 보내주면 그걸 modelattribute시켜서 가져옴
 	 */
 	@RequestMapping(value = "/comment/insert.ztp", method = RequestMethod.POST)
-	public void insertComment(@ModelAttribute Comment comment) {
+	public ModelAndView insertComment(@ModelAttribute Comment comment, @RequestParam("url") String url, ModelAndView mv) {
 		
-		commentService.insertComment(comment);
+		try {
+			
+			int result = commentService.insertComment(comment);
+			
+			if (result > 0) {
+				
+				mv.setViewName("redirect:"+url+comment.getPostNo());
+				
+			} else {
+				
+				mv.addObject("message", "오류").setViewName("common/error");
+				
+			}
+			
+		} catch (Exception e) {
+			
+			mv.addObject("message", e.getMessage()).setViewName("common/error");
+			
+		}
+		
+		return mv;
 
 	}
 	
@@ -86,11 +106,20 @@ public class CommentController {
 			
 			int result = commentService.deleteComment(comment);
 			
-			mv.setViewName(url);
+			if (result > 0) {
+				
+				mv.setViewName("redirect:"+url+comment.getPostNo());
+				
+			} else {
+				
+				mv.addObject("message", "오류").setViewName("common/error");
+				
+			}
 			
 		} catch (Exception e) {
-
+			
 			mv.addObject("message", e.getMessage()).setViewName("common/error");
+			
 		}
 		
 		return mv;

@@ -62,9 +62,9 @@ public class ReviewController {
 		
 		try {
 			
-//			Member member = (Member) session.getAttribute("loginUser");
-//			String reviewWriterId = member.getMemberId();
-			String reviewWriterId = "test05"; // 테스트 중
+			Member member = (Member) session.getAttribute("loginUser");
+			String reviewWriterId = member.getMemberId();
+//			String reviewWriterId = "test05"; // 테스트 중
 			
 			Review review = new Review();
 			review.setReviewTitle(reviewTitle);
@@ -163,7 +163,7 @@ public class ReviewController {
 	 */
 	private PageInfo getPageInfo(int currentPage, int totalCount) {
 		
-		int boardLimit = 4;
+		int boardLimit = 10;
 		int navLimit = 10;
 		int maxPage = (int) Math.ceil((double) totalCount / boardLimit);	// navTotalCount
 		int startNav = (((int)((double) currentPage / navLimit + 0.9)) - 1) * navLimit + 1;
@@ -193,15 +193,13 @@ public class ReviewController {
 			
 			Member member;
 			String memberId;
-			
+
 			if (session.getAttribute("loginUser") == null) {
 				memberId = null;
 			} else {
 				member = (Member) session.getAttribute("loginUser");
 				memberId = member.getMemberId();
 			}
-			
-			memberId = "test04"; // 테스트중
 			
 			Review review = reviewService.selectReview(reviewPostNo); // 해당 review게시물 내용 가져오기 
 			
@@ -218,7 +216,7 @@ public class ReviewController {
 			mv.addObject("like", likeResult); // 좋아요 유무
 			mv.addObject("review", review); // 게시물 정보 
 			mv.addObject("commentList", commentList); // 댓글 정보
-			mv.addObject("memberId", memberId); // 로그인 상태 확인 → 좋아요/댓글 사용 가능 유/무의 판단 기준
+//			mv.addObject("memberId", memberId); // 로그인 상태 확인 → 좋아요/댓글 사용 가능 유/무의 판단 기준
 			mv.setViewName("review/detail");
 			
 		} catch (Exception e) {

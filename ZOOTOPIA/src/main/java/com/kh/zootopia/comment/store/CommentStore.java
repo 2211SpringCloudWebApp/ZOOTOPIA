@@ -40,7 +40,7 @@ public interface CommentStore {
 	 * @param comment
 	 * @return int
 	 */
-	public void insertComment(SqlSession session, Comment comment);
+	public int insertComment(SqlSession session, Comment comment);
 	
 	/**
 	 * 댓글 삭제

@@ -61,5 +61,12 @@ public interface ReviewService {
 	 * @param reviewPostNo
 	 */
 	public void viewCount(int reviewPostNo);
+	
+	/**
+	 * 마이페이지 후기 목록 조회 Service
+	 * @param pageInfo
+	 * @return
+	 */
+	public List<Review> mypageSelectReviewList(PageInfo pageInfo , String memberId);
 
 }
