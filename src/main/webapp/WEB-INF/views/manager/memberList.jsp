@@ -18,6 +18,9 @@
     	</style>
 	</head>
 	<body>
+	
+		<jsp:include page="../common/header.jsp"></jsp:include>
+	
 	    <div id="container">
 		    <h1>검색 조건</h1>
 		    <div id="searchTag">
@@ -58,6 +61,9 @@
 			    </div>
 		    </form>
 	    </div>
+	    
+	    <jsp:include page="../common/footer.jsp" />
+	    
 	    <script>
 			
 	    	function allCheck(){

@@ -8,6 +8,8 @@
 		<title>입양공고리스트</title>
 	</head>
 	<body>
+		<jsp:include page="../common/header.jsp"></jsp:include>
+		
 		<div>
 			<h1>미승인 입양공고 리스트</h1>
 			<form action="/manager/approveAdopt.ztp" name="myform" method="post">
@@ -34,6 +36,9 @@
 				</div>
 			</form>
 		</div>
+		
+		<jsp:include page="../common/footer.jsp" />
+		
 		<script>
 			
 	    	function allCheck(){

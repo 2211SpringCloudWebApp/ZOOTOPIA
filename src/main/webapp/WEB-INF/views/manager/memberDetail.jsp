@@ -14,6 +14,8 @@
 	    </style>
 	</head>
 	<body>
+		<jsp:include page="../common/header.jsp"></jsp:include>
+		
 	    <h1>회원정보</h1>
 	    <table>
 	        <thead>
@@ -54,6 +56,9 @@
 	        </tbody>
 	    </table>
 	    <button onclick="deleteBtn('${mOne.memberId}')">회원삭제</button>
+	    
+	    <jsp:include page="../common/footer.jsp" />
+	    
 	    <script>
 			function deleteBtn(memberId){
 				if(confirm("회원을 삭제하시겠습니까?")){
