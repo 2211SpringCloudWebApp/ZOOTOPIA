@@ -1,6 +1,5 @@
 package com.kh.zootopia.review.controller;
 
-import java.io.File;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,9 +12,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kh.zootopia.AdoptAnimalPost.domain.Animal;
+import com.kh.zootopia.comment.controller.CommentController;
+import com.kh.zootopia.comment.domain.Comment;
+import com.kh.zootopia.like.controller.LikeController;
+import com.kh.zootopia.like.domain.Like;
 import com.kh.zootopia.member.domain.Member;
 import com.kh.zootopia.review.domain.PageInfo;
 import com.kh.zootopia.review.domain.Review;
@@ -27,13 +30,19 @@ public class ReviewController {
 
 	@Autowired
 	private ReviewService reviewService;
+	@Autowired
+	private LikeController likeController;
+	@Autowired
+	private CommentController commentController;
 	
 	/**
 	 * 후기 등록 페이지
 	 */
-	@RequestMapping(value = "/review/writeView.ztp", method = RequestMethod.GET)
-	public String reviewWriteView() {
-	
+	@RequestMapping(value = "/review/writeView.ztp", method = RequestMethod.POST)
+	public String reviewWriteView(int animalNo, Model model) {
+		
+		System.out.println("동물 번호 : " + animalNo);
+		model.addAttribute("animalNo", animalNo);
 		return "review/write";
 		
 	}
@@ -51,7 +60,7 @@ public class ReviewController {
 			, HttpSession session
 //			, @RequestParam("reviewImageName") MultipartFile uploadImageFile
 //			, @RequestParam("reviewVideoName") MultipartFile uploadVideoFile
-			, HttpServletRequest request, ModelAndView mv
+			, HttpServletRequest request, ModelAndView mv, int animalNo
 			) {
 		
 		try {
@@ -59,13 +68,16 @@ public class ReviewController {
 			Member member = (Member) session.getAttribute("loginUser");
 			String reviewWriterId = member.getMemberId();
 			
+			System.out.println(member + "\n" + reviewWriterId + "\n" + animalNo);
+			
 			Review review = new Review();
 			review.setReviewTitle(reviewTitle);
 			review.setReviewContent(reviewContent);
 			review.setReviewWriterId(reviewWriterId);
+			review.setAnimalNo(animalNo);
 //			review.setReviewImageName(uploadImageFile);
 //			review.setReviewVideoName(reviewVideoName);
-			
+//			
 //			if (!uploadImageFile.getOriginalFilename().equals("")) {
 //				
 //				String filePath = saveFile(uploadImageFile, request);
@@ -80,7 +92,7 @@ public class ReviewController {
 			
 			if (result > 0) {
 				
-				mv.setViewName("review/list");
+				mv.setViewName("redirect: /review/list.ztp");
 				
 			} else {
 				
@@ -133,7 +145,7 @@ public class ReviewController {
 //		}
 //		
 //	}
-//	
+	
 	/**
 	 * 후기 목록
 	 */
@@ -173,15 +185,46 @@ public class ReviewController {
 	
 	/**
 	 * 후기 상세 페이지
+	 * : 후기 리스트에서 게시물을 클릭할 경우 해당 게시물에 대한 like VO(게시판ID, 게시글NO, 회원ID)정보를 LikeController의 checkLike로 보낸 후 나온 값으로 좋아요 유/무 확인.
+	 * 또한 게시물을 클릭할 경우 해당 게시물에 대한 조회수 1 증가
 	 */
 	@RequestMapping(value = "/review/detail.ztp", method = RequestMethod.GET)
-	public ModelAndView reviewDetail(@RequestParam("reviewPostNo") int reviewPostNo, ModelAndView mv) {
+	public ModelAndView reviewDetail(
+			@RequestParam("reviewPostNo") int reviewPostNo
+			, HttpSession session
+			, ModelAndView mv) {
 		
 		try {
 			
-			Review review = reviewService.selectReview(reviewPostNo);
-			reviewService.viewCount(reviewPostNo);
-			mv.addObject("review", review).setViewName("review/detail");
+			Member member;
+			String memberId;
+
+			if (session.getAttribute("loginUser") == null) {
+				memberId = null;
+			} else {
+				member = (Member) session.getAttribute("loginUser");
+				memberId = member.getMemberId();
+			}
+			
+			Review review = reviewService.selectReview(reviewPostNo); // 해당 review게시물 내용 가져오기
+			int animalNo = review.getReviewPostNo(); // 
+			Animal animal = reviewService.selectAnimalByAnimalNo(animalNo);
+			
+			Like like = new Like("R", reviewPostNo, memberId);
+			int likeResult = likeController.checkLike(like); // 해당 게시물의 like 유/무 가져오기
+			
+			Comment comment = new Comment();
+			comment.setBoardId("R");
+			comment.setPostNo(reviewPostNo);
+			List<Comment> commentList = commentController.commentList(comment); // 해당 게시물의 댓글 가져오기
+			
+			reviewService.viewCount(reviewPostNo); // 조회수 1 증가
+			
+			mv.addObject("like", likeResult); // 좋아요 유무
+			mv.addObject("review", review); // 게시물 정보 
+			mv.addObject("commentList", commentList); // 댓글 정보
+			mv.addObject("Animal", animal); // 동물 정보
+			mv.setViewName("review/detail");
 			
 		} catch (Exception e) {
 			
@@ -192,35 +235,35 @@ public class ReviewController {
 		return mv;
 		
 	}
-//	
-//	/**
-//	 * 후기 삭제
-//	 */
-//	@RequestMapping(value = "/review/delete.ztp", method = RequestMethod.GET)
-//	public String reviewDelete(@RequestParam("reviewNo") int reviewNo, Model model) {
-//		
-//		try {
-//			
-//			int result = reviewService.deleteReview(reviewNo);
-//			
-//			if (result > 0) {
-//				
-//				return "redirect:/review/list";
-//				
-//			} else {
-//				
-//				model.addAttribute("message", "삭제 오류");
-//				return "common/error";
-//			}
-//			
-//		} catch (Exception e) {
-//
-//			model.addAttribute("message", e.getMessage());
-//			return "common/error";
-//			
-//		}
-//	}
-//	
+	
+	/**
+	 * 후기 삭제
+	 */
+	@RequestMapping(value = "/review/delete.ztp", method = RequestMethod.GET)
+	public String reviewDelete(int reviewPostNo, Model model) {
+		
+		try {
+			
+			int result = reviewService.deleteReview(reviewPostNo);
+			
+			if (result > 0) {
+				
+				return "review/list";
+				
+			} else {
+				
+				model.addAttribute("message", "삭제 오류");
+				return "common/error";
+			}
+			
+		} catch (Exception e) {
+
+			model.addAttribute("message", e.getMessage());
+			return "common/error";
+			
+		}
+	}
+	
 	/**
 	 * 후기 검색
 	 * @param review

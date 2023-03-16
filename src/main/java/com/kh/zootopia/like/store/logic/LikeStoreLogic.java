@@ -12,7 +12,7 @@ public class LikeStoreLogic implements LikeStore {
 	@Override
 	public int checkLike(SqlSession session, Like like) {
 		
-		int result = Integer.parseInt(session.selectOne("LikeMapper.checkLike", like)); // select count(*)를 이용해 결과 도출 후 정수형으로 바꿔서 int result에 저장 
+		int result = session.selectOne("LikeMapper.checkLike", like); // select count(*)를 이용해 결과 도출 후 정수형으로 바꿔서 int result에 저장 
 		
 		return result;
 		
@@ -33,6 +33,27 @@ public class LikeStoreLogic implements LikeStore {
 		int result = session.delete("LikeMapper.cancelLike", like);
 		
 		return result;
+	}
+	
+	/**
+	 * 유정 좋아요
+	 */
+	@Override
+	public int like(SqlSession session, Like like) {
+		
+		// 해당 회원이 해당 게시판, 게시글에 좋아요를 누른 상태인지 확인하기
+		int checkLike = session.selectOne("LikeMapper.checkLikeYJ", like);
+		if (checkLike == 0) {
+			// 좋아요를 안 누른 상태라면 버튼을 눌렀을 때 좋아요
+			session.insert("LikeMapper.insertLikeYJ", like);
+		} else {
+			// 좋아요를 이미 누른 상태라면 버튼을 눌렀을 때 좋아요 취소
+			session.delete("LikeMapper.deleteLikeYJ", like);
+		}
+		
+		// 작업 수행 후 좋아요 총 좋아요 개수
+		int likeCount = session.selectOne("LikeMapper.likeCount", like);
+		return likeCount;
 	}
 	
 }

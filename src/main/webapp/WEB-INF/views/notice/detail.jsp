@@ -11,13 +11,14 @@
 			* {
 			    margin: 0;
 			    padding: 0;
-			    text-align: center;
+/* 			    text-align: center; */
 			    outline: none; 
 			}
 			main {
 			    width: 100vw;
 			    margin-top: 225px;
 			    margin-bottom: 50px;
+			    text-align: center;
 			}
 			.detailHeader {
 				width: 80%, 20%;
@@ -64,13 +65,13 @@
 						<input type="submit" class="detailBtn" value="수정">
 						<input type="reset" class="detailBtn" value="취소"> 
 				</form>
-					<div id="removeArea">
-						<a href="javascript:void(0);" onclick="removeCheck(${notice.noticeNo });">삭제하기</a>
-						<a href="${nList }">목록으로</a>					
-					</div>
 					<c:url var="nList" value="/notice/list.ztp">
 						<c:param name="noticeNo" value="${notice.noticeNo }"/>
 					</c:url>
+					<div id="removeArea">
+						<a href="javascript:void(0);" onclick="removeCheck(${notice.noticeNo });">삭제하기</a>
+						<a href="${nList }">목록으로</a>				
+					</div>
 <%-- 					<c:url var="nDelete" value="/notice/remove.ztp">			 --%>
 <%-- 						<c:param name="noticeNo" value="${notice.noticeNo }"/>   --%>
 <%-- 					</c:url>													 --%>
@@ -95,7 +96,7 @@
 			<div class="comment">
 				<form name="commentForm" action="/comment/insert.ztp" method="post">
 					<input type="hidden" name="commentWriterId" value="${sessionScope.loginUser.memberId}">
-					<input type="hidden" name="boardId" value="A">
+					<input type="hidden" name="boardId" value="N">
 					<input type="hidden" name="postNo" value="${notice.noticeNo}">
 					<input type="hidden" name="url" value="/notice/detail.ztp?noticeNo=">
 					<input type="text" name="commentContent" placeholder="댓글을 입력해 주세요">

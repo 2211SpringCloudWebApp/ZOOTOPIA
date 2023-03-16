@@ -7,7 +7,7 @@ public class Review {
 	private int reviewPostNo;			// 후기 게시글 번호
 	private String boardId;				// 게시판 ID
 	private String reviewWriterId;		// 후기 작성자 ID
-	private String animalNo;			// 동물 번호
+	private int animalNo;			// 동물 번호
 	private String reviewTitle;			// 후기 제목
 	private String reviewContent;		// 후기 내용
 	private String reviewImageName;		// 첨부파일(사진) 이름
@@ -44,11 +44,11 @@ public class Review {
 		this.reviewWriterId = reviewWriterId;
 	}
 
-	public String getAnimalNo() {
+	public int getAnimalNo() {
 		return animalNo;
 	}
 
-	public void setAnimalNo(String animalNo) {
+	public void setAnimalNo(int animalNo) {
 		this.animalNo = animalNo;
 	}
 

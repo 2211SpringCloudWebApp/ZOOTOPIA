@@ -15,4 +15,11 @@ public interface ReservationService {
 	 */
 	List<Reservation> selectAllapplicantByAnimalNo(int animalNo);
 
+	/**
+	 * 입양 상담 예약 등록 Service
+	 * @param reservation
+	 * @return
+	 */
+	int insertReservation(Reservation reservation);
+
 }

@@ -12,6 +12,18 @@ public class Reservation {
 	private Timestamp reservationTime;
 	
 	public Reservation() {}
+	
+	
+
+	public Reservation(int animalNo, String fosterId, String adopterId, Timestamp reservationTime) {
+		super();
+		this.animalNo = animalNo;
+		this.fosterId = fosterId;
+		this.adopterId = adopterId;
+		this.reservationTime = reservationTime;
+	}
+
+
 
 	public int getReservationNo() {
 		return reservationNo;

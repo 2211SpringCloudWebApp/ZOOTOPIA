@@ -48,19 +48,36 @@
 	</select>
 
 	<insert id="insertReview" parameterType="review">
-		INSERT INTO REVIEW_POST_TBL VALUES (#{reviewPostNo}, 'R', #{reviewWriterId}, 123, #{reviewTitle}, #{reviewContent}, #{reviewImageName}, #{reviewImagePath}, #{reviewVideoName}, #{reviewVideoPath}, DEFAULT, DEFAULT, #{reviewViewCount})	
+		INSERT INTO REVIEW_POST_TBL VALUES (SEQ_REVIEWNO.NEXTVAL, DEFAULT, #{reviewWriterId}, #{animalNo}, #{reviewTitle}, #{reviewContent}, #{reviewImageName}, #{reviewImagePath}, #{reviewVideoName}, #{reviewVideoPath}, DEFAULT, DEFAULT, #{reviewViewCount})	
 	</insert>
 	
 	<update id="reviewViewCount">
 		UPDATE REVIEW_POST_TBL SET REVIEW_VIEW_COUNT = REVIEW_VIEW_COUNT + 1 WHERE REVIEW_POST_NO = #{reviewPostNo}
 	</update>
-<!-- 	
-	<update id="modifyReview">
-	
-	</update>
 	
 	<delete id="deleteReview">
+		DELETE FROM REVIEW_POST_TBL WHERE REVIEW_POST_NO = #{reviewPostNo}
+	</delete>
 	
-	</delete> -->
+	<!-- 마이페이지에서 접근 -->
+	<select id="mypageSelectReviewList" resultMap="reviewResultMap" parameterType="String">
+		SELECT * FROM REVIEW_POST_TBL WHERE REVIEW_WRITER_ID = #{memberId}
+	</select>
+	
+	<select id="mypageSearchReview" resultMap="reviewResultMap">
+		SELECT * FROM REVIEW_POST_TBL 
+		<if test="condition == 'all'">WHERE REVIEW_POST_NO LIKE '%' || #{keyword} || '%' OR REVIEW_TITLE LIKE '%' || #{keyword} || '%' OR REVIEW_CONTENT LIKE '%' || #{keyword} || '%'</if>
+		<if test="condition == 'no'">WHERE REVIEW_POST_NO LIKE '%' || #{keyword} || '%'</if>
+		<if test="condition == 'title'">WHERE REVIEW_TITLE LIKE '%' || #{keyword} || '%'</if>
+		<if test="condition == 'content'">WHERE REVIEW_CONTENT LIKE '%' || #{keyword} || '%'</if>
+	</select>  
+	
+	<select id="selectMypageReviewCount" resultType="_int">
+		SELECT COUNT(*) FROM REVIEW_POST_TBL
+		<if test="condition == 'all'">WHERE REVIEW_POST_NO LIKE '%' || #{keyword} || '%' OR REVIEW_TITLE LIKE '%' || #{keyword} || '%' OR REVIEW_CONTENT LIKE '%' || #{keyword} || '%'</if>
+		<if test="condition == 'no'">WHERE REVIEW_POST_NO LIKE '%' || #{keyword} || '%'</if>
+		<if test="condition == 'title'">WHERE REVIEW_TITLE LIKE '%' || #{keyword} || '%'</if>
+		<if test="condition == 'content'">WHERE REVIEW_CONTENT LIKE '%' || #{keyword} || '%'</if>
+	</select>
 	
 </mapper>

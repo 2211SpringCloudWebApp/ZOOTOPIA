@@ -8,7 +8,7 @@
 	</head>
 	<body>
 		<h1>LOG IN</h1>
-	    <form action="/member/login.ztp" method="get"> 
+	    <form action="/member/login.ztp" method="post"> 
 	        <input type="text" name = "memberId" placeholder="UserId"> <br>
 	        <input type="password" name ="memberPw">
 	        <a href="/member/findIdPage.ztp">아이디 찾기</a> |

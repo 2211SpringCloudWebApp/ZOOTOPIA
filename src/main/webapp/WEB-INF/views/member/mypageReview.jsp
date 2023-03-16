@@ -5,7 +5,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>마이페이지 좋아요</title>
+		<title>멤버리스트</title>
 		<style>
 	        div{
 	            text-align: center;
@@ -60,6 +60,29 @@
 			        <button type="submit">삭제</button>
 			    </div>
 		    </form>
+
+	        	<%-- <tr align="center">
+	        		<td colspan="4">
+	        			<c:if test="${pageInfo.currentPage > 1}">
+	        				<a href="/review/list.ztp?page=1" class="first-last-page">첫페이지</a>
+	        			</c:if>
+	        			<c:if test="${pageInfo.currentPage > 1}">
+	        				<a href="/review/list.ztp?page=${pageInfo.currentPage - 1}" class="prev-next-page">이전</a>
+	        			</c:if>
+	        			<c:forEach begin="${pageInfo.startNav}" end="${pageInfo.endNav}" var="page">
+	        				<c:url var="pageUrl" value="/review/list.ztp">
+	        					<c:param name="page" value="${page}" />
+	        				</c:url>
+	        				<a href="${pageUrl}" <c:if test="${pageInfo.currentPage == page}">style="font-weight: 400; color: red"</c:if>>${page}</a>
+	        			</c:forEach>
+	        			<c:if test="${pageInfo.currentPage < pageInfo.maxPage}">
+	        				<a href="/review/list.ztp?page=${pageInfo.currentPage + 1}" class="prev-next-page">다음</a>
+	        			</c:if>
+	        			<c:if test="${pageInfo.currentPage < pageInfo.maxPage}">
+	        				<a href="/review/list.ztp?page=${pageInfo.maxPage}" class="first-last-page">마지막페이지</a>
+	        			</c:if>
+	        		</td>
+	        	</tr> --%>
 	    </div>
 	    <script>
 			

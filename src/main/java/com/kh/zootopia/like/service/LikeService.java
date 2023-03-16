@@ -24,5 +24,12 @@ public interface LikeService {
 	 * @return int
 	 */
 	public int cancelLike(Like like);
+	
+	/**
+	 * 유정 좋아요
+	 * @param like
+	 * @return
+	 */
+	public int like(Like like);
 
 }

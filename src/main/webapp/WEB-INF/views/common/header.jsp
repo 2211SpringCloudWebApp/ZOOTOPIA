@@ -86,8 +86,8 @@
 							비로그인 상태라면 로그인해야 이용할 수 있다고 팝업 띄우고
 							로그인 페이지로 이동
 						-->
-						<div onclick="location.href='#'">입양후기 등록</div>
-						<div onclick="location.href='#'">입양후기 확인</div>
+						<div onclick="location.href='/member/animalList.ztp'">입양후기 등록</div>
+						<div onclick="location.href='/review/list.ztp'">입양후기 확인</div>
 					</div>
 				</div>
 			</li>
@@ -107,7 +107,7 @@
 					<div>NOTICE</div>
 					<div class="menu-list-bar"></div>
 					<div class="drop-down">
-						<div onclick="location.href='#'">공지사항</div>
+						<div onclick="location.href='/notice/list.ztp'">공지사항</div>
 					</div>
 				</div>
 			</li>

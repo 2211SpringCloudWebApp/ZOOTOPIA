@@ -33,4 +33,42 @@
 		SELECT * FROM ADOPT_POST_TBL WHERE ANIMAL_NO = #{animalNo }
 	</select>
 	
+	<select id="selectFilteredPost" resultMap="adoptPostResultMap">
+		SELECT * FROM (SELECT * FROM ANIMAL_TBL a LEFT OUTER JOIN ADOPT_POST_TBL p ON a.ANIMAL_NO = p.ANIMAL_NO ORDER BY a.ANIMAL_NO DESC)
+		  <where>
+		    <if test="animalSpecies != null and animalSpecies != ''">
+		    	<if test="animalSpecies !=  '전체'">
+			      AND ANIMAL_SPECIES = #{animalSpecies }
+		    	</if>
+		    </if>
+		    <if test="animalAddr != null and animalAddr != ''">
+		      AND ANIMAL_ADDR LIKE '%' || #{animalAddr } || '%'
+		    </if>
+		    <if test="adoptCreateDateStart != null and adoptCreateDateStart != ''">
+		      AND ADOPT_CREATE_DATE &gt;= #{adoptCreateDateStart }
+		    </if>
+		    <if test="adoptCreateDateEnd != null and adoptCreateDateEnd != ''">
+		      AND ADOPT_CREATE_DATE &lt;= #{adoptCreateDateEnd }
+		    </if>
+		  </where>
+	</select>
+	
+	<select id="adoptPostNoCurrval" resultType="_int">
+		SELECT SEQ_ADOPTPOSTNO.CURRVAL FROM DUAL
+	</select>
+	
+	<!-- 	소현 맵퍼 -->
+	<update id="approveAdopt">
+		UPDATE ADOPT_POST_TBL SET ADOPT_APPROVAL_YN = 'Y' WHERE ADOPT_POST_NO = #{adoptPostNo}
+	</update>
+	
+	<delete id="deleteAdopts">
+		DELETE FROM ADOPT_POST_TBL WHERE ANIMAL_NO = #{animalNo}
+	</delete>
+	
+	<select id="selectAdopt" resultMap="adoptPostResultMap">
+		SELECT ADOPT_POST_NO, ADOPT_WRITER_ID FROM ADOPT_POST_TBL WHERE ADOPT_APPROVAL_YN = 'N'
+	</select>
+<!-- 	여기까지 -->
+	
 </mapper>

@@ -19,6 +19,7 @@
 		<result property="animalAdopterId" 	column="ANIMAL_ADOPTER_ID" />
 	</resultMap>
 	
+	<!-- 유정 -->
 	<insert id="insertAnimal">
 		INSERT INTO ANIMAL_TBL VALUES (SEQ_ANIMALNO.NEXTVAL, #{animalSpecies }, #{animalGender }, #{animalWeight }, #{animalAge }, #{neuterYN }, #{animalAddr }, #{animalCharacter }, #{animalFosterId }, NULL)
 	</insert>
@@ -34,5 +35,56 @@
 	<select id="selectTotalAnimalCount" resultType="_int">
 		SELECT COUNT(*) FROM ANIMAL_TBL 
 	</select>
+	
+	<select id="selectFilteredAnimalCount" resultType="_int">
+		SELECT COUNT(*) FROM (SELECT * FROM ANIMAL_TBL a LEFT OUTER JOIN ADOPT_POST_TBL p ON a.ANIMAL_NO = p.ANIMAL_NO ORDER BY a.ANIMAL_NO DESC)
+		  <where>
+		    <if test="animalSpecies != null and animalSpecies != ''">
+		      AND ANIMAL_SPECIES = #{animalSpecies }
+		    </if>
+		    <if test="animalAddr != null and animalAddr != ''">
+		      AND ANIMAL_ADDR LIKE '%' || #{animalAddr } || '%'
+		    </if>
+		    <if test="adoptCreateDateStart != null and adoptCreateDateStart != ''">
+		      AND ADOPT_CREATE_DATE &gt;= #{adoptCreateDateStart }
+		    </if>
+		    <if test="adoptCreateDateEnd != null and adoptCreateDateEnd != ''">
+		      AND ADOPT_CREATE_DATE &lt;= #{adoptCreateDateEnd }
+		    </if>
+		  </where>
+	</select>
+	
+	<select id="selectFilteredAnimal" resultMap="animalResultMap">
+		SELECT * FROM (SELECT * FROM ANIMAL_TBL a LEFT OUTER JOIN ADOPT_POST_TBL p ON a.ANIMAL_NO = p.ANIMAL_NO ORDER BY a.ANIMAL_NO DESC)
+		  <where>
+		    <if test="animalSpecies != null and animalSpecies != ''">
+		    	<if test="animalSpecies !=  '전체'">
+			      AND ANIMAL_SPECIES = #{animalSpecies }
+		    	</if>
+		    </if>
+		    <if test="animalAddr != null and animalAddr != ''">
+		      AND ANIMAL_ADDR LIKE '%' || #{animalAddr } || '%'
+		    </if>
+		    <if test="adoptCreateDateStart != null and adoptCreateDateStart != ''">
+		      AND ADOPT_CREATE_DATE &gt;= #{adoptCreateDateStart }
+		    </if>
+		    <if test="adoptCreateDateEnd != null and adoptCreateDateEnd != ''">
+		      AND ADOPT_CREATE_DATE &lt;= #{adoptCreateDateEnd }
+		    </if>
+		  </where>
+	</select>
+	<!-- ====================== -->
+	
+	<!-- 마이페이지에서 넘어오는 부분 -->
+	<select id="selectAllAnimalsbyAnimalAdopterId" resultMap="animalResultMap">
+		SELECT * FROM ANIMAL_TBL WHERE ANIMAL_ADOPTER_ID = #{memberId}
+	</select>
+	<!-- ====================== -->
+	
+	<!-- 후기에서 넘어오는 부분 -->
+	<select id="selectAnimalByAnimalNo" resultMap="animalResultMap">
+		SELECT * FROM ANIMAL_TBL WHERE ANIMAL_NO = #{animalNo}
+	</select>
+	<!-- ====================== -->
 	
 </mapper>

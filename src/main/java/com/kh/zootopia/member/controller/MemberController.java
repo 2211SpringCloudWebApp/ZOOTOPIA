@@ -14,10 +14,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.context.annotation.SessionScope;
 
-import com.kh.zootopia.AdoptAnimalPost.domain.AdoptAnimalPost;
-import com.kh.zootopia.AdoptAnimalPost.service.AdoptAnimalService;
+import com.kh.zootopia.AdoptAnimalPost.domain.Animal;
+import com.kh.zootopia.like.domain.Like;
 import com.kh.zootopia.member.domain.Member;
 import com.kh.zootopia.member.service.MemberService;
 import com.kh.zootopia.review.controller.ReviewController;
@@ -145,7 +144,7 @@ public class MemberController {
 	} 
 	
 	// 멤버 로그인
-	@RequestMapping(value = "/member/login.ztp", method= RequestMethod.GET)
+	@RequestMapping(value = "/member/login.ztp", method= RequestMethod.POST)
 	public String memberLogin(
 			HttpServletRequest request
 			,String memberId
@@ -244,6 +243,8 @@ public class MemberController {
 		return "member/mypageInfo";
 	}
 	
+	
+	
 	// 마이페이지 입양후기 게시판
 	@RequestMapping(value = "/member/mypageReview.ztp" , method = RequestMethod.GET)
 	public String MypageList(
@@ -256,28 +257,51 @@ public class MemberController {
 		PageInfo pageInfo = reviewController.getPageInfo(page, totalCount);
 		List<Review> reviewList = reviewService.mypageSelectReviewList(pageInfo, memberId);
 		model.addAttribute("reviewList", reviewList);
-		return "member/mypageList";
+		return "member/mypageReview";
 	}
 	
 
 	
-	// 마이페이지 검색
+	// 마이페이지 입양후기 검색
 	@RequestMapping(value="/member/reviewSearch.ztp" , method = RequestMethod.POST)
 	public String mypageReviewSearch(
 			@ModelAttribute Search search
 			,@RequestParam(value = "page", required = false, defaultValue = "1") Integer page
 			,Model model
 			) {
-		int totalCount = reviewService.getListCount(search);
+		System.out.println(search);
+		int totalCount = reviewService.mypageGetListCount(search);
 		PageInfo pageInfo = reviewController.getPageInfo(page, totalCount);
-		List<Review> reviewList = reviewService.searchReview(pageInfo, search);
-		return "";
+		List<Review> reviewList = reviewService.mypageSearchReview(pageInfo, search);
+		model.addAttribute("reviewList",reviewList);
+		return "member/mypageReview";
 	}
 	
+	// 마이페이지 좋아요 누른 글
+//	@RequestMapping(value = "/member/mypageLike.ztp" , method = RequestMethod.GET)
+//	public String MypageLike(
+//			HttpSession session
+//			,@RequestParam(value = "page", required = false, defaultValue = "1") Integer page
+//			,Model model
+//			) {
+//		String memberId = ((Member)session.getAttribute("loginUser")).getMemberId();
+//		int totalCount = mService.mypageGetLikeCount(memberId);
+//		PageInfo pageInfo = reviewController.getPageInfo(page, totalCount);
+//		List<Review> reviewList = reviewService.mypageSelectReviewList(pageInfo);
+//		model.addAttribute("reviewList", reviewList);
+//		return "member/mypageLike";
+//	}
 	
-			
-		
 	
+	
+	
+	// 마이페이지 후기 상세페이지 선생님한테 질문
+//	@RequestMapping(value = "/member/reviewDetail.ztp" , method= RequestMethod.GET)
+//	public String mypageReviewDetail(
+//			@ModelAttribute Review review
+//			) {
+//		return "review/detail";
+//	}
 			
 		
 	
@@ -294,19 +318,38 @@ public class MemberController {
 		return "member/mypageComment";
 	}
 	
-	// 마이페이지 좋아요 누른 글
-	@RequestMapping(value = "/member/mypageLike.ztp" , method = RequestMethod.POST)
-	public String MypageLike() {
-		
+	//마이페이지 후기 게시판 좋아요 누른 글
+	@RequestMapping(value = "/member/mypageReviewLike.ztp" , method = RequestMethod.GET)
+	public String MypageLike(
+			HttpSession session
+			,@ModelAttribute Like like
+			,@RequestParam(value = "page", required = false, defaultValue = "1") Integer page
+			,Model model
+			) {
+		String memberId = ((Member)session.getAttribute("loginUser")).getMemberId();
+		int totalCount = mService.getReviewLikeCount(memberId);
+		PageInfo pageInfo = reviewController.getPageInfo(page, totalCount);
+		List<Like> likeList= mService.getReviewLikeList();
+		for(Like rLike : likeList) {
+			int postNo = rLike.getPostNo();
+			List<Review> reviewLikeList = mService.mypageSelectReviewLikeList(pageInfo ,postNo);
+			model.addAttribute("reviewLikeList", reviewLikeList);
+		}
 		return "member/mypageLike";
+	}
+	
+	// 마이페이지 본인이 입양한 동물들 출력 (return형식과 return값 추가해주세요)
+	@RequestMapping(value = "/member/animalList.ztp", method = RequestMethod.GET)
+	public String selectAnimalbyAnimalAdopterId(HttpSession session, Model model) {
+		
+		Member member = (Member)session.getAttribute("loginUser");
+		String memberId = member.getMemberId();
+		
+		List<Animal> animalList = mService.selectAnimalbyAnimalAdopterId(memberId);
+		
+		model.addAttribute("animalList", animalList);
+		return "member/animalList";
+		
 	}
 
 }
-
-
-
-
-
-
-
-

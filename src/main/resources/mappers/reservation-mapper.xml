@@ -12,8 +12,22 @@
 		<result property="reservationTime" 			column="RESERVATION_TIME" />
 	</resultMap>
 	
+	<!-- 유정 -->
 	<select id="selectAllapplicantByAnimalNo" resultMap="reservationResultMap">
 		SELECT * FROM ADOPT_RESERVATION_TBL WHERE ANIMAL_NO = #{animalNo }
 	</select>
+	<insert id="insertReservation">
+		INSERT INTO ADOPT_RESERVATION_TBL VALUES (SEQ_RESERVATION_NO.NEXTVAL, #{animalNo }, #{fosterId }, #{adopterId }, DEFAULT, #{reservationTime })
+	</insert>
+	<!--  ===  -->
+	
+	<!-- 	예약페이지 -->
+	<select id="selectReservations" resultMap="reservationResultMap" >
+		SELECT * FROM ADOPT_RESERVATION_TBL WHERE (EXTRACT(YEAR FROM RESERVATION_TIME) = #{year} AND EXTRACT(MONTH FROM RESERVATION_TIME) = #{month} AND EXTRACT(DAY FROM RESERVATION_TIME) = #{date}) AND ADOPTED_YN = 'N'
+	</select>
+	
+	<update id="approveReserv">
+		UPDATE ADOPT_RESERVATION_TBL SET ADOPTED_YN = 'Y' WHERE RESERVATION_NO = #{reservationNo}
+	</update>
 
 </mapper>

@@ -10,8 +10,11 @@ import org.springframework.stereotype.Repository;
 import com.kh.zootopia.AdoptAnimalPost.domain.AdoptAnimalPost;
 import com.kh.zootopia.AdoptAnimalPost.domain.AdoptPost;
 import com.kh.zootopia.AdoptAnimalPost.domain.Animal;
+import com.kh.zootopia.AdoptAnimalPost.domain.AnimalFiltering;
 import com.kh.zootopia.AdoptAnimalPost.domain.AnimalPaging;
+import com.kh.zootopia.AdoptAnimalPost.domain.FilteringAndPaging;
 import com.kh.zootopia.AdoptAnimalPost.store.AdoptAnimalStore;
+import com.kh.zootopia.reservation.domain.Reservation;
 
 @Repository
 public class AdoptAnimalStoreLogic implements AdoptAnimalStore {
@@ -53,6 +56,7 @@ public class AdoptAnimalStoreLogic implements AdoptAnimalStore {
 				if (animal.getAnimalNo() == adoptPost.getAnimalNo()) {
 					AdoptAnimalPost aPost = new AdoptAnimalPost(animal, adoptPost);
 					aPostList.add(aPost);
+					break;
 				}
 			}
 		}
@@ -82,5 +86,59 @@ public class AdoptAnimalStoreLogic implements AdoptAnimalStore {
 		return totalAnimalCount;
 
 	}
+
+	/**
+	 * 필터링 된 동물 수 조회 StoreLogic
+	 */
+	@Override
+	public int selectFilteredAnimalCount(SqlSession session, AnimalFiltering filter) {
+		int filteredAnimalCount = session.selectOne("AnimalMapper.selectFilteredAnimalCount", filter);
+		return filteredAnimalCount;
+	}
+
+	/**
+	 * 필터링 된 입양 공고 목록 조회 StoreLogic
+	 */
+	@Override
+	public List<AdoptAnimalPost> selectFilteredAnimal(SqlSession session, FilteringAndPaging filteringAndPaging) {
+		
+		// 페이징 관련
+		AnimalPaging paging = filteringAndPaging.getAnimalPaging();
+		int limit = paging.getAnimalPostLimit();
+		int offset = (paging.getCurrentPage() - 1) * limit;
+		RowBounds rowBounds = new RowBounds(offset, limit);
+
+		// 필터링 관련
+		AnimalFiltering filtering = filteringAndPaging.getAnimalFiltering();
+		
+		List<Animal> aList = session.selectList("AnimalMapper.selectFilteredAnimal", filtering, rowBounds);
+		List<AdoptPost> pList = session.selectList("AdoptPostMapper.selectFilteredPost", filtering, rowBounds);
+
+		List<AdoptAnimalPost> aPostList = new ArrayList<AdoptAnimalPost>();
+
+		// animalNo가 같은 것만 list에 추가하기!
+		for (Animal animal : aList) {
+			for (AdoptPost adoptPost : pList) {
+				if (animal.getAnimalNo() == adoptPost.getAnimalNo()) {
+					AdoptAnimalPost aPost = new AdoptAnimalPost(animal, adoptPost);
+					aPostList.add(aPost);
+					break;
+				}
+			}
+		}
+
+		return aPostList;
+		
+	}
+
+	/**
+	 * 입력될 공고 글 게시글 번호 가져오기 StoreLogic
+	 */
+	@Override
+	public int adoptPostNoCurrval(SqlSession session) {
+		int adoptPostNo = session.selectOne("AdoptPostMapper.adoptPostNoCurrval");
+		return adoptPostNo;
+	}
+
 
 }

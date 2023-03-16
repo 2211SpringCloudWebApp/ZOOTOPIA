@@ -16,7 +16,9 @@
     
     <h1>입양 후기 등록 폼</h1>
     <hr>
+    동물 : ${animalNo}<br>
     <form action="/review/write.ztp" method="POST">
+    <input type="hidden" name="animalNo" value="${animalNo}">
         <table>
             <tr>
                 <td>제목</td>
@@ -35,8 +37,6 @@
                 <td><img src="#" class="attachment_image" onclick="document.getElementById('file').click();"><input type="file" id="file" name="reviewVideoName" style="display:none"></td>
             </tr>
         </table>
-        <input type="hidden" name="reviewWriterId">
-        <input type="hidden" name="animalNo">
         <button type="submit">등록</button>
         <button type="reset">취소</button>
     </form>

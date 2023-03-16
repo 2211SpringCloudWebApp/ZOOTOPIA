@@ -29,4 +29,13 @@ public interface LikeStore {
 	 * @return int
 	 */
 	public int cancelLike(SqlSession session, Like like);
+	
+	/**
+	 * 유정 좋아요
+	 * @param session
+	 * @param like
+	 * @return
+	 */
+	public int like(SqlSession session, Like like);
+	
 }

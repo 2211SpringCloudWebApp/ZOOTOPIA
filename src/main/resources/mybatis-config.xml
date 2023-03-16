@@ -12,20 +12,20 @@
         <typeAlias type="com.kh.zootopia.comment.domain.Comment" alias="Comment"/>
         <typeAlias type="com.kh.zootopia.like.domain.Like" alias="Like"/>
         <typeAlias type="com.kh.zootopia.member.domain.Member" alias="Member"/>
-        <typeAlias type="com.kh.zootopia.notice.domain.Notice" alias="Notice"/>
+       	<typeAlias type="com.kh.zootopia.notice.domain.Notice" alias="Notice"/>
         <typeAlias type="com.kh.zootopia.reservation.domain.Reservation" alias="Reservation"/>
         <typeAlias type="com.kh.zootopia.review.domain.Review" alias="Review"/>
 
     </typeAliases>
     <mappers>
-
+ 
         <mapper resource="mappers/adoptpost-mapper.xml"/>
         <mapper resource="mappers/animal-mapper.xml"/>
         <mapper resource="mappers/comment-mapper.xml"/>
         <mapper resource="mappers/like-mapper.xml"/>
         <mapper resource="mappers/manager-mapper.xml"/>
         <mapper resource="mappers/member-mapper.xml"/>
-        <mapper resource="mappers/notice-mapper.xml"/>
+       	<mapper resource="mappers/notice-mapper.xml"/>
         <mapper resource="mappers/reservation-mapper.xml"/>
         <mapper resource="mappers/review-mapper.xml"/>
     </mappers>

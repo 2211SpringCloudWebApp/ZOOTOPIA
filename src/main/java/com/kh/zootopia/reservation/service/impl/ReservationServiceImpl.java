@@ -23,8 +23,17 @@ public class ReservationServiceImpl implements ReservationService{
 	 */
 	@Override
 	public List<Reservation> selectAllapplicantByAnimalNo(int animalNo) {
-		List<Reservation> rList = session.selectList("ReservationMapper.selectAllapplicantByAnimalNo", animalNo);
+		List<Reservation> rList = rStore.selectAllapplicantByAnimalNo(session, animalNo);
 		return rList;
+	}
+
+	/**
+	 * 입양 상담 예약 등록 ServiceImple
+	 */
+	@Override
+	public int insertReservation(Reservation reservation) {
+		int result = rStore.insertReservation(session, reservation);
+		return result;
 	}
 
 }

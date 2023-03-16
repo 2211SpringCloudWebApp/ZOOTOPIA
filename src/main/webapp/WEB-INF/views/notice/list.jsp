@@ -96,7 +96,7 @@
 				<tfoot>
 					<tr>
 						<td colspan="6">
-	    			<c:if test="${pi.currentPage > 1}">
+	    					<c:if test="${pi.currentPage > 1}">
 		        				<a href="/notice/list.ztp?page=1" class="first-last-page">첫페이지</a>
 		        			</c:if>
 		        			<c:if test="${pi.currentPage > 1}">

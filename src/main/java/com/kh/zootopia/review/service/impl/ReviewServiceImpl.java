@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kh.zootopia.AdoptAnimalPost.domain.Animal;
 import com.kh.zootopia.review.domain.PageInfo;
 import com.kh.zootopia.review.domain.Review;
 import com.kh.zootopia.review.domain.Search;
@@ -60,18 +61,18 @@ public class ReviewServiceImpl implements ReviewService {
 		return result;
 	}
 
-//	@Override
-//	public int deleteReview(int reviewNo) {
-//
-//		int result = reviewStore.deleteReview(session, reviewNo);
-//		
-//		return 0;
-//	}
+	@Override
+	public int deleteReview(int reviewPostNo) {
+
+		int result = reviewStore.deleteReview(session, reviewPostNo);
+		
+		return result;
+	}
 
 	@Override
-	public Review selectReview(int reviewNo) {
+	public Review selectReview(int reviewPostNo) {
 
-		Review review = reviewStore.selectReview(session, reviewNo);
+		Review review = reviewStore.selectReview(session, reviewPostNo);
 		
 		return review;
 	}
@@ -81,6 +82,36 @@ public class ReviewServiceImpl implements ReviewService {
 		
 		reviewStore.viewCount(session, reviewPostNo);
 		
+	}
+	
+	@Override
+	public Animal selectAnimalByAnimalNo(int animalNo) {
+		
+		Animal animal = reviewStore.selectAnimalByAnimalNo(session, animalNo);
+		
+		return animal;
+		
+	}
+	
+	// 마이페이지 후기 조회
+	@Override
+	public List<Review> mypageSelectReviewList(PageInfo pageInfo, String memberId) {
+		List<Review> reviewList = reviewStore.mypageSelectReviewList(session, pageInfo , memberId);
+		return reviewList;
+	}
+
+	// 마이페이지 후기 게시물 전체개수 검색
+	@Override
+	public int mypageGetListCount(Search search) {
+		int result = reviewStore.mypageGetListCount(session, search);
+		return result;
+	}
+	
+	// 마이페이지 후기 게시물 검색
+	@Override
+	public List<Review> mypageSearchReview(PageInfo pageInfo, Search search) {
+		List<Review> reviewList = reviewStore.mypageSearchReview(session, pageInfo, search);
+		return reviewList;
 	}
 
 }

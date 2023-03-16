@@ -3,12 +3,12 @@ package com.kh.zootopia.like.domain;
 public class Like {
 
 	private String boardId;
-	private String postNo;
+	private int postNo;
 	private String likeMemberId;
 	
 	public Like() {}
 
-	public Like(String boardId, String postNo, String likeMemberId) {
+	public Like(String boardId, int postNo, String likeMemberId) {
 		this.boardId = boardId;
 		this.postNo = postNo;
 		this.likeMemberId = likeMemberId;
@@ -22,11 +22,11 @@ public class Like {
 		this.boardId = boardId;
 	}
 
-	public String getPostNo() {
+	public int getPostNo() {
 		return postNo;
 	}
 
-	public void setPostNo(String postNo) {
+	public void setPostNo(int postNo) {
 		this.postNo = postNo;
 	}
 

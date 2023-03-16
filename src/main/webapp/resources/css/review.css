@@ -1,0 +1,53 @@
+.review-wrapper {
+	
+    width: 100vw;
+    
+}
+
+.review-table {
+
+}
+
+.wrapper-table {
+	
+    width: 80vw;
+    height: 20vh;
+    margin: 0 auto;
+    
+}
+
+.inner-table {
+	
+    width: 100%;
+    height: 100%;
+    
+}
+	.thumnail-td {
+	
+		width: 200px;
+		text-align: center;
+		
+	}
+		.thumnail-td img {
+			
+			border-radius: 20px;
+			
+		}
+	.article-td {
+	
+		width: 440px;
+		text-align: left;
+		
+	}
+
+table, tr, td {
+
+    border: 1px solid #ccc;
+    
+}
+
+.review-detail {
+
+	width: 50%;	
+	margin: 0 auto;
+}

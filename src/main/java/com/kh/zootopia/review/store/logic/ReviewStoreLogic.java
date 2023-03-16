@@ -6,6 +6,7 @@ import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import com.kh.zootopia.AdoptAnimalPost.domain.Animal;
 import com.kh.zootopia.review.domain.PageInfo;
 import com.kh.zootopia.review.domain.Review;
 import com.kh.zootopia.review.domain.Search;
@@ -48,8 +49,6 @@ public class ReviewStoreLogic implements ReviewStore {
 	@Override
 	public List<Review> searchReview(SqlSession session, PageInfo pageInfo, Search search) {
 
-		System.out.println(search);
-		System.out.println(pageInfo);
 		int limit = pageInfo.getBoardLimit();
 		int currentPage = pageInfo.getCurrentPage();
 		int offset = (currentPage - 1) * limit;
@@ -68,19 +67,19 @@ public class ReviewStoreLogic implements ReviewStore {
 		return result;
 	}
 
-//	
-//	@Override
-//	public int deleteReview(SqlSession session, int reviewNo) {
-//
-//		int result = session.delete("NoticeMapper.deleteNotice", reviewNo);
-//		
-//		return result;
-//	}
-//
+	
 	@Override
-	public Review selectReview(SqlSession session, int reviewNo) {
+	public int deleteReview(SqlSession session, int reviewPostNo) {
 
-		Review review = session.selectOne("ReviewMapper.selectReview", reviewNo);
+		int result = session.delete("ReviewMapper.deleteReview", reviewPostNo);
+		
+		return result;
+	}
+
+	@Override
+	public Review selectReview(SqlSession session, int reviewPostNo) {
+
+		Review review = session.selectOne("ReviewMapper.selectReview", reviewPostNo);
 
 		return review;
 	}
@@ -88,8 +87,47 @@ public class ReviewStoreLogic implements ReviewStore {
 	@Override
 	public void viewCount(SqlSession session, int reviewPostNo) {
 		
-		session.update("reviewViewCount", reviewPostNo);
+		session.update("ReviewMapper.reviewViewCount", reviewPostNo);
 		
 	}
+	
+	@Override
+	public Animal selectAnimalByAnimalNo(SqlSession session, int animalNo) {
+		
+		Animal animal = session.selectOne("AnimalMapper.selectAnimalByAnimalNo", animalNo);
+		
+		return animal;
+		
+	}
+	
+	//------------------------------------------------------------------------------------------------------------------
+	// 후기 목록 조회
+	@Override
+	public List<Review> mypageSelectReviewList(SqlSession session, PageInfo pageInfo , String memberId ) {
+		int limit = pageInfo.getBoardLimit();
+		int currentPage = pageInfo.getCurrentPage();
+		int offset = (currentPage - 1) * limit;
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		List<Review> reviewList = session.selectList("ReviewMapper.mypageSelectReviewList", memberId, rowBounds);
+		return reviewList;
+	}
+	// 후기 게시물 전체개수 
+	@Override
+	public int mypageGetListCount(SqlSession session, Search search) {
+		int result = session.selectOne("ReviewMapper.selectMypageReviewCount");
+		return result;
+	}
 
+	// 후기 게시물 검색
+	@Override
+	public List<Review> mypageSearchReview(SqlSession session, PageInfo pageInfo, Search search) {
+		int limit = pageInfo.getBoardLimit();
+		int currentPage = pageInfo.getCurrentPage();
+		int offset = (currentPage - 1) * limit;
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		List<Review> reviewList = session.selectList("ReviewMapper.mypageSearchReview", search, rowBounds);
+		return reviewList;
+		
+	}
+	
 }

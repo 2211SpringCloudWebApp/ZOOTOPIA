@@ -7,9 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.zootopia.AdoptAnimalPost.domain.AdoptAnimalPost;
+import com.kh.zootopia.AdoptAnimalPost.domain.AnimalFiltering;
 import com.kh.zootopia.AdoptAnimalPost.domain.AnimalPaging;
+import com.kh.zootopia.AdoptAnimalPost.domain.FilteringAndPaging;
 import com.kh.zootopia.AdoptAnimalPost.service.AdoptAnimalService;
 import com.kh.zootopia.AdoptAnimalPost.store.AdoptAnimalStore;
+import com.kh.zootopia.reservation.domain.Reservation;
 
 @Service
 public class AdoptAnimalServiceImpl implements AdoptAnimalService{
@@ -37,6 +40,15 @@ public class AdoptAnimalServiceImpl implements AdoptAnimalService{
 		return aPostList;
 	}
 	
+	/**
+	 * 필터링 된 입양 공고 목록 조회 ServiceImpl 
+	 */
+	@Override
+	public List<AdoptAnimalPost> selectFilteredAnimal(FilteringAndPaging filteringAndPaging) {
+		List<AdoptAnimalPost> aPostList = aStore.selectFilteredAnimal(session, filteringAndPaging);
+		return aPostList;
+	}
+	
 
 	/**
 	 * 입양 공고 디테일 조회 ServiceImpl
@@ -55,6 +67,26 @@ public class AdoptAnimalServiceImpl implements AdoptAnimalService{
 		int totalAnimalCount = aStore.selectTotalAnimalCount(session);
 		return totalAnimalCount;
 	}
+
+	/**
+	 * 필터링 된 동물 수 조회 ServiceImple
+	 */
+	@Override
+	public int selectFilteredAnimalCount(AnimalFiltering filter) {
+		int filteredAnimalCount = aStore.selectFilteredAnimalCount(session, filter);
+		return filteredAnimalCount;
+	}
+
+	/**
+	 * 입력될 공고 글 게시글 번호 가져오기 ServiceImpl
+	 */
+	@Override
+	public int adoptPostNoCurrval() {
+		int adoptPostNo = aStore.adoptPostNoCurrval(session);
+		return adoptPostNo;
+	}
+
+	
 	
 
 }

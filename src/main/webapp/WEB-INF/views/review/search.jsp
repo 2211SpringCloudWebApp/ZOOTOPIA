@@ -8,34 +8,33 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>후기 리스트</title>
-    <style>
-        table tr td {
-            border: 1px solid #000;
-        }
-    </style>
+    <link rel="stylesheet" href="../../../resources/css/review.css">
 </head>
 <body>
+	<%-- <jsp:include page="../common/header.jsp" /> --%>
     <h1>입양 후기</h1>
-    <div>
- 		<table>
+    <div class="list">
+ 		<table class="review-table wrapper-table">
 	 		<tbody>
 	        <!-- 리스트 -->
 	        <c:set var="i" value="0" />
 	 		<c:set var="j" value="2" />
   			<c:choose>
    				<c:when test="${reviewList != null}">
-    				<c:forEach items="${reviewList}" var="review">
+    				<c:forEach items="${reviewList}" var="reviewList">
      					<c:if test="${i % j == 0}"><tr></c:if>
      						<td>
-     							<table onclick="location.href='/review/detail.ztp?reviewPostNo=${review.reviewPostNo}';">
+     							<table class="review-table inner-table" onclick="location.href='/review/detail.ztp?reviewPostNo=${reviewList.reviewPostNo}';">
 	     							<tr>
-	     								<td rowspan="3"><img src="${review.reviewImageName}" style="width: 100px; height: 100px"></td>
-	     								<td>${review.reviewTitle}</td>
+	     								<!-- 썸네일 -->
+	     								<td rowspan="3" class="thumnail-td"><img src="${reviewList.reviewImageName}" style="width: 100px; height: 100px"></td>
+	     								<!-- 후기글 제목 -->
+	     								<th class="article-td">${reviewList.reviewTitle}</th>
 	     							</tr>
-	     								<td>${review.animalNo}</td>
+	     								<td class="article-td">${reviewList.animalNo}</td>
 	     							</tr>
 	     							<tr>
-	     								<td>${review.reviewWriterId}</td>
+	     								<td class="article-td">${reviewList.reviewWriterId}</td>
 	     							</tr>
      							</table>
      						</td>
@@ -73,27 +72,30 @@
 	        			</c:if>
 	        		</td>
 	        	</tr>
-            	<!-- 검색 -->
+            <!-- 검색 -->
 	            <tr>
-	                <td colspan="3">
-						<form action="/notice/search.kh" method="get">
-							<select name="condition">
-								<option value="all" <c:if test="${condition eq 'all'}">selected</c:if>>전체</option>
-								<option value="writer" <c:if test="${condition eq 'writer'}">selected</c:if>>작성자</option>
-								<option value="title" <c:if test="${condition eq 'title'}">selected</c:if>>제목</option>
-								<option value="content" <c:if test="${condition eq 'content'}">selected</c:if>>내용</option>
-							</select>
-							<input type="text" name="keyword" placeholder="검색어 입력" value="${keyword}">
-							<input type="submit" value="검색">
-						</form>
-					</td>
-	                <td>
+	                <td colspan="2">
+	                	<form action="/review/search.ztp" method="get">
+	                        <select name="condition">
+	                            <option value="all">전체</option>
+	                            <option value="writer">작성자</option>
+	                            <option value="title">제목</option>
+	                            <option value="content">내용</option>
+	                        </select>
+		                    <input type="text" name="keyword" placeholder="검색어 입력">
+		                    <input type="submit" value="검색">
+	                    </form>
+	                </td>
+	            </tr>
+	            <tr>
+	            	<td colspan="2" style="text-align: right;">
 		                <button onclick="location.href='/review/writeView.ztp';">작성</button>
 		            </td>
-	            </tr>
        		</tfoot>
 		</table>
     </div>
+    
+    <jsp:include page="../common/footer.jsp" />
+
 </body>
 </html>
-

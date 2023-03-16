@@ -16,7 +16,7 @@
 		<jsp:include page="../common/header.jsp" />
 
         <main>
-
+			<h1>입양 공고 디테일 페이지입니다</h1>
 			<div>
 				<div>축종 : ${aPost.animal.animalSpecies }</div>
 				<div>성별 : ${aPost.animal.animalGender }</div>
@@ -37,14 +37,16 @@
 				
 				<br>
 				
-				<c:if test="${aPost.adoptPost.adoptWriterId eq loginUser.Id }">
+				<c:if test="${aPost.adoptPost.adoptWriterId eq loginUser.memberId }">
 					<!-- 작성자라면 예약 신청자 정보 확인하기 신청자 목록 페이지 새 창(신청자 누르면 신청자 정보 Detail)-->
 					<input type="button" value="신청자 정보 확인" onclick="location.href='/reservation/applicantList.ztp?animalNo=${aPost.animal.animalNo }'">
-					
+					<a href="#">수정하기</a>
+					<a href="#">삭제하기</a>
 				</c:if>
-				<c:if test="${aPost.adoptPost.adoptWriterId ne loginUser.Id }">
+				<c:if test="${aPost.adoptPost.adoptWriterId ne loginUser.memberId }">
 					<!-- 작성자가 아니라면 예약페이지-->
-					<input type="button" value="예약하기" onclick="location.href='/reservation/registerView.ztp'">
+					<input type="button" value="예약하기" onclick="openReservation('${aPost.animal.animalNo}', '${aPost.animal.animalFosterId}')">
+					
 				</c:if>
 			</div>
 
@@ -57,6 +59,17 @@
 		<jsp:include page="../common/footer.jsp" />
 		
 		<script>
+
+			// 새 창으로 데이터 전달하기
+			function openReservation(animalNo, animalFosterId) {
+				console.log(animalNo);
+				console.log(animalFosterId);
+				const url = '/reservation/registerView.ztp?animalNo=' + animalNo + '&animalFosterId=' + animalFosterId;
+				window.open(url, 'pop', 'width=300, height=200');
+			}
+
+
+			// 좋아요
 			$(document).ready(function() {
 				$('.like-button').click(function() {
 					var boardId = $(this).data('board-id');
@@ -75,6 +88,7 @@
 					});
 				});
 			});
+			
 		</script>
 		
 	</body>

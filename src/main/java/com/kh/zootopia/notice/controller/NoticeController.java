@@ -149,7 +149,7 @@ public class NoticeController {
 			nService.updateNoticeView(noticeNo);
 			
 			Comment comment = new Comment();
-			comment.setBoardId("A");
+			comment.setBoardId("N");
 			comment.setPostNo(noticeNo);
 			List<Comment> commentList = commentController.commentList(comment); // 해당 게시물의 댓글 가져오기
 			
