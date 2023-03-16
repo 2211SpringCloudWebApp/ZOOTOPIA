@@ -12,6 +12,7 @@ import com.kh.zootopia.manager.domain.Search;
 import com.kh.zootopia.manager.service.ManagerService;
 import com.kh.zootopia.manager.store.ManagerStore;
 import com.kh.zootopia.member.domain.Member;
+import com.kh.zootopia.review.domain.PageInfo;
 
 
 @Service
@@ -23,8 +24,8 @@ public class ManagerServiceImpl implements ManagerService{
 	private ManagerStore mStore;
 
 	@Override
-	public List<Member> selectMembers() {
-		List<Member> mList = mStore.selectMembers(session);
+	public List<Member> selectMembers(PageInfo pi) {
+		List<Member> mList = mStore.selectMembers(session, pi);
 		return mList;
 	}
 
@@ -52,8 +53,8 @@ public class ManagerServiceImpl implements ManagerService{
 	}
 
 	@Override
-	public List<AdoptPost> selectAdopt() {
-		List<AdoptPost> aList = mStore.selectAdopt(session);
+	public List<AdoptPost> selectAdopt(PageInfo pi) {
+		List<AdoptPost> aList = mStore.selectAdopt(session, pi);
 		return aList;
 	}
 
@@ -77,6 +78,19 @@ public class ManagerServiceImpl implements ManagerService{
 	@Override
 	public int approveReserv(int reservationNo) {
 		int result = mStore.approveReserv(session, reservationNo);
+		return result;
+	}
+
+	// 페이징처리
+	@Override
+	public int getMemberListCount() {
+		int result = mStore.getMemberListCount(session);
+		return result;
+	}
+
+	@Override
+	public int getAdoptListCount() {
+		int result = mStore.getAdoptListCount(session);
 		return result;
 	}
 

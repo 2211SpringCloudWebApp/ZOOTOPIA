@@ -2,6 +2,8 @@ package com.kh.zootopia.manager.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,12 +11,15 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.zootopia.AdoptAnimalPost.domain.AdoptPost;
 import com.kh.zootopia.manager.domain.DateDTO;
 import com.kh.zootopia.manager.domain.Search;
 import com.kh.zootopia.manager.service.ManagerService;
 import com.kh.zootopia.member.domain.Member;
+import com.kh.zootopia.review.controller.ReviewController;
+import com.kh.zootopia.review.domain.PageInfo;
 
 
 @Controller
@@ -22,14 +27,55 @@ public class ManagerController {
 
 	@Autowired
 	private ManagerService mService;
+	@Autowired
+	private ReviewController reviewController;
+	
+	// 관리자여부체크 Controller
+	public String checkAdmin(HttpSession session, Model model) {
+		Member member = (Member) session.getAttribute("loginUser");
+		if(member!=null) { // member 객체 유/무 (로그인 유/무)
+			String mAdminYN = member.getmAdminYN(); 
+			if(mAdminYN.equals("N")) {
+				return "/member/loginView.ztp";
+			}else {
+				return "Y";
+			}			
+		}else {
+			model.addAttribute("message", "잘못된 접근입니다.");
+			return "common/error";
+		}
+	}
+	
+	// ** 관리자페이지
+	// 관리자페이지 View Controller
+	@RequestMapping(value="/manager/viewManager.ztp", method=RequestMethod.GET)
+	public ModelAndView viewManagerPage(HttpSession session, ModelAndView mv, Model model) {
+		String adminYN = checkAdmin(session, model);
+		if (adminYN.equals("Y")) {
+			mv.setViewName("manager/manager-home");
+		} else {
+			mv.addObject("message", "관리자권한이 없습니다.").setViewName("common/error");
+		}
+		return mv;
+	}
+	
 	// **회원관리
 	// 멤버리스트 Controller
 	@RequestMapping(value="/member/list.ztp", method= RequestMethod.GET)
-	public String selectMembers(Model model) {
+	public String selectMembers(Model model, HttpSession session, @RequestParam(value="page",required=false, defaultValue="1") Integer page) {
 		try {
-			List<Member> mList = mService.selectMembers();
-			model.addAttribute("mList", mList);
-			return "manager/memberList";
+			String adminYN = checkAdmin(session, model);
+			if(adminYN.equals("Y")) {
+				int totalCount = mService.getMemberListCount(); 
+				PageInfo pi = reviewController.getPageInfo(page, totalCount);
+				List<Member> mList = mService.selectMembers(pi);
+				model.addAttribute("pi", pi);
+				model.addAttribute("mList", mList);
+				return "manager/memberList";				
+			}else {
+				model.addAttribute("message", "관리자권한이 없습니다.");
+				return "common/error";
+			}
 		} catch (Exception e) {
 			model.addAttribute("message", e.getMessage());
 			return "common/error";
@@ -98,11 +144,20 @@ public class ManagerController {
 	// ** 입양공고관리
 	// 미승인 입양공고리스트 Controller
 	@RequestMapping(value="/manager/selectAdopt.ztp", method=RequestMethod.GET)
-	public String selectAdopt(Model model) {
+	public String selectAdopt(HttpSession session, Model model, @RequestParam(value="page",required=false, defaultValue="1") Integer page) {
 		try {
-			List<AdoptPost> aList = mService.selectAdopt();
-			model.addAttribute("aList", aList);
-			return "manager/adoptList";			
+			String adminYN = checkAdmin(session, model);
+			if(adminYN.equals("Y")) {
+				int totalCount = mService.getAdoptListCount();
+				PageInfo pi = reviewController.getPageInfo(page, totalCount);
+				List<AdoptPost> aList = mService.selectAdopt(pi);
+				model.addAttribute("pi", pi);
+				model.addAttribute("aList", aList);
+				return "manager/adoptList";	
+			}else {
+				model.addAttribute("message", "관리자권한이 없습니다.");
+				return "common/error";
+			}
 		} catch (Exception e) {
 			model.addAttribute("message", e.getMessage());
 			return "common/error";
@@ -127,8 +182,14 @@ public class ManagerController {
 	// ** 예약관리
 	// 예약페이지 View Controller
 	@RequestMapping(value="/manager/viewReservation.ztp", method=RequestMethod.GET)
-	public String viewReservation() {
-		return "manager/reservation";
+	public String viewReservation(HttpSession session, Model model) {
+		String adminYN = checkAdmin(session, model);
+		if(adminYN.equals("Y")) {
+			return "manager/reservation";
+		}else {
+			model.addAttribute("message", "관리자권한이 없습니다.");
+			return "common/error";
+		}
 	}
 	
 	// 예약페이지 Detail Controller
@@ -151,6 +212,7 @@ public class ManagerController {
 		}
 	}
 	
+	// 예약승인 Controller
 	@RequestMapping(value="/manager/approveReserv.ztp", method=RequestMethod.POST)
 	public String approveReserv(@RequestParam("reservationNo") int reservationNo, Model model) {
 		try {

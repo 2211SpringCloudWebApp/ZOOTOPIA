@@ -30,6 +30,30 @@
 							</tr>
 						</c:forEach>
 					</tbody>
+					<tfoot>
+						<tr align="center">
+			        		<td colspan="3">
+			        			<c:if test="${pi.currentPage > 1}">
+			        				<a href="/manager/selectAdopt.ztp?page=1" class="first-last-page">첫페이지</a>
+			        			</c:if>
+			        			<c:if test="${pi.currentPage > 1}">
+			        				<a href="/manager/selectAdopt.ztp?page=${pi.currentPage - 1}" class="prev-next-page">이전</a>
+			        			</c:if>
+			        			<c:forEach begin="${pi.startNav}" end="${pi.endNav}" var="page">
+			        				<c:url var="pageUrl" value="/manager/selectAdopt.ztp">
+			        					<c:param name="page" value="${page}" />
+			        				</c:url>
+			        				<a href="${pageUrl}" <c:if test="${pi.currentPage == page}">style="font-weight: 400; color: red"</c:if>>${page}</a>
+			        			</c:forEach>
+			        			<c:if test="${pi.currentPage < pi.maxPage}">
+			        				<a href="/manager/selectAdopt.ztp?page=${pi.currentPage + 1}" class="prev-next-page">다음</a>
+			        			</c:if>
+			        			<c:if test="${pi.currentPage < pi.maxPage}">
+			        				<a href="/manager/selectAdopt.ztp?page=${pi.maxPage}" class="first-last-page">마지막페이지</a>
+			        			</c:if>
+			        		</td>
+			        	</tr>
+		            </tfoot>
 				</table>
 				<div id="buttonTag">
 					<button type="submit">승인</button>

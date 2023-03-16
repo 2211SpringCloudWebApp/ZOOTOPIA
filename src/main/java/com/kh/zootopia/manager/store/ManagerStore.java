@@ -8,10 +8,11 @@ import com.kh.zootopia.AdoptAnimalPost.domain.AdoptPost;
 import com.kh.zootopia.manager.domain.DateDTO;
 import com.kh.zootopia.manager.domain.Search;
 import com.kh.zootopia.member.domain.Member;
+import com.kh.zootopia.review.domain.PageInfo;
 
 public interface ManagerStore {
 
-	List<Member> selectMembers(SqlSession session);
+	List<Member> selectMembers(SqlSession session, PageInfo pi);
 
 	Member selectOneById(SqlSession session, String memberId);
 
@@ -21,7 +22,7 @@ public interface ManagerStore {
 
 	void deleteCheckedMembers(SqlSession session, String memberId);
 
-	List<AdoptPost> selectAdopt(SqlSession session);
+	List<AdoptPost> selectAdopt(SqlSession session, PageInfo pi);
 
 	void approveAdopts(SqlSession session, int adoptPostNo);
 
@@ -31,6 +32,10 @@ public interface ManagerStore {
 	List<AdoptPost> viewReservation(SqlSession session, DateDTO dateDTO);
 
 	int approveReserv(SqlSession session, int reservationNo);
+
+	int getMemberListCount(SqlSession session);
+
+	int getAdoptListCount(SqlSession session);
 
 
 }
