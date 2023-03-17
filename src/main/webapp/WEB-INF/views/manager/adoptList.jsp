@@ -6,12 +6,13 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>입양공고리스트</title>
+		<link rel="stylesheet" href="../../../resources/css/manager/adoptList.css">
 	</head>
 	<body>
 		<jsp:include page="../common/header.jsp"></jsp:include>
 		
-		<div>
-			<h1>미승인 입양공고 리스트</h1>
+		<main>
+			<h1 id="main-head">미승인 입양공고 리스트</h1>
 			<form action="/manager/approveAdopt.ztp" name="myform" method="post">
 				<table>
 					<thead>
@@ -59,7 +60,7 @@
 					<button type="submit">승인</button>
 				</div>
 			</form>
-		</div>
+		<main>
 		
 		<jsp:include page="../common/footer.jsp" />
 		

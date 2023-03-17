@@ -1,0 +1,41 @@
+@charset "UTF-8";
+@font-face {
+    font-family: 'hanna';
+    src : url(../font/BMHANNAAir_ttf.ttf);
+    /* unicode-range: U+0020-007F; */
+}
+@font-face{
+    font-family: 'jua';
+    src: url(../font/BMJUA_ttf.ttf);
+}
+* {
+    margin: 0;
+    padding: 0;
+}
+main {
+    width: 100vw;
+    margin-top: 200px;
+}
+
+main>#main-head{
+	color: #4E422D;
+	font-weight: bold;
+	font-size: 25pt;
+	font-family: 'jua';
+	margin-bottom: 20px;
+}
+
+button{
+	border: 1px solid #4E422D;
+	background-color: #4E422D;
+	color: #EEE5C6;
+	padding: 5px;
+	border-radius: 5px;
+	font-family: 'jua';
+	font-size: 20px;
+}
+button:hover {
+	color: #EEE5C6;
+	background-color: white;
+	border: 1px solid white;
+}

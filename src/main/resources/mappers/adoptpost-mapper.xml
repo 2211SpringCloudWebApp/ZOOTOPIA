@@ -69,6 +69,10 @@
 	<select id="selectAdopt" resultMap="adoptPostResultMap">
 		SELECT ADOPT_POST_NO, ADOPT_WRITER_ID FROM ADOPT_POST_TBL WHERE ADOPT_APPROVAL_YN = 'N'
 	</select>
+	
+	<select id="getAdoptListCount" resultType="_int">
+		SELECT COUNT(*) FROM ADOPT_POST_TBL
+	</select>
 <!-- 	여기까지 -->
 	
 </mapper>
