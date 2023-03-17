@@ -8,13 +8,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>후기 디테일 페이지</title>
-    <link rel="stylesheet" href="../../resources/css/review.css">
+    <link rel="stylesheet" href="../../../resources/css/review.css">
 </head>
 <body>
+    <jsp:include page="../common/header.jsp" />
+	<main>
     <div class="review-wrapper">
 
         <div class="review-detail">
-            <%-- <jsp:include page="../common/header.jsp" /> --%>
             로그인된 ID : ${sessionScope.loginUser.memberId}<br>
             글작성자 ID : ${review.reviewWriterId}<br>
             글 NO : ${review.reviewPostNo}<br>
@@ -26,11 +27,12 @@
                         <td>제목 : ${review.reviewTitle}</td>
                         <td rowspan="2">
                             <!-- 좋아요 - 회원에게만 보여짐 -->
-                            <c:if test="${like == 1 && sessionScope.loginUser.memberId ne null}"><button class="like_button" name="like" onclick="like()">좋아요 취소</button></c:if>
-                            <c:if test="${like == 0 && sessionScope.loginUser.memberId ne null}"><button class="like_button" name="like" onclick="like()">좋아요</button></c:if>
+                            <c:if test="${like == 1 && sessionScope.loginUser.memberId ne null}"><img class="detail-icons" src="../../../resources/img/button_like_on.png" alt="좋아요 on" onclick="like()"></c:if>
+                            <c:if test="${like == 0 && sessionScope.loginUser.memberId ne null}"><img class="detail-icons" src="../../../resources/img/button_like_off.png" alt="좋아요 off" onclick="like()"></c:if>
                             <c:if test="${like == 0 && sessionScope.loginUser.memberId ne null}"></c:if>
                             <!-- 공유 -->
-                            <button>공유</button>
+                            <img class="detail-icons" src="../../../resources/img/button_share.png" alt="공유">
+                            <img class="detail-icons" src="../../../resources/img/button_comment.png" alt="댓글">
                         </td>
                     </tr>
                     <tr>
@@ -39,6 +41,7 @@
                 </thead>
             </table>
 			<!-- 입양한 동물에 대한 내용 -->
+			동물 사진 : <img src="../../../resources/uploadFiles/review/${review.reviewImageName}"><br>
 			동물 종류 : ${Animal.animalSpecies}<br>
 			동물 성별 : ${Animal.animalGender}<br>
 			동물 나이 : ${Animal.animalAge}<br>
@@ -66,7 +69,7 @@
             <div class="comment">
                 <form name="commentForm" action="/comment/insert.ztp" method="post">
                     <input type="hidden" name="commentWriterId" value="${sessionScope.loginUser.memberId}">
-                    <input type="hidden" name="boardId" value="R">
+                    <input type="hidden" name="boardId" value="${boardId}">
                     <input type="hidden" name="postNo" value="${review.reviewPostNo}">
                     <input type="hidden" name="url" value="/review/detail.ztp?reviewPostNo=">
                     <input type="text" name="commentContent" placeholder="댓글을 입력해 주세요"><button type="submit">등록</button>
@@ -78,14 +81,14 @@
                             <td>${commentList.commentWriterId}</td>
                             <td>${commentList.commentContent}</td>
                             <td><c:if test="${sessionScope.loginUser.memberId ne null}"><button onclick="reComment()">대댓글</button></c:if>
-                            <td><c:if test="${sessionScope.loginUser.memberId eq review.reviewWriterId || sessionScope.loginUser.memberId eq commentList.commentWriterId}"><button onclick="deleteComment(${commentList.commentNo});">삭제</button></c:if></td>
+                            <td><c:if test="${sessionScope.loginUser.memberId eq review.reviewWriterId || sessionScope.loginUser.memberId eq commentList.commentWriterId || sessionScope.loginUser.mAdminYN eq 'Y'}"><button onclick="deleteComment(${commentList.commentNo}, 'R');">삭제</button></c:if></td>
                         </tr>
                     </c:forEach>
                 </table>
             </div>
         </div>
     </div>
-    
+    </main>
     <jsp:include page="../common/footer.jsp" />
 
     <script>
@@ -102,7 +105,7 @@
 
         }
 
-		function deleteComment(commentNo) {
+		function deleteComment(commentNo, boardId) {
 			
 			if(confirm("정말 삭제하시겠습니까?")) {
 
@@ -110,7 +113,7 @@
                 var object1 = document.createElement('input');
                 object1.setAttribute('type', 'hidden');
                 object1.setAttribute('name', 'boardId');
-                object1.setAttribute('value', 'R');
+                object1.setAttribute('value', boardId);
                 var object2 = document.createElement('input');
                 object2.setAttribute('type', 'hidden');
                 object2.setAttribute('name', 'postNo');

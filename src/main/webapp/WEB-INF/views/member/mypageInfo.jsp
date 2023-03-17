@@ -16,6 +16,11 @@
         <b><a href="/member/mypageComment.ztp">입양후기 댓글</a></b> <br>
         <b><a href="/member/mypageLike.ztp">입양공고 좋아요 누른 글</a></b> <br>
         <b><a href="/member/mypageReviewLike.ztp">입양후기 좋아요 누른 글</a></b> <br>
+        
+        <!-- 임시 추가 부분 -->
+        <b><a href="/member/animalList.ztp">입양한 동물</a></b>
+        <!-- ============== -->
+        
 		<form action="/member/modify.ztp" method="post">
 			아이디 <br>	
 			<input type="text"		name="memberId"	    value="${member.memberId  }" readonly> <br>

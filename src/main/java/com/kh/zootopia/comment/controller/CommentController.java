@@ -97,6 +97,36 @@ public class CommentController {
 	}
 	
 	/**
+	 * 댓글 수정 (미완성)
+	 */
+	@RequestMapping(value = "/comment/modify.ztp", method = RequestMethod.POST)
+	public ModelAndView modifyComment(@ModelAttribute Comment comment, @RequestParam("url") String url, ModelAndView mv) {
+		
+		try {
+			
+			int result = commentService.insertComment(comment);
+			
+			if (result > 0) {
+				
+				mv.setViewName("redirect:"+url+comment.getPostNo());
+				
+			} else {
+				
+				mv.addObject("message", "오류").setViewName("common/error");
+				
+			}
+			
+		} catch (Exception e) {
+			
+			mv.addObject("message", e.getMessage()).setViewName("common/error");
+			
+		}
+		
+		return mv;
+
+	}
+	
+	/**
 	 * 댓글 삭제
 	 */
 	@RequestMapping(value = "/comment/delete.ztp", method = RequestMethod.POST)

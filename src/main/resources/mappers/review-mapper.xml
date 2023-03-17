@@ -61,23 +61,27 @@
 	
 	<!-- 마이페이지에서 접근 -->
 	<select id="mypageSelectReviewList" resultMap="reviewResultMap" parameterType="String">
-		SELECT * FROM REVIEW_POST_TBL WHERE REVIEW_WRITER_ID = #{memberId}
-	</select>
-	
-	<select id="mypageSearchReview" resultMap="reviewResultMap">
-		SELECT * FROM REVIEW_POST_TBL 
-		<if test="condition == 'all'">WHERE REVIEW_POST_NO LIKE '%' || #{keyword} || '%' OR REVIEW_TITLE LIKE '%' || #{keyword} || '%' OR REVIEW_CONTENT LIKE '%' || #{keyword} || '%'</if>
-		<if test="condition == 'no'">WHERE REVIEW_POST_NO LIKE '%' || #{keyword} || '%'</if>
-		<if test="condition == 'title'">WHERE REVIEW_TITLE LIKE '%' || #{keyword} || '%'</if>
-		<if test="condition == 'content'">WHERE REVIEW_CONTENT LIKE '%' || #{keyword} || '%'</if>
-	</select>  
-	
-	<select id="selectMypageReviewCount" resultType="_int">
-		SELECT COUNT(*) FROM REVIEW_POST_TBL
-		<if test="condition == 'all'">WHERE REVIEW_POST_NO LIKE '%' || #{keyword} || '%' OR REVIEW_TITLE LIKE '%' || #{keyword} || '%' OR REVIEW_CONTENT LIKE '%' || #{keyword} || '%'</if>
-		<if test="condition == 'no'">WHERE REVIEW_POST_NO LIKE '%' || #{keyword} || '%'</if>
-		<if test="condition == 'title'">WHERE REVIEW_TITLE LIKE '%' || #{keyword} || '%'</if>
-		<if test="condition == 'content'">WHERE REVIEW_CONTENT LIKE '%' || #{keyword} || '%'</if>
-	</select>
+        SELECT * FROM REVIEW_POST_TBL WHERE REVIEW_WRITER_ID = #{memberId}
+    </select>
+
+    <select id="mypageSearchReview" resultMap="reviewResultMap">
+        SELECT * FROM REVIEW_POST_TBL 
+        <if test="condition == 'all'">WHERE REVIEW_POST_NO LIKE '%'  #{keyword}  '%' OR REVIEW_TITLE LIKE '%'  #{keyword}  '%' OR REVIEW_CONTENT LIKE '%'  #{keyword}  '%'</if>
+        <if test="condition == 'no'">WHERE REVIEW_POST_NO LIKE '%'  #{keyword}  '%'</if>
+        <if test="condition == 'title'">WHERE REVIEW_TITLE LIKE '%'  #{keyword}  '%'</if>
+        <if test="condition == 'content'">WHERE REVIEW_CONTENT LIKE '%'  #{keyword}  '%'</if>
+    </select>
+
+    <select id="selectMypageReviewCount" resultType="_int">
+        SELECT COUNT() FROM REVIEW_POST_TBL
+        <if test="condition == 'all'">WHERE REVIEW_POST_NO LIKE '%'  #{keyword}  '%' OR REVIEW_TITLE LIKE '%'  #{keyword}  '%' OR REVIEW_CONTENT LIKE '%'  #{keyword}  '%'</if>
+        <if test="condition == 'no'">WHERE REVIEW_POST_NO LIKE '%'  #{keyword}  '%'</if>
+        <if test="condition == 'title'">WHERE REVIEW_TITLE LIKE '%'  #{keyword}  '%'</if>
+        <if test="condition == 'content'">WHERE REVIEW_CONTENT LIKE '%'  #{keyword}  '%'</if>
+    </select>
+    <!-- 여기서 부터 0317 -->
+    <select id="selectReviewLikeList" resultMap="reviewResultMap">
+        SELECT REVIEW_POST_TBL. FROM(SELECT * FROM LIKE_TBL WHERE LIKE_MEMBER_ID = #{memberId} AND BOARD_ID = 'R') JOIN REVIEW_POST_TBL ON POST_NO = REVIEW_POST_NO
+    </select>
 	
 </mapper>
