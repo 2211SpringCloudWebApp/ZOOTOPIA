@@ -7,83 +7,87 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>예약페이지</title>
-    <link rel="stylesheet" href="../../resources/css/reservation.css">
+    <link rel="stylesheet" href="../../../resources/css/manager/reservation.css">
     <!-- jQuery CDN -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     
 </head>
 <body>
 	<jsp:include page="../common/header.jsp"></jsp:include>
-    <div class="main">
-        <div class="content-wrap">
-          <div class="content-left">
-<!--             <div class="main-wrap"> -->
-<!--               <div id="main-day" class="main-day"></div> -->
-<!--               <div id="main-date" class="main-date"></div> -->
-<!--             </div> -->
-            <div class="todo-wrap">
-              <div class="todo-title">Reservation List</div>
-              <div class="input-wrap" id="input-wrap">
-<!--                 <input type="text" placeholder="please write here!!" id="input-box" class="input-box"> -->
-<!--                 <button type="button" id="input-data" class="input-data">INPUT</button> -->
-                <div id="input-list" class="input-list">
-              		<form action="/manager/approveReserv.ztp" method="post" id="approveform">
-	              		<table>
-	              			<tr>
-	              				<th></th>
-	              				<th>예약번호</th>
-	              				<th>동물번호</th>
-	              				<th>입양희망자</th>
-	              				<th>입양보내는자</th>
-	              				<th>예약날짜</th>
-	              			</tr>
-	              			<c:forEach items="${aList }" var="aList">
-			              			<tr>
-			              				<td>${aList.reservationNo }</td>
-			              				<td>${aList.animalNo }</td>
-			              				<td>${aList.fosterId }</td>
-			              				<td>${aList.adopterId }</td>
-			              				<td>${aList.reservationTime }</td>
-			              				<td><input type="hidden" name="reservationNo" value="${aList.reservationNo }"><button>승인</button></td>
-			              			</tr>
-	              			</c:forEach>
-	              		</table>
-              		</form>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="content-right">
-            <table id="calendar" align="center">
-              <thead>
-                <tr class="btn-wrap clearfix">
-                  <td>
-                    <label id="prev">
-                        &#60;
-                    </label>
-                  </td>
-                  <td align="center" id="current-year-month" colspan="5"></td>
-                  <td>
-                    <label id="next">
-                        &#62;
-                    </label>
-                  </td>
-                </tr>
-                <tr>
-                    <td class = "sun" align="center">Sun</td>
-                    <td align="center">Mon</td>
-                    <td align="center">Tue</td>
-                    <td align="center">Wed</td>
-                    <td align="center">Thu</td>
-                    <td align="center">Fri</td>
-                    <td class= "sat" align="center">Sat</td>
-                  </tr>
-              </thead>
-              <tbody id="calendar-body" class="calendar-body"></tbody>
-            </table>
-          </div>
-        </div>
-      </div>
+	
+	<main>
+	    <div class="main">
+			<h1>예약현황</h1>
+	        <div class="content-wrap">
+	          <div class="content-left">
+	<!--             <div class="main-wrap"> -->
+	<!--               <div id="main-day" class="main-day"></div> -->
+	<!--               <div id="main-date" class="main-date"></div> -->
+	<!--             </div> -->
+	            <div class="todo-wrap">
+<!-- 	              <div class="todo-title">Reservation List</div> -->
+	              <div class="input-wrap" id="input-wrap">
+	<!--                 <input type="text" placeholder="please write here!!" id="input-box" class="input-box"> -->
+	<!--                 <button type="button" id="input-data" class="input-data">INPUT</button> -->
+	                <div id="input-list" class="input-list">
+	              		<form action="/manager/approveReserv.ztp" method="post" id="approveform">
+		              		<table id="reservation">
+		              			<tr>
+		              				<th>예약번호</th>
+		              				<th>동물번호</th>
+		              				<th>입양희망자</th>
+		              				<th>입양보내는자</th>
+		              				<th>예약날짜</th>
+		              				<th></th>
+		              			</tr>
+		              			<c:forEach items="${aList }" var="aList">
+				              		<tr>
+				              			<td>${aList.reservationNo }</td>
+				              			<td>${aList.animalNo }</td>
+				              			<td>${aList.fosterId }</td>
+				              			<td>${aList.adopterId }</td>
+				              			<td>${aList.reservationTime }</td>
+				              			<td><input type="hidden" name="reservationNo" value="${aList.reservationNo }"><button>승인</button></td>
+				              		</tr>
+		              			</c:forEach>
+		              		</table>
+	              		</form>
+	                </div>
+	              </div>
+	            </div>
+	          </div>
+	          <div class="content-right">
+	            <table id="calendar" align="center">
+	              <thead>
+	                <tr class="btn-wrap clearfix">
+	                  <td>
+	                    <label id="prev">
+	                        &#60;
+	                    </label>
+	                  </td>
+	                  <td align="center" id="current-year-month" colspan="5"></td>
+	                  <td>
+	                    <label id="next">
+	                        &#62;
+	                    </label>
+	                  </td>
+	                </tr>
+	                <tr>
+	                    <td class = "sun" align="center">Sun</td>
+	                    <td align="center">Mon</td>
+	                    <td align="center">Tue</td>
+	                    <td align="center">Wed</td>
+	                    <td align="center">Thu</td>
+	                    <td align="center">Fri</td>
+	                    <td class= "sat" align="center">Sat</td>
+	                  </tr>
+	              </thead>
+	              <tbody id="calendar-body" class="calendar-body"></tbody>
+	            </table>
+	          </div>
+	        </div>
+	      </div>
+      </main>
       
       <jsp:include page="../common/footer.jsp" />
     <script>
@@ -313,6 +317,7 @@
 //                     console.log(resultText)
                     var targetDiv = document.getElementById("input-list");
                     targetDiv.innerHTML = resultText;
+//                     $(targetDiv).css("background-color","white");
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
 //                     console.error(errorThrown);

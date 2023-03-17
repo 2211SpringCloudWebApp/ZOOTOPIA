@@ -15,8 +15,8 @@
 	<body>
 	
 		<jsp:include page="../common/header.jsp"></jsp:include>
-	
-	    <div id="container">
+
+	    <main>
 	    	<div id="main">
 			    <h1>검색 조건</h1>
 			    <div id="searchTag">
@@ -81,7 +81,7 @@
 				    </div>
 			    </form>
 		    </div>
-	    </div>
+	    <main>
 	    
 	    <jsp:include page="../common/footer.jsp" />
 	    

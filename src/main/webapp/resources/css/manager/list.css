@@ -4,11 +4,13 @@
     src : url(../font/BMHANNAAir_ttf.ttf);
     /* unicode-range: U+0020-007F; */
 }
-#container {
-	margin-top: 300px;
-	margin-bottom: 300px;
+* {
+    margin: 0;
+    padding: 0;
 }
-#main {
+main {
+    width: 100vw;
+    margin-top: 200px;
 }
 h1 {
 	font-family : 'hanna';

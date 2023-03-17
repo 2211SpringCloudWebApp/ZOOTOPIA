@@ -10,13 +10,44 @@
 }
 main {
     width: 100vw;
-    margin-top: 125px;
+    margin-top: 200px;
+    margin-bottom: 100px;
+    text-align: center;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 }
-
-main>h1{
-	color: #4E422D;
-	font-weight: bold;
-	font-size: 15pt;
-	font-family: 'jua';
-	margin-top: 30px;
-}
+        .menuTap {
+            width: 300px;
+            height: 100px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: #4E422D;
+            font-weight: bold;
+            font-size: 20pt;
+            font-family: 'jua';
+            transition-duration: 0.2s;
+            position : relative;
+            
+        }
+            .barTap {
+                width: 300px;
+                height:0;
+/*                 margin-bottom: 20px; */
+                transition-duration: 0.3s;
+            }
+        .menuTap:hover {
+/*             background-color: #EEE5C6; */
+            border: 0;
+        }
+        .menuTap:hover .barTap {
+            width: 300px;
+            height: 1px;
+            border-radius: 50px;
+            background-color: #4E422D;
+        }
+        img{
+        	text-align: center;
+        }

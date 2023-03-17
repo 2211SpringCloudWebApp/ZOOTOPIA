@@ -13,9 +13,19 @@
 		<jsp:include page="../common/header.jsp" />
 			
 			<main>
-			     <h1 onclick="location.href='/member/list.ztp'">회원관리</h1>
-			     <h1 onclick="location.href='/manager/selectAdopt.ztp'">입양공고관리</h1>
-			     <h1 onclick="location.href='/manager/viewReservation.ztp'">예약관리</h1>
+				<div class="menuTap">
+<!-- 					<img alt="" src="../../../resources/img/manager-icon.png"> -->
+				    <h1 onclick="location.href='/member/list.ztp'">회원관리</h1>
+				    <div class="barTap"></div>
+				</div>
+				<div class="menuTap">
+			    	<h1 onclick="location.href='/manager/selectAdopt.ztp'">입양공고관리</h1>
+			    	<div class="barTap"></div>
+				</div>
+				<div class="menuTap">
+				    <h1 onclick="location.href='/manager/viewReservation.ztp'">예약관리</h1>
+				    <div class="barTap"></div>				
+				</div>
 			</main>
 			
 		<jsp:include page="../common/footer.jsp" />
