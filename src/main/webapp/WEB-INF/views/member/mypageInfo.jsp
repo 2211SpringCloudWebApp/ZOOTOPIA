@@ -12,15 +12,15 @@
         <b><a href="/member/mypage.ztp">내 정보</a></b> <br>
         <b><a href="/member/mypageAdoptPost.ztp">입양공고 게시글</a></b> <br>
         <b><a href="/member/mypageReview.ztp">입양후기 게시글</a></b>
-        <b><a href="/member/mypageComment.ztp">입양공고 댓글</a></b> <br>
-        <b><a href="/member/mypageComment.ztp">입양후기 댓글</a></b> <br>
-        <b><a href="/member/mypageLike.ztp">입양공고 좋아요 누른 글</a></b> <br>
+        <b><a href="/member/mypageAdoptPostComment.ztp">입양공고 댓글</a></b> <br>
+        <b><a href="/member/mypageReviewComment.ztp">입양후기 댓글</a></b> <br>
+        <b><a href="/member/mypageAdoptPostLike.ztp">입양공고 좋아요 누른 글</a></b> <br>
         <b><a href="/member/mypageReviewLike.ztp">입양후기 좋아요 누른 글</a></b> <br>
 		<form action="/member/modify.ztp" method="post">
 			아이디 <br>	
 			<input type="text"		name="memberId"	    value="${member.memberId  }" readonly> <br>
 			비밀번호 <br> 	
-			<input type="password" 	name="memberPw"		value=""> <br>
+			<input type="password" 	name="memberPw"		value="" required> <br>
 			비밀번호 확인 <br> 
 			<input type="password"  name=""		value=""> <br>
 			이름 <br>

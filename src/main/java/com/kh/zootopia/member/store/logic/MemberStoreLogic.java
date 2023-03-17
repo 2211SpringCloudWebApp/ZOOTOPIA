@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.kh.zootopia.AdoptAnimalPost.domain.Animal;
+import com.kh.zootopia.comment.domain.Comment;
 import com.kh.zootopia.like.domain.Like;
 import com.kh.zootopia.member.domain.Member;
 import com.kh.zootopia.member.store.MemberStore;
@@ -68,33 +69,50 @@ public class MemberStoreLogic implements MemberStore{
 		return result;
 	}
 
-	// 후기 게시판 좋아요 전체 목록 조회
-	@Override
-	public List<Like> getReviewLikeList(SqlSession session) {
-		List<Like> likeList = session.selectList("LikeMapper.getReviewLikeList");
-		return likeList;
-	}
+	
 	
 	
 	// 마이페이지 좋아요 누른 후기 게시글 전체 조회
 	@Override
-	public List<Review> mypageSelectReviewLikeList(SqlSession session, PageInfo pageInfo, int postNo) {
+	public List<Review> selectReviewLikeList(SqlSession session, PageInfo pageInfo ,String memberId) {
 		int limit = pageInfo.getBoardLimit();
 		int currentPage = pageInfo.getCurrentPage();
 		int offset = (currentPage - 1) * limit;
 		RowBounds rowBounds = new RowBounds(offset, limit);
-		List<Review> reviewLikeList = session.selectList("ReviewMapper.mypageSelectReviewLikeList", postNo ,rowBounds);
+		List<Review> reviewLikeList = session.selectList("ReviewMapper.selectReviewLikeList", memberId ,rowBounds );
 		return reviewLikeList;
 	}
 
+	// 마이페이지 후기 게시판 댓글 전체 개수
 	@Override
-	public List<Animal> selectAnimalbyAnimalAdopterId(SqlSession session, String memberId) {
-		
-		System.out.println(memberId);
-		List<Animal> animalList = session.selectList("AnimalMapper.selectAllAnimalsbyAnimalAdopterId", memberId);
-		
-		return animalList;
+	public int getReviewCommentCount(SqlSession session, String memberId) {
+		int result = session.selectOne("CommentMapper.getReviewCommentCount", memberId);
+		return result;
+	}
+
+	// 마이페이지 후기 게시판 작성한 댓글 목록 조회
+	@Override
+	public List<Comment> selectReviewCommentList(SqlSession session, PageInfo pageInfo, String memberId) {
+		List<Comment> commentList = session.selectList("CommentMapper.selectReviewCommentList", memberId);
+		return commentList;
+	}
+	
+	
+	// 마이페이지 후기 게시판 댓글 삭제
+	@Override
+	public int deleteReviewComment(SqlSession session, Review review) {
+		int result = session.delete("CommentMapper.deleteReviewComment", review);
+		return result;
 	}
 
 	
 }
+
+//@Override
+//public List<Animal> selectAnimalbyAnimalAdopterId(SqlSession session, String memberId) {
+//	
+//	System.out.println(memberId);
+//	List<Animal> animalList = session.selectList("AnimalMapper.selectAllAnimalsbyAnimalAdopterId", memberId);
+//	
+//	return animalList;
+//}
