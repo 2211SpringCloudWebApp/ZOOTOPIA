@@ -1,188 +1,177 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<html>
-	<head>
-		<title>ZOOTOPIA</title>
-		<link rel="stylesheet" href="../../resources/css/home.css">
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
-	</head>
-	<body>
-		<div id="container">
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+		<html>
 
-			<div id="header-top">
-				<div>
-					<c:if test="${sessionScope.loginUser eq null }">
-						<!-- 로그인, 회원가입 페이지로 이동하는 링크 -->
-						
-						<div onclick="location.href='/member/loginView.ztp'" class="main-header-btn">
-							<img src="../../resources/img/login-icon.png" alt="" class="log-img">
-							LOGIN
-						</div>
-						<div>|</div>
-						<div onclick="location.href='/member/registerView.ztp'" class="main-header-btn">
-							<img src="../../resources/img/join-icon.png" alt="" class="log-img">
-							JOIN
-						</div>
-					</c:if>
-					<c:if test="${sessionScope.loginUser ne null }">
-						<!-- 로그아웃, 마이페이지로 이동하는 링크 -->
-						<div onclick="location.href='/member/logout.ztp'" class="main-header-btn">
-							<img src="../../resources/img/logout-icon.png" alt="" class="log-img">
-							LOGOUT
-						</div>
-						<div>|</div>
-						
-						<!-- 관리자가 아니라면 마이페이지 -->
-						<c:if test="${loginUser.mAdminYN eq 'N' }">
-							<div onclick="location.href='/member/mypage.ztp'" class="main-header-btn">
-								<img src="../../resources/img/mypage-icon.png" alt="" class="log-img">
-								<span>${loginUser.memberName } </span>님 마이페이지
-							</div>
-						</c:if>
-						
-						<!-- 관리자가 맞다면 관리자페이지 -->
-						<c:if test="${loginUser.mAdminYN ne 'N' }">
-							<div onclick="location.href='#'" class="main-header-btn">
-								<img src="../../resources/img/mypage-icon.png" alt="" class="log-img">
-								<span>관리자 </span>페이지
-							</div>
-						</c:if>
-						
-					</c:if>
-					
-				</div>
-			</div>
-			
+		<head>
+			<title>ZOOTOPIA❤️</title>
+			<link rel="stylesheet" href="../../resources/css/home.css">
+			<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+			<link rel="icon" href="../../resources/img/favicon.png"/>
+			<link rel="apple-touch-icon" href="../../resources/img/favicon.png"/>	
+		</head>
+
+		<body>
+			<jsp:include page="./common/header.jsp" />
 			<main>
-				<aside id="left-aside">
-	                <button>MAIN</button>
-	                <button>ADOPT</button>
-	                <button>REVIEW</button>
-	                <button>MATCHING</button>
-	                <button>NOTICE</button>
-            	</aside>
-				<section>
-					<div id="content-1">
-						<div id="background-img"></div>
-					</div>
+				<!-- 버튼 nav -->
+				<nav>
+					<ul>
+						<li><a href="#" data-target="#section1">Main</a></li>
+						<li><a href="#" data-target="#section2">Adopt</a></li>
+						<li><a href="#" data-target="#section3">Review</a></li>
+						<li><a href="#" data-target="#section4">Matching</a></li>
+						<!-- <li><a href="#" data-target="#section5">Notice</a></li> -->
+					</ul>
+				</nav>
 
-					<div id="content-2">
+				<!-- 메인 -->
+				<div>
+					<!-- Main Section  -->
+					<section id="section1">
+						<!-- 위에 헤더를 위한 공간 빼둘 div -->
+						<div></div>
+						<div id="background-img">
+							<div>DON'T BUY, PLEASE ADOPT</div>
+							<div><span>ZOO</span><span>TOPIA</span></div>
+							<div>주토피아에서 어쩌구를 저쩌구 해보세요!</div>
+						</div>
+					</section>
+
+					<!-- AdoptPost Section -->
+					<section id="section2">
+						<!-- 위에 헤더를 위한 공간 빼둘 div -->
+						<div></div>
+						<!-- 입양 공고 관련 내용이 들어갈 자리 -->
 						<div>
-							<!-- 입양 공고 관련 -->
-							<h1>테스트입니다</h1>
 							<h1 onclick="location.href='/adoptAnimal/registerView.ztp'">입양 공고 등록하기</h1>
 							<h1 onclick="location.href='/adoptAnimal/list.ztp'">입양 공고 확인하기</h1>
 						</div>
-					</div>
+					</section>
 
-					<div id="content-3">
+					<!-- Review Section -->
+					<section id="section3">
+						<!-- 위에 헤더를 위한 공간 빼둘 div -->
+						<div></div>
+						<!-- 입양 후기 관련 내용이 들어갈 자리 -->
+						<!--
+					후기는 본인만 쓸 수 있으니까 후기 등록 버튼 누르면
+					내 입양 동물 목록으로 이동
+					비로그인 상태라면 로그인해야 이용할 수 있다고 팝업 띄우고
+					로그인 페이지로 이동
+				-->
 						<div>
-							<!-- 입양 후기 관련 -->
-							<!--
-								후기는 본인만 쓸 수 있으니까 후기 등록 버튼 누르면
-								내 입양 동물 목록으로 이동
-								비로그인 상태라면 로그인해야 이용할 수 있다고 팝업 띄우고
-								로그인 페이지로 이동
-							-->
-							<h1>테스트입니다</h1>
-							
 							<c:if test="${sessionScope.loginUser ne null }">
 								<!-- 로그인 상태라면 내 입양 동물 목록으로 -->
 								<h1 onclick="location.href='#'">입양 후기 등록하기 - 로그인 상태</h1>
 							</c:if>
 							<c:if test="${sessionScope.loginUser eq null }">
 								<!-- 비로그인 상태라면 로그인해야 이용 가능하단 팝업
-									띄우고 로그인 페이지로 이동 -->
+							띄우고 로그인 페이지로 이동 -->
 								<h1 onclick="location.href='#'">입양 후기 등록하기 - 비로그인상태</h1>
 							</c:if>
-							
+
 							<h1 onclick="location.href='#'">입양 후기 확인하기</h1>
 						</div>
-					</div>
+					</section>
 
-					<div id="content-4">
+					<!-- Matching Section -->
+					<section id="section4">
+						<!-- 위에 헤더를 위한 공간 빼둘 div -->
+						<div></div>
+						<!-- 매칭 관련 내용이 들어갈 자리 -->
 						<div>
-							<!-- 매칭 관련 -->
-							<h1>테스트입니다</h1>
 							<h1 onclick="location.href='#'">매칭 페이지로 이동하기</h1>
 						</div>
-					</div>
-					
-					<div id="content-5">
-						<div>
-							<!-- 공지 관련 -->
-							<h1>테스트입니다</h1>
-							<h1 onclick="location.href='#'">공지 페이지로 이동하기</h1>
-						</div>
-					</div>
+					</section>
 
-				</section>
+					<!-- Notice Section -->
+					<!-- <section id="section5"> -->
+						<!-- 위에 헤더를 위한 공간 빼둘 div -->
+						<!-- <div></div> -->
+						<!-- 공지 관련 내용이 들어갈 자리 -->
+						<!-- <div> -->
+							<!-- <h1 onclick="location.href='#'">공지 페이지로 이동하기</h1> -->
+						<!-- </div> -->
+					<!-- </section> -->
+
+					<!-- Footer Section -->
+					<section id="footer">
+						<!-- footer JSP include 들어갈 자리 -->
+						<jsp:include page="./common/footer.jsp" />
+					</section>
+
+				</div>
 			</main>
 
-			<jsp:include page="./common/footer.jsp" />
-			
-		</div>
-	
-		<script>
-			// MAIN, ADOPT, REVIEW, MATCHING, ddd 버튼 만들기
-			const content = document.querySelectorAll("[id|=content]");
-			const naviBtn = document.querySelectorAll("#left-aside button");
-			const normalColor = "#1c1c1b3a";
-			const selectedColor = "#1C1C1B";
-	
-			for (let i = 0; i < naviBtn.length; i++) {
-				naviBtn[i].addEventListener("click", () => {
-					for (let j = 0; j < naviBtn.length; j++) {
-						naviBtn[j].style.color = normalColor;
+
+
+
+			<script>
+				// 현재 위치 섹션 판별 함수
+				function setCurrentButton() {
+					$('nav a').removeClass('active transparent');
+					var currentSection;
+					$('section').each(function () {
+						if (($(this).offset().top - $(window).scrollTop()) <= 0) {
+							currentSection = $(this).attr('id');
+						}
+					});
+
+					if (currentSection === 'footer' || ($(window).scrollTop() + $(window).height()) >= $(document).height()) {
+						$('nav a').addClass('transparent');
+					} else {
+						$('nav a[data-target="#' + currentSection + '"]').addClass('active');
 					}
-					content[i].scrollIntoView({ behavior:"smooth"});
-					naviBtn[i].style.color = selectedColor;
-				});
-			}
-	
-			// 기본 이벤트 제거하기
-			window.addEventListener("wheel", function(e){
-				e.preventDefault;
-			}, {passive: false});
-			
-	
-			// 페이지 선언
-			var $html = $("html");
-			var page = 1;
-			var lastPage = $("[id|=content]").length;
-	
-			$html.animate({scrollTop:0},700);
-	
-			// 마우스 휠 굴렸을 때 이벤트 넣기
-			$(window).on("wheel", function(e){
-				
-				if($html.is(":animated")) return;
-				
-				if(e.originalEvent.deltaY > 0){
-					if(page == lastPage) return;
-					page++;
-					for (let j = 0; j < naviBtn.length; j++) {
-						naviBtn[j].style.color = normalColor;
-					}
-					if (page-1 != 5) {
-						naviBtn[page-1].style.color = selectedColor;
-					}
-				} else if (e.originalEvent.deltaY < 0) {
-					if(page == 1) return;
-					page--;
-					for (let j = 0; j < naviBtn.length; j++) {
-						naviBtn[j].style.color = normalColor;
-					}
-					naviBtn[page-1].style.color = selectedColor;
 				}
-				var posTop = (page-1) * $(window).height();
-				
-				$html.animate({scrollTop : posTop});
-				
-			});
-			//  MAIN, ADOPT, REVIEW, MATCHING, ddd 버튼 끝!
-			
-		</script>
-	</body>
-</html>
+
+				$(document).ready(function () {
+					// 초기 활성 버튼 설정
+					setCurrentButton();
+
+					// 스크롤, 버튼 클릭 이벤트 발생 시 함수 호출
+					$(window).on('scroll', function () {
+						setCurrentButton();
+					});
+
+					// 마우스 휠 이벤트 처리
+					$(window).on('wheel', function (event) {
+						// 마우스 휠을 아래로 스크롤할 때
+						if (event.originalEvent.deltaY > 0) {
+							// 다음 섹션으로 이동
+							$('html, body').stop().animate({
+								scrollTop: $(event.target).closest('section').next().offset().top
+							}, 500);
+						}
+						// 마우스 휠을 위로 스크롤할 때
+						else {
+							// 이전 섹션으로 이동
+							if ($(event.target).closest('section').attr('id') === 'footer') {
+								// 푸터에서 section4로 이동
+								$('html, body').stop().animate({
+									scrollTop: $('#section4').offset().top
+								}, 500);
+							} else {
+								// 그 외의 경우에는 이전 섹션으로 이동
+								$('html, body').stop().animate({
+									scrollTop: $(event.target).closest('section').prev().offset().top
+								}, 500);
+							}
+						}
+					});
+
+					// 버튼 클릭 이벤트 처리
+					$('nav a').on('click', function (event) {
+						event.preventDefault();
+						// 클릭한 버튼이 이동할 위치를 data-target 속성에서 가져옴
+						var target = $(this).data('target');
+						// 해당 위치로 이동
+						$('html, body').stop().animate({
+							scrollTop: $(target).offset().top
+						}, 500);
+					});
+				});
+
+			</script>
+		</body>
+
+		</html>

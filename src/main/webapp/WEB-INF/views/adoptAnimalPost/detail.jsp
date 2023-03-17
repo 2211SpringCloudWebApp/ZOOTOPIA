@@ -18,6 +18,7 @@
         <main>
 			<h1>입양 공고 디테일 페이지입니다</h1>
 			<div>
+				<div>동물등록번호 : ${aPost.animal.animalNo }</div>
 				<div>축종 : ${aPost.animal.animalSpecies }</div>
 				<div>성별 : ${aPost.animal.animalGender }</div>
 				<div>체중 : ${aPost.animal.animalWeight }</div>
@@ -37,17 +38,54 @@
 				
 				<br>
 				
-				<c:if test="${aPost.adoptPost.adoptWriterId eq loginUser.memberId }">
-					<!-- 작성자라면 예약 신청자 정보 확인하기 신청자 목록 페이지 새 창(신청자 누르면 신청자 정보 Detail)-->
-					<input type="button" value="신청자 정보 확인" onclick="location.href='/reservation/applicantList.ztp?animalNo=${aPost.animal.animalNo }'">
-					<a href="#">수정하기</a>
-					<a href="#">삭제하기</a>
-				</c:if>
-				<c:if test="${aPost.adoptPost.adoptWriterId ne loginUser.memberId }">
-					<!-- 작성자가 아니라면 예약페이지-->
-					<input type="button" value="예약하기" onclick="openReservation('${aPost.animal.animalNo}', '${aPost.animal.animalFosterId}')">
+				<!-- 로그인이 된 상태일 경우 -->
+				<c:if test="${loginUser.memberId ne null}">
+				
+					<!-- 작성자라면 신청자List확인할 수 있는 btn + 수정삭제 -->
+					<c:if test="${aPost.adoptPost.adoptWriterId eq loginUser.memberId }">
+						<!-- 
+							<input type="button" value="신청자 정보 확인" onclick="location.href='/reservation/applicantList.ztp?animalNo=${aPost.animal.animalNo }'">						
+						 -->
+						<input type="button" value="신청자 정보 확인" onclick="applicantList('${aPost.animal.animalNo }')">
+						<a href="#">수정하기</a>
+						<a href="#">삭제하기</a>
+					</c:if>
+					
+					<!-- 작성자가 아니라면 예약신청 or 예약취소-->
+					<c:if test="${aPost.adoptPost.adoptWriterId ne loginUser.memberId }">
+						
+						<c:forEach items="${rList}" var="reservation" varStatus="status">
+							${reservation.adopterId }
+							${loginUser.memberId }
+							<c:if test="${reservation.adopterId eq loginUser.memberId }">
+								입양자 있음!
+							</c:if>
+						</c:forEach>
+						
+						<!-- 예약신청버튼 : 신청자가 아닐 경우-->
+						<c:if test="">
+							<input type="button" value="예약하기" onclick="openReservation('${aPost.animal.animalNo}', '${aPost.animal.animalFosterId}')">
+						</c:if>
+						
+						<!-- 예약취소버튼 : 신청자일 경우-->
+						<c:if test="">
+							<input type="button" value="예약취소" onclick="location.href='#'">
+						</c:if>
+					
+					</c:if>
 					
 				</c:if>
+				
+				<!-- 로그인이 안 된 상태일 경우 -->
+				<c:if test="${loginUser.memberId eq null}">
+				
+					<!-- 예약신청버튼 : 누르면 로그인 alert와 함께 로그인 페이지로 이동-->
+					<input type="button" value="예약하기" onclick="checkLogin()">
+					
+				</c:if>
+				
+				
+				
 			</div>
 
 			<div>
@@ -59,13 +97,20 @@
 		<jsp:include page="../common/footer.jsp" />
 		
 		<script>
+			// 비로그인 상태에서 예약하기 버튼 눌렀을 경우 알림과 함께 로그인 페이지로 이동
+			function checkLogin() {
+				alert("로그인 시 이용 가능한 서비스입니다.");
+				location.href = "/member/loginView.ztp";
+			}
 
 			// 새 창으로 데이터 전달하기
 			function openReservation(animalNo, animalFosterId) {
-				console.log(animalNo);
-				console.log(animalFosterId);
 				const url = '/reservation/registerView.ztp?animalNo=' + animalNo + '&animalFosterId=' + animalFosterId;
 				window.open(url, 'pop', 'width=300, height=200');
+			}
+			function applicantList(animalNo) {
+				const url = '/reservation/applicantList.ztp?animalNo=' + animalNo;
+				window.open(url, 'pop', 'width=300, height=500');
 			}
 
 

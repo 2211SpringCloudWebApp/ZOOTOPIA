@@ -12,134 +12,133 @@
     padding: 0;
 }
 body {
-    /* overflow: hidden; */
+    overflow: hidden;
+
+    /* home에 원래 있던 효과 */
     width: 100vw;
     height: 100vh;
-    color: #4E422D;
-    font-family: 'jua';
-}           
+    font-family: 'jua'; 
+}
+main section {
+    height: 100vh;
+}
 
-/* 여기부터 헤더 */
-#header-top{
-    background-color: #4E422D;
-    color: rgba(255, 255, 255, 0.5);
-    font-size: 12pt;
-    font-weight: 100;
-    font-family: 'hanna';
-
-    width: 100vw;
-    height: 25px;
-
+main nav {
     position: fixed;
-    top: 0;
     z-index: 200;
-
-    display: flex;
-    justify-content: end;
-    align-items: center;
-}
-    #header-top>div {
-        display: flex;
-        flex-direction: row;
-        padding-right: 30px;
-        /* background-color: red; */
-    }
-        .main-header-btn {
-            cursor: pointer;
-            padding-inline: 20px;
-        }
-            .main-header-btn span {
-                color: white;
-                /* font-weight: 900; */
-            }
-            .log-img {
-                width: 12px;
-                opacity: 0.5;
-            }
-
-        .main-header-btn:hover {
-            color: white;
-        }
-        .main-header-btn:hover .log-img {
-            opacity: 1;
-        }
-/* 헤더 끝 */
-
-/* 여기부터 메인 */
-aside {
-    z-index: 100;
-}
-#left-aside {
-    width: 15px;
-    position: fixed;
     bottom: 25px;
     left: 25px;
-    z-index: 200;
-
+} main nav>ul {
+    list-style: none;
+} main nav li {
+    /* 왼쪽 버튼 폰트 크기랑 간격 */
+    margin-top: 20px;
+    font-size: 20pt;
+    font-weight: bold;
 }
-    #left-aside button {
-        width: 25px;
-        height: 25px;
-        margin-bottom: 15px;
-        display: block;
-        outline: none;
-        border: none;
-        background-color: #ffffff00;
-        color: #1c1c1b23;
-        cursor: pointer;
-        font-weight: bold;
-        font-size: 15pt;
-        font-family: 'jua';
-    }
-    #left-aside button:first-child {
-        color: #4E422D;
-    }
 
-[id|=content] {
-    height: 100vh;
-    /* background-color: red; */
+main nav a {
+    text-decoration: none;
+    color: #332a1a25;
+    transition: color 0.2s;
 }
-    /* 임시 시작*/
-    [id|=content] h1 {
-        cursor: pointer;
-    }
-    [id|=content] h1:nth-child(1) {
-        color: #ffffff00;
-    }
-    /* 임시 끝 */
 
-#content-1 {
-    /* height: 100vh; */
+/* active 클래스가 주어졌을 때 */
+main nav a.active {
+    color: #332a1a;
+    text-shadow:
+        /* x y 블러 색상 */
+        3px 3px 0 #332a1a25;
+}
+
+/* transparent 클래스가 주어졌을 때 */
+main nav a.transparent {
+    color: transparent;
+}
+
+main #footer {
+    height: 270px;
+    background-color: blue;
+}
+/* ========== 여기까지가 기본 css
+
+이후 내용은 home이랑 합치면서 긁어온 거 ========== */
+
+/* 위에 헤더를 위한 공간 빼둘 div, 헤더 높이 25px만큼 뺌 */
+main [id*=section]>div:nth-child(1){
+    height: 125px;
+}
+main [id*=section]>div:nth-child(2){
+    height: calc(100vh - 125px);
     background-color: white;
-    /* overflow: hidden; */
-}
-    #background-img {
-        background-image: url(../img/cat-dog.png);
-        background-repeat: no-repeat;
-        background-size: cover;
-        opacity: 0.2;
 
-        /* 임시 */
-        height: 100vh
+    /* 이거는 section 내부 요소 가운데 정렬 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+/* section1의 제일 상위 div에 배경 이미지 넣기 */
+main #background-img {
+    background-image: url(../img/cat-dog.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    /* 창 크기가 어떻든 이미지의 가운데를 보여주는 설정임 */
+    background-position: center center;    
+}
+    main #background-img div {
+        /* 배경보다 글자 올리려고 한 건데 필요 없을 듯? */
+        /* z-index: 1; */
+        color: #332a1a;
     }
-    
-#content-2 {
-    /* height: 100vh; */
-    background-color: rgb(199, 199, 199);
-}
+    /* DON'T BUY, PLEASE ADOPT! */
+        main #background-img>div:nth-child(1) {
+            font-size: 30pt;
+            font-family: 'hanna';
+            font-weight: bold;
+        }
+        /* ZOOTOPIA */
+        main #background-img>div:nth-child(2) {
+            font-size: 120pt;
+            /* font-weight: bold; */
+        } main #background-img span:nth-child(1) { /* ZOO */
+            color: #EEE5C6;
+            text-shadow:
+            /* x y 블러 색상 */
+            -1px -1px 1px #332a1a,  
+            1px -1px 1px #332a1a,
+            -1px 1px 1px #332a1a,
+                1px 1px 1px #332a1a,
+                10px 10px 0 #332a1a;
+            }  #background-img span:nth-child(2) { /* TOPIA */ 
+                text-shadow:
+                /* x y 블러 색상 */
+                -1px -1px 1px #C6BDAD,  
+                1px -1px 1px #C6BDAD,
+                -1px 1px 1px #C6BDAD,
+                1px 1px 1px #C6BDAD,
+                10px 10px 0 #C6BDAD;
+            }
+        /* 주토피아에서 어쩌구를 저쩌구 해보세요! */
+        main #background-img>div:nth-child(3) {
+            font-size: 25pt;
+            font-family: 'hanna';
+            font-weight: bold;
+        }
 
-#content-3 {
-    /* height: 100vh; */
-    background-color: rgb(168, 168, 168);
+/* 버튼 관련해서 있던 건데 선택자랑 효과 골라서 ㅆㅓ야될듯 */
+#left-aside button {
+    width: 25px;
+    height: 25px;
+    margin-bottom: 15px;
+    display: block;
+    outline: none;
+    border: none;
+    background-color: #ffffff00;
+    color: #1c1c1b23;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 15pt;
+    font-family: 'jua';
 }
-#content-4 {
-    /* height: 100vh; */
-    background-color: rgb(132, 132, 132);
-}
-#content-5 {
-    /* height: 100vh; */
-    background-color: rgb(102, 102, 102);
-}
-
-
-/* 여기까지가 main끝! */
