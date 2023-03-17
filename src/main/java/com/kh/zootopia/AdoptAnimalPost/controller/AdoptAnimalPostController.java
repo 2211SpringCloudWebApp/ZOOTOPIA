@@ -144,6 +144,9 @@ public class AdoptAnimalPostController {
 		}
 	}
 
+	
+	
+	
 	// 출력입니다
 
 	/**
@@ -245,6 +248,7 @@ public class AdoptAnimalPostController {
 			
 			// animalNo를 통해 해당 동물에 관한 예약 리스트 가져오기 (예약하기 or 예약취소 버튼)
 			List<Reservation> rList = rService.selectAllapplicantByAnimalNo(animalNo);
+			System.out.println(rList);
 			
 			if (aPost != null) {
 				mv.addObject("aPost", aPost).addObject("rList", rList).setViewName("adoptAnimalPost/detail");
@@ -259,4 +263,15 @@ public class AdoptAnimalPostController {
 		return mv;
 	}
 
+	
+	
+	
+	// 매칭입니다
+	
+	@RequestMapping(value = "matching/mainView.ztp", method = RequestMethod.GET)
+	public ModelAndView matchingView(ModelAndView mv) {
+		mv.setViewName("adoptAnimalPost/matching");
+		return mv;
+	}
+	
 }
