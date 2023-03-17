@@ -1,0 +1,181 @@
+@charset "UTF-8";
+
+/* 공통 */
+
+
+* {
+    margin: 0;
+    padding: 0;
+    color: #4E422D;    
+}
+
+main {
+    width: 100vw;
+    margin-top: 230px;
+    margin-bottom: 50px;
+    color: #4E422D;
+    text-align: center;
+/*     outline: none; */
+/* 	font-family: 'jua'; */
+ 	font-family: 'hanna'; 
+}
+
+main a:link, a:visited {
+	color : black;
+	text-decoration: none;
+}
+
+main input[type=text] {
+    width: 200px;
+    height: 25px;
+    border: 1px solid #4E422D;
+    border-radius: 3px;
+}
+
+main button {
+	border: 1px solid #4E422D;
+    background-color: #4E422D;
+    color: #EEE5C6;
+    padding: 5px;
+    border-radius: 5px;
+    font-family: 'jua';
+    font-size: 20px;
+    cursor: pointer;
+}
+
+main button:hover {
+	color: #EEE5C6;
+    background-color: white;
+    border: 1px solid white;
+}
+
+main form input[type=submit], input[type=reset] {
+	border: 1px solid #4E422D;
+    background-color: #4E422D;
+    color: #EEE5C6;
+    padding: 5px;
+    border-radius: 5px;
+    font-family: 'jua';
+    font-size: 20px;
+    cursor: pointer;
+}
+
+main form input[type=submit]:hover, input[type=reset]:hover {
+	color: #EEE5C6;
+    background-color: white;
+    border: 1px solid white;
+}
+
+/* list페이지 */
+
+
+main #registerArea {
+    text-align: right;
+    margin-right: 120px;
+    margin-bottom: 30px;
+}
+
+main table a:link, a:visited {
+    color: #4E422D;
+    text-decoration: none;
+}
+main table {
+    margin: auto;
+    width: 90%;
+    /*border-top: 1px solid #EEE5C6;*/
+    border-collapse: collapse;
+    text-align: center;
+}
+
+main th,td {
+    border-bottom: 1px solid #C6BDAD;
+    /*border-left: 1px solid #EEE5C6;*/
+    padding: 10px;
+}
+
+main th:first-child {
+    border-left: none;
+}
+main td:first-child {
+    border-left: none;
+    border-top: none;
+}
+
+
+/* list,search 페이지 */
+
+
+main img {
+    width: 15px;
+    height: 15px;
+}
+
+main .pageWrap {
+    margin-top: 50px;
+    text-align: center;
+    font-size: 0;
+}
+main .pageNation {
+    display: inline-block;
+}
+
+main .pageNation a {
+    display: block;
+    margin: 0 3px;
+    float: left;
+    border: 1px solid #4E422D;
+    width: 28px;
+    height: 28px;
+    line-height: 28px;
+    text-align: center;
+    background-color: rgba(0,0,0,0);
+    font-size: 13px;
+    color: #4E422D;
+    text-decoration: none;
+}
+main .pageNation a.active {
+    background-color: #C6BDAD;
+    color: #C6BDAD;
+    border: 1px solid #C6BDAD;
+}
+
+main select {
+    height: 25px;
+    background-color: rgba(0,0,0,0);
+    border: 1px solid #4E422D;
+    border-radius: 3px;
+}
+
+main .searchBar {
+    margin-top: 30px;
+    text-align: center;
+}
+
+
+/* detail 페이지 */
+
+
+main .detailInput {
+	margin-bottom: 20px;
+}
+
+main textarea {
+	border: 1px solid #C6BDAD;
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+main #removeArea {
+	margin-bottom: 20px;
+}
+
+
+/* detail, register 페이지 공통 */
+
+main .uploadArea {
+	margin-bottom: 10px;
+}
+
+/* register 페이지 */
+
+

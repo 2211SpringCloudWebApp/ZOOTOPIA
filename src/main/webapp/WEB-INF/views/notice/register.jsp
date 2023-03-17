@@ -6,25 +6,31 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>공지사항 등록</title>
+		<link rel="stylesheet" href="../../../resources/css/notice.css">
 		<style>
-			* {
-			    margin: 0;
-			    padding: 0;
-			}
-			main {
-			    width: 100vw;
-			    margin-top: 125px;
-			}		
 		</style>
 	</head>
 	<body>
-		<form action="/notice/register.ztp" method="post" enctype="multipart/form-data">
-			제목 <input type="text" name="noticeSubject"><br>
-			내용 <textarea name="noticeContent" id="" rows="10" cols="30"></textarea><br>
-			작성자 <input type="text" name="noticeWriter"><br>
-			파일첨부 <input type="file" name="uploadFile"><br>
-			<input type="submit" value="등록">
-			<input type="reset" value="초기화">
-		</form>
+		<header>
+			<jsp:include page="../common/header.jsp" />
+		</header>
+		<main>
+			<form action="/notice/register.ztp" method="post" enctype="multipart/form-data">
+				제목 <input type="text" name="noticeSubject" placeholder="제목"><br>
+				작성자 <input type="text" name="noticeWriter" placeholder="작성자"><br>
+				<textarea name="noticeContent" id="" rows="20" cols="100" placeholder="내용을 입력하세요"></textarea><br>
+				<div class="uploadArea">
+					<label class="fileBtn" for="inputFile">
+						<img src="../../../resources/img/notice-file.png" alt="" >&nbsp;파일 업로드
+					</label>
+				</div>
+				<input type="file" id="inputFile" name="uploadFile" style="display:none"><br>
+				<input type="submit" value="등록">
+				<input type="reset" value="초기화">
+			</form>
+		</main>
+		<footer>
+			<jsp:include page="../common/footer.jsp" />
+		</footer>			
 	</body>
 </html>

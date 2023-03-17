@@ -6,44 +6,9 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>공지사항 상세 조회</title>
-		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">		
+<!-- 		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">		 -->
+		<link rel="stylesheet" href="../../../resources/css/notice.css">
 		<style>
-			* {
-			    margin: 0;
-			    padding: 0;
-/* 			    text-align: center; */
-			    outline: none; 
-			}
-			main {
-			    width: 100vw;
-			    margin-top: 225px;
-			    margin-bottom: 50px;
-			    text-align: center;
-			}
-			.detailHeader {
-				width: 80%, 20%;
-			}
-			a:link, a:visited {
-				color : black;
-				text-decoration: none;
-			}
-			.detailBtn {
-				border: 1px solid #C6BDAD;
-				background-color: rgba(0,0,0,0);
-				color: #4E422D;
-				padding: 3px;
-				border-radius: 5px;					
-			}
-			input {
-				margin-bottom: 20px;
-			<!--	border: 0; -->
-			}
-			textarea {
-				border: 1px solid #C6BDAD;
-			}
-			#removeArea {
-				margin-bottom: 20px;
-			}
 		</style>
 	</head>
 	<body>
@@ -53,17 +18,18 @@
 		<main>
 			<c:if test="${sessionScope.loginUser.memberId eq 'admin' }">
 				<form action="/notice/modify.ztp" method="post" enctype="multipart/form-data">
-					<div class="detailHeader">
-						<input type="text" name="noticeSubject" value="${notice.noticeSubject }">
-						<input type="text" name="noticeWriter" value="${notice.noticeWriter }"><br>
-					</div>
-						<textarea name="noticeContent" id=""  rows="20" cols="100">${notice.noticeContent }</textarea><br>
-						<input type="file" class="detailBtn" name="reloadFile" value="">${notice.noticeImageName }<br>
-						<input type="hidden" name="noticeNo" value="${notice.noticeNo }">
-						<input type="hidden" name="noticeImageName" value="${notice.noticeImageName }">
-						<input type="hidden" name="noticeImagePath" value="${notice.noticeImagePath }">
-						<input type="submit" class="detailBtn" value="수정">
-						<input type="reset" class="detailBtn" value="취소"> 
+					<input type="text" class="detailInput" name="noticeSubject" value="${notice.noticeSubject }">
+					<input type="text" class="detailInput" name="noticeWriter" value="${notice.noticeWriter }"><br>
+					<textarea name="noticeContent" id=""  rows="20" cols="100">${notice.noticeContent }</textarea><br>
+					<label class="fileBtn" for="inputFile">
+						<img src="../../../resources/img/notice-file.png" alt="" >
+					</label>
+					<input type="file" id="inputFile" name="reloadFile" value="" style="display:none">${notice.noticeImageName }<br>
+					<input type="hidden" name="noticeNo" value="${notice.noticeNo }">
+					<input type="hidden" name="noticeImageName" value="${notice.noticeImageName }">
+					<input type="hidden" name="noticeImagePath" value="${notice.noticeImagePath }">
+					<input type="submit" class="" value="수정">
+					<input type="reset" class="" value="취소"> 
 				</form>
 					<c:url var="nList" value="/notice/list.ztp">
 						<c:param name="noticeNo" value="${notice.noticeNo }"/>
@@ -78,10 +44,15 @@
 			</c:if>
 			<c:if test="${sessionScope.loginUser.memberId ne 'admin' }">
 				<form action="/notice/modify.ztp" method="post" enctype="multipart/form-data">
-					<input type="text" name="noticeSubject" value="${notice.noticeSubject }">
-					<input type="text" name="noticeWriter" value="${notice.noticeWriter }"><br>
-					<textarea name="noticeContent" id=""  rows="20" cols="100">${notice.noticeContent }</textarea><br>
-					<input type="file" class="detailBtn" name="reloadFile" value="">${notice.noticeImageName }<br>
+					<input type="text" name="noticeSubject" value="${notice.noticeSubject }" readonly>
+					<input type="text" name="noticeWriter" value="${notice.noticeWriter }" readonly><br>
+					<textarea name="noticeContent" id=""  rows="20" cols="100" readonly>${notice.noticeContent }</textarea><br>
+					<div class="uploadArea">
+						<label class="fileBtn" for="inputFile">
+							<img src="../../../resources/img/notice-file.png" alt="" >
+						</label>
+					</div>
+					<input type="file" id="inputFile" name="reloadFile" value="" style="display:none">${notice.noticeImageName }<br>
 					<input type="hidden" name="noticeNo" value="${notice.noticeNo }">
 					<input type="hidden" name="noticeImageName" value="${notice.noticeImageName }">
 					<input type="hidden" name="noticeImagePath" value="${notice.noticeImagePath }">
@@ -94,22 +65,23 @@
 			
 			<!-- 댓글 -->
 			<div class="comment">
+				<c:if test="${sessionScope.loginUser.memberId ne null}">
 				<form name="commentForm" action="/comment/insert.ztp" method="post">
 					<input type="hidden" name="commentWriterId" value="${sessionScope.loginUser.memberId}">
 					<input type="hidden" name="boardId" value="N">
 					<input type="hidden" name="postNo" value="${notice.noticeNo}">
 					<input type="hidden" name="url" value="/notice/detail.ztp?noticeNo=">
 					<input type="text" name="commentContent" placeholder="댓글을 입력해 주세요">
-					<button type="submit" class="detailBtn">등록</button>
+					<button type="submit" class="">등록</button>
 				</form>
+				</c:if>
 				<table>
 					<c:forEach items="${commentList}" var="commentList">
 						<tr>
-							<td>${commentList.commentNo}</td>
 							<td>${commentList.commentWriterId}</td>
 							<td>${commentList.commentContent}</td>
-							<td><c:if test="${sessionScope.loginUser.memberId ne null}"><button onclick="reComment()">대댓글</button></c:if>
-							<td><c:if test="${sessionScope.loginUser.memberId eq 'admin' || sessionScope.loginUser.memberId eq commentList.commentWriterId}"><button onclick="deleteComment(${commentList.commentNo});">삭제</button></c:if></td>
+							<td><c:if test="${sessionScope.loginUser.memberId ne null}"><button onclick="reComment()" class="">대댓글</button></c:if>
+							<td><c:if test="${sessionScope.loginUser.memberId eq 'admin' || sessionScope.loginUser.memberId eq commentList.commentWriterId}"><button onclick="deleteComment(${commentList.commentNo});" class="">삭제</button></c:if></td>
 						</tr>
 					</c:forEach>
 				</table>
@@ -137,7 +109,7 @@
 	                var object1 = document.createElement('input');
 	                object1.setAttribute('type', 'hidden');
 	                object1.setAttribute('name', 'boardId');
-	                object1.setAttribute('value', 'A');
+	                object1.setAttribute('value', 'N');
 	                var object2 = document.createElement('input');
 	                object2.setAttribute('type', 'hidden');
 	                object2.setAttribute('name', 'postNo');
