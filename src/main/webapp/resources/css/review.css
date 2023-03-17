@@ -1,7 +1,77 @@
+@charset "UTF-8";
+@font-face{
+    font-family: 'jua';
+    src: url(../font/BMJUA_ttf.ttf);
+}
+@font-face{
+    font-family: 'hanna';
+    src : url(../font/BMHANNAAir_ttf.ttf);
+    /* unicode-range: U+0020-007F; */
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+main {
+    width: 100vw;
+    margin-top: 125px;
+    background-color: #FFFAF0;
+}
+
+button{
+    border: 1px solid #4E422D;
+    background-color: #4E422D;
+    color: #EEE5C6;
+    padding: 5px;
+    border-radius: 5px;
+    font-family: 'jua';
+    font-size: 20px;
+}
+button:hover {
+    color: #4E422D;
+    background-color: #FFFAF0;
+    border: 1px solid white;
+}
+
 .review-wrapper {
 	
     width: 100vw;
+    font-family: 'jua';
     
+}
+
+.pageWrap {
+    margin-top: 50px;
+    text-align: center;
+    font-size: 0;
+}
+	.pageNation {
+	    display: inline-block;
+	}
+		.pageNation a {
+		    display: block;
+		    margin: 0 3px;
+		    float: left;
+		    border: 1px solid #4E422D;
+		    width: 28px;
+		    height: 28px;
+		    line-height: 28px;
+		    text-align: center;
+		    background-color: rgba(0,0,0,0);
+		    font-size: 13px;
+		    color: #4E422D;
+		    text-decoration: none;
+		}
+		.pageNation a.active {
+		    background-color: #C6BDAD;
+		    color: #C6BDAD;
+		    border: 1px solid #C6BDAD;
+		}
+.searchBar {
+	
+	text-align: center;
+	
 }
 
 .review-table {
@@ -11,7 +81,7 @@
 .wrapper-table {
 	
     width: 80vw;
-    height: 20vh;
+    height: 100%;
     margin: 0 auto;
     
 }
@@ -19,35 +89,94 @@
 .inner-table {
 	
     width: 100%;
-    height: 100%;
     
 }
-	.thumnail-td {
+.inner-table:hover {
 	
-		width: 200px;
-		text-align: center;
+	animation: blink 1s ease-in-out alternate;
+	
+}
+	.thumnail-td {
+		
+		width: 150px;
+		height: 200px; 
+		
+		background-repeat: no-repeat;
+		background-position: center;
+		background-size: cover;
+		border: 20px solid #FFFAF0;
+		border-radius: 50px;
+		
+		vertical-align: initial;
 		
 	}
-		.thumnail-td img {
-			
-			border-radius: 20px;
-			
-		}
-	.article-td {
+	.post {
 	
 		width: 440px;
 		text-align: left;
 		
 	}
-
-table, tr, td {
-
-    border: 1px solid #ccc;
-    
-}
+		.post-th {
+			
+			width: 440px;
+			height: 100px;
+			
+	        font-family: 'jua';
+	        font-size: 1.4em;
+            color: #4E422D;
+	        
+		    overflow: hidden;
+		    text-overflow: ellipsis;
+		    white-space: nowrap;
+			
+		}
+		.post-writer-info {
+		
+			height: 50px;
+			
+			font-family: 'hanna';
+			font-size: 1.1em;
+	        border-bottom: 1px solid #ccc;
+			
+		    display: flex;
+			justify-content: space-between;
+		    
+			
+		}
+			.post-writer-info span:last-child{
+			
+				font-size: 0.8em;
+				color: #aaa;
+			
+			}
+		.post-content {
+		
+			height: 50px;
+			
+			font-family: 'jua';
+			font-size: 1em;
+			
+		    display: block;
+		    overflow: hidden;
+		    text-overflow: ellipsis;
+		    white-space: nowrap;
+		    
+		}
 
 .review-detail {
 
 	width: 50%;	
 	margin: 0 auto;
+}
+
+@keyframes blink{
+  0% {opacity: 0;}
+  100% {opacity: 1;}
+}
+
+
+.detail-icons {
+
+	width: 20px;
+
 }

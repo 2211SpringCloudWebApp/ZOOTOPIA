@@ -1,5 +1,6 @@
 package com.kh.zootopia.review.controller;
 
+import java.io.File;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.zootopia.AdoptAnimalPost.domain.Animal;
@@ -58,35 +60,31 @@ public class ReviewController {
 	public ModelAndView reviewWrite(
 			String reviewTitle, String reviewContent
 			, HttpSession session
-//			, @RequestParam("reviewImageName") MultipartFile uploadImageFile
+			, @RequestParam("reviewImageName") MultipartFile uploadImageFile
 //			, @RequestParam("reviewVideoName") MultipartFile uploadVideoFile
 			, HttpServletRequest request, ModelAndView mv, int animalNo
 			) {
 		
 		try {
 			
+			request.setCharacterEncoding("UTF-8");
+			
 			Member member = (Member) session.getAttribute("loginUser");
 			String reviewWriterId = member.getMemberId();
-			
-			System.out.println(member + "\n" + reviewWriterId + "\n" + animalNo);
 			
 			Review review = new Review();
 			review.setReviewTitle(reviewTitle);
 			review.setReviewContent(reviewContent);
 			review.setReviewWriterId(reviewWriterId);
 			review.setAnimalNo(animalNo);
-//			review.setReviewImageName(uploadImageFile);
-//			review.setReviewVideoName(reviewVideoName);
-//			
-//			if (!uploadImageFile.getOriginalFilename().equals("")) {
-//				
-//				String filePath = saveFile(uploadImageFile, request);
-//				review.setReviewImageName(uploadImageFile.getOriginalFilename());
-//				review.setReviewImagePath(filePath);
-//				
-//			}
 			
-			System.out.println("Controller review : " + review);
+			if (!uploadImageFile.getOriginalFilename().equals("")) {
+				
+				String filePath = saveFile(uploadImageFile, request);
+				review.setReviewImageName(uploadImageFile.getOriginalFilename());
+				review.setReviewImagePath(filePath);
+				
+			}
 			
 			int result = reviewService.insertReview(review);
 			
@@ -112,51 +110,71 @@ public class ReviewController {
 		
 	}
 	
-//	/**
-//	 * 파일 저장
-//	 */
-//	public String saveFile(MultipartFile reviewImageName, HttpServletRequest request) {
-//		
-//		try {
-//			
-//			String root = request.getSession().getServletContext().getRealPath("resources");
-//			String savePath = root + "\\uploadFiles";
-//			
-//			File folder = new File(savePath);
-//			if (!folder.exists()) {
-//				
-//				folder.mkdir();
-//				
-//			}
-//			
-//			String filePath = savePath + "\\" + reviewImageName.getOriginalFilename();
-//			File file = new File(filePath);
-//			
-//			reviewImageName.transferTo(file);
-//			
-//			return filePath;
-//			
-//		} catch (Exception e) {
-//
-//			e.printStackTrace();
-//			
-//			return null;
-//			
-//		}
-//		
-//	}
+	/**
+	 * 파일 저장
+	 */
+	public String saveFile(MultipartFile reviewImageName, HttpServletRequest request) {
+		
+		try {
+			
+			String root = request.getSession().getServletContext().getRealPath("resources");
+			String savePath = root + "\\uploadFiles\\review";
+			
+			File folder = new File(savePath);
+			if (!folder.exists()) {
+				
+				folder.mkdir();
+				
+			}
+			
+			String filePath = savePath + "\\" + reviewImageName.getOriginalFilename();
+			File file = new File(filePath);
+			
+			reviewImageName.transferTo(file);
+			
+			return filePath;
+			
+		} catch (Exception e) {
+
+			e.printStackTrace();
+			
+			return null;
+			
+		}
+		
+	}
+	
+	/**
+	 * 파일 삭제
+	 */
+	private void deleteFile(String filename, HttpServletRequest request) throws Exception {
+		
+		String root = request.getSession().getServletContext().getRealPath("resources");
+		String deletePath = root + "\\uploadFiles\\review";
+		String deleteFilepath = deletePath + "\\" + filename;
+		File deleteFile = new File(deleteFilepath);
+		
+		if(deleteFile.exists()) {
+			
+			deleteFile.delete();
+			
+		}
+	}	
 	
 	/**
 	 * 후기 목록
 	 */
 	@RequestMapping(value = "/review/list.ztp", method = RequestMethod.GET)
-	public String reviewList(Model model, @RequestParam(value = "page", required = false, defaultValue = "1") Integer page) {
+	public String reviewList(Model model, HttpSession session, @RequestParam(value = "page", required = false, defaultValue = "1") Integer page) {
 		
 		int totalCount = reviewService.getListCount();
 		PageInfo pageInfo = this.getPageInfo(page, totalCount);
 		
 		List<Review> reviewList = reviewService.selectReviewList(pageInfo);
 		
+		Member member = (Member) session.getAttribute("loginUser");
+		
+		model.addAttribute("member", member);
 		model.addAttribute("pageInfo", pageInfo);
 		model.addAttribute("reviewList", reviewList);
 		return "review/list";
@@ -213,13 +231,15 @@ public class ReviewController {
 			Like like = new Like("R", reviewPostNo, memberId);
 			int likeResult = likeController.checkLike(like); // 해당 게시물의 like 유/무 가져오기
 			
+			String boardId = "R";
 			Comment comment = new Comment();
-			comment.setBoardId("R");
+			comment.setBoardId(boardId);
 			comment.setPostNo(reviewPostNo);
 			List<Comment> commentList = commentController.commentList(comment); // 해당 게시물의 댓글 가져오기
 			
 			reviewService.viewCount(reviewPostNo); // 조회수 1 증가
 			
+			mv.addObject("boardId", boardId); // 현재 게시판 ID
 			mv.addObject("like", likeResult); // 좋아요 유무
 			mv.addObject("review", review); // 게시물 정보 
 			mv.addObject("commentList", commentList); // 댓글 정보
@@ -237,6 +257,18 @@ public class ReviewController {
 	}
 	
 	/**
+	 * 후기 수정 (미완성)
+	 */
+	@RequestMapping(value = "/review/modify.ztp", method = RequestMethod.POST)
+	public ModelAndView reviewModify (String reviewTitle, String reviewContent
+			, HttpSession session, HttpServletRequest request, ModelAndView mv, int animalNo) {
+		
+		
+				return mv;
+		
+	}
+	
+	/**
 	 * 후기 삭제
 	 */
 	@RequestMapping(value = "/review/delete.ztp", method = RequestMethod.GET)
@@ -248,7 +280,7 @@ public class ReviewController {
 			
 			if (result > 0) {
 				
-				return "review/list";
+				return "redirect:/review/list.ztp";
 				
 			} else {
 				

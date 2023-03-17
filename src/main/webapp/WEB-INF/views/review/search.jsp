@@ -11,7 +11,8 @@
     <link rel="stylesheet" href="../../../resources/css/review.css">
 </head>
 <body>
-	<%-- <jsp:include page="../common/header.jsp" /> --%>
+	<jsp:include page="../common/header.jsp" />
+	<main>
     <h1>입양 후기</h1>
     <div class="list">
  		<table class="review-table wrapper-table">
@@ -94,7 +95,7 @@
        		</tfoot>
 		</table>
     </div>
-    
+    </main>
     <jsp:include page="../common/footer.jsp" />
 
 </body>
