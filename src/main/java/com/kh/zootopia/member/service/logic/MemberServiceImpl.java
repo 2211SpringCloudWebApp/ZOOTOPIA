@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.zootopia.AdoptAnimalPost.domain.Animal;
+import com.kh.zootopia.comment.domain.Comment;
 import com.kh.zootopia.like.domain.Like;
 import com.kh.zootopia.member.domain.Member;
 import com.kh.zootopia.member.service.MemberService;
@@ -85,26 +86,44 @@ public class MemberServiceImpl implements MemberService{
 
 	// 마이페이지 좋아요 누른 후기 게시글 개수
 	@Override
-	public List<Review> mypageSelectReviewLikeList(PageInfo pageInfo, int postNo) {
-		List<Review> reviewLikeList = mStore.mypageSelectReviewLikeList(session, pageInfo ,postNo);
+	public List<Review> selectReviewLikeList(PageInfo pageInfo ,String memberId) {
+		List<Review> reviewLikeList = mStore.selectReviewLikeList(session, pageInfo,memberId);
 		return reviewLikeList;
 	}
 
-	// 후기 게시판 좋아요 전체 목록 조회
+
+	// 후기 게시판 댓글 전체 개수
 	@Override
-	public List<Like> getReviewLikeList() {
-		List<Like> likeList = mStore.getReviewLikeList(session);
-		return likeList;
+	public int getReviewCommentCount(String memberId) {
+		int result = mStore.getReviewCommentCount(session, memberId);
+		return result;
 	}
 
-	/* ================== 수정부분 ================== */
+	// 후기 게시판 댓글  목록 조회
 	@Override
-	public List<Animal> selectAnimalbyAnimalAdopterId(String memberId) {
-		
-		List<Animal> animalList = mStore.selectAnimalbyAnimalAdopterId(session, memberId);
-		
-		return animalList;
+	public List<Comment> selectReviewCommentList(PageInfo pageInfo, String memberId) {
+		List<Comment> commentList = mStore.selectReviewCommentList(session, pageInfo, memberId);
+		return commentList;
 	}
-	/* ============================================== */
 
+	// 후기 게시판 댓글 삭제
+	@Override
+	public int deleteReviewComment(Review review) {
+		int result = mStore.deleteReviewComment(session, review);
+		return result;
+	}
+	
+	
+
+	
 }
+
+///* ================== 수정부분 ================== */
+//@Override
+//public List<Animal> selectAnimalbyAnimalAdopterId(String memberId) {
+//	
+//	List<Animal> animalList = mStore.selectAnimalbyAnimalAdopterId(session, memberId);
+//	
+//	return animalList;
+//}
+///* ============================================== */

@@ -19,14 +19,11 @@
 	<delete id="cancelLike" parameterType="Like">
 		DELETE FROM LIKE_TBL WHERE BOARD_ID = #{boardId} AND POST_NO = #{postNo} AND LIKE_MEMBER_ID = #{likeMemberId}
 	</delete>
-	
+	<!-- 석현 -->
 	<select id="getReviewLikeCount" resultType="_int">
 		SELECT COUNT(*) FROM LIKE_TBL WHERE LIKE_MEMBER_ID = #{memberId} AND BOARD_ID = 'R'
 	</select>
 	
-	<select id="getReviewLikeList" resultMap="likeResultMap">
-		SELECT * FROM LIKE_TBL WHERE LIKE_MEMBER_ID = #{memberId} AND BOARD_ID = 'R'
-	</select>
 	
 	<!-- 유정 -->
 	<select id="checkLikeYJ" resultType="_int">

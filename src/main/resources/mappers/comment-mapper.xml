@@ -27,4 +27,11 @@
 	<delete id="deleteComment" parameterType="comment">
 		DELETE FROM COMMENT_TBL WHERE BOARD_ID = #{boardId} AND POST_NO = #{postNo} AND COMMENT_NO = #{commentNo}
 	</delete>
+	<!-- 석현 -->
+	<select id="getReviewCommentCount" resultType="_int">
+		SELECT COUNT(*) FROM COMMENT_TBL WHERE COMMENT_WRITER_ID = #{memberId} AND BOARD_ID = 'R'
+	</select>
+	<select id="selectReviewCommentList" resultMap="commentResultMap">
+		SELECT * FROM COMMENT_TBL WHERE BOARD_ID = 'R' AND COMMENT_WRITER_ID = #{memberId}
+	</select>
 </mapper>

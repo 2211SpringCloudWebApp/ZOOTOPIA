@@ -45,13 +45,13 @@
 			                </tr>
 			            </thead>
 			            <tbody>
-			            	<c:forEach items="${reviewLikeList }" var="ReviewLike">
-				                <tr>
-				                    <td><input type="checkbox" name="rowcheck" value="${ReviewLike.reviewPostNo }">${ReviewLike.reviewPostNo }</td>
-				                    <td><a href="/member/reviewDetail?review=${Review}">${ReviewLike.reviewTitle}</a></td>
-				                   	<td>${loginUser.memberName}</td>
-				                    <td>${Review.reviewCreateDate }</td>
-				                </tr>	            	
+			            	<c:forEach items="${reviewLikeList }" var="reviewLike">
+					                <tr>
+					                    <td><input type="checkbox" name="rowcheck" value="${reviewLike.reviewPostNo }">${reviewLike.reviewPostNo }</td>
+					                    <td><a href="/review/detail.ztp?reviewPostNo=${reviewLike.reviewPostNo}">${reviewLike.reviewTitle}</a></td>
+					                   	<td>${reviewLike.reviewWriterId}</td>
+					                    <td>${reviewLike.reviewCreateDate }</td>
+					                </tr>	            	
 			            	</c:forEach>
 			            </tbody>
 			        </table>
