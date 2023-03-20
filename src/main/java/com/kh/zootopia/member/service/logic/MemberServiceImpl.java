@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kh.zootopia.AdoptAnimalPost.domain.AdoptPost;
 import com.kh.zootopia.AdoptAnimalPost.domain.Animal;
 import com.kh.zootopia.comment.domain.Comment;
 import com.kh.zootopia.like.domain.Like;
@@ -14,6 +15,7 @@ import com.kh.zootopia.member.service.MemberService;
 import com.kh.zootopia.member.store.MemberStore;
 import com.kh.zootopia.review.domain.PageInfo;
 import com.kh.zootopia.review.domain.Review;
+import com.kh.zootopia.review.domain.Search;
 
 @Service
 public class MemberServiceImpl implements MemberService{
@@ -112,18 +114,39 @@ public class MemberServiceImpl implements MemberService{
 		int result = mStore.deleteReviewComment(session, review);
 		return result;
 	}
+
+	//입양공고 게시판 전체 개수
+	@Override
+	public int getAdoptPostCount() {
+		int result = mStore.getAdoptPostCount(session);
+		return result;
+	}
+
+	// 입양공고 게시판 전체 목록 조회
+	@Override
+	public List<AdoptPost> mypageSelectAdoptPostList(PageInfo pageInfo, String memberId) {
+		List<AdoptPost> adoptPostList = mStore.mypageSelectAdoptPostList(session, pageInfo , memberId);
+		return adoptPostList;
+	}
+
+	// 입양공고 검색한 게시판 전체 개수
+	@Override
+	public int mypageGetAdoptPostListCount(Search search) {
+		int result = mStore.mypageGetAdoptPostListCount(session , search);
+		return result;
+	}
 	
+	/* ================== 수정부분 ================== */
+	@Override
+	public List<Animal> selectAnimalbyAnimalAdopterId(String memberId) {
+		
+		List<Animal> animalList = mStore.selectAnimalbyAnimalAdopterId(session, memberId);
+		
+		return animalList;
+	}
+	/* ============================================== */
 	
 
 	
 }
 
-///* ================== 수정부분 ================== */
-//@Override
-//public List<Animal> selectAnimalbyAnimalAdopterId(String memberId) {
-//	
-//	List<Animal> animalList = mStore.selectAnimalbyAnimalAdopterId(session, memberId);
-//	
-//	return animalList;
-//}
-///* ============================================== */

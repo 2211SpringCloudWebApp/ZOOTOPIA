@@ -1,0 +1,42 @@
+@charset "UTF-8";
+@font-face{
+    font-family: 'jua';
+    src: url(../font/BMJUA_ttf.ttf);
+}
+@font-face{
+    font-family: 'hanna';
+    src : url(../font/BMHANNAAir_ttf.ttf);
+    /* unicode-range: U+0020-007F; */
+}
+* {
+    margin: 0;
+    padding: 0;
+}
+body {
+    overflow-x: hidden;
+}
+main {
+    width: 100vw;
+    min-height: 100vh;
+}
+main>div:nth-child(1) {
+    height: 125px;
+    margin-bottom: 10px;
+
+}
+
+main #tagA1,#tagA2,#tagA3 {
+	  color: #4E422D; 
+}
+
+main #login_btn{
+	background-color: #4E422D;
+}
+
+main .divider:after,
+main .divider:before {
+	content: "";
+	flex: 1;
+	height: 1px;
+	background: #eee;
+}

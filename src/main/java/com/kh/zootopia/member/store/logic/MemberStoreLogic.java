@@ -7,6 +7,7 @@ import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import com.kh.zootopia.AdoptAnimalPost.domain.AdoptPost;
 import com.kh.zootopia.AdoptAnimalPost.domain.Animal;
 import com.kh.zootopia.comment.domain.Comment;
 import com.kh.zootopia.like.domain.Like;
@@ -14,6 +15,7 @@ import com.kh.zootopia.member.domain.Member;
 import com.kh.zootopia.member.store.MemberStore;
 import com.kh.zootopia.review.domain.PageInfo;
 import com.kh.zootopia.review.domain.Review;
+import com.kh.zootopia.review.domain.Search;
 
 @Repository
 public class MemberStoreLogic implements MemberStore{
@@ -105,14 +107,36 @@ public class MemberStoreLogic implements MemberStore{
 		return result;
 	}
 
+	// 마이페이지 입양공고 전체 개수
+	@Override
+	public int getAdoptPostCount(SqlSession session) {
+		int result = session.selectOne("AdoptPostMapper.getAdoptPostCount");
+		return result;
+	}
+	
+	// 마이페이지 입양공고 전체 목록 조회
+	@Override
+	public List<AdoptPost> mypageSelectAdoptPostList(SqlSession session, PageInfo pageInfo, String memberId) {
+		int limit = pageInfo.getBoardLimit();
+		int currentPage = pageInfo.getCurrentPage();
+		int offset = (currentPage - 1) * limit;
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		List<AdoptPost> adoptPostList = session.selectList("AdoptPostMapper.mypageSelectAdoptPostList", memberId , rowBounds);
+		return adoptPostList;
+	}
+
+	// 마이페이지 검색한 입양공고 전체 개수 조회
+	@Override
+	public int mypageGetAdoptPostListCount(SqlSession session, Search search) {
+		int result = session.selectOne("AdoptPostMapper.mypageGetAdoptPostListCount", search);
+		return result;
+	}
+
+	@Override
+	public List<Animal> selectAnimalbyAnimalAdopterId(SqlSession session, String memberId) {
+		System.out.println(memberId);
+		List<Animal> animalList = session.selectList("AnimalMapper.selectAllAnimalsbyAnimalAdopterId", memberId);
+		return animalList;
+	}
 	
 }
-
-//@Override
-//public List<Animal> selectAnimalbyAnimalAdopterId(SqlSession session, String memberId) {
-//	
-//	System.out.println(memberId);
-//	List<Animal> animalList = session.selectList("AnimalMapper.selectAllAnimalsbyAnimalAdopterId", memberId);
-//	
-//	return animalList;
-//}

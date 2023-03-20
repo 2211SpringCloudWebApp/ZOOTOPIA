@@ -2,12 +2,14 @@ package com.kh.zootopia.member.service;
 
 import java.util.List;
 
+import com.kh.zootopia.AdoptAnimalPost.domain.AdoptPost;
 import com.kh.zootopia.AdoptAnimalPost.domain.Animal;
 import com.kh.zootopia.comment.domain.Comment;
 import com.kh.zootopia.like.domain.Like;
 import com.kh.zootopia.member.domain.Member;
 import com.kh.zootopia.review.domain.PageInfo;
 import com.kh.zootopia.review.domain.Review;
+import com.kh.zootopia.review.domain.Search;
 
 public interface MemberService {
 
@@ -107,21 +109,44 @@ public interface MemberService {
 	
 
 	/**
-	 * 마이페이지 후기 게시판 댓글 삭제
+	 * 마이페이지 후기 게시판 댓글 삭제 Service
 	 * @param memberId
 	 * @param reviewPostNo
 	 * @return
 	 */
 	int deleteReviewComment(Review review);
 
+	/**
+	 * 마이페이지 입양공고 게시글 전체개수 Service
+	 * @return
+	 */
+	int getAdoptPostCount();
+
+	/**
+	 * 마이페이지 입양공고 게시글 목록 조회 Service
+	 * @param pageInfo
+	 * @param memberId
+	 * @return
+	 */
+	List<AdoptPost> mypageSelectAdoptPostList(PageInfo pageInfo, String memberId);
+
+	/**
+	 * 마이페이지 검색한 입양공고 게시글 전체 개수 조회 Service
+	 * @param search
+	 * @return
+	 */
+	int mypageGetAdoptPostListCount(Search search);
+
+	/**
+	 * 입양한 동물들 목록 Service
+	 * @param memberId
+	 * @return List<Animal>
+	 */
+	public List<Animal> selectAnimalbyAnimalAdopterId(String memberId);
+	
+
 }
 
 
-/**
- * 입양한 동물들 목록 Service
- * @param memberId
- * @return List<Animal>
- */
-//public List<Animal> selectAnimalbyAnimalAdopterId(String memberId);
 
 
