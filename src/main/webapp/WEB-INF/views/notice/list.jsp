@@ -16,6 +16,7 @@
 			<jsp:include page="../common/header.jsp" />
 		</header>
 		<main>
+			<div></div>
 			<div id="registerArea">
 				<c:if test="${sessionScope.loginUser.memberId eq 'admin' }">
 					<button id="" onclick="location.href='/notice/registerView.ztp'">글쓰기</button>
@@ -84,6 +85,7 @@
 						<input type="submit" id="searchBtn" value="검색">
 					</form>
 		        </div>
+		        <div class="area"></div>
 		</main>
 		<footer>
 			<jsp:include page="../common/footer.jsp" />

@@ -9,10 +9,15 @@
     color: #4E422D;    
 }
 
+body {
+    overflow-x: hidden;
+}
+
 main {
     width: 100vw;
-    margin-top: 230px;
-    margin-bottom: 50px;
+    min-height: 100vh;
+/*     margin-top: 230px; */
+/*     margin-bottom: 50px; */
     color: #4E422D;
     text-align: center;
 /*     outline: none; */
@@ -20,10 +25,23 @@ main {
  	font-family: 'hanna'; 
 }
 
-main a:link, a:visited {
-	color : black;
-	text-decoration: none;
+main>div:nth-child(1) {
+
+    /* 헤더 공간 비워두기 위함 */
+    height: 125px;
+
+    /* 
+        헤더가 차지하는 125px보다 더 띄우고 싶은 만큼 
+        margin-bottom값을 임의로 조절해서 쓰시면 됩니다.
+    */
+    margin-bottom: 100px;
+
 }
+
+/* main a:link, a:visited { */
+/* 	color : #4E422D; */
+/* 	text-decoration: none; */
+/* } */
 
 main input[type=text] {
     width: 200px;
@@ -49,6 +67,7 @@ main button:hover {
     border: 1px solid white;
 }
 
+
 main form input[type=submit], input[type=reset] {
 	border: 1px solid #4E422D;
     background-color: #4E422D;
@@ -58,6 +77,7 @@ main form input[type=submit], input[type=reset] {
     font-family: 'jua';
     font-size: 20px;
     cursor: pointer;
+    margin-top: 20px;
 }
 
 main form input[type=submit]:hover, input[type=reset]:hover {
@@ -79,6 +99,7 @@ main table a:link, a:visited {
     color: #4E422D;
     text-decoration: none;
 }
+
 main table {
     margin: auto;
     width: 90%;
@@ -133,7 +154,7 @@ main .pageNation a {
     color: #4E422D;
     text-decoration: none;
 }
-main .pageNation a.active {
+main .pageNation a:active {
     background-color: #C6BDAD;
     color: #C6BDAD;
     border: 1px solid #C6BDAD;
@@ -151,26 +172,102 @@ main .searchBar {
     text-align: center;
 }
 
+main .area {
+	margin-bottom: 20px;
+}
 
 /* detail 페이지 */
 
+main h1 {
+    text-align: left;
+    margin-left: 400px;
+}
 
-main .detailInput {
-	margin-bottom: 20px;
+main hr {
+	width: 50%;
+    margin: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+main #detailInput {
+	display: flex;
+    float: inherit;
+    justify-content: center;
+}
+
+main #detailInput input {
+	margin: 5px;
+	margin-left: 180px;
+    height: 30px;
+    border: 0;
+    font-size: 20px;
+    font-family: 'jua';
+    outline: none;
+}
+
+main .subjectInput {
+	text-align: center;
+}
+
+main .writerInput {
+	text-align: center;
 }
 
 main textarea {
 	border: 1px solid #C6BDAD;
 	margin-top: 20px;
 	margin-bottom: 20px;
+	resize: none;
+    outline: none;
+    font-family: 'hanna';
+    font-size: 20px;
 }
 
-main #removeArea {
+main .removeArea {
+	display: inline-block;
+    display: flex;
+    justify-content: right;
+    margin-right: 260px;
+    margin-bottom: 30px;
+}
+
+main .removeArea a {
+	display: block;
+    margin: 3px;
+    padding: 5px;
+    float: left;
+    border: 1px solid #C6BDAD;
+    width: 34px;
+    height: 22px;
+    line-height: 28px;
+    text-align: center;
+    background-color: rgba(0,0,0,0);
+    font-size: 13px;
+    color: #C6BDAD;
+    text-decoration: none;
+    font-family: 'jua';
+    font-size: 20px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+main .removeArea a:hover {
+    border: 1px solid #4E422D;
+}
+
+main .comment {
+	margin-top: 30px;
+}
+
+main .comment table {
+	margin-top: 20px;
 	margin-bottom: 20px;
 }
 
 
 /* detail, register 페이지 공통 */
+
 
 main .uploadArea {
 	margin-bottom: 10px;

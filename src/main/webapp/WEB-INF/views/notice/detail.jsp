@@ -16,37 +16,51 @@
 			<jsp:include page="../common/header.jsp" />
 		</header>
 		<main>
-			<c:if test="${sessionScope.loginUser.memberId eq 'admin' }">
+			<div></div>
+<!-- 			<h1>공지사항</h1> -->
+<!--         	<hr> -->
+				<c:if test="${sessionScope.loginUser.memberId eq 'admin' }">
+					<div class="removeArea">
+						<c:url var="nList" value="/notice/list.ztp">
+							<c:param name="noticeNo" value="${notice.noticeNo }"/>
+						</c:url>
+							<a href="javascript:void(0);" onclick="removeCheck(${notice.noticeNo });">삭제</a>
+							<a href="${nList }">목록</a>
+					</div>			
 				<form action="/notice/modify.ztp" method="post" enctype="multipart/form-data">
-					<input type="text" class="detailInput" name="noticeSubject" value="${notice.noticeSubject }">
-					<input type="text" class="detailInput" name="noticeWriter" value="${notice.noticeWriter }"><br>
-					<textarea name="noticeContent" id=""  rows="20" cols="100">${notice.noticeContent }</textarea><br>
+					<div id="detailInput">
+						<input type="text" class="detailInput" name="noticeSubject" value="${notice.noticeSubject }">
+						<input type="text" class="detailInput" name="noticeWriter" value="${notice.noticeWriter }"><br>
+					</div>
+					<textarea name="noticeContent" id=""  rows="15" cols="70">${notice.noticeContent }</textarea><br>
 					<label class="fileBtn" for="inputFile">
 						<img src="../../../resources/img/notice-file.png" alt="" >
 					</label>
-					<input type="file" id="inputFile" name="reloadFile" value="" style="display:none">${notice.noticeImageName }<br>
+					<input type="file" id="inputFile" name="reloadFile" value="" style="display:none">${notice.noticeImageName }
+					<br>
 					<input type="hidden" name="noticeNo" value="${notice.noticeNo }">
 					<input type="hidden" name="noticeImageName" value="${notice.noticeImageName }">
 					<input type="hidden" name="noticeImagePath" value="${notice.noticeImagePath }">
 					<input type="submit" class="" value="수정">
 					<input type="reset" class="" value="취소"> 
 				</form>
-					<c:url var="nList" value="/notice/list.ztp">
-						<c:param name="noticeNo" value="${notice.noticeNo }"/>
-					</c:url>
-					<div id="removeArea">
-						<a href="javascript:void(0);" onclick="removeCheck(${notice.noticeNo });">삭제하기</a>
-						<a href="${nList }">목록으로</a>				
-					</div>
 <%-- 					<c:url var="nDelete" value="/notice/remove.ztp">			 --%>
 <%-- 						<c:param name="noticeNo" value="${notice.noticeNo }"/>   --%>
 <%-- 					</c:url>													 --%>
 			</c:if>
 			<c:if test="${sessionScope.loginUser.memberId ne 'admin' }">
+				<div class="removeArea">
+					<c:url var="nList" value="/notice/list.ztp">
+						<c:param name="noticeNo" value="${notice.noticeNo }"/>
+					</c:url>
+					<a href="${nList }">목록</a><br>
+				</div>
 				<form action="/notice/modify.ztp" method="post" enctype="multipart/form-data">
-					<input type="text" name="noticeSubject" value="${notice.noticeSubject }" readonly>
-					<input type="text" name="noticeWriter" value="${notice.noticeWriter }" readonly><br>
-					<textarea name="noticeContent" id=""  rows="20" cols="100" readonly>${notice.noticeContent }</textarea><br>
+					<div id="detailInput">
+						<input type="text" class="subjectInput" name="noticeSubject" value="${notice.noticeSubject }" readonly>
+						<input type="text" class = "writerInput" name="noticeWriter" value="${notice.noticeWriter }" readonly><br>
+					</div>
+					<textarea name="noticeContent" id=""  rows="15" cols="70" readonly>${notice.noticeContent }</textarea><br>
 					<div class="uploadArea">
 						<label class="fileBtn" for="inputFile">
 							<img src="../../../resources/img/notice-file.png" alt="" >
@@ -57,10 +71,6 @@
 					<input type="hidden" name="noticeImageName" value="${notice.noticeImageName }">
 					<input type="hidden" name="noticeImagePath" value="${notice.noticeImagePath }">
 				</form>
-					<c:url var="nList" value="/notice/list.ztp">
-						<c:param name="noticeNo" value="${notice.noticeNo }"/>
-					</c:url>
-					<a href="${nList }">목록으로</a><br>
 			</c:if>
 			
 			<!-- 댓글 -->
@@ -80,7 +90,7 @@
 						<tr>
 							<td>${commentList.commentWriterId}</td>
 							<td>${commentList.commentContent}</td>
-							<td><c:if test="${sessionScope.loginUser.memberId ne null}"><button onclick="reComment()" class="">대댓글</button></c:if>
+<%-- 							<td><c:if test="${sessionScope.loginUser.memberId ne null}"><button onclick="reComment()" class="">대댓글</button></c:if> --%>
 							<td><c:if test="${sessionScope.loginUser.memberId eq 'admin' || sessionScope.loginUser.memberId eq commentList.commentWriterId}"><button onclick="deleteComment(${commentList.commentNo});" class="">삭제</button></c:if></td>
 						</tr>
 					</c:forEach>
