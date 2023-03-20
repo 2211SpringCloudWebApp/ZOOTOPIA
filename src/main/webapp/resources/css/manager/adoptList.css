@@ -12,19 +12,121 @@
     margin: 0;
     padding: 0;
 }
+
+body {
+    overflow-x: hidden;
+}
 main {
     width: 100vw;
-    margin-top: 200px;
+    min-height: 100vh;
+}
+main>div:nth-child(1) {
+
+/*     헤더 공간 비워두기 위함 */
+/*     height: 125px; */
+
+/*     헤더가 차지하는 125px보다 더 띄우고 싶은 만큼  */
+/*     margin-bottom값을 임의로 조절해서 쓰시면 됩니다. */
+/*     margin-bottom: 100px; */
+	margin-top: 250px;
+
 }
 
 main>#main-head{
 	color: #4E422D;
 	font-weight: bold;
-	font-size: 25pt;
+/* 	font-size: 25pt; */
 	font-family: 'jua';
+	margin-bottom: 20px;
+	text-align: left;
+	margin-left: 428px;
+}
+
+main h1{
+	font-family: 'jua';
+	color:#4E422D;
+}
+
+/* 테이블부분 */
+main table a:link, a:visited {
+    color: #4E422D;
+    text-decoration: none;
+}
+main table {
+    margin: auto;
+    width: 35%;
+    /*border-top: 1px solid #EEE5C6;*/
+    border-collapse: collapse;
+    text-align: center;
+    font-family: 'hanna';
+    color: #4E422D;
+}
+
+main th,td {
+    border-bottom: 1px solid #C6BDAD;
+    /*border-left: 1px solid #EEE5C6;*/
+    padding: 10px;
+}
+
+main th:first-child {
+    border-left: none;
+}
+main td:first-child {
+    border-left: none;
+    border-top: none;
+}
+main table span{
+	font-weight: bold;
+}
+
+/* 페이징처리부분 */
+main .pageWrap {
+    margin-top: 50px;
+    text-align: center;
+    font-size: 0;
+}
+main .pageNation {
+    display: inline-block;
+}
+
+main .pageNation a {
+    display: block;
+    margin: 0 3px;
+    float: left;
+    border: 1px solid #4E422D;
+    width: 28px;
+    height: 28px;
+    line-height: 28px;
+    text-align: center;
+    background-color: rgba(0,0,0,0);
+    font-size: 13px;
+    color: #4E422D;
+    text-decoration: none;
+}
+main .pageNation a.active {
+    background-color: #C6BDAD;
+    color: #C6BDAD;
+    border: 1px solid #C6BDAD;
+}
+
+main select {
+    height: 25px;
+    background-color: rgba(0,0,0,0);
+    border: 1px solid #4E422D;
+    border-radius: 3px;
+}
+
+main #searchTag {
+    margin-top: 30px;
+    text-align: center;
+}
+
+main #buttonTag{
+	margin-top: 20px;
 	margin-bottom: 20px;
 }
 
+/* 버튼 */
 button{
 	border: 1px solid #4E422D;
 	background-color: #4E422D;
@@ -33,6 +135,8 @@ button{
 	border-radius: 5px;
 	font-family: 'jua';
 	font-size: 20px;
+	text-align: left;
+	margin-left: 428px;
 }
 button:hover {
 	color: #EEE5C6;

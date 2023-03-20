@@ -1,0 +1,53 @@
+@charset "UTF-8";
+@font-face{
+    font-family: 'jua';
+    src: url(../font/BMJUA_ttf.ttf);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+body {
+    overflow-x: hidden;
+}
+main {
+    width: 100vw;
+    min-height: 100vh;
+    margin-top: 300px;
+/*     margin-bottom: 300px; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+main>div:nth-child(1) {
+
+/*     헤더 공간 비워두기 위함 */
+    height: 125px;
+
+/*         헤더가 차지하는 125px보다 더 띄우고 싶은 만큼  */
+/*         margin-bottom값을 임의로 조절해서 쓰시면 됩니다. */
+/*     margin-bottom: 100px; */
+
+}
+main>div:nth-child(2){
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+main h1{
+	font-family: 'jua';
+	color: #4E422D;
+	margin-top: 30px;
+/* 	margin-bottom: 10px; */
+	text-align: center;
+}
+main>div>a{
+	text-decoration: none;
+	font-family: 'jua';
+	font-size: 20px;
+	color: #C6BDAD;
+	margin-top: 20px;
+	text-align: center;
+}
