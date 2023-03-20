@@ -58,4 +58,40 @@ public class CommentStoreLogic implements CommentStore {
 		return result;
 	}
 
+	@Override
+	public Comment selectComment(SqlSession session, Comment comment) {
+
+		Comment commentResult = session.selectOne("CommentMapper.selectComment", comment);
+		
+		return commentResult;
+		
+	}
+
+	@Override
+	public int modifyComment(SqlSession session, Comment comment) {
+
+		int result = session.update("CommentMapper.modifyComment", comment);
+		
+		return result;
+	}
+	
+	// ========유정======== //
+	/**
+	 * 입양 공고 디테일 댓글 등록 StoreLogic
+	 */
+	@Override
+	public int insertAdoptComment(SqlSession session, Comment cmt) {
+		int result = session.insert("CommentMapper.insertAdoptComment", cmt);
+		return result;
+	}
+
+	/**
+	 * 해당 입양 공고 댓글 목록 조회 StoreLogic
+	 */
+	@Override
+	public List<Comment> selectAdoptComment(SqlSession session, Comment cmt) {
+		List<Comment> commentList = session.selectList("CommentMapper.selectAdoptComment", cmt);
+		return commentList;
+	}
+
 }

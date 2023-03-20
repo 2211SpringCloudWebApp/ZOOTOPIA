@@ -5,15 +5,19 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <title>입양 공고 목록</title>
+        <title>입양 공고 목록❤️</title>
+        <link rel="stylesheet" href="../../../resources/css/adoptAnimalPost/adoptAnimalPost_list.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
-        <link rel="stylesheet" href="../../../resources/css/adoptAnimalPost_list.css">
+        <link rel="icon" href="../../../resources/img/favicon.png"/>
+        <link rel="apple-touch-icon" href="../../../resources/img/favicon.png"/>
     </head>
     <body>
 
 		<jsp:include page="../common/header.jsp" />
 
         <main>
+          <!-- 헤더 부분 피하기 위한 div -->
+          <div></div>
           <h1>입양 공고 목록</h1>
           <h4><a href="/adoptAnimal/registerView.ztp">입양 공고 등록하기</a></h4>
           <!-- <h3>${paging.currentPage}</h3>
@@ -50,10 +54,18 @@
                 </ul>
             </form>
 
-            
 
             <!-- 동물 게시글 목록 -->
             <table id="animalList">
+
+              <h3>현재 페이지 : ${paging.currentPage }</h3>
+              <h3>전체 동물 입양 공고 게시글 수 : ${paging.totalCount }</h3>
+              <h3>한 페이지에 노출할 동물 입양 공고 게시글 수 : ${paging.animalPostLimit }</h3>
+              <h3>한 페이지 당 pageNavi 수 : ${paging.naviLimit }</h3>
+              <h3>pageNavi 시작값 : ${paging.startNavi }</h3>
+              <h3>pageNavi 끝값 : ${paging.endNavi }</h3>
+              <h3>페이지의 마지막 번호 : ${paging.maxPage }</h3>
+              
                 <c:forEach items="${aPostList}" var="aPost" varStatus="status">
                     <c:if test="${status.index % 4 == 0}">
                         <tr>

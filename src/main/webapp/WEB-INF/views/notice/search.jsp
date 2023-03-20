@@ -17,6 +17,7 @@
 			<jsp:include page="../common/header.jsp" />
 		</head>
 		<main>
+			<div></div>
 			<div id="registerArea">
 				<c:if test="${sessionScope.loginUser.memberId eq 'admin' }">
 					<button id="" onclick="location.href='/notice/registerView.ztp'">글쓰기</button>

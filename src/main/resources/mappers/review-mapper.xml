@@ -66,10 +66,11 @@
 
     <select id="mypageSearchReview" resultMap="reviewResultMap">
         SELECT * FROM REVIEW_POST_TBL 
-        <if test="condition == 'all'">WHERE REVIEW_POST_NO LIKE '%'  #{keyword}  '%' OR REVIEW_TITLE LIKE '%'  #{keyword}  '%' OR REVIEW_CONTENT LIKE '%'  #{keyword}  '%'</if>
-        <if test="condition == 'no'">WHERE REVIEW_POST_NO LIKE '%'  #{keyword}  '%'</if>
-        <if test="condition == 'title'">WHERE REVIEW_TITLE LIKE '%'  #{keyword}  '%'</if>
-        <if test="condition == 'content'">WHERE REVIEW_CONTENT LIKE '%'  #{keyword}  '%'</if>
+        <if test="condition == 'all'">WHERE REVIEW_POST_NO LIKE '%' || #{keyword} || '%' OR REVIEW_TITLE LIKE '%' || #{keyword} || '%' OR REVIEW_CONTENT LIKE '%' || #{keyword} || '%' OR REVIEW_WRITER_ID LIKE '%' || #{keyword} || '%'</if>
+        <if test="condition == 'no'">WHERE REVIEW_POST_NO LIKE '%' || #{keyword} || '%'</if>
+        <if test="condition == 'title'">WHERE REVIEW_TITLE LIKE '%' || #{keyword} || '%'</if>
+        <if test="condition == 'content'">WHERE REVIEW_CONTENT LIKE '%' || #{keyword} || '%'</if>
+        <if test="condition == 'writer'">WHERE REVIEW_WRITER_ID LIKE '%' || #{keyword} || '%'</if>
     </select>
 
     <select id="selectMypageReviewCount" resultType="_int">

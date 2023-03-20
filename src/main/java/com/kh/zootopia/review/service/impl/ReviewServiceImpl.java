@@ -96,22 +96,31 @@ public class ReviewServiceImpl implements ReviewService {
 	// 마이페이지 후기 조회
 	@Override
 	public List<Review> mypageSelectReviewList(PageInfo pageInfo, String memberId) {
+		
 		List<Review> reviewList = reviewStore.mypageSelectReviewList(session, pageInfo , memberId);
+		
 		return reviewList;
+		
 	}
 
 	// 마이페이지 후기 게시물 전체개수 검색
 	@Override
 	public int mypageGetListCount(Search search) {
+		
 		int result = reviewStore.mypageGetListCount(session, search);
+		
 		return result;
+		
 	}
 	
 	// 마이페이지 후기 게시물 검색
 	@Override
 	public List<Review> mypageSearchReview(PageInfo pageInfo, Search search) {
+		
 		List<Review> reviewList = reviewStore.mypageSearchReview(session, pageInfo, search);
+		
 		return reviewList;
+		
 	}
 
 }

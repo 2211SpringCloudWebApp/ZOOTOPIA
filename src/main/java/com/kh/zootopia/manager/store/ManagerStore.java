@@ -26,7 +26,7 @@ public interface ManagerStore {
 
 	void approveAdopts(SqlSession session, int adoptPostNo);
 
-	void deleteAdopts(SqlSession session, int animalNo);
+	void deleteAdopts(SqlSession session, int adoptPostNo);
 
 	//예약페이지
 	List<AdoptPost> viewReservation(SqlSession session, DateDTO dateDTO);
@@ -36,6 +36,8 @@ public interface ManagerStore {
 	int getMemberListCount(SqlSession session);
 
 	int getAdoptListCount(SqlSession session);
+
+	void deleteCheckedReviews(SqlSession session, int reviewPostNo);
 
 
 }

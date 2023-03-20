@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -12,11 +13,14 @@
 </head>
 <body>
 	<jsp:include page="../common/header.jsp" />
+	
 	<main>
-	    <h1>입양 후기</h1>
+		<div></div>
 	    <div class="list">
+	    <h1>입양 후기</h1>
 	 		<table class="review-table wrapper-table">
 		 		<tbody>
+		 		
 		        <!-- 리스트 -->
 		        <c:set var="i" value="0" />
 		 		<c:set var="j" value="2" />
@@ -39,7 +43,7 @@
 		     							<tr>
 		     								<td class="post post-writer-info" onclick="location.href='/review/detail.ztp?reviewPostNo=${reviewList.reviewPostNo}';">
 		     									<span>${reviewList.reviewWriterId}</span>
-		     									<span>${reviewList.reviewCreateDate}</span>
+		     									<span><fmt:formatDate pattern="yyyy-MM-dd" value="${reviewList.reviewCreateDate}" /></span>
 		     								</td>
 		     							</tr>
 		     							<tr>
@@ -59,28 +63,30 @@
 				</c:choose>
 				</tbody>
 			</table>
+			
 			<div class="pageWrap">
 	            <div class="pageNation">
-	                <c:if test="${pi.currentPage > 1}">
-	                    <a href="/notice/list.ztp?page=1" class="first-last-page"><<</a>
+	                <c:if test="${pageInfo.currentPage > 1}">
+	                    <a href="/review/list.ztp?page=1" class="first-last-page"><<</a>
 	                </c:if>
-	                <c:if test="${pi.currentPage > 1}">
-	                    <a href="/notice/list.ztp?page=${pi.currentPage - 1}" class="prev-next-page"><</a>
+	                <c:if test="${pageInfo.currentPage > 1}">
+	                    <a href="/review/list.ztp?page=${pageInfo.currentPage - 1}" class="prev-next-page"><</a>
 	                </c:if>
-	                <c:forEach begin="${pi.startNav}" end="${pi.endNav}" var="page">
-	                    <c:url var="pageUrl" value="/notice/list.ztp">
+	                <c:forEach begin="${pageInfo.startNav}" end="${pageInfo.endNav}" var="page">
+	                    <c:url var="pageUrl" value="/review/list.ztp">
 	                        <c:param name="page" value="${page}" />
 	                    </c:url>
 	                        <a href="${pageUrl}" >${page}</a>
 	                </c:forEach>
-	                <c:if test="${pi.currentPage < pi.maxPage}">
-	                    <a href="/notice/list.ztp?page=${pi.currentPage + 1}" class="prev-next-page">></a>
+	                <c:if test="${pageInfo.currentPage < pageInfo.maxPage}">
+	                    <a href="/review/list.ztp?page=${pageInfo.currentPage + 1}" class="prev-next-page">></a>
 	                </c:if>
-	                <c:if test="${pi.currentPage < pi.maxPage}">
-	                    <a href="/notice/list.ztp?page=${pi.maxPage}" class="first-last-page">>></a>
+	                <c:if test="${pageInfo.currentPage < pageInfo.maxPage}">
+	                    <a href="/review/list.ztp?page=${pageInfo.maxPage}" class="first-last-page">>></a>
 	                </c:if>
 	            </div>
 	        </div>
+	        
 	      	<!-- 검색 -->
 	        <div class="searchBar">
 				<form action="/review/search.ztp" method="get">
@@ -102,7 +108,9 @@
 				</tr>
 			</c:if>
 	    </div>
+    <div></div>
     </main>
+    
     <jsp:include page="../common/footer.jsp" />
 
 </body>

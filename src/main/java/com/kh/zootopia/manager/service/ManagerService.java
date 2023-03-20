@@ -24,7 +24,7 @@ public interface ManagerService {
 
 	void approveAdopts(int adoptPostNo);
 
-	void deleteAdopts(int animalNo);
+	void deleteAdopts(int adoptPostNo);
 
 //	예약페이지
 	List<AdoptPost> viewReservation(DateDTO dateDTO);
@@ -35,6 +35,8 @@ public interface ManagerService {
 	int getMemberListCount();
 
 	int getAdoptListCount();
+
+	void deleteCheckedReviews(int reviewPostNo);
 
 
 }

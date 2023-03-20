@@ -9,6 +9,7 @@
 		<result property="parentCommentNo" column="PARENT_COMMENT_NO"/>
 		<result property="commentContent" column="COMMENT_CONTENT"/>
 		<result property="commentWriterId" column="COMMENT_WRITER_ID"/>
+		<result property="commentCreateDate" column="COMMENT_CREATE_DATE"/>
 
 	</resultMap>
 	
@@ -21,12 +22,21 @@
 	</select>
 	
 	<insert id="insertComment" parameterType="comment">
-		INSERT INTO COMMENT_TBL VALUES (#{boardId}, #{postNo}, SEQ_COMMENT.NEXTVAL, #{parentCommentNo}, #{commentContent}, #{commentWriterId})
+		INSERT INTO COMMENT_TBL VALUES (#{boardId}, #{postNo}, SEQ_COMMENT.NEXTVAL, #{parentCommentNo}, #{commentContent}, #{commentWriterId}, DEFAULT)
 	</insert>
 	
 	<delete id="deleteComment" parameterType="comment">
 		DELETE FROM COMMENT_TBL WHERE BOARD_ID = #{boardId} AND POST_NO = #{postNo} AND COMMENT_NO = #{commentNo}
 	</delete>
+	
+	<select id="selectComment" parameterType="comment" resultMap="commentResultMap">
+		SELECT * FROM COMMENT_TBL WHERE BOARD_ID = #{boardId} AND POST_NO = #{postNo} AND COMMENT_NO = #{commentNo}
+	</select>
+	
+	<update id="modifyComment" parameterType="comment">
+		UPDATE COMMENT_TBL SET COMMENT_CONTENT = #{commentContent} WHERE BOARD_ID = #{boardId} AND POST_NO = #{postNo} AND COMMENT_NO = #{commentNo} 
+	</update>
+	
 	<!-- 석현 -->
 	<select id="getReviewCommentCount" resultType="_int">
 		SELECT COUNT(*) FROM COMMENT_TBL WHERE COMMENT_WRITER_ID = #{memberId} AND BOARD_ID = 'R'
@@ -34,4 +44,13 @@
 	<select id="selectReviewCommentList" resultMap="commentResultMap">
 		SELECT * FROM COMMENT_TBL WHERE BOARD_ID = 'R' AND COMMENT_WRITER_ID = #{memberId}
 	</select>
+	
+	<!-- 유정 입양 공고 댓글 -->
+	<insert id="insertAdoptComment">
+		INSERT INTO COMMENT_TBL VALUES ( #{boardId }, #{postNo }, SEQ_ADOPT_COMMENT_NO.NEXTVAL, #{parentCommentNo }, #{commentContent }, #{commentWriterId })
+	</insert>
+	<select id="selectAdoptComment" resultMap="commentResultMap">
+		SELECT * FROM COMMENT_TBL WHERE BOARD_ID = #{boardId } AND POST_NO = #{postNo } ORDER BY COMMENT_NO DESC
+	</select>
+	
 </mapper>

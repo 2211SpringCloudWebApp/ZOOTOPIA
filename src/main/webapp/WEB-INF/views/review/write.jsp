@@ -15,8 +15,9 @@
 </head>
 <body>
     <jsp:include page="../common/header.jsp" />
+	<div></div>
 	<main>
-	    <h1>입양 후기 등록 폼</h1>
+	    <h1>입양 후기 등록</h1>
 	    <hr>
 	    동물 : ${animalNo}<br>
 	    <form action="/review/write.ztp" method="POST" enctype="multipart/form-data">
