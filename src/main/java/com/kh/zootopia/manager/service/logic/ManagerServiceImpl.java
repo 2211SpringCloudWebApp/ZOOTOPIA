@@ -64,8 +64,8 @@ public class ManagerServiceImpl implements ManagerService{
 	}
 
 	@Override
-	public void deleteAdopts(int animalNo) {
-		mStore.deleteAdopts(session, animalNo);
+	public void deleteAdopts(int adoptPostNo) {
+		mStore.deleteAdopts(session, adoptPostNo);
 	}
 
 	//예약페이지
@@ -92,6 +92,12 @@ public class ManagerServiceImpl implements ManagerService{
 	public int getAdoptListCount() {
 		int result = mStore.getAdoptListCount(session);
 		return result;
+	}
+
+	@Override
+	public void deleteCheckedReviews(int reviewPostNo) {
+		mStore.deleteCheckedReviews(session, reviewPostNo);
+		
 	}
 
 }

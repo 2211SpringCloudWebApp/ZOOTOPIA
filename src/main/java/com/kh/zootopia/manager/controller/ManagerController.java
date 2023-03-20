@@ -120,6 +120,7 @@ public class ManagerController {
 	@RequestMapping(value="/member/delete.ztp", method=RequestMethod.GET)
 	public String deleteMember(@RequestParam("memberId") String memberId, Model model) {
 		try {
+			System.out.println(memberId);
 			int result = mService.deleteMember(memberId);
 			if(result > 0) {
 				return "redirect:/member/list.ztp";
@@ -173,8 +174,8 @@ public class ManagerController {
 
 	// 입양공고리스트 내 여러개 삭제 Controller
 	@RequestMapping(value="/manager/deleteAdopts.ztp", method=RequestMethod.POST)
-	public String deleteAdopts(@RequestParam("animalNo") List<Integer> animalNos) {
-		for(int animalNo : animalNos) mService.deleteAdopts(animalNo);
+	public String deleteAdopts(@RequestParam("adoptPostNo") List<Integer> adoptPostNos) {
+		for(int adoptPostNo : adoptPostNos) mService.deleteAdopts(adoptPostNo);
 		return "redirect:/adoptAnimal/list.ztp";
 	}
 	
@@ -227,5 +228,13 @@ public class ManagerController {
 			model.addAttribute("message", e.getMessage());
 			return "common/error";
 		}
+	}
+	
+	// ** 리뷰관리
+	// 체크된 리뷰삭제 Controller
+	@RequestMapping(value="/manager/deleteReviews.ztp", method=RequestMethod.POST)
+	public String deleteCheckedReviews(@RequestParam("checkedReview") List<Integer> reviewPostNos) {
+		for(int reviewPostNo : reviewPostNos) mService.deleteCheckedReviews(reviewPostNo);
+		return "redirect:/review/list.ztp";
 	}
 }

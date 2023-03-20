@@ -65,8 +65,8 @@ public class ManagerStoreLogic implements ManagerStore{
 	}
 
 	@Override
-	public void deleteAdopts(SqlSession session, int animalNo) {
-		session.delete("AdoptPostMapper.deleteAdopts", animalNo);
+	public void deleteAdopts(SqlSession session, int adoptPostNo) {
+		session.delete("AdoptPostMapper.deleteAdopts", adoptPostNo);
 	}
 
 	// 예약페이지
@@ -93,6 +93,11 @@ public class ManagerStoreLogic implements ManagerStore{
 	public int getAdoptListCount(SqlSession session) {
 		int result = session.selectOne("AdoptPostMapper.getAdoptListCount");
 		return result;
+	}
+
+	@Override
+	public void deleteCheckedReviews(SqlSession session, int reviewPostNo) {
+		session.delete("ReviewMapper.deleteReview", reviewPostNo);
 	}
 
 }

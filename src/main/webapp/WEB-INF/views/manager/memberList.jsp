@@ -18,18 +18,14 @@
 
 	    <main>
 	    	<div id="main">
-			    <h1>검색 조건</h1>
-			    <div id="searchTag">
-			        <form action="/member/search.ztp" method="get">
-			            <select name="condition" id="memberId-select">
-			                <option value="id">아이디</option>
-			                <option value="name">회원이름</option>
-			            </select>
-			            <input type="text" name="keyword">
-			            <button type="submit">검색</button>
-			        </form>
-			    </div>
+	    		<div class="titleTag">
+				    <h1>회원리스트</h1>
+	    		</div>
+			    
 			    <form action="/member/deleteMembers.ztp" name="myform" method="post">
+			    	<div id="buttonTag">
+				        <button type="submit" onclick="deleteBtn()">삭제</button>
+				    </div>
 				    <div id="memberList">
 				        <table>
 				            <thead>
@@ -50,43 +46,49 @@
 					                </tr>	            	
 				            	</c:forEach>
 				            </tbody>
-				            <tfoot>
-					            <tr align="center">
-					        		<td colspan="4">
-					        			<c:if test="${pi.currentPage > 1}">
-					        				<a href="/member/list.ztp?page=1" class="first-last-page">첫페이지</a>
-					        			</c:if>
-					        			<c:if test="${pi.currentPage > 1}">
-					        				<a href="/member/list.ztp?page=${pi.currentPage - 1}" class="prev-next-page">이전</a>
-					        			</c:if>
-					        			<c:forEach begin="${pi.startNav}" end="${pi.endNav}" var="page">
-					        				<c:url var="pageUrl" value="/member/list.ztp">
-					        					<c:param name="page" value="${page}" />
-					        				</c:url>
-					        				<a href="${pageUrl}" <c:if test="${pi.currentPage == page}">style="font-weight: 400; color: red"</c:if>>${page}</a>
-					        			</c:forEach>
-					        			<c:if test="${pi.currentPage < pi.maxPage}">
-					        				<a href="/member/list.ztp?page=${pi.currentPage + 1}" class="prev-next-page">다음</a>
-					        			</c:if>
-					        			<c:if test="${pi.currentPage < pi.maxPage}">
-					        				<a href="/member/list.ztp?page=${pi.maxPage}" class="first-last-page">마지막페이지</a>
-					        			</c:if>
-					        		</td>
-					        	</tr>
-				            </tfoot>
 				        </table>
+				        <div class="pageWrap">
+				        	<div class="pageNation">
+			        			<c:if test="${pi.currentPage > 1}">
+			        				<a href="/member/list.ztp?page=1" class="first-last-page"><<</a>
+			        			</c:if>
+			        			<c:if test="${pi.currentPage > 1}">
+			        				<a href="/member/list.ztp?page=${pi.currentPage - 1}" class="prev-next-page"><</a>
+			        			</c:if>
+			        			<c:forEach begin="${pi.startNav}" end="${pi.endNav}" var="page">
+			        				<c:url var="pageUrl" value="/member/list.ztp">
+			        					<c:param name="page" value="${page}" />
+			        				</c:url>
+			        				<a href="${pageUrl}" <c:if test="${pi.currentPage == page}"></c:if>>${page}</a>
+			        			</c:forEach>
+			        			<c:if test="${pi.currentPage < pi.maxPage}">
+			        				<a href="/member/list.ztp?page=${pi.currentPage + 1}" class="prev-next-page">></a>
+			        			</c:if>
+			        			<c:if test="${pi.currentPage < pi.maxPage}">
+			        				<a href="/member/list.ztp?page=${pi.maxPage}" class="first-last-page">>></a>
+			        			</c:if>
+							</div>
+					    </div>
+							
+					    </div>
+					</form>
+						</div>
+				    <div id="searchTag">
+				        <form action="/member/search.ztp" method="get">
+				            <select name="condition" id="memberId-select">
+				                <option value="id">아이디</option>
+				                <option value="name">회원이름</option>
+				            </select>
+				            <input type="text" name="keyword">
+				            <button type="submit">검색</button>
+				        </form>
 				    </div>
-				    <div id="buttonTag">
-				        <button type="submit">삭제</button>
-				    </div>
-			    </form>
-		    </div>
-	    <main>
-	    
+		    
+	    </main>
 	    <jsp:include page="../common/footer.jsp" />
 	    
 	    <script>
-			
+			// 체크박스 전체선택
 	    	function allCheck(){
 	    		var ac = document.myform.allcheck;
 	    		var rc = document.myform.rowcheck;
@@ -102,6 +104,14 @@
 	    		}
 	    	}
 	    	
+			// 버튼클릭 시 confirm창
+			function deleteBtn(){
+				var memberId = "${mOne.memberId}";
+				if(confirm("회원을 삭제하시겠습니까?")){
+					location.href="/member/delete.ztp?memberId="+memberId;					
+				}
+			}
+			
 	    </script>
 	</body>
 </html>

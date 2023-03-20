@@ -1,9 +1,12 @@
 @charset "UTF-8";
-/* 관리자페이지 멤버리스트 */
 @font-face {
     font-family: 'hanna';
     src : url(../font/BMHANNAAir_ttf.ttf);
     /* unicode-range: U+0020-007F; */
+}
+@font-face{
+    font-family: 'jua';
+    src: url(../font/BMJUA_ttf.ttf);
 }
 * {
     margin: 0;
@@ -19,69 +22,43 @@ main {
 main>div:nth-child(1) {
 
 /*     헤더 공간 비워두기 위함 */
-    height: 280px;
+/*     height: 125px; */
 
 /*     헤더가 차지하는 125px보다 더 띄우고 싶은 만큼  */
 /*     margin-bottom값을 임의로 조절해서 쓰시면 됩니다. */
-    margin-bottom: 300px;
-    margin-top: 250px;
+/*     margin-bottom: 100px; */
+	margin-top: 250px;
 
 }
-/* 타이틀부분 */
-h1 {
-	font-family : 'jua';
+
+main>#main-head{
 	color: #4E422D;
-}
-main .titleTag{
-	text-align: left;
-	margin-left: 70px;
+	font-weight: bold;
+/* 	font-size: 25pt; */
+	font-family: 'jua';
 	margin-bottom: 20px;
+	text-align: left;
+	margin-left: 428px;
 }
 
-
-
-table {
-	font-family : 'hanna';
-/* 	font-size: 20px; */
-	margin-left: auto;
-	margin-right: auto;	
-	
-}
-main input[type=text] {
-    width: 200px;
-    height: 25px;
-    border: 1px solid #4E422D;
-    border-radius: 3px;
+main h1{
+	font-family: 'jua';
+	color:#4E422D;
 }
 
-/* 버튼부분 */
-button{
-    border: 1px solid #4E422D;
-    background-color: #4E422D;
-    color: #EEE5C6;
-    padding: 5px;
-    border-radius: 5px;
-    font-family: 'jua';
-    font-size: 20px;
-}
-button:hover {
-    color: #EEE5C6;
-    background-color: white;
-    border: 1px solid white;
-}
-
-/* 리스트부분 */
-
+/* 테이블부분 */
 main table a:link, a:visited {
     color: #4E422D;
     text-decoration: none;
 }
 main table {
     margin: auto;
-    width: 90%;
+    width: 35%;
     /*border-top: 1px solid #EEE5C6;*/
     border-collapse: collapse;
     text-align: center;
+    font-family: 'hanna';
+    color: #4E422D;
 }
 
 main th,td {
@@ -96,6 +73,9 @@ main th:first-child {
 main td:first-child {
     border-left: none;
     border-top: none;
+}
+main table span{
+	font-weight: bold;
 }
 
 /* 페이징처리부분 */
@@ -141,7 +121,24 @@ main #searchTag {
 }
 
 main #buttonTag{
-	display: flex;
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
+
+/* 버튼 */
+button{
+	border: 1px solid #4E422D;
+	background-color: #4E422D;
+	color: #EEE5C6;
+	padding: 5px;
+	border-radius: 5px;
+	font-family: 'jua';
+	font-size: 20px;
 	text-align: left;
-	margin-left: 92px;
+	margin-left: 428px;
+}
+button:hover {
+	color: #EEE5C6;
+	background-color: white;
+	border: 1px solid white;
 }
