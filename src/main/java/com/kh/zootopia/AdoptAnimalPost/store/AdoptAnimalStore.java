@@ -5,12 +5,17 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 
 import com.kh.zootopia.AdoptAnimalPost.domain.AdoptAnimalPost;
+import com.kh.zootopia.AdoptAnimalPost.domain.Animal;
 import com.kh.zootopia.AdoptAnimalPost.domain.AnimalFiltering;
 import com.kh.zootopia.AdoptAnimalPost.domain.AnimalPaging;
 import com.kh.zootopia.AdoptAnimalPost.domain.FilteringAndPaging;
 import com.kh.zootopia.reservation.domain.Reservation;
 
 public interface AdoptAnimalStore {
+	
+	
+	
+	// ========== 등록 ========== //
 
 	/**
 	 * 입양 공고 등록 Store
@@ -20,6 +25,10 @@ public interface AdoptAnimalStore {
 	 */
 	int insertPost(SqlSession session, AdoptAnimalPost adoptAnimalPost);
 
+	
+	
+	// ========== 출력 ========== //
+	
 	/**
 	 * 입양 공고 목록 조회 Store
 	 * @param session
@@ -28,14 +37,16 @@ public interface AdoptAnimalStore {
 	 */
 	List<AdoptAnimalPost> selectAllAnimal(SqlSession session, AnimalPaging paging);
 	
+	
 	/**
-	 * 필터링 된 입양 공고 목록 조회 Store
+	 * 필터링된 입양 공고 목록 조회 Store
 	 * @param session
 	 * @param filteringAndPaging
 	 * @return
 	 */
 	List<AdoptAnimalPost> selectFilteredAnimal(SqlSession session, FilteringAndPaging filteringAndPaging);
 
+	
 	/**
 	 * 입양 공고 디테일 조회 Store
 	 * @param session
@@ -44,6 +55,10 @@ public interface AdoptAnimalStore {
 	 */
 	AdoptAnimalPost selectOneByAnimalNo(SqlSession session, int animalNo);
 
+	
+	
+	// ========== COUNT ========== //
+	
 	/**
 	 * 전체 동물 게시글 수 조회 Store
 	 * @param session
@@ -51,20 +66,36 @@ public interface AdoptAnimalStore {
 	 */
 	int selectTotalAnimalCount(SqlSession session);
 
+	
 	/**
-	 * 필터링 된 동물 수 조회 Store
+	 * 필터링된 동물 수 조회 Store
 	 * @param session
 	 * @param filter
 	 * @return
 	 */
 	int selectFilteredAnimalCount(SqlSession session, AnimalFiltering filter);
 
+	
+	
+	// ========== 매칭 ========== //
+
 	/**
-	 * 입력될 공고 글 게시글 번호 가져오기 Store
+	 * 매칭 조건에 맞는 입양 공고 목록 조회 Store
 	 * @param session
+	 * @param paging
+	 * @param animalInfo
 	 * @return
 	 */
-	int adoptPostNoCurrval(SqlSession session);
+	List<AdoptAnimalPost> selectMatchingAnimal(SqlSession session, AnimalPaging paging, Animal animalInfo);
+	
+	/**
+	 * 매칭 조건에 맞는 동물 수 조회 Store
+	 * @param session
+	 * @param animalInfo
+	 * @return
+	 */
+	int selectMatchingAnimalCount(SqlSession session, Animal animalInfo);
 
-
+	
+	
 }

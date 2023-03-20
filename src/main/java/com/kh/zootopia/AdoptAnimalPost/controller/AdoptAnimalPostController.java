@@ -1,9 +1,7 @@
 package com.kh.zootopia.AdoptAnimalPost.controller;
 
 import java.io.File;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -13,7 +11,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -24,8 +21,11 @@ import com.kh.zootopia.AdoptAnimalPost.domain.AnimalFiltering;
 import com.kh.zootopia.AdoptAnimalPost.domain.AnimalPaging;
 import com.kh.zootopia.AdoptAnimalPost.domain.FilteringAndPaging;
 import com.kh.zootopia.AdoptAnimalPost.service.AdoptAnimalService;
+import com.kh.zootopia.comment.domain.Comment;
+import com.kh.zootopia.comment.service.CommentService;
 import com.kh.zootopia.reservation.domain.Reservation;
 import com.kh.zootopia.reservation.service.ReservationService;
+
 
 @Controller
 public class AdoptAnimalPostController {
@@ -35,8 +35,13 @@ public class AdoptAnimalPostController {
 	
 	@Autowired
 	private ReservationService rService;
+	
+	@Autowired
+	private CommentService cService;
 
-	// 등록입니다
+	
+	
+	// ========== 등록 ========== //
 
 	/**
 	 * 입양 공고 등록 폼
@@ -47,6 +52,7 @@ public class AdoptAnimalPostController {
 	public String animalRegisterView() {
 		return "adoptAnimalPost/register";
 	}
+	
 
 	/**
 	 * 입양 등록
@@ -61,9 +67,11 @@ public class AdoptAnimalPostController {
 	@RequestMapping(value = "/adoptAnimal/register.ztp", method = RequestMethod.POST)
 	public ModelAndView animalRegister(
 			HttpServletRequest request
-			, @RequestParam("animalSpecies") String animalSpecies
 			, @ModelAttribute Animal animal
 			, @ModelAttribute AdoptPost adoptPost
+			, @RequestParam("characters") List<String> characters
+			, String sido
+			, String sigungu
 			, @RequestParam(value = "uploadFile", required = false) MultipartFile uploadFile
 			, ModelAndView mv) {
 
@@ -73,9 +81,14 @@ public class AdoptAnimalPostController {
 			// 작성자 = 임보자
 			animal.setAnimalFosterId(adoptPost.getAdoptWriterId());	
 			
-			// 입력될 공고 글 게시글 번호 가져오기
-//			int adoptPostNo = aService.adoptPostNoCurrval() + 1;
-
+			// 입력받은 성격들 문자열 하나로 모아서 animal객체에 담기
+			 String animalCharacter = String.join(";", characters);
+			 animal.setAnimalCharacter(animalCharacter);
+			 
+			// 입력받은 주소 시/군, 시/군/구 문자열 하나로 모아서 animal객체에 담기
+			 String animalAddr = sido + " " + sigungu;
+			 animal.setAnimalAddr(animalAddr);
+			
 			// 이미지 이름, 경로 가져오기
 			String adoptImageName = uploadFile.getOriginalFilename();
 			if (!adoptImageName.equals("")) {
@@ -90,14 +103,18 @@ public class AdoptAnimalPostController {
 			int result = aService.insertPost(adoptAnimalPost);
 
 			if (result > 0) {
-				// 성공, 리스트로 이동
+				
+				// 입양 공고 등록 성공 시 입양 공고 목록으로 이동함
 				mv.setViewName("redirect:/adoptAnimal/list.ztp");
+				
 			} else {
-				// 실패, 실패 페이지로 이동
-				// 말고 그냥 실패 팝업 후 리스트로 이동하고 싶음!
+				
+				// 입양 공고 등록 실패 시 실패 alert띄우고 입양 공고 목록으로 이동하도록 바꾸기
 				// mv.setViewName("adoptAnimalPost/list");
-				// 일단은 실패
+				
+				// 일단은 실패 에러페이지
 				mv.addObject("message", "입양 공고 등록 실패").setViewName("common/error");
+				
 			}
 
 		} catch (Exception e) {
@@ -109,6 +126,7 @@ public class AdoptAnimalPostController {
 		return mv;
 	}
 
+	
 	/**
 	 * 파일 복사 (지정한 경로로 업로드) 메소드
 	 * 
@@ -145,9 +163,8 @@ public class AdoptAnimalPostController {
 	}
 
 	
-	
-	
-	// 출력입니다
+
+	// ========== 출력 ========== //
 
 	/**
 	 * 입양 공고 목록 출력
@@ -165,9 +182,9 @@ public class AdoptAnimalPostController {
 			AnimalPaging paging = new AnimalPaging(currentPage, totalCount);
 			
 			List<AdoptAnimalPost> aPostList = aService.selectAllAnimal(paging);
+			
 
 			if (!aPostList.isEmpty()) {
-
 
 				mv.addObject("aPostList", aPostList);
 				mv.addObject("paging", paging);
@@ -187,6 +204,7 @@ public class AdoptAnimalPostController {
 
 		return mv;
 	}
+	
 
 	/**
 	 * 필터링된 공고 목록 출력
@@ -232,6 +250,7 @@ public class AdoptAnimalPostController {
 	    return mv;
 	}
 	
+	
 	/**
 	 * 동물 디테일 출력
 	 * 
@@ -243,15 +262,28 @@ public class AdoptAnimalPostController {
 	public ModelAndView animalDetailView(int animalNo, ModelAndView mv) {
 
 		try {
+			
 			// animalNo를 통해 해당 동물 Detail 정보 가져오기
 			AdoptAnimalPost aPost = aService.selectOneByAnimalNo(animalNo);
 			
 			// animalNo를 통해 해당 동물에 관한 예약 리스트 가져오기 (예약하기 or 예약취소 버튼)
 			List<Reservation> rList = rService.selectAllapplicantByAnimalNo(animalNo);
-			System.out.println(rList);
-			
+
 			if (aPost != null) {
-				mv.addObject("aPost", aPost).addObject("rList", rList).setViewName("adoptAnimalPost/detail");
+				
+				// Comment 객체에 boardId랑 postNo 정보 담아서
+				Comment cmt = new Comment();
+				cmt.setBoardId(aPost.getAdoptPost().getBoardId());
+				cmt.setPostNo(aPost.getAdoptPost().getAdoptPostNo());
+				
+				// 해당 공고에 달린 댓글 가져오기(댓글 대댓글 구분하지 않고!)				
+				List<Comment> commentList = cService.selectAdoptComment(cmt);
+				
+				mv.addObject("aPost", aPost);
+				mv.addObject("rList", rList);
+				mv.addObject("commentList", commentList);
+				mv.setViewName("adoptAnimalPost/detail");
+				
 			} else {
 				mv.addObject("message", "동물 디테일 조회 실패").setViewName("common/error");
 			}
@@ -262,16 +294,137 @@ public class AdoptAnimalPostController {
 
 		return mv;
 	}
+	
 
 	
+	// ========== 매칭 ========== //
 	
-	
-	// 매칭입니다
-	
-	@RequestMapping(value = "matching/mainView.ztp", method = RequestMethod.GET)
+	/**
+	 * 매칭 페이지 메인 뷰
+	 * @param mv
+	 * @return
+	 */
+	@RequestMapping(value = "/matching/mainView.ztp", method = RequestMethod.GET)
 	public ModelAndView matchingView(ModelAndView mv) {
 		mv.setViewName("adoptAnimalPost/matching");
 		return mv;
 	}
+	
+	
+	/**
+	 * 매칭 페이지에서 축종 갖고와서 성격 선택 페이지로 전달하는 역할만 함!
+	 * @param animalSpecies
+	 * @param mv
+	 * @return
+	 */
+	@RequestMapping(value = "/matching/character.ztp", method = RequestMethod.GET)
+	public ModelAndView asdfa(
+			String animalSpecies
+			, ModelAndView mv) {
+		mv.addObject("animalSpecies", animalSpecies).setViewName("adoptAnimalPost/matchingCharacter");
+		return mv;
+	}
+	
+	
+	/**
+	 * 매칭 결과 페이지
+	 * @param mv
+	 * @return
+	 */
+	@RequestMapping(value = "/matching/result.ztp", method = RequestMethod.POST)
+	public ModelAndView asdfasdfAndView(
+			@RequestParam(name = "page", defaultValue = "1") int currentPage
+			, String animalSpecies
+			, String animalCharacter
+			, ModelAndView mv) {
+		
+		try {
+			
+			// 선택받은 종, 성격 정보 전달용 animal 객체에 정보 담기
+			Animal animalInfo = new Animal();
+			animalInfo.setAnimalSpecies(animalSpecies);
+			animalInfo.setAnimalCharacter(animalCharacter);
+			
+			// 페이징에 필요
+			int totalCount = aService.selectMatchingAnimalCount(animalInfo);
+			AnimalPaging paging = new AnimalPaging(currentPage, totalCount);
+			
+			List<AdoptAnimalPost> aPostList = aService.selectMatchingAnimal(paging, animalInfo);
+			
+			if (!aPostList.isEmpty()) {
+				mv.addObject("aPostList", aPostList).setViewName("adoptAnimalPost/matchingResult");
+				
+			} else {
+				// 에러페이지 말고 걍 결과 페이지 따로 만들어서 출력하는 방식으로 바꾸기
+				// 일단은 걍 에러페이지 이용
+				mv.addObject("message", "조건에 맞는 동물 ㄴㄴ").setViewName("common/error");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			mv.addObject("message", e.getMessage()).setViewName("common/error");
+		}
+		return mv;
+	}
+	
+	
+	
+	// ========== 댓글 ========== //
+	
+	/**
+	 * 댓글 등록 및 리스트 리턴
+	 * @param request
+	 * @param animalNo
+	 * @param boardId
+	 * @param postNo
+	 * @param parentCommentNo
+	 * @param commentContent
+	 * @param commentWriterId
+	 * @param mv
+	 * @return
+	 */
+	@RequestMapping(value = "/adoptAnimal/addComment.ztp", method = RequestMethod.POST)
+	public ModelAndView addComment(
+			HttpServletRequest request
+			, int animalNo
+			, @ModelAttribute Comment cmt
+			, ModelAndView mv) {
+
+		
+		try {
+			
+			request.setCharacterEncoding("UTF-8");
+			
+			// 댓글 등록하기
+			int result = cService.insertAdoptComment(cmt);
+			
+			if (result > 0) {
+				
+				// animalNo를 통해 해당 동물 Detail 정보 가져오기
+				AdoptAnimalPost aPost = aService.selectOneByAnimalNo(animalNo);
+				
+				// animalNo를 통해 해당 동물에 관한 예약 리스트 가져오기 (예약하기 or 예약취소 버튼)
+				List<Reservation> rList = rService.selectAllapplicantByAnimalNo(animalNo);
+
+				// 해당 공고에 달린 댓글 가져오기(댓글 대댓글 구분하지 않고!)				
+				// boardId, postNo 일치하는 거 다 가져온 다음에 jsp에서 if문으로 나눠줄 거임!
+				List<Comment> commentList = cService.selectAdoptComment(cmt);
+				
+				mv.addObject("commentList", commentList);
+				mv.addObject("aPost", aPost);
+				mv.addObject("rList", rList);
+				mv.setViewName("adoptAnimalPost/detail");
+				
+			} else {
+				mv.addObject("message", "댓글 등록 실패!").setViewName("common/error");
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			mv.addObject("message", e.getMessage()).setViewName("common/error");
+		}
+		
+		return mv;
+	}
+	
 	
 }

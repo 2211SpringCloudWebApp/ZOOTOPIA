@@ -2,14 +2,15 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <head>
-<meta charset="UTF-8">
-<link rel="stylesheet" href="../../../resources/css/header.css">
-<!-- 정훈 수정부분 시작 -->
-<!-- SweetAlert2 -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.min.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.all.min.js"></script>
-<!-- 정훈 수정부분 끝 -->
-</head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="../../../resources/css/header.css">
+	
+	<!-- 정훈님이 추가해달라고 하신 거 -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.all.min.js"></script>
+	
+	<!-- 정훈님이 추가해달라고 하신 거 -->
+
 <header>
 
 	<div id="header-top">
@@ -44,7 +45,7 @@
 				
 				<!-- 관리자가 맞다면 관리자페이지 -->
 				<c:if test="${loginUser.mAdminYN ne 'N' }">
-					<div onclick="location.href='#'" class="main-header-btn">
+					<div onclick="location.href='/manager/viewManager.ztp'" class="main-header-btn">
 						<img src="../../resources/img/mypage-icon.png" alt="" class="log-img">
 						<span>관리자 </span>페이지
 					</div>
@@ -74,7 +75,24 @@
 					<div>ADOPT</div>
 					<div class="menu-list-bar"></div>
 					<div class="drop-down">
-						<div onclick="location.href='/adoptAnimal/registerView.ztp'">입양공고 등록</div>
+						<c:if test="${sessionScope.loginUser ne null }">
+							<!-- 로그인 상태라면 입양 공고 등록 폼으로 -->
+							<div onclick="location.href='/adoptAnimal/registerView.ztp'">입양공고 등록</div>
+						</c:if>
+						<c:if test="${sessionScope.loginUser eq null }">
+							<!-- 
+								비로그인 상태라면 로그인해야 이용 가능하단 팝업
+								띄우고 로그인 페이지로 이동
+							-->
+							<div onclick="(
+									function() { 
+										// alert('로그인 시 이용 가능한 서비스입니다.');
+										// location.href = '/member/loginView.ztp';
+										swal('로그인 필요', '로그인이 필요한 서비스입니다', 'warning').then(function(){location.href='/member/loginView.ztp';});
+										
+									}
+								)();">입양공고 등록</div>
+						</c:if>
 						<div onclick="location.href='/adoptAnimal/list.ztp'">입양공고 확인</div>
 					</div>
 				</div>
@@ -91,12 +109,24 @@
 							비로그인 상태라면 로그인해야 이용할 수 있다고 팝업 띄우고
 							로그인 페이지로 이동
 						-->
-						
-						<!-- 정훈 수정부분 시작 -->
-						<div <c:if test="${sessionScope.loginUser.memberId eq null}">onclick="loginAlert()"</c:if>
-							<c:if test="${sessionScope.loginUser.memberId ne null}">onclick="location.href='/member/animalList.ztp'"</c:if>
-						>입양후기 등록</div>
-						<!-- 정훈 수정부분 끝 -->
+
+						<c:if test="${sessionScope.loginUser ne null }">
+							<!-- 로그인 상태라면 내 입양 동물 목록으로 -->
+							<div onclick="location.href='/'">입양후기 등록</div>
+						</c:if>
+						<c:if test="${sessionScope.loginUser eq null }">
+							<!-- 
+								비로그인 상태라면 로그인해야 이용 가능하단 팝업
+								띄우고 로그인 페이지로 이동
+							-->
+							<div onclick="(
+									function() { 
+										// alert('로그인 시 이용 가능한 서비스입니다.');
+										// location.href = '/member/loginView.ztp';
+										swal('로그인 필요', '로그인이 필요한 서비스입니다', 'warning').then(function(){location.href='/member/loginView.ztp';});
+									}
+								)();">입양후기 등록</div>
+						</c:if>
 						<div onclick="location.href='/review/list.ztp'">입양후기 확인</div>
 					</div>
 				</div>
@@ -107,7 +137,7 @@
 					<div>MATCHING</div>
 					<div class="menu-list-bar"></div>
 					<div class="drop-down">
-						<div onclick="location.href='#'">매칭서비스</div>
+						<div onclick="location.href='/matching/mainView.ztp'">매칭서비스</div>
 					</div>
 				</div>
 			</li>
@@ -125,17 +155,5 @@
 		</ul>
 	</div>
 	
-	<!-- 정훈 수정부분 시작 -->
-	<script>
-	
-		function loginAlert() {
-			
-			swal('로그인 필요', '로그인이 필요한 서비스입니다', 'warning').then(function(){location.href="/member/loginView.ztp";});
-				
-		}
-		
-	</script>
-	<!-- 정훈 수정부분 끝 -->
-
 </header>
 

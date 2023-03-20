@@ -19,6 +19,10 @@ import com.kh.zootopia.reservation.domain.Reservation;
 @Repository
 public class AdoptAnimalStoreLogic implements AdoptAnimalStore {
 
+	
+	
+	// ========== 등록 ========== //
+	
 	/**
 	 * 입양 공고 등록 StoreLogic
 	 */
@@ -30,12 +34,15 @@ public class AdoptAnimalStoreLogic implements AdoptAnimalStore {
 
 		// 둘 다 성공했을 때만 result 값이 1이 되도록!
 		int result = 0;
-		if (animalResult == 1 && adoptPostResult == 1)
-			result = 1;
+		if (animalResult == 1 && adoptPostResult == 1) result = 1;
 
 		return result;
 	}
 
+
+	
+	// ========== 출력 ========== //
+	
 	/**
 	 * 입양 공고 목록 조회 StoreLogic
 	 */
@@ -64,40 +71,9 @@ public class AdoptAnimalStoreLogic implements AdoptAnimalStore {
 		return aPostList;
 	}
 
+	
 	/**
-	 * 입양 공고 디테일 조회 StoreLogic
-	 */
-	@Override
-	public AdoptAnimalPost selectOneByAnimalNo(SqlSession session, int animalNo) {
-		Animal animal = session.selectOne("AnimalMapper.selectOneByAnimalNo", animalNo);
-		AdoptPost post = session.selectOne("AdoptPostMapper.selectOneByAnimalNo", animalNo);
-
-		AdoptAnimalPost aPost = new AdoptAnimalPost(animal, post);
-
-		return aPost;
-	}
-
-	/**
-	 * 전체 동물 게시글 수 조회 StoreLogic
-	 */
-	@Override
-	public int selectTotalAnimalCount(SqlSession session) {
-		int totalAnimalCount = session.selectOne("AnimalMapper.selectTotalAnimalCount");
-		return totalAnimalCount;
-
-	}
-
-	/**
-	 * 필터링 된 동물 수 조회 StoreLogic
-	 */
-	@Override
-	public int selectFilteredAnimalCount(SqlSession session, AnimalFiltering filter) {
-		int filteredAnimalCount = session.selectOne("AnimalMapper.selectFilteredAnimalCount", filter);
-		return filteredAnimalCount;
-	}
-
-	/**
-	 * 필터링 된 입양 공고 목록 조회 StoreLogic
+	 * 필터링된 입양 공고 목록 조회 StoreLogic
 	 */
 	@Override
 	public List<AdoptAnimalPost> selectFilteredAnimal(SqlSession session, FilteringAndPaging filteringAndPaging) {
@@ -130,15 +106,88 @@ public class AdoptAnimalStoreLogic implements AdoptAnimalStore {
 		return aPostList;
 		
 	}
-
+	
+	
 	/**
-	 * 입력될 공고 글 게시글 번호 가져오기 StoreLogic
+	 * 입양 공고 디테일 조회 StoreLogic
 	 */
 	@Override
-	public int adoptPostNoCurrval(SqlSession session) {
-		int adoptPostNo = session.selectOne("AdoptPostMapper.adoptPostNoCurrval");
-		return adoptPostNo;
+	public AdoptAnimalPost selectOneByAnimalNo(SqlSession session, int animalNo) {
+		
+		Animal animal = session.selectOne("AnimalMapper.selectOneByAnimalNo", animalNo);
+		AdoptPost post = session.selectOne("AdoptPostMapper.selectOneByAnimalNo", animalNo);
+
+		AdoptAnimalPost aPost = new AdoptAnimalPost(animal, post);
+
+		return aPost;
 	}
 
+	
+	
+	// ========== COUNT ========== //
+	
+	/**
+	 * 전체 동물 게시글 수 조회 StoreLogic
+	 */
+	@Override
+	public int selectTotalAnimalCount(SqlSession session) {
+		int totalAnimalCount = session.selectOne("AnimalMapper.selectTotalAnimalCount");
+		return totalAnimalCount;
 
+	}
+
+	
+	/**
+	 * 필터링된 동물 수 조회 StoreLogic
+	 */
+	@Override
+	public int selectFilteredAnimalCount(SqlSession session, AnimalFiltering filter) {
+		int filteredAnimalCount = session.selectOne("AnimalMapper.selectFilteredAnimalCount", filter);
+		return filteredAnimalCount;
+	}
+
+	
+
+	// ========== 매칭 ========== //
+	
+	/**
+	 * 매칭 조건에 맞는 입양 공고 목록 조회 StoreLogic
+	 */
+	@Override
+	public List<AdoptAnimalPost> selectMatchingAnimal(SqlSession session, AnimalPaging paging, Animal animalInfo) {
+		
+		int limit = paging.getAnimalPostLimit();
+		int offset = (paging.getCurrentPage() - 1) * limit;
+		RowBounds rowBounds = new RowBounds(offset, limit);
+
+		List<Animal> aList = session.selectList("AnimalMapper.selectMatchingAnimal", animalInfo, rowBounds);
+		List<AdoptPost> pList = session.selectList("AdoptPostMapper.selectMatchingPost", animalInfo, rowBounds);
+
+		List<AdoptAnimalPost> aPostList = new ArrayList<AdoptAnimalPost>();
+
+		for (Animal animal : aList) {
+			for (AdoptPost adoptPost : pList) {
+				if (animal.getAnimalNo() == adoptPost.getAnimalNo()) {
+					AdoptAnimalPost aPost = new AdoptAnimalPost(animal, adoptPost);
+					aPostList.add(aPost);
+					break;
+				}
+			}
+		}
+
+		return aPostList;
+	}
+	
+	
+	/**
+	 * 매칭 조건에 맞는 동물 수 조회 StoreLogic
+	 */
+	@Override
+	public int selectMatchingAnimalCount(SqlSession session, Animal animalInfo) {
+		int totalCount = session.selectOne("AnimalMapper.selectMatchingAnimalCount", animalInfo);
+		return totalCount;
+	}
+
+	
+	
 }

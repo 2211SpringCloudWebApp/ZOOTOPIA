@@ -5,9 +5,19 @@
 		<head>
 			<title>ZOOTOPIA❤️</title>
 			<link rel="stylesheet" href="../../resources/css/home.css">
-			<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+			<!-- 제이쿼리 -->
+			<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+
+			<!-- favicon : 탭에 보이는 아이콘 -->
 			<link rel="icon" href="../../resources/img/favicon.png"/>
 			<link rel="apple-touch-icon" href="../../resources/img/favicon.png"/>	
+
+			<!-- 정훈님이 추가해달라고 하신 거, 로그인 알림 -->
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.min.css">
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.all.min.js"></script>
+
 		</head>
 
 		<body>
@@ -43,7 +53,23 @@
 						<div></div>
 						<!-- 입양 공고 관련 내용이 들어갈 자리 -->
 						<div>
-							<h1 onclick="location.href='/adoptAnimal/registerView.ztp'">입양 공고 등록하기</h1>
+							<c:if test="${sessionScope.loginUser ne null }">
+								<!-- 로그인 상태라면 입양 공고 등록 폼으로 -->
+								<h1 onclick="location.href='/adoptAnimal/registerView.ztp'">입양 공고 등록하기</h1>
+							</c:if>
+							<c:if test="${sessionScope.loginUser eq null }">
+								<!-- 
+									비로그인 상태라면 로그인해야 이용 가능하단 팝업
+									띄우고 로그인 페이지로 이동
+								-->
+								<h1 onclick="(
+										function() { 
+											// alert('로그인 시 이용 가능한 서비스입니다.');
+											// location.href = '/member/loginView.ztp';
+											swal('로그인 필요', '로그인이 필요한 서비스입니다', 'warning').then(function(){location.href='/member/loginView.ztp';});
+										}
+									)();">입양 공고 등록하기</h1>
+							</c:if>
 							<h1 onclick="location.href='/adoptAnimal/list.ztp'">입양 공고 확인하기</h1>
 						</div>
 					</section>
@@ -62,15 +88,22 @@
 						<div>
 							<c:if test="${sessionScope.loginUser ne null }">
 								<!-- 로그인 상태라면 내 입양 동물 목록으로 -->
-								<h1 onclick="location.href='#'">입양 후기 등록하기 - 로그인 상태</h1>
+								<h1 onclick="location.href='/'">입양 후기 등록하기</h1>
 							</c:if>
 							<c:if test="${sessionScope.loginUser eq null }">
-								<!-- 비로그인 상태라면 로그인해야 이용 가능하단 팝업
-							띄우고 로그인 페이지로 이동 -->
-								<h1 onclick="location.href='#'">입양 후기 등록하기 - 비로그인상태</h1>
+								<!-- 
+									비로그인 상태라면 로그인해야 이용 가능하단 팝업
+									띄우고 로그인 페이지로 이동
+								-->
+								<h1 onclick="(
+										function() { 
+											// alert('로그인 시 이용 가능한 서비스입니다.');
+											// location.href = '/member/loginView.ztp';
+											swal('로그인 필요', '로그인이 필요한 서비스입니다', 'warning').then(function(){location.href='/member/loginView.ztp';});
+										}
+									)();">입양 후기 등록하기</h1>
 							</c:if>
-
-							<h1 onclick="location.href='#'">입양 후기 확인하기</h1>
+							<h1 onclick="location.href='/review/list.ztp'">입양 후기 확인하기</h1>
 						</div>
 					</section>
 
@@ -80,23 +113,12 @@
 						<div></div>
 						<!-- 매칭 관련 내용이 들어갈 자리 -->
 						<div>
-							<h1 onclick="location.href='#'">매칭 페이지로 이동하기</h1>
+							<h1 onclick="location.href='/matching/mainView.ztp'">매칭 페이지로 이동하기</h1>
 						</div>
 					</section>
 
-					<!-- Notice Section -->
-					<!-- <section id="section5"> -->
-						<!-- 위에 헤더를 위한 공간 빼둘 div -->
-						<!-- <div></div> -->
-						<!-- 공지 관련 내용이 들어갈 자리 -->
-						<!-- <div> -->
-							<!-- <h1 onclick="location.href='#'">공지 페이지로 이동하기</h1> -->
-						<!-- </div> -->
-					<!-- </section> -->
-
 					<!-- Footer Section -->
 					<section id="footer">
-						<!-- footer JSP include 들어갈 자리 -->
 						<jsp:include page="./common/footer.jsp" />
 					</section>
 
