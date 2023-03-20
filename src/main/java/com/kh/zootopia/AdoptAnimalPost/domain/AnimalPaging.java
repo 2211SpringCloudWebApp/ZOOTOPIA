@@ -81,13 +81,18 @@ public class AnimalPaging {
 	  // 페이징 처리 계산 메소드
 	  private void calc() {
 	    maxPage = (int) Math.ceil((double) totalCount / animalPostLimit);
+//	    maxPage = (int)((double)totalCount/animalPostLimit + 0.9);
+	    
 	    if (currentPage > maxPage) {
 	      currentPage = maxPage;
 	    }
 	    if (currentPage < 1) {
 	      currentPage = 1;
 	    }
+	    
 	    startNavi = ((currentPage - 1) / naviLimit) * naviLimit + 1;
+//	    startNavi = (((int)((double)currentPage/naviLimit + 0.9)) - 1) * naviLimit + 1;
+	    
 	    endNavi = startNavi + naviLimit - 1;
 	    if (endNavi > maxPage) {
 	      endNavi = maxPage;

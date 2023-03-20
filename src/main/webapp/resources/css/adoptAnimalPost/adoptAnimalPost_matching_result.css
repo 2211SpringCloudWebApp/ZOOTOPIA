@@ -1,0 +1,23 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+body {
+    overflow-x: hidden;
+}
+main {
+    width: 100vw;
+    min-height: 100vh;
+}
+main>div:nth-child(1) {
+
+    /* 헤더 공간 비워두기 위함 */
+    height: 125px;
+
+    /* 
+        헤더가 차지하는 125px보다 더 띄우고 싶은 만큼 
+        margin-bottom값을 임의로 조절해서 쓰시면 됩니다.
+    */
+    margin-bottom: 100px;
+
+}

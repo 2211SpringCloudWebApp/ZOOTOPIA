@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.zootopia.AdoptAnimalPost.domain.AdoptAnimalPost;
+import com.kh.zootopia.AdoptAnimalPost.domain.Animal;
 import com.kh.zootopia.AdoptAnimalPost.domain.AnimalFiltering;
 import com.kh.zootopia.AdoptAnimalPost.domain.AnimalPaging;
 import com.kh.zootopia.AdoptAnimalPost.domain.FilteringAndPaging;
@@ -19,9 +20,14 @@ public class AdoptAnimalServiceImpl implements AdoptAnimalService{
 	
 	@Autowired
 	private SqlSession session;
+	
 	@Autowired
 	private AdoptAnimalStore aStore;
 
+	
+	
+	// ========== 등록 ========== //
+	
 	/**
 	 * 입양 공고 등록 ServiceImpl
 	 */
@@ -31,6 +37,8 @@ public class AdoptAnimalServiceImpl implements AdoptAnimalService{
 		return result;
 	}
 
+	
+	// ========== 출력 ========== //
 	/**
 	 * 입양 공고 목록 조회 ServiceImpl
 	 */
@@ -40,8 +48,9 @@ public class AdoptAnimalServiceImpl implements AdoptAnimalService{
 		return aPostList;
 	}
 	
+	
 	/**
-	 * 필터링 된 입양 공고 목록 조회 ServiceImpl 
+	 * 필터링된 입양 공고 목록 조회 ServiceImpl 
 	 */
 	@Override
 	public List<AdoptAnimalPost> selectFilteredAnimal(FilteringAndPaging filteringAndPaging) {
@@ -59,6 +68,10 @@ public class AdoptAnimalServiceImpl implements AdoptAnimalService{
 		return aPost;
 	}
 
+	
+	
+	// ========== COUNT ========== //
+	
 	/**
 	 * 전체 동물 게시글 수 조회 ServiceImpl
 	 */
@@ -68,8 +81,9 @@ public class AdoptAnimalServiceImpl implements AdoptAnimalService{
 		return totalAnimalCount;
 	}
 
+	
 	/**
-	 * 필터링 된 동물 수 조회 ServiceImple
+	 * 필터링된 동물 수 조회 ServiceImple
 	 */
 	@Override
 	public int selectFilteredAnimalCount(AnimalFiltering filter) {
@@ -77,16 +91,29 @@ public class AdoptAnimalServiceImpl implements AdoptAnimalService{
 		return filteredAnimalCount;
 	}
 
+
+	
+	// ========== 매칭 ========== //
+	
 	/**
-	 * 입력될 공고 글 게시글 번호 가져오기 ServiceImpl
+	 * 매칭 조건에 맞는 입양 공고 목록 조회 ServiceImpl
 	 */
 	@Override
-	public int adoptPostNoCurrval() {
-		int adoptPostNo = aStore.adoptPostNoCurrval(session);
-		return adoptPostNo;
+	public List<AdoptAnimalPost> selectMatchingAnimal(AnimalPaging paging, Animal animalInfo) {
+		List<AdoptAnimalPost> aPostList = aStore.selectMatchingAnimal(session, paging, animalInfo);
+		return aPostList;
+	}
+	
+	
+	/**
+	 * 매칭 조건에 맞는 동물 수 조회 ServiceImpl
+	 */
+	@Override
+	public int selectMatchingAnimalCount(Animal animalInfo) {
+		int totalCount = aStore.selectMatchingAnimalCount(session, animalInfo);
+		return totalCount;
 	}
 
 	
 	
-
 }

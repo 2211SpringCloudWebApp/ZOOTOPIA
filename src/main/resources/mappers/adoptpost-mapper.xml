@@ -20,19 +20,28 @@
 		<result property="animalNo" 		column="ANIMAL_NO" />
 	
 	</resultMap>
+		
 	
+	<!-- ========== 유정 시작 ========== -->
+	
+	<!-- ========== 유정 등록 ========== -->
+	
+	<!-- 입양 공고 등록 (adoptPost부분 등록, animal부분은 animal매퍼에서 따로 등록함!) -->
 	<insert id="insertAdoptPost">
 		INSERT INTO ADOPT_POST_TBL VALUES (SEQ_ADOPTPOSTNO.NEXTVAL, DEFAULT, #{adoptWriterId }, #{adoptContent }, #{adoptImageName }, #{adoptImagePath }, DEFAULT, NULL, DEFAULT, SEQ_ANIMALNO.CURRVAL)
 	</insert>
 	
+	
+	
+	<!-- ========== 유정 출력 ========== -->
+	
+	<!-- 입양 공고 목록 조회 (adoptPost부분 출력, animal부분은 animal매퍼에서 따로 출력함!)-->
 	<select id="selectAllPost" resultMap="adoptPostResultMap">
 		SELECT * FROM ADOPT_POST_TBL ORDER BY ANIMAL_NO DESC
 	</select>
+
 	
-	<select id="selectOneByAnimalNo" resultMap="adoptPostResultMap">
-		SELECT * FROM ADOPT_POST_TBL WHERE ANIMAL_NO = #{animalNo }
-	</select>
-	
+	<!-- 필터링된 입양 공고 목록 조회 (animal부분 출력, adoptPost부분은 adoptpost매퍼에서 따로 출력함!) -->
 	<select id="selectFilteredPost" resultMap="adoptPostResultMap">
 		SELECT * FROM (SELECT * FROM ANIMAL_TBL a LEFT OUTER JOIN ADOPT_POST_TBL p ON a.ANIMAL_NO = p.ANIMAL_NO ORDER BY a.ANIMAL_NO DESC)
 		  <where>
@@ -53,9 +62,26 @@
 		  </where>
 	</select>
 	
-	<select id="adoptPostNoCurrval" resultType="_int">
-		SELECT SEQ_ADOPTPOSTNO.CURRVAL FROM DUAL
+	
+	<!-- 입양 공고 디테일 조회 (animal부분 출력, adoptPost부분은 adoptpost매퍼에서 따로 출력함!) -->
+	<select id="selectOneByAnimalNo" resultMap="adoptPostResultMap">
+		SELECT * FROM ADOPT_POST_TBL WHERE ANIMAL_NO = #{animalNo }
 	</select>
+			
+	
+	
+	<!-- ========== 유정 매칭 ========== -->
+
+	<!-- 매칭 조건에 맞는 입양 공고 목록 조회 (animal부분 출력, adoptPost부분은 adoptpost매퍼에서 따로 출력함!) -->
+	<select id="selectMatchingPost" resultMap="adoptPostResultMap">
+		SELECT * FROM ADOPT_POST_TBL FULL OUTER JOIN ANIMAL_TBL USING(ANIMAL_NO) WHERE ANIMAL_SPECIES = #{animalSpecies } AND ANIMAL_CHARACTER = #{animalCharacter }
+	</select>
+	
+	
+	<!-- ========== 유정 끝 ========== -->
+	
+	
+	
 	
 	<!-- 	소현 맵퍼 -->
 	<update id="approveAdopt">
