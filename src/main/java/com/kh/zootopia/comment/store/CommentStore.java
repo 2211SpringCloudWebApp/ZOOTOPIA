@@ -49,4 +49,38 @@ public interface CommentStore {
 	 * @return int
 	 */
 	public int deleteComment(SqlSession session, Comment comment);
+	
+	/**
+	 * 댓글 불러오기
+	 * @param session
+	 * @param comment
+	 * @return Comment
+	 */
+	public Comment selectComment(SqlSession session, Comment comment);
+	
+	/**
+	 * 댓글 수정
+	 * @param session
+	 * @param comment
+	 * @return int
+	 */
+	public int modifyComment(SqlSession session, Comment comment);
+	
+	// ========유정======== //
+	/**
+	 * 입양 공고 디테일 댓글 등록 Store
+	 * @param session
+	 * @param cmt
+	 * @return
+	 */
+	public int insertAdoptComment(SqlSession session, Comment cmt);
+
+	/**
+	 * 해당 입양 공고 댓글 목록 조회 Store
+	 * @param session
+	 * @param cmt
+	 * @return
+	 */
+	public List<Comment> selectAdoptComment(SqlSession session, Comment cmt);
+	
 }

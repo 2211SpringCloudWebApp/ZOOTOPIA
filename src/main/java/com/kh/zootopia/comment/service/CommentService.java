@@ -42,5 +42,34 @@ public interface CommentService {
 	 * @return int
 	 */
 	public int deleteComment(Comment comment);
+
+	/**
+	 * 댓글 불러오기
+	 * @param comment
+	 * @return Comment
+	 */
+	public Comment selectComment(Comment comment);
+
+	/**
+	 * 댓글 수정
+	 * @param comment
+	 * @return int
+	 */
+	public int modifyComment(Comment comment);
+	
+	// ========유정======== //
+	/**
+	 * 입양 공고 디테일 댓글 등록 Service
+	 * @param cmt
+	 * @return
+	 */
+	public int insertAdoptComment(Comment cmt);
+
+	/**
+	 * 해당 입양 공고 댓글 목록 조회 Service
+	 * @param cmt
+	 * @return
+	 */
+	public List<Comment> selectAdoptComment(Comment cmt);
 	
 }

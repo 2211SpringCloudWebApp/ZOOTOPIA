@@ -18,11 +18,10 @@ public class ReviewStoreLogic implements ReviewStore {
 	@Override
 	public int insertReview(SqlSession session, Review review) {
 		
-		System.out.println("StoreLogic review : " + review);
-		
 		int result = session.insert("ReviewMapper.insertReview", review);
 		
 		return result;
+		
 	}
 
 	@Override
@@ -36,6 +35,7 @@ public class ReviewStoreLogic implements ReviewStore {
 		List<Review> reviewList = session.selectList("ReviewMapper.selectReviewList", null, rowBounds);
 		
 		return reviewList;
+		
 	}
 
 	@Override
@@ -44,6 +44,7 @@ public class ReviewStoreLogic implements ReviewStore {
 		int result = session.selectOne("ReviewMapper.selectReviewCount");
 		
 		return result;
+		
 	}
 
 	@Override
@@ -65,6 +66,7 @@ public class ReviewStoreLogic implements ReviewStore {
 		int result = session.selectOne("ReviewMapper.searchReviewCount", search);
 		
 		return result;
+		
 	}
 
 	
@@ -74,6 +76,7 @@ public class ReviewStoreLogic implements ReviewStore {
 		int result = session.delete("ReviewMapper.deleteReview", reviewPostNo);
 		
 		return result;
+		
 	}
 
 	@Override
@@ -82,6 +85,7 @@ public class ReviewStoreLogic implements ReviewStore {
 		Review review = session.selectOne("ReviewMapper.selectReview", reviewPostNo);
 
 		return review;
+		
 	}
 
 	@Override
@@ -103,29 +107,40 @@ public class ReviewStoreLogic implements ReviewStore {
 	//------------------------------------------------------------------------------------------------------------------
 	// 후기 목록 조회
 	@Override
-	public List<Review> mypageSelectReviewList(SqlSession session, PageInfo pageInfo , String memberId ) {
+	public List<Review> mypageSelectReviewList(SqlSession session, PageInfo pageInfo , String memberId) {
+		
 		int limit = pageInfo.getBoardLimit();
 		int currentPage = pageInfo.getCurrentPage();
 		int offset = (currentPage - 1) * limit;
 		RowBounds rowBounds = new RowBounds(offset, limit);
+		
 		List<Review> reviewList = session.selectList("ReviewMapper.mypageSelectReviewList", memberId, rowBounds);
+		
 		return reviewList;
+		
 	}
+	
 	// 후기 게시물 전체개수 
 	@Override
 	public int mypageGetListCount(SqlSession session, Search search) {
+		
 		int result = session.selectOne("ReviewMapper.selectMypageReviewCount");
+		
 		return result;
+		
 	}
 
 	// 후기 게시물 검색
 	@Override
 	public List<Review> mypageSearchReview(SqlSession session, PageInfo pageInfo, Search search) {
+		
 		int limit = pageInfo.getBoardLimit();
 		int currentPage = pageInfo.getCurrentPage();
 		int offset = (currentPage - 1) * limit;
 		RowBounds rowBounds = new RowBounds(offset, limit);
+		
 		List<Review> reviewList = session.selectList("ReviewMapper.mypageSearchReview", search, rowBounds);
+		
 		return reviewList;
 		
 	}

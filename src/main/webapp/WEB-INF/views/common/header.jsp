@@ -4,6 +4,11 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="../../../resources/css/header.css">
+<!-- 정훈 수정부분 시작 -->
+<!-- SweetAlert2 -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.all.min.js"></script>
+<!-- 정훈 수정부분 끝 -->
 </head>
 <header>
 
@@ -86,7 +91,12 @@
 							비로그인 상태라면 로그인해야 이용할 수 있다고 팝업 띄우고
 							로그인 페이지로 이동
 						-->
-						<div onclick="location.href='/member/animalList.ztp'">입양후기 등록</div>
+						
+						<!-- 정훈 수정부분 시작 -->
+						<div <c:if test="${sessionScope.loginUser.memberId eq null}">onclick="loginAlert()"</c:if>
+							<c:if test="${sessionScope.loginUser.memberId ne null}">onclick="location.href='/member/animalList.ztp'"</c:if>
+						>입양후기 등록</div>
+						<!-- 정훈 수정부분 끝 -->
 						<div onclick="location.href='/review/list.ztp'">입양후기 확인</div>
 					</div>
 				</div>
@@ -114,6 +124,18 @@
 
 		</ul>
 	</div>
+	
+	<!-- 정훈 수정부분 시작 -->
+	<script>
+	
+		function loginAlert() {
+			
+			swal('로그인 필요', '로그인이 필요한 서비스입니다', 'warning').then(function(){location.href="/member/loginView.ztp";});
+				
+		}
+		
+	</script>
+	<!-- 정훈 수정부분 끝 -->
 
 </header>
 

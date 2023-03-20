@@ -20,39 +20,6 @@ public class CommentController {
 	@Autowired
 	private CommentService commentService;
 	
-//	public String commentList(Model model, @RequestParam(value = "page", required = false, defaultValue = "1") Integer page, Comment comment) {
-//		
-//		int totalCount = commentService.getListCount(comment);
-//		PageInfo pageInfo = this.getPageInfo(page, totalCount);
-//		
-//		List<Comment> commentList = commentService.selectCommentList(pageInfo, comment);
-//		
-//		model.addAttribute("pageInfo", pageInfo);
-//		model.addAttribute("reviewList", commentList);
-//		return "review/list";
-//		
-//	}
-//	
-//	/**
-//	 * Navigator Start/End값 설정
-//	 */
-//	private PageInfo getPageInfo(int currentPage, int totalCount) {
-//		
-//		int boardLimit = 10;
-//		int navLimit = 10;
-//		int maxPage = (int) Math.ceil((double) totalCount / boardLimit);	// navTotalCount
-//		int startNav = (((int)((double) currentPage / navLimit + 0.9)) - 1) * navLimit + 1;
-//		int endNav = startNav + navLimit - 1;
-//		if(endNav > maxPage) {
-//			endNav = maxPage;
-//		}
-//		
-//		PageInfo pageInfo = new PageInfo(currentPage, boardLimit, totalCount, navLimit, startNav, endNav, maxPage);
-//		
-//		return pageInfo;
-//		
-//	}
-	
 	/**
 	 * 댓글 목록 출력
 	 * : Comment안에 있는 boardId, postNo에 따라 출력되는 댓글이 달라짐
@@ -97,14 +64,31 @@ public class CommentController {
 	}
 	
 	/**
-	 * 댓글 수정 (미완성)
+	 * 댓글 수정 창 띄우기
+	 * @return 
+	 */
+	@RequestMapping(value = "/comment/modifyView.ztp", method = RequestMethod.GET)
+	public ModelAndView modifyCommentView(@ModelAttribute Comment comment, @RequestParam("url") String url, ModelAndView mv) {
+		
+		Comment commentResult = commentService.selectComment(comment);
+		
+		mv.addObject("comment", commentResult);
+		mv.addObject("url", url);
+		mv.setViewName("common/modifyComment");
+		
+		return mv;
+		
+	}
+	
+	/**
+	 * 댓글 수정
 	 */
 	@RequestMapping(value = "/comment/modify.ztp", method = RequestMethod.POST)
 	public ModelAndView modifyComment(@ModelAttribute Comment comment, @RequestParam("url") String url, ModelAndView mv) {
 		
 		try {
 			
-			int result = commentService.insertComment(comment);
+			int result = commentService.modifyComment(comment);
 			
 			if (result > 0) {
 				

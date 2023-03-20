@@ -15,6 +15,7 @@
 </head>
 <body>
     <jsp:include page="../common/header.jsp" />
+	<div></div>
 	<main>
 	    <h1>입양 후기 수정</h1>
 	    <hr>
@@ -43,6 +44,7 @@
 	        <button type="reset">취소</button>
 	    </form>
 	</main>
+	<div id="footer-margin"></div>
 	<jsp:include page="../common/footer.jsp" />
     <script>
         
