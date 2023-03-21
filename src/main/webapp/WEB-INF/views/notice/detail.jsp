@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>    
 <!DOCTYPE html>
 <html>
 	<head>
@@ -75,27 +76,54 @@
 			
 			<!-- 댓글 -->
 			<div class="comment">
-				<c:if test="${sessionScope.loginUser.memberId ne null}">
-				<form name="commentForm" action="/comment/insert.ztp" method="post">
-					<input type="hidden" name="commentWriterId" value="${sessionScope.loginUser.memberId}">
-					<input type="hidden" name="boardId" value="N">
-					<input type="hidden" name="postNo" value="${notice.noticeNo}">
-					<input type="hidden" name="url" value="/notice/detail.ztp?noticeNo=">
-					<input type="text" name="commentContent" placeholder="댓글을 입력해 주세요">
-					<button type="submit" class="">등록</button>
-				</form>
-				</c:if>
-				<table>
-					<c:forEach items="${commentList}" var="commentList">
-						<tr>
-							<td>${commentList.commentWriterId}</td>
-							<td>${commentList.commentContent}</td>
-<%-- 							<td><c:if test="${sessionScope.loginUser.memberId ne null}"><button onclick="reComment()" class="">대댓글</button></c:if> --%>
-							<td><c:if test="${sessionScope.loginUser.memberId eq 'admin' || sessionScope.loginUser.memberId eq commentList.commentWriterId}"><button onclick="deleteComment(${commentList.commentNo});" class="">삭제</button></c:if></td>
-						</tr>
-					</c:forEach>
-				</table>
-			</div>
+	            	<div class="commentForm-wrapper">
+		            	<div>
+	                    	<span>댓글</span> <img src="../../../resources/img/icon-comment.png" style="width: 20px; height: 20px;">
+	                    </div>
+	            		<c:if test="${sessionScope.loginUser.memberId ne null}">
+		            		<div class="commentInput-wrapper">
+				                <form name="commentForm" action="/comment/insert.ztp" method="post">
+			            			<div class="comment-form">
+					                    <input type="hidden" name="commentWriterId" value="${sessionScope.loginUser.memberId}">
+					                    <input type="hidden" name="boardId" value="N">
+					                    <input type="hidden" name="postNo" value="${notice.noticeNo}">
+					                    <input type="hidden" name="url" value="/notice/detail.ztp?noticeNo=">
+					                    <textarea name="commentContent" placeholder="댓글을 입력해 주세요" class="comment-content"></textarea>
+									</div>
+									<div class="comment-button">
+					                    <button type="submit" class="comment-submit-button">등록</button>
+					                </div>
+				                </form>
+			                </div>
+		                </c:if>
+		                
+		                <div class="comment-output">
+			                <table>
+			                    <c:forEach items="${commentList}" var="commentList">
+			                        <tr>
+			                            <td id="comment-td1">${commentList.commentWriterId}</td>
+			                            <td id="comment-td2">${commentList.commentContent}</td>
+			                            <td id="comment-td3"><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${commentList.commentCreateDate}"/></td>
+			                            <c:if test="${sessionScope.loginUser.memberId eq commentList.commentWriterId}">
+			                            	<td id="comment-td4">
+			                            		<button onclick="modifyComment(${commentList.commentNo}, 'N');">
+			                            			<img src="../../../resources/img/icon-modify.png" style="width: 15px; height: auto;">
+			                            		</button>
+			                            	</td>
+			                            </c:if>
+			                            <c:if test="${sessionScope.loginUser.memberId eq review.reviewWriterId || sessionScope.loginUser.memberId eq commentList.commentWriterId || sessionScope.loginUser.mAdminYN eq 'Y'}">
+			                            	<td id="comment-td5">
+			                            		<button onclick="deleteComment(${commentList.commentNo}, 'N');">
+			                            			<img src="../../../resources/img/icon-trash.png" style="width: 15px; height: auto;">
+			                            		</button>
+			                            	</td>
+			                            </c:if>
+			                        </tr>
+			                    </c:forEach>
+			                </table>
+		                </div>
+					</div>
+				</div>
 		</main>
 		<footer>
 			<jsp:include page="../common/footer.jsp" />
