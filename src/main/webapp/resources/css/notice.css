@@ -179,55 +179,71 @@ main .area {
 /* detail 페이지 */
 
 main h1 {
-    text-align: left;
-    margin-left: 400px;
+    text-align: center;
+/*     margin-left: 400px; */
 }
 
 main hr {
-	width: 50%;
+	width: 42%;
     margin: auto;
     margin-top: 20px;
     margin-bottom: 20px;
+    color: #C6BDAD;
 }
 
 main #detailInput {
 	display: flex;
-    float: inherit;
+/*     float: left; */
     justify-content: center;
 }
 
 main #detailInput input {
-	margin: 5px;
-	margin-left: 180px;
-    height: 30px;
-    border: 0;
+/* 	margin: 5px; */
+	margin-left: 80px;
+/*     height: 30px; */
+    border: none;
     font-size: 20px;
-    font-family: 'jua';
+    font-family: 'hanna';
     outline: none;
 }
 
-main .subjectInput {
-	text-align: center;
+
+main #detailS {
+/* 	text-align: center; */
+
+	margin-left: 120px;
+	margin-right: 50px;
 }
 
-main .writerInput {
-	text-align: center;
+main #detailW {
+/* 	display: flex; */
+/* 	justify-content: center; */
+/* 	text-align: right; */
+}
+
+main #detailC {
+	margin-right: 50px;
+	line-height: 20px;
+	font-size: 20px;
 }
 
 main textarea {
-	border: 1px solid #C6BDAD;
+/* 	border: 1px solid #C6BDAD; */
+	border: none;
 	margin-top: 20px;
 	margin-bottom: 20px;
 	resize: none;
     outline: none;
     font-family: 'hanna';
     font-size: 20px;
+    text-align: center;
 }
 
 main .removeArea {
 	display: inline-block;
     display: flex;
     justify-content: right;
+    margin-top: 30px;
     margin-right: 550px;
     margin-bottom: 30px;
 }
@@ -273,17 +289,13 @@ main .commentForm-wrapper {
     padding: 10px;
 }
 
-main .commentForm-wrapper > div:nth-child(1) {
-	
-	margin: 5px 25px;
-		
+main .commentForm-wrapper > div:nth-child(1) {	
+	margin: 5px 25px;		
 }
 
-main .commentForm-wrapper > div:nth-child(1) > span {
-	
+main .commentForm-wrapper > div:nth-child(1) > span {	
 	font-family: 'hanna';
-	font-size: 1em;
-		
+	font-size: 1em;		
 }
 
 main .comment-form {		
@@ -369,4 +381,7 @@ main .uploadArea {
 
 /* register 페이지 */
 
+main #registerTxt {
+	border: 1px solid black;
+}
 

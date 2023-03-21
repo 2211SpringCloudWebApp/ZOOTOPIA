@@ -18,8 +18,7 @@
 		</header>
 		<main>
 			<div></div>
-<!-- 			<h1>공지사항</h1> -->
-<!--         	<hr> -->
+			<h1>공지사항</h1>
 				<c:if test="${sessionScope.loginUser.memberId eq 'admin' }">
 					<div class="removeArea">
 						<c:url var="nList" value="/notice/list.ztp">
@@ -30,9 +29,18 @@
 					</div>			
 				<form action="/notice/modify.ztp" method="post" enctype="multipart/form-data">
 					<div id="detailInput">
-						<input type="text" class="detailInput" name="noticeSubject" value="${notice.noticeSubject }">
-						<input type="text" class="detailInput" name="noticeWriter" value="${notice.noticeWriter }"><br>
+						<div id="detailS">
+							<input type="text" class="detailInput" name="noticeSubject" value="${notice.noticeSubject }">
+						</div>
+						<div id="detailW">
+							<input type="text" class="detailInput" name="noticeWriter" value="${notice.noticeWriter }">
+						</div>
+						<div id="detailC">
+<%-- 							<input type="text" class="detailInput" name="noticeCreateDate" value="<fmt:formatDate pattern="yyyy-MM-dd" value="${notice.noticeCreateDate }"/>"> --%>
+							<fmt:formatDate pattern="yyyy-MM-dd" value="${notice.noticeCreateDate }"/>
+						</div>
 					</div>
+					<hr>
 					<textarea name="noticeContent" id=""  rows="15" cols="70">${notice.noticeContent }</textarea><br>
 					<label class="fileBtn" for="inputFile">
 						<img src="../../../resources/img/notice-file.png" alt="" >
@@ -67,7 +75,7 @@
 							<img src="../../../resources/img/notice-file.png" alt="" >
 						</label>
 					</div>
-					<input type="file" id="inputFile" name="reloadFile" value="" style="display:none">${notice.noticeImageName }<br>
+					<input type="file" id="inputFile" name="reloadFile" value="" style="display:none"><a href="/notice/download.ztp?noticeNo=${notice.noticeNo }">${notice.noticeImageName }</a><br>
 					<input type="hidden" name="noticeNo" value="${notice.noticeNo }">
 					<input type="hidden" name="noticeImageName" value="${notice.noticeImageName }">
 					<input type="hidden" name="noticeImagePath" value="${notice.noticeImagePath }">
@@ -111,7 +119,8 @@
 			                            		</button>
 			                            	</td>
 			                            </c:if>
-			                            <c:if test="${sessionScope.loginUser.memberId eq review.reviewWriterId || sessionScope.loginUser.memberId eq commentList.commentWriterId || sessionScope.loginUser.mAdminYN eq 'Y'}">
+
+			                            <c:if test="${sessionScope.loginUser.memberId eq notice.noticeWriter || sessionScope.loginUser.memberId eq commentList.commentWriterId || sessionScope.loginUser.mAdminYN eq 'Y'}">
 			                            	<td id="comment-td5">
 			                            		<button onclick="deleteComment(${commentList.commentNo}, 'N');">
 			                            			<img src="../../../resources/img/icon-trash.png" style="width: 15px; height: auto;">
