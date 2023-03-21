@@ -33,6 +33,15 @@
 	
 	
 	
+	<!-- ========== 유정 삭제 ========== -->
+	
+	<!-- 입양 공고 삭제 (animal부분 삭제, adoptPost부분은 adoptpost매퍼에서 따로 삭제함!) -->
+	<delete id="deleteAnimal">
+		DELETE FROM ANIMAL_TBL WHERE ANIMAL_NO = #{animalNo }
+	</delete>
+	
+	
+	
 	<!-- ========== 유정 출력 ========== -->
 	
 	<!-- 입양 공고 목록 조회 (animal부분 출력, adoptPost부분은 adoptpost매퍼에서 따로 출력함!)-->
@@ -103,7 +112,7 @@
 	
 	<!-- 매칭 조건에 맞는 입양 공고 목록 조회 (animal부분 출력, adoptPost부분은 adoptpost매퍼에서 따로 출력함!) -->
 	<select id="selectMatchingAnimal" resultMap="animalResultMap">
-		SELECT * FROM ANIMAL_TBL WHERE ANIMAL_SPECIES = #{animalSpecies } AND ANIMAL_CHARACTER = #{animalCharacter }
+		SELECT * FROM ANIMAL_TBL WHERE ANIMAL_SPECIES = #{animalSpecies } AND ANIMAL_CHARACTER LIKE '%' || #{animalCharacter } || '%'
 	</select>
 	
 	
@@ -129,5 +138,9 @@
 		SELECT * FROM ANIMAL_TBL WHERE ANIMAL_NO = #{animalNo}
 	</select>
 	<!-- ====================== -->
+	
+	
+	
+	
 	
 </mapper>

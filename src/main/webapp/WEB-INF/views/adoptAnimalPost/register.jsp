@@ -100,7 +100,7 @@
 
 					<li>
 						<label for="" class="postContentLabel">이미지</label>
-						<input type="file" name="uploadFile">
+						<input type="file" name="uploadFile" multiple>
 					</li>
 
 				</ul>

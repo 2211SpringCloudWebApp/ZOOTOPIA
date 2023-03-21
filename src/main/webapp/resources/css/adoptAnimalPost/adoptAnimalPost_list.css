@@ -1,3 +1,12 @@
+@font-face{
+    font-family: 'jua';
+    src: url(../font/BMJUA_ttf.ttf);
+}
+@font-face{
+    font-family: 'hanna';
+    src: url(../font/BMHANNAAir_ttf.ttf);
+    /* unicode-range: U+0020-007F; */
+}
 * {
     margin: 0;
     padding: 0;
@@ -8,6 +17,13 @@ body {
 main {
     width: 100vw;
     min-height: 100vh;
+
+    /* 기본 말고 추가 내용 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
 }
 main>div:nth-child(1) {
 
@@ -17,15 +33,216 @@ main>div:nth-child(1) {
     /* 
         헤더가 차지하는 125px보다 더 띄우고 싶은 만큼 
         margin-bottom값을 임의로 조절해서 쓰시면 됩니다.
+
+        이거 폐기하고 아래가ㅓ 쓰면 댈듯!
     */
-    margin-bottom: 200px;
+    margin-bottom: 0px;
+
+}
+/* 여백을 주기 위함 */
+main #menu-info>#section3 {
+    height: 100px;
+    /* background-color: red; */
+    
+}
+
+/* 메뉴정보?페이지정보? 부분 너비 설정 */
+main #menu-info {
+    width: 100vw;
+}
+
+/* 밝은 색 부분 */
+main #menu-info>#section1 {
+    height: 340px;
+    /* height: 0; */
+    background-color: #EEE5C6;
+    /* background-color: transparent; */
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;  
+    
+}   main #menu-info>#section1>div:nth-child(1) {
+    /* text : 입양 공고 확인하기 */
+        color: #332a1a;
+        font-size: 50pt;
+        font-family: 'jua';
+
+        text-shadow:
+            /* x y 블러 색상 */
+            -1px -1px 1px white,  
+            1px -1px 1px white,
+            -1px 1px 1px white,
+            1px 1px 1px white,
+            3px 3px 3px rgba(0, 0, 0, 0.2);
+
+    } main #menu-info>#section1>div:nth-child(2) {
+        /* text : 가나다라 마밧 아자차카 타ㅠㅏ하 */
+        color: #4E422D;
+        font-size: 25pt;
+        font-family: 'hanna';
+    }
+/* 어두운 색 부분 */
+main #menu-info>#section2 {
+    height: 80px;
+    background-color: #4E422D;
+
+    display: flex;
+    justify-content: center;
+
+    box-shadow: 
+        0px 10px 15px 0px rgba(0, 0, 0, 0.5),
+        0px -5px 15px 0px rgba(0, 0, 0, 0.3);
+    
+}   main #menu-info>#section2>div {
+        /* 마름모 공통 속성 */
+        width: 80px;
+        height: 80px;
+        background-color: #4E422D;
+        margin-top: 30px;
+        transform: rotate(45deg);
+        border-radius: 15px;
+
+    }  main #menu-info>#section2>div:nth-child(1) {
+        /* 마름모 그림자 */
+        z-index: -1;
+        box-shadow: 10px 10px 15px 0px rgba(0, 0, 0, 0.3);
+
+    }  main #menu-info>#section2>div:nth-child(2) {
+        /* 마름모 덮어쓰기 */
+        position: absolute;
+    }
+
+
+
+
+/* main-content */
+main #main-content{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+
+    font-family: 'hanna';
+
+    /* width: 1100px; */
+    /* background-color: blue; */
 
 }
 
+/* 출력 결과가 적어도 리스트 공간 확보하기 위함 */
+main #animalListArea {
+    min-height: 90vh;
+    border-top: 1px solid #ccc;
+
+    /* 필터 부분과 리스트 부분 간격 1 - 리스트와 직선 간격 */
+    padding-top: 30px;
+}
+
+/* filtering 부분 */
+
+main #filter {
+    /* 필터 부분과 리스트 부분 간격2  - 필터와 직선 간격 */
+    margin-bottom: 30px;
+
+    /* 필터부분 좌우 위치 조절 위함 - 임시임! 나중에 바꿔줄 거임! */
+    padding-right: 330px;
+}
+
+main #filter li{
+    list-style: none;
+    /* border-bottom: 1px solid black; */
+    /* border-radius: 4px; */
+
+    /* 필터 옵션 - 축종, 지역, 등록일 각각의 높이 */
+    height: 55px;
+
+    display: flex;
+    align-items: center;
+    
+    font-size: 15pt;
+    /* background-color: red; */
+} 
+
+main #filter li label {
+    width: 50px;
+    margin-inline: 10px;
+    /* background-color: red; */
+    text-align: left;
+} main #filter li label#wave {
+    /* 등록일에서 물결만 가운데에 놓기 위함! */
+    text-align: center;
+}
+
+/* selectbox, date input태그 통합 옵션 */
+main #filter li>label~select,input{
+    
+    font-size: 10pt;
+    font-family: inherit;
+    border: 1px solid black;
+    border-radius: 5px;
+    /* outline: 2px solid red; */
+
+    height: 30px;
+    width: 200px;
+
+    text-align: center;
+    
+    background-color: transparent;
+    
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+
+}
+
+/* 시도 시군구 selectbox간격 벌리기 */
+main [name=sido] {
+    margin-right: 10px;
+}
+
+/* selectbox 화살표 디자인 */
+main #filter li>label~select {
+    background-image: url("../../uploadFiles/down-arrow2.png");
+    background-repeat: no-repeat;
+    background-position: right center;
+    background-size: contain;
+    /* padding-right: 50px; */
+}
+
+/* 목록 썸네일 크기 */
 main .animal-img {
-    width: 100px;
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 20px;
+    
 }
 
+/* 목록에 있는 게시글들 커서 */
 main td {
     cursor: pointer;
 }
+
+
+/* pageNation 디자인 */
+main .paging a, main .paging span {
+    display: inline-block;
+    margin: 0 3px;
+    border: 1px solid #4E422D;
+    width: 28px;
+    height: 28px;
+    line-height: 28px;
+    text-align: center;
+
+    font-size: 13px;
+    color: #4E422D;
+    text-decoration: none;
+
+    /* border-radius: 7px; */
+
+} main .paging span, main .paging a:hover {
+    color: red;
+    font-weight: 900;
+} 

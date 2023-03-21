@@ -41,6 +41,27 @@ public class AdoptAnimalStoreLogic implements AdoptAnimalStore {
 
 
 	
+	// ========== 삭제 ========== //
+	
+
+	/**
+	 * 입양 공고 삭제 StoreLogic
+	 */
+	@Override
+	public int deleteAnimal(SqlSession session, int animalNo) {
+		
+		int animalResult = session.insert("AnimalMapper.deleteAnimal", animalNo);
+		int adoptPostResult = session.insert("AdoptPostMapper.deleteAdoptPost", animalNo);
+
+		// 둘 다 성공했을 때만 result 값이 1이 되도록!
+		int result = 0;
+		if (animalResult == 1 && adoptPostResult == 1) result = 1;
+		
+		return result;
+	}
+	
+	
+	
 	// ========== 출력 ========== //
 	
 	/**
@@ -57,7 +78,13 @@ public class AdoptAnimalStoreLogic implements AdoptAnimalStore {
 		List<AdoptPost> pList = session.selectList("AdoptPostMapper.selectAllPost", null, rowBounds);
 
 		List<AdoptAnimalPost> aPostList = new ArrayList<AdoptAnimalPost>();
-
+		
+		// 15개 나오는거 어디서 잘못됐는지 찾기 위함
+		for (int i = 0; i < aList.size(); i++) {
+			System.out.println(aList.get(i));
+		}
+		
+		// 찾앗다 여기서 잘못됏네 ~~~!~! db에서 짝 안 맞는 게 잇느듯 !
 		for (Animal animal : aList) {
 			for (AdoptPost adoptPost : pList) {
 				if (animal.getAnimalNo() == adoptPost.getAnimalNo()) {
@@ -188,6 +215,6 @@ public class AdoptAnimalStoreLogic implements AdoptAnimalStore {
 		return totalCount;
 	}
 
-	
+
 	
 }

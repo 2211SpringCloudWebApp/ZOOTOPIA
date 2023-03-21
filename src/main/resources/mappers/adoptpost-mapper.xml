@@ -33,6 +33,15 @@
 	
 	
 	
+	<!-- ========== 유정 삭제 ========== -->
+	
+	<!-- 입양 공고 삭제 (animal부분 삭제, adoptPost부분은 adoptpost매퍼에서 따로 삭제함!) -->
+	<delete id="deleteAdoptPost">
+		DELETE FROM ADOPT_POST_TBL WHERE ANIMAL_NO = #{animalNo }
+	</delete>
+	
+	
+	
 	<!-- ========== 유정 출력 ========== -->
 	
 	<!-- 입양 공고 목록 조회 (adoptPost부분 출력, animal부분은 animal매퍼에서 따로 출력함!)-->
@@ -74,7 +83,7 @@
 
 	<!-- 매칭 조건에 맞는 입양 공고 목록 조회 (animal부분 출력, adoptPost부분은 adoptpost매퍼에서 따로 출력함!) -->
 	<select id="selectMatchingPost" resultMap="adoptPostResultMap">
-		SELECT * FROM ADOPT_POST_TBL FULL OUTER JOIN ANIMAL_TBL USING(ANIMAL_NO) WHERE ANIMAL_SPECIES = #{animalSpecies } AND ANIMAL_CHARACTER = #{animalCharacter }
+		SELECT * FROM ADOPT_POST_TBL FULL OUTER JOIN ANIMAL_TBL USING(ANIMAL_NO) WHERE ANIMAL_SPECIES = #{animalSpecies } AND ANIMAL_CHARACTER LIKE '%' || #{animalCharacter } || '%'
 	</select>
 	
 	
@@ -99,6 +108,33 @@
 	<select id="getAdoptListCount" resultType="_int">
 		SELECT COUNT(*) FROM ADOPT_POST_TBL
 	</select>
-<!-- 	여기까지 -->
+	<!-- 	여기까지 -->
+
+
+
+	<!-- 석현 -->
+	<select id="getAdoptPostCount" resultType="_int">
+		SELECT COUNT(*) FROM ADOPT_POST_TBL WHERE ADOPT_WRITER_ID = #{memberId}
+	</select>
+	<select id="mypageSelectAdoptPostList" resultMap="adoptPostResultMap">
+		SELECT * FROM ADOPT_POST_TBL WHERE ADOPT_WRITER_ID = #{memberId}
+	</select>
+	<select id="mypageGetAdoptPostListCount" resultType="_int">
+		SELECT COUNT(*) FROM ADOPT_POST_TBL
+		<if test="condition == 'all'">WHERE ADOPT_POST_NO LIKE '%'  #{keyword}  '%' OR   '%' OR ADOPT_CONTENT LIKE '%'  #{keyword}  '%'</if>
+        <if test="condition == 'no'">WHERE ADOPT_POST_NO LIKE '%'  #{keyword}  '%'</if>
+        <if test="condition == 'content'">WHERE ADOPT_CONTENT LIKE '%'  #{keyword}  '%'</if>
+        <if test="condition == 'writer'">WHERE  ADOPT_WRITER_ID LIKE '%' #{keyword} '%'</if>
+	</select>
+	<select id="mypageSearchAdoptPost" resultMap="adoptPostResultMap">
+		SELECT * FROM ADOPT_POST_TBL 
+		<if test="condition == 'all'">WHERE ADOPT_POST_NO LIKE '%'  #{keyword}  '%' OR   '%' OR ADOPT_CONTENT LIKE '%'  #{keyword}  '%'</if>
+        <if test="condition == 'no'">WHERE ADOPT_POST_NO LIKE '%'  #{keyword}  '%'</if>
+        <if test="condition == 'content'">WHERE ADOPT_CONTENT LIKE '%'  #{keyword}  '%'</if>
+        <if test="condition == 'writer'">WHERE  ADOPT_WRITER_ID LIKE '%' #{keyword} '%'</if>
+	</select>
+	<select id="selectAdoptPostLikeList" resultMap="adoptPostResultMap">
+		SELECT ADOPT_POST_TBL.* FROM(SELECT * FROM LIKE_TBL WHERE LIKE_MEMBER_ID = #{memberId} AND BOARD_ID = 'A') JOIN ADOPT_POST_TBL ON POST_NO = ADOPT_POST_NO
+	</select>
 	
 </mapper>
