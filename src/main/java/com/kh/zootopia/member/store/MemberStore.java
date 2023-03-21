@@ -126,7 +126,7 @@ public interface MemberStore {
 	 * @param session
 	 * @return
 	 */
-	int getAdoptPostCount(SqlSession session);
+	int getAdoptPostCount(SqlSession session, String memberId);
 
 	/**
 	 * 마이페이지 입양공고 게시글 전체 목록 조회 Store
@@ -154,5 +154,56 @@ public interface MemberStore {
 	 */
 	public List<Animal> selectAnimalbyAnimalAdopterId(SqlSession session, String memberId);
 	/* ============================================== */
+
+	/**
+	 * 마이페이지 후기 게시판 전체 개수 Store
+	 * @param session
+	 * @param memberId
+	 * @return
+	 */
+	int getReviewCount(SqlSession session, String memberId);
+
+	/**
+	 * 마이페이지 검색한 입양공고 게시글 전체 목록 조회 Store
+	 * @param session
+	 * @param pageInfo
+	 * @param search
+	 * @return
+	 */
+	List<AdoptPost> mypageSearchAdoptPost(SqlSession session, PageInfo pageInfo, Search search);
+
+	/**
+	 * 마이페이지 입양공고 게시판 댓글 전체 개수 Store
+	 * @param session
+	 * @param memberId
+	 * @return
+	 */
+	int getAdoptPostCommentCount(SqlSession session, String memberId);
+
+	/**
+	 * 마이페이지 입양공고 게시판 댓글 전체 목록 조회 Store
+	 * @param session
+	 * @param pageInfo
+	 * @param memberId
+	 * @return
+	 */
+	List<Comment> selectAdoptPostCommentList(SqlSession session, PageInfo pageInfo, String memberId);
+
+	/**
+	 * 마이페이지 좋아요 누른 입양공고 게시글 전체 개수 Store
+	 * @param session
+	 * @param memberId
+	 * @return
+	 */
+	int getAdoptPostLikeCount(SqlSession session, String memberId);
+
+	/**
+	 * 마이페이지 좋아요 누른 입양공고 게시글 전체 목록 조회 Store
+	 * @param session
+	 * @param pageInfo
+	 * @param memberId
+	 * @return
+	 */
+	List<AdoptPost> selectAdoptPostLikeList(SqlSession session, PageInfo pageInfo, String memberId);
 
 }

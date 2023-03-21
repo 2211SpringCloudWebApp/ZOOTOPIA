@@ -29,29 +29,29 @@
 				class="collapse d-lg-block sidebar collapse bg-white">
 				<div class="position-sticky">
 					<div class="list-group list-group-flush mx-3 mt-4">
-						<a href="/member/mypage.ztp" class="list-group-item list-group-item-action py-2 ripple" aria-current="true">
-							<i class="fas fa-tachometer-alt fa-fw me-3"></i><span>나의 정보</span>
+						<a href="/member/mypage.ztp?aria-current=true" class="list-group-item list-group-item-action py-2 ripple" onclick="updateSidebar(); return false;">
+							<i class="fas fa-user-circle fa-fw me-3"></i><span>나의 정보</span>
 						</a>	
-						<a href="/member/animalList.ztp" class="list-group-item list-group-item-action py-2 ripple active">
-							<i class="fas fa-chart-area fa-fw me-3"></i><span>입양한 동물 리스트</span>
+						<a href="/member/animalList.ztp?aria-current=true" class="list-group-item list-group-item-action py-2 ripple" onclick="updateSidebar(); return false;">
+							<i class="fas fa-paw fa-fw me-3"></i><span>입양한 동물 리스트</span>
 						</a>
-						<a href="/member/mypageAdoptPost.ztp" class="list-group-item list-group-item-action py-2 ripple">
-							<i class="fas fa-lock fa-fw me-3"></i><span>입양공고 게시글</span>
+						<a href="/member/mypageAdoptPost.ztp?aria-current=true" class="list-group-item list-group-item-action py-2 ripple" onclick="updateSidebar(); return false;">
+							<i class="fas fa-list fa-fw me-3"></i><span>입양공고 게시글</span>
 						</a> 
-						<a href="/member/mypageAdoptPostComment.ztp" class="list-group-item list-group-item-action py-2 ripple">
-							<i class="fas fa-chart-line fa-fw me-3"></i><span>입양공고 댓글</span>
+						<a href="/member/mypageAdoptPostComment.ztp?aria-current=true" class="list-group-item list-group-item-action py-2 ripple" onclick="updateSidebar(); return false;">
+							<i class="fas fa-comment fa-fw me-3"></i><span>입양공고 댓글</span>
 						</a> 
-						<a href="/member/mypageAdoptPostLike.ztp" class="list-group-item list-group-item-action py-2 ripple">
-							<i class="fas fa-chart-pie fa-fw me-3"></i><span>입양공고 좋아요 누른 글</span>
+						<a href="/member/mypageAdoptPostLike.ztp?aria-current=true" class="list-group-item list-group-item-action py-2 ripple" onclick="updateSidebar(); return false;">
+							<i class="fas fa-heart fa-fw me-3"></i><span>입양공고 좋아요 누른 글</span>
 						</a> 
-						<a href="/member/mypageReview.ztp" class="list-group-item list-group-item-action py-2 ripple">
-							<i class="fas fa-chart-bar fa-fw me-3"></i><span>입양후기 게시글</span>
+						<a href="/member/mypageReview.ztp?aria-current=true" class="list-group-item list-group-item-action py-2 ripple" onclick="updateSidebar(); return false;">
+							<i class="fas fa-list fa-fw me-3"></i><span>입양후기 게시글</span>
 						</a>
-						<a href="/member/mypageReviewComment.ztp" class="list-group-item list-group-item-action py-2 ripple">
-							<i class="fas fa-globe fa-fw me-3"></i><span>입양후기 댓글</span>
+						<a href="/member/mypageReviewComment.ztp?aria-current=true" class="list-group-item list-group-item-action py-2 ripple" onclick="updateSidebar(); return false;">
+							<i class="fas fa-comment fa-fw me-3"></i><span>입양후기 댓글</span>
 						</a> 
-						<a href="/member/mypageReviewLike.ztp" class="list-group-item list-group-item-action py-2 ripple">
-							<i class="fas fa-building fa-fw me-3"></i><span>입양후기 좋아요 누른 글</span>
+						<a href="/member/mypageReviewLike.ztp?aria-current=true" class="list-group-item list-group-item-action py-2 ripple" onclick="updateSidebar(); return false;">
+							<i class="fas fa-heart fa-fw me-3"></i><span>입양후기 좋아요 누른 글</span>
 						</a> 
 					</div>
 				</div>
@@ -142,6 +142,53 @@
 		<footer>
 		<jsp:include page="../common/footer.jsp" />
 		</footer>
+		<script>
+		// 클릭 이벤트 핸들러
+		function updateSidebar() {
+		  // 현재 URL 가져오기
+		  let currentUrl = window.location.href;
+
+		  // 매개 변수 추가 또는 업데이트
+		  if (currentUrl.indexOf('?') === -1) {
+		    currentUrl += '?aria-current=true';
+		  } else {
+		    currentUrl += '&aria-current=true';
+		  }
+
+		  // URL 업데이트
+		  window.location.href = currentUrl;
+		}
+
+		
+			  const elements = document.querySelectorAll('.list-group-item');
+			  elements.forEach(element => {
+			    element.addEventListener('click', () => {
+			      // Remove the "selected" class from all elements
+			      elements.forEach(el => {
+			        el.classList.remove('active');
+			      });
+			      // Add the "selected" class to the clicked element
+			      element.classList.add('active');
+			    });
+			  });
+			
+			
+	    	function allCheck(){
+	    		var allcheck = document.myform.allcheck;
+	    		var rowcheck = document.myform.rowcheck;
+	    		
+	    		if(allcheck.checked == true){
+	    			for(i=0; i<rowcheck.length; i++){
+	    				rowcheck[i].checked = true;
+	    			}
+	    		}else{
+	    			for(i=0; i<rowcheck.length; i++){
+	    				rowcheck[i].checked = false;
+	    			}
+	    		}
+	    	}
+	    	
+	    </script>
 		<script type="text/javascript"
 			src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.js"></script>
 	</body>

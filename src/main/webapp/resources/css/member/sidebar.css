@@ -43,3 +43,18 @@ body {
     overflow-x: hidden;
     overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
   }
+  
+ main .list-group-item {
+    position: relative;
+    display: flex;
+ }
+ 
+ .selected {
+  border: 10px solid red;
+}
+ 
+:root{
+	    --mdb-link-color: #EEE5C6;
+}
+
+  
