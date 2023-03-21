@@ -24,7 +24,7 @@
 	    		</div>
 			    
 			    <form action="/member/deleteMembers.ztp" name="myform" method="get">
-
+			    	
 				    <div id="memberList">
 				        <table>
 				            <thead>
@@ -46,28 +46,30 @@
 				            	</c:forEach>
 				            </tbody>
 				        </table>
-					    <div id="buttonTag">
+						<div id="buttonTag">
 					        <button type="button" onclick="deleteBtn()">삭제</button>
 					    </div>
 				        <div class="pageWrap">
 				        	<div class="pageNation">
 			        			<c:if test="${pi.currentPage > 1}">
-			        				<a href="/member/list.ztp?page=1" class="first-last-page"><<</a>
+			        				<a href="/member/search.ztp?page=1&condition=${condition}&keyword=${keyword}" class="first-last-page"><<</a>
 			        			</c:if>
 			        			<c:if test="${pi.currentPage > 1}">
-			        				<a href="/member/list.ztp?page=${pi.currentPage - 1}" class="prev-next-page"><</a>
+			        				<a href="/member/search.ztp?page=${pi.currentPage - 1}&condition=${condition}&keyword=${keyword}" class="prev-next-page"><</a>
 			        			</c:if>
 			        			<c:forEach begin="${pi.startNav}" end="${pi.endNav}" var="page">
-			        				<c:url var="pageUrl" value="/member/list.ztp">
+			        				<c:url var="pageUrl" value="/member/search.ztp">
 			        					<c:param name="page" value="${page}" />
+				                        <c:param name="condition" value="${condition}" />
+				                        <c:param name="keyword" value="${keyword}" />
 			        				</c:url>
 			        				<a href="${pageUrl}" <c:if test="${pi.currentPage == page}"></c:if>>${page}</a>
 			        			</c:forEach>
 			        			<c:if test="${pi.currentPage < pi.maxPage}">
-			        				<a href="/member/list.ztp?page=${pi.currentPage + 1}" class="prev-next-page">></a>
+			        				<a href="/member/search.ztp?page=${pi.currentPage + 1}&condition=${condition}&keyword=${keyword}" class="prev-next-page">></a>
 			        			</c:if>
 			        			<c:if test="${pi.currentPage < pi.maxPage}">
-			        				<a href="/member/list.ztp?page=${pi.maxPage}" class="first-last-page">>></a>
+			        				<a href="/member/search.ztp?page=${pi.maxPage}&condition=${condition}&keyword=${keyword}" class="first-last-page">>></a>
 			        			</c:if>
 							</div>
 					    </div>

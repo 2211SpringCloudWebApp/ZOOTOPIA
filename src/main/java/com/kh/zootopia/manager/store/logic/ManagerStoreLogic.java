@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.kh.zootopia.AdoptAnimalPost.domain.AdoptPost;
+import com.kh.zootopia.comment.domain.Comment;
 import com.kh.zootopia.manager.domain.DateDTO;
 import com.kh.zootopia.manager.domain.Search;
 import com.kh.zootopia.manager.store.ManagerStore;
@@ -39,8 +40,12 @@ public class ManagerStoreLogic implements ManagerStore{
 	}
 
 	@Override
-	public List<Member> searchMember(SqlSession session, Search search) {
-		List<Member> mList = session.selectList("ManagerMapper.searchMember", search);
+	public List<Member> searchMember(SqlSession session, Search search, PageInfo pi) {
+		int limit = pi.getBoardLimit();
+		int currentPage = pi.getCurrentPage();
+		int offset = (currentPage - 1) * limit;
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		List<Member> mList = session.selectList("ManagerMapper.searchMember", search, rowBounds);
 		return mList;
 	}
 
@@ -98,6 +103,40 @@ public class ManagerStoreLogic implements ManagerStore{
 	@Override
 	public void deleteCheckedReviews(SqlSession session, int reviewPostNo) {
 		session.delete("ReviewMapper.deleteReview", reviewPostNo);
+	}
+
+	// 댓글리스트
+	@Override
+	public List<Comment> selectComments(SqlSession session, PageInfo pi) {
+		int limit = pi.getBoardLimit();
+		int currentPage = pi.getCurrentPage();
+		int offset = (currentPage - 1) * limit;
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		List<Comment> cList = session.selectList("CommentMapper.selectComments", null, rowBounds);
+		return cList;
+	}
+
+	@Override
+	public int getCommentListCount(SqlSession session) {
+		int result = session.selectOne("CommentMapper.getCommentListCount");
+		return result;
+	}
+
+	@Override
+	public void deleteCheckedComments(SqlSession session, int commentNo) {
+		session.delete("CommentMapper.deleteCheckedComments", commentNo);
+	}
+
+	@Override
+	public Comment detailComment(SqlSession session, int commentNo) {
+		Comment comment = session.selectOne("CommentMapper.detailComment", commentNo);
+		return comment;
+	}
+
+	@Override
+	public int deleteComment(SqlSession session, int commentNo) {
+		int result = session.delete("CommentMapper.deleteCheckedComments", commentNo);
+		return result;
 	}
 
 }

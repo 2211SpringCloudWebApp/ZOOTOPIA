@@ -7,6 +7,7 @@
 		<meta charset="UTF-8">
 		<title>입양공고리스트</title>
 		<link rel="stylesheet" href="../../../resources/css/manager/adoptList.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 	</head>
 	<body>
 		<jsp:include page="../common/header.jsp"></jsp:include>
@@ -16,7 +17,7 @@
 				<h1>미승인 입양공고 리스트</h1>
 			</div>
 			<div>
-				<form action="/manager/approveAdopt.ztp" name="myform" method="post">
+				<form action="/manager/approveAdopt.ztp" name="myform" method="get">
 					<table>
 						<thead>
 							<tr>
@@ -28,13 +29,16 @@
 						<tbody>
 							<c:forEach items="${aList}" var="adoptPost">
 								<tr>
-									<td><input type="checkbox" name="rowcheck" value="${adoptPost.adoptPostNo }"></td>
+									<td><input type="checkbox" name="checkRow" value="${adoptPost.adoptPostNo }"></td>
 									<td>${adoptPost.adoptPostNo }</td>
 									<td>${adoptPost.adoptWriterId }</td>
 								</tr>
 							</c:forEach>
 						</tbody>
 					</table>
+					<div id="buttonTag">
+						<button type="button" onclick="approveBtn()">승인</button>
+					</div>
 				    <div class="pageWrap">
 				    	<div class="pageNation">
 		        			<c:if test="${pi.currentPage > 1}">
@@ -57,9 +61,7 @@
 		        			</c:if>
 				        </div>
 			        </div>
-					<div id="buttonTag">
-						<button type="submit" onclick="approveBtn()">승인</button>
-					</div>
+
 				</form>
 			</div>
 		</main>
@@ -70,7 +72,7 @@
 			// 체크박스 전체체크
 	    	function allCheck(){
 	    		var ac = document.myform.allcheck;
-	    		var rc = document.myform.rowcheck;
+	    		var rc = document.myform.checkRow;
 	    		
 	    		if(ac.checked == true){
 	    			for(i=0; i<rc.length; i++){
@@ -85,10 +87,19 @@
 			
 			// 버튼클릭 시 confirm창
 			function approveBtn(){
-				var adoptPostNo = "${adoptPost.adoptPostNo }";
-				if(confirm("입양글을 승인하시겠습니까?")){
-					location.href="/manager/approveAdopt.ztp?adoptPostNo="+adoptPostNo;					
-				}
+				var checkRow = "";
+				  $( "input[name='checkRow']:checked" ).each (function (){
+				    checkRow = checkRow + $(this).val()+"," ;
+				  });
+				  checkRow = checkRow.substring(0,checkRow.lastIndexOf( ",")); //맨끝 콤마 지우기
+				  if(checkRow == ''){
+					    alert("삭제할 대상을 선택하세요.");
+					    return false;
+				  }
+				  console.log("### checkRow => {}"+checkRow);
+				  if(confirm("입양공고를 승인하시겠습니까?")){
+					location.href="/manager/approveAdopt.ztp?adoptPostNo="+checkRow;					
+				  }
 			}
 	    	
 	    </script>

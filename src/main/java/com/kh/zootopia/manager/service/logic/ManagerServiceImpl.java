@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.zootopia.AdoptAnimalPost.domain.AdoptPost;
+import com.kh.zootopia.comment.domain.Comment;
 import com.kh.zootopia.manager.domain.DateDTO;
 import com.kh.zootopia.manager.domain.Search;
 import com.kh.zootopia.manager.service.ManagerService;
@@ -42,8 +43,8 @@ public class ManagerServiceImpl implements ManagerService{
 	}
 
 	@Override
-	public List<Member> searchMember(Search search) {
-		List<Member> mList = mStore.searchMember(session, search);
+	public List<Member> searchMember(Search search, PageInfo pi) {
+		List<Member> mList = mStore.searchMember(session, search, pi);
 		return mList;
 	}
 
@@ -98,6 +99,36 @@ public class ManagerServiceImpl implements ManagerService{
 	public void deleteCheckedReviews(int reviewPostNo) {
 		mStore.deleteCheckedReviews(session, reviewPostNo);
 		
+	}
+
+//	댓글리스트
+	@Override
+	public List<Comment> selectComments(PageInfo pi) {
+		List<Comment> cList = mStore.selectComments(session, pi);
+		return cList;
+	}
+
+	@Override
+	public int getCommentListCount() {
+		int result = mStore.getCommentListCount(session);
+		return result;
+	}
+
+	@Override
+	public void deleteCheckedComments(int commentNo) {
+		mStore.deleteCheckedComments(session, commentNo);
+	}
+
+	@Override
+	public Comment detailComment(int commentNo) {
+		Comment comment = mStore.detailComment(session, commentNo);
+		return comment;
+	}
+
+	@Override
+	public int deleteComment(int commentNo) {
+		int result = mStore.deleteComment(session, commentNo);
+		return result;
 	}
 
 }

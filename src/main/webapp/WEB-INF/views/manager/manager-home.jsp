@@ -19,6 +19,10 @@
 				    <div class="barTap"></div>
 				</div>
 				<div class="menuTap">
+			    	<h1 onclick="location.href='/manager/commentList.ztp'">댓글관리</h1>
+			    	<div class="barTap"></div>
+				</div>
+				<div class="menuTap">
 			    	<h1 onclick="location.href='/manager/selectAdopt.ztp'">입양공고관리</h1>
 			    	<div class="barTap"></div>
 				</div>

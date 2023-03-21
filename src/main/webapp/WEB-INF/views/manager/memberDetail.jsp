@@ -72,7 +72,9 @@
 		                <td>${mOne.mWithdrawalDate }</td>
 		            </tr>		            
 			    </table>
-			    <button onclick="deleteBtn()">회원삭제</button>
+			    <div id="buttonTag">
+			    	<button onclick="deleteBtn()">회원삭제</button>
+			    </div>
 	    </main>
 	    <jsp:include page="../common/footer.jsp" />
 	    

@@ -3,6 +3,7 @@ package com.kh.zootopia.manager.service;
 import java.util.List;
 
 import com.kh.zootopia.AdoptAnimalPost.domain.AdoptPost;
+import com.kh.zootopia.comment.domain.Comment;
 import com.kh.zootopia.manager.domain.DateDTO;
 import com.kh.zootopia.manager.domain.Search;
 import com.kh.zootopia.member.domain.Member;
@@ -16,7 +17,7 @@ public interface ManagerService {
 
 	int deleteMember(String memberId);
 
-	List<Member> searchMember(Search search);
+	List<Member> searchMember(Search search, PageInfo pi);
 
 	void deleteCheckedMembers(String memberId);
 
@@ -37,6 +38,17 @@ public interface ManagerService {
 	int getAdoptListCount();
 
 	void deleteCheckedReviews(int reviewPostNo);
+
+//	댓글리스트
+	List<Comment> selectComments(PageInfo pi);
+
+	int getCommentListCount();
+
+	void deleteCheckedComments(int commentNo);
+
+	Comment detailComment(int commentNo);
+
+	int deleteComment(int commentNo);
 
 
 }

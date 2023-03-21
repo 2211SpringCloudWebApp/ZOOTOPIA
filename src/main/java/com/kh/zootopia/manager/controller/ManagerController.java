@@ -1,7 +1,9 @@
 package com.kh.zootopia.manager.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.zootopia.AdoptAnimalPost.domain.AdoptPost;
+import com.kh.zootopia.comment.controller.CommentController;
+import com.kh.zootopia.comment.domain.Comment;
 import com.kh.zootopia.manager.domain.DateDTO;
 import com.kh.zootopia.manager.domain.Search;
 import com.kh.zootopia.manager.service.ManagerService;
@@ -29,6 +33,8 @@ public class ManagerController {
 	private ManagerService mService;
 	@Autowired
 	private ReviewController reviewController;
+	@Autowired
+	private CommentController commentController;
 	
 	// 관리자여부체크 Controller
 	public String checkAdmin(HttpSession session, Model model) {
@@ -84,17 +90,27 @@ public class ManagerController {
 	
 	// 멤버검색 Controller
 	@RequestMapping(value="/member/search.ztp", method=RequestMethod.GET)
-	public String searchMember(@ModelAttribute Search search, Model model) {
+	public String searchMember(@ModelAttribute Search search,HttpSession session, Model model, @RequestParam(value = "page", required = false, defaultValue = "1") Integer page) {
 		try {
-			List<Member> mList = mService.searchMember(search);
-			
-			if(!mList.isEmpty()) {
-				model.addAttribute("condition", search.getCondition());
-				model.addAttribute("keyword", search.getKeyword());
-				model.addAttribute("mList", mList);
-				return "manager/memberList";
+			String adminYN = checkAdmin(session, model);
+			if(adminYN.equals("Y")) {
+				int totalCount = mService.getMemberListCount();
+				PageInfo pi = reviewController.getPageInfo(page, totalCount);
+				
+				List<Member> mList = mService.searchMember(search, pi);
+				
+				if(!mList.isEmpty()) {
+					model.addAttribute("pi", pi);
+					model.addAttribute("condition", search.getCondition());
+					model.addAttribute("keyword", search.getKeyword());
+					model.addAttribute("mList", mList);
+					return "manager/memberSearch";
+				}else {
+					model.addAttribute("message", "회원정보를 찾을 수 없습니다.");
+					return "common/error";
+				}
 			}else {
-				model.addAttribute("message", "회원정보를 찾을 수 없습니다.");
+				model.addAttribute("message", "관리자권한이 없습니다.");
 				return "common/error";
 			}
 		} catch (Exception e) {
@@ -120,7 +136,6 @@ public class ManagerController {
 	@RequestMapping(value="/member/delete.ztp", method=RequestMethod.GET)
 	public String deleteMember(@RequestParam("memberId") String memberId, Model model) {
 		try {
-			System.out.println(memberId);
 			int result = mService.deleteMember(memberId);
 			if(result > 0) {
 				return "redirect:/member/list.ztp";
@@ -135,8 +150,8 @@ public class ManagerController {
 	}
 	
 	// 체크된멤버삭제 Controller
-	@RequestMapping(value="/member/deleteMembers.ztp", method=RequestMethod.POST)
-	public String deleteCheckedMembers(@RequestParam("rowcheck") List<String> memberIds) {
+	@RequestMapping(value="/member/deleteMembers.ztp", method=RequestMethod.GET)
+	public String deleteCheckedMembers(@RequestParam("memberId") List<String> memberIds) {
 		for(String memberId : memberIds) mService.deleteCheckedMembers(memberId);
 		return "redirect:/member/list.ztp";
 	}
@@ -166,8 +181,8 @@ public class ManagerController {
 	}
 
 	// 미승인 입양공고리스트에서 승인 Controller
-	@RequestMapping(value="/manager/approveAdopt.ztp", method=RequestMethod.POST)
-	public String approveAdopts(@RequestParam("rowcheck") List<Integer> adoptPostNos) {
+	@RequestMapping(value="/manager/approveAdopt.ztp", method=RequestMethod.GET)
+	public String approveAdopts(@RequestParam("adoptPostNo") List<Integer> adoptPostNos) {
 		for(int adoptPostNo : adoptPostNos) mService.approveAdopts(adoptPostNo);
 		return "redirect:/manager/selectAdopt.ztp";
 	}
@@ -232,9 +247,72 @@ public class ManagerController {
 	
 	// ** 리뷰관리
 	// 체크된 리뷰삭제 Controller
-	@RequestMapping(value="/manager/deleteReviews.ztp", method=RequestMethod.POST)
-	public String deleteCheckedReviews(@RequestParam("checkedReview") List<Integer> reviewPostNos) {
+	@RequestMapping(value="/manager/deleteReviews.ztp", method=RequestMethod.GET)
+	public String deleteCheckedReviews(@RequestParam("reviewPostNo") List<Integer> reviewPostNos) {
+		System.out.println(reviewPostNos);
 		for(int reviewPostNo : reviewPostNos) mService.deleteCheckedReviews(reviewPostNo);
 		return "redirect:/review/list.ztp";
+	}
+	
+
+	// **댓글관리
+	// 댓글리스트 Controller
+	@RequestMapping(value="/manager/commentList.ztp", method= RequestMethod.GET)
+	public String selectComments(Model model, HttpSession session, @RequestParam(value="page",required=false, defaultValue="1") Integer page) {
+		try {
+			String adminYN = checkAdmin(session, model);
+			if(adminYN.equals("Y")) {
+				int totalCount = mService.getCommentListCount(); 
+				PageInfo pi = commentController.getPageInfo(page, totalCount);
+				List<Comment> cList = mService.selectComments(pi);
+				model.addAttribute("pi", pi);
+				model.addAttribute("cList", cList);
+				return "manager/commentList";				
+			}else {
+				model.addAttribute("message", "관리자권한이 없습니다.");
+				return "common/error";
+			}
+		} catch (Exception e) {
+			model.addAttribute("message", e.getMessage());
+			return "common/error";
+		}
+	}
+	
+	// 체크된댓글삭제 Controller
+	@RequestMapping(value="/manager/deleteComments.ztp", method=RequestMethod.GET)
+	public String deleteCheckedComments(@RequestParam("commentNo") List<Integer> commentNos) {
+		System.out.println(commentNos);
+		for(int commentNo : commentNos) mService.deleteCheckedComments(commentNo);
+		return "redirect:/manager/commentList.ztp";
+	}
+	
+	// 댓글디테일 Controller
+	@RequestMapping(value="manager/detailComment.ztp", method=RequestMethod.GET)
+	public String detailComment(@RequestParam("commentNo") int commentNo, Model model) {
+		try {
+			Comment comment = mService.detailComment(commentNo);
+			model.addAttribute("comment", comment);
+			return "manager/commentDetail";			
+		} catch (Exception e) {
+			model.addAttribute("message", e.getMessage());
+			return "common/error";
+		}
+	}
+	
+	// 댓글삭제 Controller
+	@RequestMapping(value="/manager/deleteComment.ztp", method=RequestMethod.GET)
+	public String deleteMember(@RequestParam("commentNo") int commentNo, Model model) {
+		try {
+			int result = mService.deleteComment(commentNo);
+			if(result > 0) {
+				return "redirect:/manager/commentList.ztp";
+			}else {
+				model.addAttribute("message", "댓글삭제가 이루어지지 않았습니다.");
+				return "common/error";
+			}
+		} catch (Exception e) {
+			model.addAttribute("message", e.getMessage());
+			return "common/error";
+		}
 	}
 }

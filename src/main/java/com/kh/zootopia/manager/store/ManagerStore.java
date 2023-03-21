@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 
 import com.kh.zootopia.AdoptAnimalPost.domain.AdoptPost;
+import com.kh.zootopia.comment.domain.Comment;
 import com.kh.zootopia.manager.domain.DateDTO;
 import com.kh.zootopia.manager.domain.Search;
 import com.kh.zootopia.member.domain.Member;
@@ -18,7 +19,7 @@ public interface ManagerStore {
 
 	int deleteMember(SqlSession session, String memberId);
 
-	List<Member> searchMember(SqlSession session, Search search);
+	List<Member> searchMember(SqlSession session, Search search, PageInfo pi);
 
 	void deleteCheckedMembers(SqlSession session, String memberId);
 
@@ -38,6 +39,17 @@ public interface ManagerStore {
 	int getAdoptListCount(SqlSession session);
 
 	void deleteCheckedReviews(SqlSession session, int reviewPostNo);
+
+	// 댓글리스트
+	List<Comment> selectComments(SqlSession session, PageInfo pi);
+
+	int getCommentListCount(SqlSession session);
+
+	void deleteCheckedComments(SqlSession session, int commentNo);
+
+	Comment detailComment(SqlSession session, int commentNo);
+
+	int deleteComment(SqlSession session, int commentNo);
 
 
 }
