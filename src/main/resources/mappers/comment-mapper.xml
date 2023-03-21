@@ -44,6 +44,12 @@
 	<select id="selectReviewCommentList" resultMap="commentResultMap">
 		SELECT * FROM COMMENT_TBL WHERE BOARD_ID = 'R' AND COMMENT_WRITER_ID = #{memberId}
 	</select>
+	<select id="getAdoptPostCommentCount" resultType="_int">
+		SELECT COUNT(*) FROM COMMENT_TBL WHERE COMMENT_WRITER_ID = #{memberId} AND BOARD_ID = 'A'
+	</select>
+	<select id="selectAdoptPostCommentList" resultMap="commentResultMap">
+		SELECT * FROM COMMENT_TBL WHERE BOARD_ID = 'A' AND COMMENT_WRITER_ID = #{memberId}
+	</select>
 	
 	<!-- 유정 입양 공고 댓글 -->
     <insert id="insertAdoptComment">
