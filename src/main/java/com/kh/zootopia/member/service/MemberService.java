@@ -120,7 +120,7 @@ public interface MemberService {
 	 * 마이페이지 입양공고 게시글 전체개수 Service
 	 * @return
 	 */
-	int getAdoptPostCount();
+	int getAdoptPostCount(String memberId);
 
 	/**
 	 * 마이페이지 입양공고 게시글 목록 조회 Service
@@ -143,6 +143,51 @@ public interface MemberService {
 	 * @return List<Animal>
 	 */
 	public List<Animal> selectAnimalbyAnimalAdopterId(String memberId);
+
+	/**
+	 * 마이페이지 후기 게시판 전체 개수 Service
+	 * @param memberId
+	 * @return
+	 */
+	int getReviewCount(String memberId);
+
+	/**
+	 * 마이페이지 검색한 입양공고 전체 목록 조회 Service
+	 * @param pageInfo
+	 * @param search
+	 * @return
+	 */
+	List<AdoptPost> mypageSearchAdoptPost(PageInfo pageInfo, Search search);
+
+	/**
+	 * 마이페이지 입양공고 작성한 댓글 전체 개수 Service 
+	 * @param memberId
+	 * @return
+	 */
+	int getAdoptPostCommentCount(String memberId);
+
+	/**
+	 * 마이페이지 입양공고 작성한 댓글 전체 목록
+	 * @param pageInfo
+	 * @param memberId
+	 * @return
+	 */
+	List<Comment> selectAdoptPostCommentList(PageInfo pageInfo, String memberId);
+
+	/**
+	 * 마이페이지 좋아요 누른 입양공고 전체 개수 Service
+	 * @param memberId
+	 * @return
+	 */
+	int getAdoptPostLikeCount(String memberId);
+
+	/**
+	 * 마이페이지 좋아요 누른 입양공고 전체 목록 조회 Service
+	 * @param pageInfo
+	 * @param memberId
+	 * @return
+	 */
+	List<AdoptPost> selectAdoptPostLikeList(PageInfo pageInfo, String memberId);
 	
 
 }

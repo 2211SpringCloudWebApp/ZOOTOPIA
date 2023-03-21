@@ -117,8 +117,8 @@ public class MemberServiceImpl implements MemberService{
 
 	//입양공고 게시판 전체 개수
 	@Override
-	public int getAdoptPostCount() {
-		int result = mStore.getAdoptPostCount(session);
+	public int getAdoptPostCount(String memberId) {
+		int result = mStore.getAdoptPostCount(session, memberId);
 		return result;
 	}
 
@@ -145,6 +145,48 @@ public class MemberServiceImpl implements MemberService{
 		return animalList;
 	}
 	/* ============================================== */
+
+	// 마이페이지 후기 게시판 전체 개수
+	@Override
+	public int getReviewCount(String memberId) {
+		int result = mStore.getReviewCount(session, memberId);
+		return result;
+	}
+
+	// 마이페이지 검색한 입양공고 게시판 전체 목록 조회 
+	@Override
+	public List<AdoptPost> mypageSearchAdoptPost(PageInfo pageInfo, Search search) {
+		List<AdoptPost> adoptPostList = mStore.mypageSearchAdoptPost(session, pageInfo, search );
+		return adoptPostList;
+	}
+
+	// 마이페이지 입양공고 게시판 전체 댓글 개수 조회
+	@Override
+	public int getAdoptPostCommentCount(String memberId) {
+		int result = mStore.getAdoptPostCommentCount(session, memberId);
+		return result;
+	}
+
+	// 마이페이지 입양공고 게시판 전체 댓글 목록 조회
+	@Override
+	public List<Comment> selectAdoptPostCommentList(PageInfo pageInfo, String memberId) {
+		List<Comment> adoptPostCommentList = mStore.selectAdoptPostCommentList(session, pageInfo, memberId);
+		return adoptPostCommentList;
+	}
+
+	// 마이페이지 좋아요 누른 입양공고 전체 개수
+	@Override
+	public int getAdoptPostLikeCount(String memberId) {
+		int result = mStore.getAdoptPostLikeCount(session ,memberId);
+		return result;
+	}
+
+	// 마이페이지 좋아요 누른 입양공고 전체 목록 조회
+	@Override
+	public List<AdoptPost> selectAdoptPostLikeList(PageInfo pageInfo, String memberId) {
+		List<AdoptPost> adoptPostLikeList = mStore.selectAdoptPostLikeList(session, pageInfo, memberId);
+		return adoptPostLikeList;
+	}
 	
 
 	

@@ -255,7 +255,7 @@ public class MemberController {
 			,Model model
 			) {
 		String memberId = ((Member)session.getAttribute("loginUser")).getMemberId();
-		int totalCount = mService.getAdoptPostCount();
+		int totalCount = mService.getAdoptPostCount(memberId);
 		PageInfo pageInfo = reviewController.getPageInfo(page, totalCount);
 		List<AdoptPost> adoptPostList = mService.mypageSelectAdoptPostList(pageInfo, memberId);
 		model.addAttribute("pageInfo", pageInfo);
@@ -268,31 +268,60 @@ public class MemberController {
 		public String mypageadoptPostSearch(
 				@ModelAttribute Search search
 				,@RequestParam(value = "page", required = false, defaultValue = "1") Integer page
+				,@RequestParam(value = "category") String category
 				,Model model
 				) {
 			int totalCount = mService.mypageGetAdoptPostListCount(search);
 			PageInfo pageInfo = reviewController.getPageInfo(page, totalCount);
-			List<Review> reviewList = reviewService.mypageSearchReview(pageInfo, search);
-			model.addAttribute("reviewList",reviewList);
-			return "m";
+			List<AdoptPost> adoptPostList = mService.mypageSearchAdoptPost(pageInfo, search);
+			model.addAttribute("pageInfo", pageInfo);
+			model.addAttribute("adoptPostList",adoptPostList);
+			switch (category) {
+			case "list":
+				return "member/mypageAdoptPostList";
+			case "comment" :
+				return "member/mypageAdoptPostComment";
+			default:
+				return "member/mypageAdoptPostLike";
 		}
-	
+	}
 	// 마이페이지 입양공고  게시판 작성한 댓글
 	@RequestMapping(value ="/member/mypageAdoptPostComment.ztp" , method = RequestMethod.GET)
-	public String mypageAdoptPostComment() {
-		
+	public String mypageAdoptPostComment(
+			HttpSession session
+			,@ModelAttribute Comment comment
+			,@RequestParam(value = "page", required = false, defaultValue = "1") Integer page
+			,Model model
+			) {
+		String memberId = ((Member)session.getAttribute("loginUser")).getMemberId();
+		int totalCount = mService.getAdoptPostCommentCount(memberId);
+		PageInfo pageInfo = reviewController.getPageInfo(page, totalCount);
+		List<Comment> adoptPostCommentList= mService.selectAdoptPostCommentList(pageInfo, memberId);
+		model.addAttribute("pageInfo", pageInfo);
+		model.addAttribute("adoptPostCommentList", adoptPostCommentList);
 		return "/member/mypageAdoptPostComment";
 	}
 	
 	// 마이페이지 입양공고 게시판 좋아요
 	@RequestMapping(value ="/member/mypageAdoptPostLike.ztp" , method = RequestMethod.GET)
-	public String mypageAdoptPostLike() {
+	public String mypageAdoptPostLike(
+			HttpSession session
+			,@ModelAttribute Like like
+			,@RequestParam(value = "page", required = false, defaultValue = "1") Integer page
+			,Model model
+			) {
+		String memberId = ((Member)session.getAttribute("loginUser")).getMemberId();
+		int totalCount = mService.getAdoptPostLikeCount(memberId);
+		PageInfo pageInfo = reviewController.getPageInfo(page, totalCount);
+		List<AdoptPost> adoptPostLikeList =  mService.selectAdoptPostLikeList(pageInfo ,memberId);
+		model.addAttribute("pageInfo", pageInfo);
+		model.addAttribute("adoptPostLikeList", adoptPostLikeList);
 		
 		return "/member/mypageAdoptPostLike";
 	}
 	
 	
-	// 마이페이지 "입양후기 게시판
+	// 마이페이지 입양후기 게시판
 	@RequestMapping(value = "/member/mypageReview.ztp" , method = RequestMethod.GET)
 	public String mypageReviewList(
 			HttpSession session
@@ -300,7 +329,7 @@ public class MemberController {
 			,Model model
 			) {
 		String memberId = ((Member)session.getAttribute("loginUser")).getMemberId();
-		int totalCount = reviewService.getListCount();
+		int totalCount = mService.getReviewCount(memberId);
 		PageInfo pageInfo = reviewController.getPageInfo(page, totalCount);
 		List<Review> reviewList = reviewService.mypageSelectReviewList(pageInfo, memberId);
 		System.out.println(reviewList);
@@ -323,9 +352,14 @@ public class MemberController {
 		PageInfo pageInfo = reviewController.getPageInfo(page, totalCount);
 		List<Review> reviewList = reviewService.mypageSearchReview(pageInfo, search);
 		model.addAttribute("reviewList",reviewList);
-		
-		return "member/mypageReview";
-		
+		switch (category) {
+			case "list":
+				return "member/mypageReviewList";
+			case "comment" :
+				return "member/mypageReviewComment";
+			default:
+				return "member/mypageReviewLike";
+		}
 	}
 	
 
@@ -365,15 +399,6 @@ public class MemberController {
 		return "member/mypageReviewLike";
 	}
 	
-	// 마이페이지 후기 상세페이지 
-	@RequestMapping(value = "/member/reviewDetail.ztp" , method= RequestMethod.GET)
-	public String mypageReviewDetail(
-			@ModelAttribute Review review
-			) {
-		return "review/detail";
-	}
-	
-	
 	// 마이페이지 후기 게시글  댓글 삭제
 	@RequestMapping(value="/member/deleteComment.ztp" , method = RequestMethod.POST)
 	public String MypageDelete(
@@ -388,7 +413,10 @@ public class MemberController {
 	
 	 //마이페이지 본인이 입양한 동물들 출력 (return형식과 return값 추가해주세요)
 	@RequestMapping(value = "/member/animalList.ztp", method = RequestMethod.GET)
-	public String selectAnimalbyAnimalAdopterId(HttpSession session, Model model) {
+	public String selectAnimalbyAnimalAdopterId(
+			HttpSession session
+			, @RequestParam("category") String category
+			, Model model) {
 		
 		Member member = (Member)session.getAttribute("loginUser");
 		String memberId = member.getMemberId();
@@ -396,6 +424,7 @@ public class MemberController {
 		List<Animal> animalList = mService.selectAnimalbyAnimalAdopterId(memberId);
 		
 		model.addAttribute("animalList", animalList);
+		model.addAttribute("category", category);
 		return "member/animalList";
 		
 	}

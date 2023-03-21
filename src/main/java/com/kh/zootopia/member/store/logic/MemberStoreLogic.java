@@ -95,7 +95,11 @@ public class MemberStoreLogic implements MemberStore{
 	// 마이페이지 후기 게시판 작성한 댓글 목록 조회
 	@Override
 	public List<Comment> selectReviewCommentList(SqlSession session, PageInfo pageInfo, String memberId) {
-		List<Comment> commentList = session.selectList("CommentMapper.selectReviewCommentList", memberId);
+		int limit = pageInfo.getBoardLimit();
+		int currentPage = pageInfo.getCurrentPage();
+		int offset = (currentPage - 1) * limit;
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		List<Comment> commentList = session.selectList("CommentMapper.selectReviewCommentList", memberId ,rowBounds);
 		return commentList;
 	}
 	
@@ -109,8 +113,8 @@ public class MemberStoreLogic implements MemberStore{
 
 	// 마이페이지 입양공고 전체 개수
 	@Override
-	public int getAdoptPostCount(SqlSession session) {
-		int result = session.selectOne("AdoptPostMapper.getAdoptPostCount");
+	public int getAdoptPostCount(SqlSession session, String memberId) {
+		int result = session.selectOne("AdoptPostMapper.getAdoptPostCount", memberId);
 		return result;
 	}
 	
@@ -137,6 +141,60 @@ public class MemberStoreLogic implements MemberStore{
 		System.out.println(memberId);
 		List<Animal> animalList = session.selectList("AnimalMapper.selectAllAnimalsbyAnimalAdopterId", memberId);
 		return animalList;
+	}
+	
+	// 마이페이지 후기 게시판 전채 개수
+	@Override
+	public int getReviewCount(SqlSession session, String memberId) {
+		int result = session.selectOne("ReviewMapper.getReviewCount", memberId);
+		return result;
+	}
+	
+	// 마이페이지 
+	@Override
+	public List<AdoptPost> mypageSearchAdoptPost(SqlSession session, PageInfo pageInfo, Search search) {
+		int limit = pageInfo.getBoardLimit();
+		int currentPage = pageInfo.getCurrentPage();
+		int offset = (currentPage - 1) * limit;
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		List<AdoptPost> adoptPostList = session.selectList("AdoptPostMapper.mypageSearchAdoptPost", search , rowBounds);
+		return adoptPostList;
+	}
+	
+	// 마이페이지 입양공고 게시판 전체 댓글 개수 조회
+	@Override
+	public int getAdoptPostCommentCount(SqlSession session, String memberId) {
+		int result = session.selectOne("CommentMapper.getAdoptPostCommentCount", memberId);
+		return result;
+	}
+	
+	// 마이페이지 입양공고 게시판 댓글 작성한 전체 목록 조회
+	@Override
+	public List<Comment> selectAdoptPostCommentList(SqlSession session, PageInfo pageInfo, String memberId) {
+		int limit = pageInfo.getBoardLimit();
+		int currentPage = pageInfo.getCurrentPage();
+		int offset = (currentPage - 1) * limit;
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		List<Comment> adoptPostCommentList = session.selectList("CommentMapper.selectAdoptPostCommentList", memberId , rowBounds);
+		return adoptPostCommentList;
+	}
+
+	// 마이페이지 좋아요 누른 입양공고 전체 개수 조회
+	@Override
+	public int getAdoptPostLikeCount(SqlSession session, String memberId) {
+		int result = session.selectOne("LikeMapper.getAdoptPostLikeCount", memberId);
+		return result;
+	}
+	
+	// 마이페이지 좋아요 누른 입양공고 전체 목록 조회
+	@Override
+	public List<AdoptPost> selectAdoptPostLikeList(SqlSession session, PageInfo pageInfo, String memberId) {
+		int limit = pageInfo.getBoardLimit();
+		int currentPage = pageInfo.getCurrentPage();
+		int offset = (currentPage - 1) * limit;
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		List<AdoptPost> adoptPostLikeList = session.selectList("AdoptPostMapper.selectAdoptPostLikeList", memberId, rowBounds);
+		return adoptPostLikeList;
 	}
 	
 }
