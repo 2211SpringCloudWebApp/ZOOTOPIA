@@ -66,13 +66,13 @@
 			<div class="pageWrap">
 	            <div class="pageNation">
 	                <c:if test="${pageInfo.currentPage > 1}">
-	                    <a href="/review/list.ztp?page=1&condition=${condition}&keyword=${keyword}" class="first-last-page"><<</a>
+	                    <a href="/review/search.ztp?page=1&condition=${condition}&keyword=${keyword}" class="first-last-page"><<</a>
 	                </c:if>
 	                <c:if test="${pageInfo.currentPage > 1}">
-	                    <a href="/review/list.ztp?page=${pageInfo.currentPage - 1}&condition=${condition}&keyword=${keyword}" class="prev-next-page"><</a>
+	                    <a href="/review/search.ztp?page=${pageInfo.currentPage - 1}&condition=${condition}&keyword=${keyword}" class="prev-next-page"><</a>
 	                </c:if>
 	                <c:forEach begin="${pageInfo.startNav}" end="${pageInfo.endNav}" var="page">
-	                    <c:url var="pageUrl" value="/review/list.ztp">
+	                    <c:url var="pageUrl" value="/review/search.ztp">
 	                        <c:param name="page" value="${page}" />
 	                        <c:param name="condition" value="${condition}" />
 	                        <c:param name="keyword" value="${keyword}" />
@@ -80,10 +80,10 @@
 	                        <a href="${pageUrl}" >${page}</a>
 	                </c:forEach>
 	                <c:if test="${pageInfo.currentPage < pageInfo.maxPage}">
-	                    <a href="/review/list.ztp?page=${pageInfo.currentPage + 1}&condition=${condition}&keyword=${keyword}" class="prev-next-page">></a>
+	                    <a href="/review/search.ztp?page=${pageInfo.currentPage + 1}&condition=${condition}&keyword=${keyword}" class="prev-next-page">></a>
 	                </c:if>
 	                <c:if test="${pageInfo.currentPage < pageInfo.maxPage}">
-	                    <a href="/review/list.ztp?page=${pageInfo.maxPage}&condition=${condition}&keyword=${keyword}" class="first-last-page">>></a>
+	                    <a href="/review/search.ztp?page=${pageInfo.maxPage}&condition=${condition}&keyword=${keyword}" class="first-last-page">>></a>
 	                </c:if>
 	            </div>
 	        </div>

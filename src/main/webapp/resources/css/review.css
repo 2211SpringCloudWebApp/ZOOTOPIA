@@ -44,19 +44,7 @@ main button:hover {
     border: 1px solid white;
 }
 
-.review-wrapper {
-	
-    width: 100vw;
-    font-family: 'jua';
-    
-}
 
-main h1 {
-	
-	font-family: 'jua';
-	padding-left: 100px;
-	
-}
 .pageWrap {
     margin-top: 50px;
     text-align: center;
@@ -90,8 +78,12 @@ main h1 {
 	
 }
 
-.review-table {
+/* 후기 페이지들 제목 */
+.review-page-title {
 
+	margin: 0 auto 10px auto;
+	font-family: 'jua';
+	
 }
 
 .wrapper-table {
@@ -180,16 +172,52 @@ main h1 {
 		    white-space: nowrap;
 		    
 		}
-
-.review-detail {
-
-	width: 50%;	
-	margin: 0 auto;
-}
+		
 
 @keyframes blink{
   0% {opacity: 0;}
   100% {opacity: 1;}
+}
+
+
+
+/* detail.jsp */
+.review-detail-wrapper {
+	
+    width: 100vw;
+    font-family: 'jua';
+    
+}
+
+.review-detail-title {
+	
+	width: inherit;
+    height: 30px;
+    font-size: 2em;
+    color: #4E422D;
+    
+}
+
+.review-detail-info {
+	
+	width: 1000px;
+    height: 20px;
+    margin: 20px auto;
+    
+    display: flex;
+    justify-content: space-between;
+    background-color: #4E422D;
+    border-radius: 15px;
+    padding: 10px 30px;
+    
+    font-size: 1.1em;
+    color: #fff;
+    
+}
+.review-detail {
+
+	width: 1000px;	
+	margin: 0 auto;
 }
 
 
@@ -199,6 +227,17 @@ main h1 {
 
 }
 
+
+.review-detail-image {
+	
+	width:640px;
+	height: 640px;
+	object-fit: contain;
+	
+}
+
+
+/* 댓글 */
 .commentForm-wrapper {
 	
 	width: 1000px;
@@ -292,4 +331,65 @@ main h1 {
     height: 25px;
     opacity: 70%;
     padding: 3px;
+}
+
+
+/* write.jsp */
+.review-write-form {
+	
+	width: 600px;
+	margin: 0 auto;
+	
+}
+
+.review-write-title {
+
+	width: 500px;
+    height: 40px;
+    border-radius: 10px;
+    font-size: 20px;
+    padding-left: 10px;
+    font-family: 'jua';
+    font-size: 1.2em;
+    
+}
+
+.review-write-content {
+	
+    width: 500px;
+    height: 400px;
+    resize: none;
+    border-radius: 10px;
+    scroll-padding: 100px 0 100px 0;
+    padding-left: 10px;
+    padding-top: 10px;
+    font-family: 'hanna';
+    font-size: 1.2em;
+    
+}
+
+.review-write-name {
+	
+	font-family: 'jua';
+	font-size: 1.2em;
+    text-align: center;
+    width: 100px;
+    padding: 10px 0;
+	
+}
+
+.review-write-info {
+	
+	width: 500px;
+	font-family: 'hanna';
+	font-size: 1.2em;
+	padding-left: 10px;
+	
+}
+
+#upload-file {
+	
+	float: left;
+	font-family: 'hanna';
+    color: #777;
 }

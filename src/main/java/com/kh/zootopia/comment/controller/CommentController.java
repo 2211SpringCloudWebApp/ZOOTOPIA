@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.zootopia.comment.domain.Comment;
+import com.kh.zootopia.comment.domain.PageInfo;
 import com.kh.zootopia.comment.service.CommentService;
 
 @Controller
@@ -88,6 +89,7 @@ public class CommentController {
 		
 		try {
 			
+			System.out.println(comment);
 			int result = commentService.modifyComment(comment);
 			
 			if (result > 0) {
@@ -139,5 +141,25 @@ public class CommentController {
 		return mv;
 		
 	}
+	
+	/**
+    * Navigator Start/End값 설정(소현작성)
+    */
+    public PageInfo getPageInfo(int currentPage, int totalCount) {
+
+        int boardLimit = 10;
+        int navLimit = 10;
+        int maxPage = (int) Math.ceil((double) totalCount / boardLimit);    // navTotalCount
+        int startNav = (((int)((double) currentPage / navLimit + 0.9)) - 1) * navLimit + 1;
+        int endNav = startNav + navLimit - 1;
+        if(endNav > maxPage) {
+            endNav = maxPage;
+        }
+
+        PageInfo pageInfo = new PageInfo(currentPage, boardLimit, totalCount, navLimit, startNav, endNav, maxPage);
+
+        return pageInfo;
+
+    }
 	
 }

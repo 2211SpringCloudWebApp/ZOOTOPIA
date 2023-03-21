@@ -14,36 +14,27 @@
 <body>
     <jsp:include page="../common/header.jsp" />
 	<main>
-		<div class="review-wrapper">
+	<div></div>
+		<div class="review-detail-wrapper">
 	
 	        <div class="review-detail">
-	            로그인된 ID : ${sessionScope.loginUser.memberId}<br>
-	            글작성자 ID : ${review.reviewWriterId}<br>
-	            글 NO : ${review.reviewPostNo}<br>
-	            <br>
-	            <table>
-	                <thead>
-	                    <!-- 제목 및 좋아요/공유버튼 -->
-	                    <tr>
-	                        <td>제목 : ${review.reviewTitle}</td>
-	                        <td rowspan="2">
-	                            <!-- 좋아요 - 회원에게만 보여짐 -->
-	                            <c:if test="${like == 1 && sessionScope.loginUser.memberId ne null}"><img class="detail-icons" src="../../../resources/img/button_like_on.png" alt="좋아요 on" onclick="like()"></c:if>
-	                            <c:if test="${like == 0 && sessionScope.loginUser.memberId ne null}"><img class="detail-icons" src="../../../resources/img/button_like_off.png" alt="좋아요 off" onclick="like()"></c:if>
-	                            <c:if test="${like == 0 && sessionScope.loginUser.memberId ne null}"></c:if>
-	                            <!-- 공유 -->
-	                            <img class="detail-icons" src="../../../resources/img/button_share.png" alt="공유">
-	                            <img class="detail-icons" src="../../../resources/img/button_comment.png" alt="댓글">
-	                        </td>
-	                    </tr>
-	                    <tr>
-	                        <td>작성자 : ${review.reviewWriterId}</td>
-	                    </tr>
-	                </thead>
-	            </table>
+				<div class="review-detail-upper">
+					<div class="review-detail-title">${review.reviewTitle}</div>
+					<div class="review-detail-info">
+						<div class="review-detail-writer">${review.reviewWriterId}</div>
+						<div class="review-detail-date"><fmt:formatDate pattern="yyyy-MM-dd" value="${review.reviewCreateDate}" /></div>
+					</div>
+				</div>
+				<div class="review-detail-upper review-detail-upper-right">
+					<c:if test="${like == 1 && sessionScope.loginUser.memberId ne null}"><img class="detail-icons" src="../../../resources/img/button_like_on.png" alt="좋아요 on" onclick="like()"></c:if> 
+                    <c:if test="${like == 0 && sessionScope.loginUser.memberId ne null}"><img class="detail-icons" src="../../../resources/img/button_like_off.png" alt="좋아요 off" onclick="like()"></c:if> 
+                    <c:if test="${like == 0 && sessionScope.loginUser.memberId ne null}"></c:if> 
+                    <img class="detail-icons" src="../../../resources/img/button_share.png" alt="공유"> 
+                    <img class="detail-icons" src="../../../resources/img/button_comment.png" alt="댓글" onclick="location.href='#target';"> 
+				</div>
 				<!-- 입양한 동물에 대한 내용 -->
                 <ul>
-                    <li>사진 : <img src="../../../resources/uploadFiles/review/${review.reviewImageName}"></li>
+                    <li><img class="review-detail-image" src="../../../resources/uploadFiles/review/${review.reviewImageName}"></li>
                     <li>종류 : ${Animal.animalSpecies}</li>
                     <li>성별 : ${Animal.animalGender}</li>
                     <li>나이 : ${Animal.animalAge}</li>
@@ -53,20 +44,20 @@
 
 	            <!-- 후기 내용 -->
 	            <form role="form" action="/review/modify.ztp" method="post">
-	                <div id="review-detail-content">
-	                    ${review.reviewContent}
-	                </div>
-	            </form>
+	                <div id="review-detail-content" style="white-space: pre-wrap;"><c:out value="${review.reviewContent}" /></div>
 	            <!-- 수정, 삭제버튼 위치 -->
 	            <div>
+	            	<input type="hidden" name="animalNo" value="${Animal.animalNo}"><br>
+	            	<input type="hidden" name="reviewPostNo" value="${review.reviewPostNo}">
 	                <c:if test="${review.reviewWriterId eq sessionScope.loginUser.memberId}">
 	                <button type="submit">수정</button>
 	                <button type="button" onclick="deleteReview()">삭제</button>
 	                </c:if>
 	            </div>
+	            </form>
 	            
 	            <!-- 댓글 -->
-	            <div class="comment">
+	            <div class="comment" id="target">
 	            	<div class="commentForm-wrapper">
 		            	<div>
 	                    	<span>댓글</span> <img src="../../../resources/img/icon-comment.png" style="width: 20px; height: 20px;">
@@ -93,7 +84,7 @@
 			                    <c:forEach items="${commentList}" var="commentList">
 			                        <tr>
 			                            <td id="comment-td1">${commentList.commentWriterId}</td>
-			                            <td id="comment-td2">${commentList.commentContent}</td>
+			                            <td id="comment-td2" style="white-space: pre-wrap;">${commentList.commentContent}</td>
 			                            <td id="comment-td3"><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${commentList.commentCreateDate}" /></td>
 			                            <c:if test="${sessionScope.loginUser.memberId eq commentList.commentWriterId}">
 			                            	<td id="comment-td4">
@@ -117,6 +108,7 @@
 				</div>
 			</div>
 		</div>
+	<div></div>
     </main>
     <jsp:include page="../common/footer.jsp" />
 

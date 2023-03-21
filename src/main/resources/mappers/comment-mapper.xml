@@ -46,11 +46,29 @@
 	</select>
 	
 	<!-- 유정 입양 공고 댓글 -->
-	<insert id="insertAdoptComment">
-		INSERT INTO COMMENT_TBL VALUES ( #{boardId }, #{postNo }, SEQ_ADOPT_COMMENT_NO.NEXTVAL, #{parentCommentNo }, #{commentContent }, #{commentWriterId })
-	</insert>
-	<select id="selectAdoptComment" resultMap="commentResultMap">
-		SELECT * FROM COMMENT_TBL WHERE BOARD_ID = #{boardId } AND POST_NO = #{postNo } ORDER BY COMMENT_NO DESC
-	</select>
+    <insert id="insertAdoptComment">
+        INSERT INTO COMMENT_TBL VALUES ( #{boardId }, #{postNo }, SEQ_ADOPT_COMMENT_NO.NEXTVAL, #{parentCommentNo }, #{commentContent }, #{commentWriterId }, DEFAULT)
+    </insert>
+    <!-- 정렬 시간컬럼으로 나중에 바꾸기 -->
+    <select id="selectAdoptComment" resultMap="commentResultMap">
+        SELECT * FROM COMMENT_TBL WHERE BOARD_ID = #{boardId } AND POST_NO = #{postNo } ORDER BY COMMENT_NO DESC
+    </select>
+    
+    <!--     소현 -->
+    <select id="selectComments" resultMap="commentResultMap">
+        SELECT * FROM COMMENT_TBL
+    </select>
+
+    <select id="detailComment" resultMap="commentResultMap">
+        SELECT * FROM COMMENT_TBL WHERE COMMENT_NO = #{commentNo}
+    </select>
+
+    <select id="getCommentListCount" resultType="_int">
+        SELECT COUNT(*) FROM COMMENT_TBL
+    </select>
+
+    <delete id="deleteCheckedComments">
+        DELETE FROM COMMENT_TBL WHERE COMMENT_NO = #{commentNo}
+    </delete>
 	
 </mapper>

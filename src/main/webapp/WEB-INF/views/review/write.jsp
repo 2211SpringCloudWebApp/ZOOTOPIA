@@ -15,38 +15,78 @@
 </head>
 <body>
     <jsp:include page="../common/header.jsp" />
-	<div></div>
 	<main>
-	    <h1>입양 후기 등록</h1>
+	<div></div>
+	<div>
+		<div class="review-page-title" style="width: 600px;">
+	    	<h1>입양 후기 등록</h1>
+	    </div>
 	    <hr>
-	    동물 : ${animalNo}<br>
 	    <form action="/review/write.ztp" method="POST" enctype="multipart/form-data">
-	    <input type="hidden" name="animalNo" value="${animalNo}">
-	        <table>
+	    <input type="hidden" name="animalNo" value="${animal.animalNo}">
+	        <table class="review-write-form">
+	        	<tr>
+	        		<td class="review-write-name">종류</td>
+	        		<td class="review-write-info">${animal.animalSpecies}</td>
+	        	</tr>
+	        	<tr>
+	        		<td class="review-write-name">성별</td>
+	        		<td class="review-write-info"><c:if test="${animal.animalGender eq 'M'}">남</c:if><c:if test="${animal.animalGender eq 'F'}">여</c:if></td>
+	        	</tr>
+	        	<tr>
+	        		<td class="review-write-name">나이</td>
+	        		<td class="review-write-info">${animal.animalAge}세</td>
+	        	</tr>
 	            <tr>
-	                <td>제목</td>
-	                <td><input type="text" name="reviewTitle" placeholder="제목을 입력해 주세요" required></td>
+	                <td class="review-write-name">제목</td>
+	                <td><input type="text" name="reviewTitle" class="review-write-title" placeholder="제목을 입력해 주세요" required></td>
 	            </tr>
 	            <tr>
-	                <td>내용</td>
-	                <td><textarea name="reviewContent" id="" cols="30" rows="10" placeholder="내용을 입력해 주세요" required></textarea></td>
+	                <td class="review-write-name">내용</td>
+	                <td><textarea name="reviewContent" class="review-write-content" cols="30" rows="10" placeholder="내용을 입력해 주세요" required></textarea></td>
 	            </tr>
 	            <tr>
-	                <td>첨부파일 (사진)</td>
-	                <td><img src="../../../resources/img/notice-file.png" class="attachment_image" style="width: 15px;" onclick="document.getElementById('file').click();"><input type="file" id="file" name="reviewImageName" style="display:none"></td>
+	                <td class="review-write-name">사진첨부</td>
+	                <td>
+	                	<div style="float: left; width: 30px; text-align: center;">
+			                <img src="../../../resources/img/notice-file.png" class="attachment_image" style="width: 15px;  cursor: pointer;" onclick="document.getElementById('file').click();">
+			                <input type="file" id="file" name="reviewImageName" accept="image/*" style="display:none">
+	                	</div>
+	                	<div id="upload-file">사진 파일을 업로드해 주세요</div>
+	                </td>
 	            </tr>
 	            <tr>
-	                <td>첨부파일 (영상)</td>
-	                <td><img src="#" class="attachment_image" onclick="document.getElementById('file').click();"><input type="file" id="file" name="reviewVideoName" style="display:none"></td>
-	            </tr>
+	            	<td colspan="2" style="text-align: center;">
+	            		<button type="submit">등록</button>
+	            		<button type="reset">취소</button>
+	            	</td>
 	        </table>
-	        <button type="submit">등록</button>
-	        <button type="reset">취소</button>
 	    </form>
+    </div>
+	<div></div>
 	</main>
 	<jsp:include page="../common/footer.jsp" />
     <script>
-        
+    
+	    window.onload = function() {
+	    	
+	        target = document.getElementById('file');
+	        target.addEventListener('change', function() {
+	        	
+	            fileList = "";
+	            for(i = 0; i < target.files.length; i++) {
+	                
+	            	fileList += target.files[i].name + '<br>';
+	                
+	            }
+	            
+	            target2 = document.getElementById('upload-file');
+	            target2.innerHTML = fileList;
+	        	
+	        });
+	        
+	    };
+	        
     </script>
 </body>
 </html>
