@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>    
 <!DOCTYPE html>
 <html>
 	<head>
@@ -17,8 +18,7 @@
 		</header>
 		<main>
 			<div></div>
-<!-- 			<h1>공지사항</h1> -->
-<!--         	<hr> -->
+			<h1>공지사항</h1>
 				<c:if test="${sessionScope.loginUser.memberId eq 'admin' }">
 					<div class="removeArea">
 						<c:url var="nList" value="/notice/list.ztp">
@@ -29,9 +29,18 @@
 					</div>			
 				<form action="/notice/modify.ztp" method="post" enctype="multipart/form-data">
 					<div id="detailInput">
-						<input type="text" class="detailInput" name="noticeSubject" value="${notice.noticeSubject }">
-						<input type="text" class="detailInput" name="noticeWriter" value="${notice.noticeWriter }"><br>
+						<div id="detailS">
+							<input type="text" class="detailInput" name="noticeSubject" value="${notice.noticeSubject }">
+						</div>
+						<div id="detailW">
+							<input type="text" class="detailInput" name="noticeWriter" value="${notice.noticeWriter }">
+						</div>
+						<div id="detailC">
+<%-- 							<input type="text" class="detailInput" name="noticeCreateDate" value="<fmt:formatDate pattern="yyyy-MM-dd" value="${notice.noticeCreateDate }"/>"> --%>
+							<fmt:formatDate pattern="yyyy-MM-dd" value="${notice.noticeCreateDate }"/>
+						</div>
 					</div>
+					<hr>
 					<textarea name="noticeContent" id=""  rows="15" cols="70">${notice.noticeContent }</textarea><br>
 					<label class="fileBtn" for="inputFile">
 						<img src="../../../resources/img/notice-file.png" alt="" >
@@ -66,7 +75,7 @@
 							<img src="../../../resources/img/notice-file.png" alt="" >
 						</label>
 					</div>
-					<input type="file" id="inputFile" name="reloadFile" value="" style="display:none">${notice.noticeImageName }<br>
+					<input type="file" id="inputFile" name="reloadFile" value="" style="display:none"><a href="/notice/download.ztp?noticeNo=${notice.noticeNo }">${notice.noticeImageName }</a><br>
 					<input type="hidden" name="noticeNo" value="${notice.noticeNo }">
 					<input type="hidden" name="noticeImageName" value="${notice.noticeImageName }">
 					<input type="hidden" name="noticeImagePath" value="${notice.noticeImagePath }">
@@ -75,27 +84,54 @@
 			
 			<!-- 댓글 -->
 			<div class="comment">
-				<c:if test="${sessionScope.loginUser.memberId ne null}">
-				<form name="commentForm" action="/comment/insert.ztp" method="post">
-					<input type="hidden" name="commentWriterId" value="${sessionScope.loginUser.memberId}">
-					<input type="hidden" name="boardId" value="N">
-					<input type="hidden" name="postNo" value="${notice.noticeNo}">
-					<input type="hidden" name="url" value="/notice/detail.ztp?noticeNo=">
-					<input type="text" name="commentContent" placeholder="댓글을 입력해 주세요">
-					<button type="submit" class="">등록</button>
-				</form>
-				</c:if>
-				<table>
-					<c:forEach items="${commentList}" var="commentList">
-						<tr>
-							<td>${commentList.commentWriterId}</td>
-							<td>${commentList.commentContent}</td>
-<%-- 							<td><c:if test="${sessionScope.loginUser.memberId ne null}"><button onclick="reComment()" class="">대댓글</button></c:if> --%>
-							<td><c:if test="${sessionScope.loginUser.memberId eq 'admin' || sessionScope.loginUser.memberId eq commentList.commentWriterId}"><button onclick="deleteComment(${commentList.commentNo});" class="">삭제</button></c:if></td>
-						</tr>
-					</c:forEach>
-				</table>
-			</div>
+	            	<div class="commentForm-wrapper">
+		            	<div>
+	                    	<span>댓글</span> <img src="../../../resources/img/icon-comment.png" style="width: 20px; height: 20px;">
+	                    </div>
+	            		<c:if test="${sessionScope.loginUser.memberId ne null}">
+		            		<div class="commentInput-wrapper">
+				                <form name="commentForm" action="/comment/insert.ztp" method="post">
+			            			<div class="comment-form">
+					                    <input type="hidden" name="commentWriterId" value="${sessionScope.loginUser.memberId}">
+					                    <input type="hidden" name="boardId" value="N">
+					                    <input type="hidden" name="postNo" value="${notice.noticeNo}">
+					                    <input type="hidden" name="url" value="/notice/detail.ztp?noticeNo=">
+					                    <textarea name="commentContent" placeholder="댓글을 입력해 주세요" class="comment-content"></textarea>
+									</div>
+									<div class="comment-button">
+					                    <button type="submit" class="comment-submit-button">등록</button>
+					                </div>
+				                </form>
+			                </div>
+		                </c:if>
+		                
+		                <div class="comment-output">
+			                <table>
+			                    <c:forEach items="${commentList}" var="commentList">
+			                        <tr>
+			                            <td id="comment-td1">${commentList.commentWriterId}</td>
+			                            <td id="comment-td2">${commentList.commentContent}</td>
+			                            <td id="comment-td3"><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${commentList.commentCreateDate}"/></td>
+			                            <c:if test="${sessionScope.loginUser.memberId eq commentList.commentWriterId}">
+			                            	<td id="comment-td4">
+			                            		<button onclick="modifyComment(${commentList.commentNo}, 'N');">
+			                            			<img src="../../../resources/img/icon-modify.png" style="width: 15px; height: auto;">
+			                            		</button>
+			                            	</td>
+			                            </c:if>
+			                            <c:if test="${sessionScope.loginUser.memberId eq notice.noticeWriter || sessionScope.loginUser.memberId eq commentList.commentWriterId || sessionScope.loginUser.mAdminYN eq 'Y'}">
+			                            	<td id="comment-td5">
+			                            		<button onclick="deleteComment(${commentList.commentNo}, 'N');">
+			                            			<img src="../../../resources/img/icon-trash.png" style="width: 15px; height: auto;">
+			                            		</button>
+			                            	</td>
+			                            </c:if>
+			                        </tr>
+			                    </c:forEach>
+			                </table>
+		                </div>
+					</div>
+				</div>
 		</main>
 		<footer>
 			<jsp:include page="../common/footer.jsp" />

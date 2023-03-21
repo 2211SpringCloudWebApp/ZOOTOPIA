@@ -179,56 +179,72 @@ main .area {
 /* detail 페이지 */
 
 main h1 {
-    text-align: left;
-    margin-left: 400px;
+    text-align: center;
+/*     margin-left: 400px; */
 }
 
 main hr {
-	width: 50%;
+	width: 42%;
     margin: auto;
     margin-top: 20px;
     margin-bottom: 20px;
+    color: #C6BDAD;
 }
 
 main #detailInput {
 	display: flex;
-    float: inherit;
+/*     float: left; */
     justify-content: center;
 }
 
 main #detailInput input {
-	margin: 5px;
-	margin-left: 180px;
-    height: 30px;
-    border: 0;
+/* 	margin: 5px; */
+	margin-left: 80px;
+/*     height: 30px; */
+    border: none;
     font-size: 20px;
-    font-family: 'jua';
+    font-family: 'hanna';
     outline: none;
 }
 
-main .subjectInput {
-	text-align: center;
+
+main #detailS {
+/* 	text-align: center; */
+
+	margin-left: 120px;
+	margin-right: 50px;
 }
 
-main .writerInput {
-	text-align: center;
+main #detailW {
+/* 	display: flex; */
+/* 	justify-content: center; */
+/* 	text-align: right; */
+}
+
+main #detailC {
+	margin-right: 50px;
+	line-height: 20px;
+	font-size: 20px;
 }
 
 main textarea {
-	border: 1px solid #C6BDAD;
+/* 	border: 1px solid #C6BDAD; */
+	border: none;
 	margin-top: 20px;
 	margin-bottom: 20px;
 	resize: none;
     outline: none;
     font-family: 'hanna';
     font-size: 20px;
+    text-align: center;
 }
 
 main .removeArea {
 	display: inline-block;
     display: flex;
     justify-content: right;
-    margin-right: 260px;
+    margin-top: 30px;
+    margin-right: 550px;
     margin-bottom: 30px;
 }
 
@@ -256,13 +272,103 @@ main .removeArea a:hover {
     border: 1px solid #4E422D;
 }
 
+/* 댓글 */
+
+
 main .comment {
-	margin-top: 30px;
+	display: flex;
+	justify-content: center;
+	margin-top: 20px;
+	margin-bottom: 30px;
 }
 
-main .comment table {
-	margin-top: 20px;
-	margin-bottom: 20px;
+main .commentForm-wrapper {	
+	width: 1000px;
+    background-color: #ddd;
+    border-radius: 30px;
+    padding: 10px;
+}
+
+main .commentForm-wrapper > div:nth-child(1) {	
+	margin: 5px 25px;		
+}
+
+main .commentForm-wrapper > div:nth-child(1) > span {	
+	font-family: 'hanna';
+	font-size: 1em;		
+}
+
+main .comment-form {		
+	width: 800px;
+	float: left;
+}
+
+main .comment-button {	
+	float: left;
+	margin: 5px 0 0 50px;	    
+}
+		
+main .comment-submit-button {		
+	width: 100px;
+	height: 100px;
+	border-radius: 20px;
+	margin-top: 5px;
+	margin-left: 20px;
+}
+
+main .comment-content {	
+   	width: 100%;
+    height: 80px;
+    resize: none;
+    border: none;
+    border-radius: 20px;
+    scroll-padding: 100px 0 100px 0;
+    padding: 10px;
+    margin: 10px;
+    font-family: 'hanna';
+    font-size: 0.8em;
+	margin-left: 20px;	
+}
+
+main .comment-output > table {	
+	width: 100%;
+    padding: 20px; 
+}
+
+main .comment-output td {	
+	height: 30px;
+	border: 0;	
+} 
+
+main #comment-td1 {
+	width: 15%;
+	font-family: 'jua';
+}
+
+main #comment-td2 {
+	width: 60%;
+	font-family: 'hanna';
+}
+
+main #comment-td3 {
+	width: 15%;
+	font-size: 0.2em;
+	color: #555;
+}
+
+main #comment-td4 {
+	width: 5%;
+}
+
+main #comment-td5 {
+	width: 5%;
+}
+
+main .comment-output button {	
+	width: 50px;
+    height: 25px;
+    opacity: 70%;
+    padding: 3px;
 }
 
 
@@ -275,4 +381,7 @@ main .uploadArea {
 
 /* register 페이지 */
 
+main #registerTxt {
+	border: 1px solid black;
+}
 
