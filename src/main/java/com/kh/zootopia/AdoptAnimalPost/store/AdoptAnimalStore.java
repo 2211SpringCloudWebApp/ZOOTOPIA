@@ -27,6 +27,18 @@ public interface AdoptAnimalStore {
 
 	
 	
+	// ========== 삭제 ========== //
+	
+	/**
+	 * 입양 공고 삭제 Store
+	 * @param session
+	 * @param animalNo
+	 * @return
+	 */
+	int deleteAnimal(SqlSession session, int animalNo);
+	
+	
+	
 	// ========== 출력 ========== //
 	
 	/**
@@ -96,6 +108,6 @@ public interface AdoptAnimalStore {
 	 */
 	int selectMatchingAnimalCount(SqlSession session, Animal animalInfo);
 
-	
-	
+
+
 }

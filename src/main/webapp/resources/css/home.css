@@ -103,22 +103,22 @@ main #background-img {
             font-size: 120pt;
             /* font-weight: bold; */
         } main #background-img span:nth-child(1) { /* ZOO */
-            color: #EEE5C6;
-            text-shadow:
-            /* x y 블러 색상 */
-            -1px -1px 1px #332a1a,  
-            1px -1px 1px #332a1a,
-            -1px 1px 1px #332a1a,
-                1px 1px 1px #332a1a,
-                10px 10px 0 #332a1a;
-            }  #background-img span:nth-child(2) { /* TOPIA */ 
+                color: #EEE5C6;
                 text-shadow:
-                /* x y 블러 색상 */
-                -1px -1px 1px #C6BDAD,  
-                1px -1px 1px #C6BDAD,
-                -1px 1px 1px #C6BDAD,
-                1px 1px 1px #C6BDAD,
-                10px 10px 0 #C6BDAD;
+                    /* x y 블러 색상 */
+                    -1px -1px 1px #332a1a,  
+                    1px -1px 1px #332a1a,
+                    -1px 1px 1px #332a1a,
+                    1px 1px 1px #332a1a,
+                    10px 10px 0 #332a1a;
+            }  main #background-img span:nth-child(2) { /* TOPIA */ 
+                text-shadow:
+                    /* x y 블러 색상 */
+                    -1px -1px 1px #C6BDAD,  
+                    1px -1px 1px #C6BDAD,
+                    -1px 1px 1px #C6BDAD,
+                    1px 1px 1px #C6BDAD,
+                    10px 10px 0 #C6BDAD;
             }
         /* 주토피아에서 어쩌구를 저쩌구 해보세요! */
         main #background-img>div:nth-child(3) {
@@ -126,19 +126,3 @@ main #background-img {
             font-family: 'hanna';
             font-weight: bold;
         }
-
-/* 버튼 관련해서 있던 건데 선택자랑 효과 골라서 ㅆㅓ야될듯 */
-#left-aside button {
-    width: 25px;
-    height: 25px;
-    margin-bottom: 15px;
-    display: block;
-    outline: none;
-    border: none;
-    background-color: #ffffff00;
-    color: #1c1c1b23;
-    cursor: pointer;
-    font-weight: bold;
-    font-size: 15pt;
-    font-family: 'jua';
-}

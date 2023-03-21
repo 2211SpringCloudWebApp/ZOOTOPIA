@@ -164,6 +164,37 @@ public class AdoptAnimalPostController {
 
 	
 
+	// ========== 삭제 ========== //
+	
+	/**
+	 * 입양 공고 삭제
+	 * @param animalNo
+	 * @param mv
+	 * @return
+	 */
+	@RequestMapping(value = "/adoptAnimal/delete.ztp", method = RequestMethod.GET)
+	public ModelAndView deleteAnimal(
+			int animalNo
+			, ModelAndView mv) {
+		
+		try {
+			System.out.println("animalNo : " + animalNo);
+			int result = aService.deleteAnimal(animalNo);
+			if (result > 0) {
+				mv.setViewName("redirect:/adoptAnimal/list.ztp");
+			} else {
+				mv.addObject("message", "입양 공고 삭제 실패").setViewName("common/error");
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			mv.addObject("message", e.getMessage()).setViewName("common/error");
+		}
+		return mv;
+	}
+	
+		
+	
 	// ========== 출력 ========== //
 
 	/**
@@ -182,6 +213,12 @@ public class AdoptAnimalPostController {
 			AnimalPaging paging = new AnimalPaging(currentPage, totalCount);
 			
 			List<AdoptAnimalPost> aPostList = aService.selectAllAnimal(paging);
+			
+			// 페이징 적용하면 15개밖에 못 가져오나??
+			// > 그르네 db데이터문제인가 나중에 해결하기~!~!~
+			for (int i = 0; i < aPostList.size(); i++) {
+				System.out.println(aPostList.get(i));
+			}
 			
 
 			if (!aPostList.isEmpty()) {

@@ -112,7 +112,7 @@
 
 						<c:if test="${sessionScope.loginUser ne null }">
 							<!-- 로그인 상태라면 내 입양 동물 목록으로 -->
-							<div onclick="location.href='/'">입양후기 등록</div>
+							<div onclick="location.href='/member/animalList.ztp'">입양후기 등록</div>
 						</c:if>
 						<c:if test="${sessionScope.loginUser eq null }">
 							<!-- 

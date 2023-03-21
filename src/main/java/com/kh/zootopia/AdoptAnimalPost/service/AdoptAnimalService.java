@@ -23,6 +23,17 @@ public interface AdoptAnimalService {
 
 	
 	
+	// ========== 삭제 ========== //
+	
+	/**
+	 * 입양 공고 삭제 Service
+	 * @param animalNo
+	 * @return
+	 */
+	int deleteAnimal(int animalNo);
+	
+	
+	
 	// ========== 출력 ========== //
 	
 	/**
@@ -85,6 +96,6 @@ public interface AdoptAnimalService {
 	 */
 	int selectMatchingAnimalCount(Animal animalInfo);
 
-	
+
 	
 }

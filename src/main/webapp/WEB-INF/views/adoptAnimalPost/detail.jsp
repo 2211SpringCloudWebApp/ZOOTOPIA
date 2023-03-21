@@ -21,7 +21,6 @@
 				<!-- 헤더 부분 피하기 위한 div -->
 				<div></div>
 				<h1>입양 공고 디테일 페이지입니다</h1>
-				<h1>mAdminYN : ${loginUser.mAdminYN }</h1>
 				<div>
 					<div>축종 : ${aPost.animal.animalSpecies }</div>
 					<div>성별 : ${aPost.animal.animalGender }</div>
@@ -52,8 +51,16 @@
 							<input type="button" value="신청자 정보 확인" onclick="location.href='/reservation/applicantList.ztp?animalNo=${aPost.animal.animalNo }'">						
 						-->
 							<input type="button" value="신청자 정보 확인" onclick="applicantList('${aPost.animal.animalNo }')">
-							<a href="#">수정하기</a>
-							<a href="#">삭제하기</a>
+							<button onclick="location.href='/'">수정하기</button>
+							<button onclick="(
+								function() { 
+									var bool = confirm('정말로 삭제하시겠습니까?');
+									if (bool) {
+										location.href = '/adoptAnimal/delete.ztp?animalNo=${aPost.animal.animalNo }';
+									}
+									return bool
+								}
+							)();">삭제하기</button>
 						</c:if>
 
 						<!-- 작성자가 아니라면 예약신청 or 예약취소-->

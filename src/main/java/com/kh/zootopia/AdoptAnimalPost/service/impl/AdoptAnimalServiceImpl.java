@@ -38,6 +38,20 @@ public class AdoptAnimalServiceImpl implements AdoptAnimalService{
 	}
 
 	
+	
+	// ========== 삭제 ========== //
+	
+	/**
+	 * 입양 공고 삭제 ServiceImpl
+	 */
+	@Override
+	public int deleteAnimal(int animalNo) {
+		int result = aStore.deleteAnimal(session, animalNo);
+		return result;
+	}
+	
+	
+	
 	// ========== 출력 ========== //
 	/**
 	 * 입양 공고 목록 조회 ServiceImpl
@@ -114,6 +128,6 @@ public class AdoptAnimalServiceImpl implements AdoptAnimalService{
 		return totalCount;
 	}
 
-	
-	
+
+
 }
