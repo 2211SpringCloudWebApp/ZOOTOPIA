@@ -5,13 +5,12 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>멤버리스트</title>
+		<title>멤버리스트❤️</title>
 		<link rel="stylesheet" href="../../../resources/css/manager/list.css">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
-<!-- 		<style> -->
-<!-- 	        div{text-align: center;} -->
-<!-- 	        table{display: flex;flex-direction: column;align-items: center;} -->
-<!--     	</style> -->
+		<style type="text/css">
+			body{ cursor:url("../../../resources/img/cursor.png"), auto;}
+		</style>
 	</head>
 	<body>
 	
@@ -20,6 +19,7 @@
 	    <main>
 	    	<div id="main">
 	    		<div class="titleTag">
+	    			<img alt="" src="../../../resources/img/manager-icon2.png">
 				    <h1>회원리스트</h1>
 	    		</div>
 			    

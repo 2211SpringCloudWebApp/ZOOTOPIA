@@ -4,14 +4,18 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>멤버디테일</title>
+		<title>멤버디테일❤️</title>
 		<link rel="stylesheet" href="../../../resources/css/manager/memberDetail.css">
+		<style type="text/css">
+			body{ cursor:url("../../../resources/img/cursor.png"), auto;}
+		</style>
 	</head>
 	<body>
 		<jsp:include page="../common/header.jsp"></jsp:include>
 		
 		<main>
 			<div id="titleTag">
+				<img alt="" src="../../../resources/img/manager-icon2.png">
 		    	<h1>회원정보</h1>
 		    </div>
 			    <table>

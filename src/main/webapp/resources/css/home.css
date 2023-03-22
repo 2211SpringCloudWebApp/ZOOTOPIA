@@ -126,3 +126,36 @@ main #background-img {
             font-family: 'hanna';
             font-weight: bold;
         }
+
+/* section2 */
+main #background-img2 {
+/*     background-image: linear-gradient(rgba(0, 0, 0, 0.0), rgba(0, 0, 0, 0.0)), url(../img/cat-dog2.jpg); */
+    background-repeat: no-repeat;
+    background-size: cover;
+    /* 창 크기가 어떻든 이미지의 가운데를 보여주는 설정임 */
+    background-position: center center;
+/*     position: absolute;    */
+/*     opacity: 0.5;  */
+}
+    main #background-img2 h1 {
+        /* 배경보다 글자 올리려고 한 건데 필요 없을 듯? */
+/*         z-index: 1; */
+        color: #332a1a;
+    }
+    
+  #wrapper:after {
+    content : "";                           
+    display: block;                         
+    position: absolute;                     
+    top: 0;                                 
+    left: 0;                               
+    height: 100%;                           
+    width: 100%;                            
+    background-image: url(../img/cat-dog2.jpg); 	
+    background-repeat: no-repeat;                   
+    background-position: center;                    
+    opacity:0.25!important;                         
+    filter:alpha(opacity=25);                      
+    z-index: -1;                            
+  }
+    

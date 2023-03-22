@@ -37,12 +37,17 @@ main h1{
 	color: #4E422D;
 }
 main #titleTag{
-/* 	display: flex; */
+	display: flex;
 /* 	text-align: left; */
 	width: 35%;
 	margin-left: auto;
 	margin-right: auto;
 	margin-bottom: 20px;
+}
+main #titleTag img{
+	width: 35px;
+	text-align: center;
+	margin-right: 15px;
 }
 
 /* 테이블부분 */

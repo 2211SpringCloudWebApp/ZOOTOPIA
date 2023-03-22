@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kh.zootopia.AdoptAnimalPost.domain.AdoptAnimalPost;
 import com.kh.zootopia.AdoptAnimalPost.domain.AdoptPost;
 import com.kh.zootopia.comment.domain.Comment;
 import com.kh.zootopia.manager.domain.DateDTO;
@@ -129,6 +130,13 @@ public class ManagerServiceImpl implements ManagerService{
 	public int deleteComment(int commentNo) {
 		int result = mStore.deleteComment(session, commentNo);
 		return result;
+	}
+
+//확인용
+	@Override
+	public AdoptAnimalPost detailAdopt(Integer animalNo) {
+		AdoptAnimalPost aPost = mStore.detailAdopt(session, animalNo);
+		return aPost;
 	}
 
 }

@@ -5,19 +5,22 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>입양공고리스트</title>
+		<title>입양공고 리스트❤️</title>
 		<link rel="stylesheet" href="../../../resources/css/manager/adoptList.css">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+		<style type="text/css">
+			body{ cursor:url("../../../resources/img/cursor.png"), auto;}
+		</style>
 	</head>
 	<body>
 		<jsp:include page="../common/header.jsp"></jsp:include>
 		
 		<main>
 			<div id="main-head">
+				<img alt="" src="../../../resources/img/manager-icon2.png">
 				<h1>미승인 입양공고 리스트</h1>
 			</div>
 			<div>
-				<form action="/manager/approveAdopt.ztp" name="myform" method="get">
 					<table>
 						<thead>
 							<tr>
@@ -30,7 +33,7 @@
 							<c:forEach items="${aList}" var="adoptPost">
 								<tr>
 									<td><input type="checkbox" name="checkRow" value="${adoptPost.adoptPostNo }"></td>
-									<td>${adoptPost.adoptPostNo }</td>
+									<td><a href="/adoptAnimal/detailView.ztp?animalNo=${adoptPost.animalNo }">${adoptPost.adoptPostNo }</a></td>
 									<td>${adoptPost.adoptWriterId }</td>
 								</tr>
 							</c:forEach>
@@ -61,8 +64,6 @@
 		        			</c:if>
 				        </div>
 			        </div>
-
-				</form>
 			</div>
 		</main>
 		

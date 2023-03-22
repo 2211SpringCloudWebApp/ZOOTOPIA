@@ -2,7 +2,7 @@
 
 @font-face{
     font-family: 'jua';
-    src: url(../font/BMJUA_ttf.ttf);
+    src: url(../../font/BMJUA_ttf.ttf);
 }
 * {
     margin: 0;
@@ -31,37 +31,62 @@ main>div:nth-child(1) {
     margin-bottom: 100px;
 
 }
-        .menuTap {
-            width: 300px;
-            height: 100px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            color: #4E422D;
-            font-weight: bold;
-            font-size: 20pt;
-            font-family: 'jua';
-            transition-duration: 0.2s;
-            position : relative;
-            
-        }
-            .barTap {
-                width: 300px;
-                height:0;
-/*                 margin-bottom: 20px; */
-                transition-duration: 0.3s;
-            }
-        .menuTap:hover {
-/*             background-color: #EEE5C6; */
-            border: 0;
-        }
-        .menuTap:hover .barTap {
-            width: 300px;
-            height: 1px;
-            border-radius: 50px;
-            background-color: #4E422D;
-        }
-        img{
-        	text-align: center;
-        }
+.menuTap {
+    width: 400px;
+    height: 100px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    color: #4E422D;
+    font-weight: bold;
+    font-size: 20pt;
+    font-family: 'jua';
+    transition-duration: 0.2s;
+    position : relative;
+}
+
+    
+/* 아이콘 */
+/* img{ */
+/* 	width: 40px; */
+/* 	text-align: center; */
+/* 	margin-right: 15px; */
+/* } */
+/* 아이콘효과준거 */
+main img{
+	visibility: hidden;
+	width: 40px;
+	text-align: center;
+	margin-right: 15px;
+	margin-left: 15px;
+}
+.menuTap:hover{
+	cursor: pointer;
+}
+.menuTap:hover img{
+	visibility: visible;
+	width: 40px;
+	text-align: center;
+	margin-right: 15px;
+	
+}
+    
+/* 마우스 올리면 밑줄 */
+/* .menuTap:hover { */
+/* /*             background-color: #EEE5C6; */ */
+/*     border: 0; */
+/* } */
+/* .menuTap:hover .barTap { */
+/*     width: 300px; */
+/*     height: 1px; */
+/*     border-radius: 50px; */
+/*     background-color: #4E422D; */
+/* } */
+/* .barTap { */
+/*     width: 300px; */
+/*     height:0; */
+/* /*                 margin-bottom: 20px; */ */
+/*     transition-duration: 0.3s; */
+/* } */
+

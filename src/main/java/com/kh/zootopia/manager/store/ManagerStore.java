@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 
+import com.kh.zootopia.AdoptAnimalPost.domain.AdoptAnimalPost;
 import com.kh.zootopia.AdoptAnimalPost.domain.AdoptPost;
 import com.kh.zootopia.comment.domain.Comment;
 import com.kh.zootopia.manager.domain.DateDTO;
@@ -50,6 +51,8 @@ public interface ManagerStore {
 	Comment detailComment(SqlSession session, int commentNo);
 
 	int deleteComment(SqlSession session, int commentNo);
+
+	AdoptAnimalPost detailAdopt(SqlSession session, Integer animalNo);
 
 
 }
