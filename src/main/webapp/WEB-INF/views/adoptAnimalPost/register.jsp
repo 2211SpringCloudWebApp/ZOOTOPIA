@@ -9,6 +9,9 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 		<link rel="icon" href="../../../resources/img/favicon.png" />
 		<link rel="apple-touch-icon" href="../../../resources/img/favicon.png" />
+		<style type="text/css">
+			body{ cursor:url("../../../resources/img/cursor.png"), auto;}
+		</style>
 
 		<style>
 			ul {
@@ -32,7 +35,7 @@
 			<h1>입양공고등록하기</h1>
 			<h3>아이디 : ${loginUser.memberId } / 이름 : ${loginUser.memberName }</h3>
 
-			<form action="/adoptAnimal/register.ztp" method="post" enctype="multipart/form-data">
+			<form action="/adoptAnimal/register.ztp" method="post" enctype="multipart/form-data" id="form">
 				<input type="hidden" name="adoptWriterId" value="${loginUser.memberId }">
 
 				<ul>
@@ -95,13 +98,19 @@
 					</li>
 
 					<li>
+						<label for="" class="postContentLabel">이미지</label>
+						<br>
+						<input type="file" name="uploadFile" id="uploadFile" accept="image/*" multiple>
+						<div id="uploadFileBtn">이미지 등록하기!!</div>
+						<div id="preview-area"></div>
+					</li>
+
+
+
+					<li>
 						<textarea placeholder="게시글 내용을 입력하시길" name="adoptContent" cols="30" rows="10"></textarea>
 					</li>
 
-					<li>
-						<label for="" class="postContentLabel">이미지</label>
-						<input type="file" name="uploadFile" multiple>
-					</li>
 
 				</ul>
 
@@ -113,11 +122,50 @@
 
 
 		<script>
+
+			const uploadFile = document.querySelector('#uploadFile');
+			const uploadFileBtn = document.querySelector('#uploadFileBtn');
+
+			const previewArea = document.getElementById('preview-area');
+			uploadFileBtn.addEventListener('click', () => uploadFile.click());
+
+			uploadFile.addEventListener('change', () => {
+				const files = uploadFile.files;
+				
+				if (files.length > 4) {
+					alert('이미지는 최대 4개까지 등록 가능합니다.');
+					uploadFile.value = '';
+					return;
+				}
+				
+				// 이미지 미리보기 등록
+				previewArea.innerHTML = '';
+				for (let i = 0; i < files.length; i++) {
+					const file = files[i];
+					const reader = new FileReader();
+					reader.readAsDataURL(file);
+					reader.onload = () => {
+						const img = document.createElement('img');
+						img.setAttribute('src', reader.result);
+						img.setAttribute('class', 'preview-img');
+						previewArea.appendChild(img);
+					}
+				}
+
+			});
+
+
+
+
+
+
+			// 주소 입력 관련
+
 			$('document').ready(function () {
 
 				// 시/도 선택
 				var area0 = ["시/도 선택", "서울특별시", "인천광역시", "대전광역시", "광주광역시", "대구광역시", "울산광역시", "부산광역시", "경기도", "강원도", "충청북도", "충청남도", "전라북도", "전라남도", "경상북도", "경상남도", "제주도"];
-				
+
 				// 시/군/구 선택
 				// 서울특별시
 				var area1 = ["강남구", "강동구", "강북구", "강서구", "관악구", "광진구", "구로구", "금천구", "노원구", "도봉구", "동대문구", "동작구", "마포구", "서대문구", "서초구", "성동구", "성북구", "송파구", "양천구", "영등포구", "용산구", "은평구", "종로구", "중구", "중랑구"];

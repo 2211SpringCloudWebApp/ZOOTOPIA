@@ -1,7 +1,9 @@
 package com.kh.zootopia.AdoptAnimalPost.controller;
 
 import java.io.File;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -72,7 +75,8 @@ public class AdoptAnimalPostController {
 			, @RequestParam("characters") List<String> characters
 			, String sido
 			, String sigungu
-			, @RequestParam(value = "uploadFile", required = false) MultipartFile uploadFile
+//			, @RequestParam(value = "uploadFile", required = false) MultipartFile uploadFile
+			, @RequestParam(value = "uploadFile", required = false) MultipartFile[] uploadFiles
 			, ModelAndView mv) {
 
 		try {
@@ -90,15 +94,50 @@ public class AdoptAnimalPostController {
 			 animal.setAnimalAddr(animalAddr);
 			
 			// 이미지 이름, 경로 가져오기
-			String adoptImageName = uploadFile.getOriginalFilename();
-			if (!adoptImageName.equals("")) {
-				String adoptImagePath = saveFile(uploadFile, request);
-				if (adoptImagePath != null) {
-					adoptPost.setAdoptImageName(adoptImageName);
-					adoptPost.setAdoptImagePath(adoptImagePath);
-				}
-			}
+//			String adoptImageName = uploadFile.getOriginalFilename();
+//			if (!adoptImageName.equals("")) {
+//				String adoptImagePath = saveFile(uploadFile, request);
+//				if (adoptImagePath != null) {
+//					adoptPost.setAdoptImageName(adoptImageName);
+//					adoptPost.setAdoptImagePath(adoptImagePath);
+//				}
+//			}
+			
+			 StringBuilder fileNames = new StringBuilder();
+			 StringBuilder filePaths = new StringBuilder();
+			 
+			 for (MultipartFile file : uploadFiles) {
+			        String fileName = file.getOriginalFilename();
+			        // 파일 이름이 공백이 아니면
+			        if (!fileName.equals("")) {
+			        	
+			        	// 파일 이름 문자열에 추가하고
+			        	fileNames.append(fileName).append(";");
+			        	
+			        	// 파일을 업로드한 다음 파일 경로를 가져오고
+			        	String filePath = saveFile(file, request);
+			        	
+			        	// 파일 경로가 공백이 아니면
+			        	if (filePath != null) {
+			        		
+			        		// 파일 경로 문자열에 추가한 다음
+			        		filePaths.append(filePath).append(";");
+			        	}
+			        	
+			        	
+			        }
 
+			 }
+			 
+			 // 바꿔주고
+			 String adoptImageNames = fileNames.toString();
+			 String adoptImagePaths = filePaths.toString(); 
+			 
+			 // 객체에 담아주기!
+			 adoptPost.setAdoptImageName(adoptImageNames);
+			 adoptPost.setAdoptImagePath(adoptImagePaths);
+			 
+			 
 			AdoptAnimalPost adoptAnimalPost = new AdoptAnimalPost(animal, adoptPost);
 			int result = aService.insertPost(adoptAnimalPost);
 
@@ -195,6 +234,184 @@ public class AdoptAnimalPostController {
 	
 		
 	
+	// ========== 수정 ========== //
+	
+	/**
+	 * 입력 공고 수정 폼
+	 * @param animalNo
+	 * @param mv
+	 * @return
+	 */
+	@RequestMapping(value = "/adoptAnimal/modifyView.ztp", method = RequestMethod.GET)
+	public ModelAndView modifyAnimalView(
+			int animalNo
+			, ModelAndView mv) {
+		
+		try {
+			
+				// animalNo를 통해 해당 동물 Detail 정보 가져오기
+				AdoptAnimalPost aPost = aService.selectOneByAnimalNo(animalNo);
+				
+				// animalNo를 통해 해당 동물에 관한 예약 리스트 가져오기 (예약하기 or 예약취소 버튼)
+				// List<Reservation> rList = rService.selectAllapplicantByAnimalNo(animalNo);
+	
+				if (aPost != null) {
+					
+					// Comment 객체에 boardId랑 postNo 정보 담아서
+					// Comment cmt = new Comment();
+					// cmt.setBoardId(aPost.getAdoptPost().getBoardId());
+					// cmt.setPostNo(aPost.getAdoptPost().getAdoptPostNo());
+					
+					// 해당 공고에 달린 댓글 가져오기(댓글 대댓글 구분하지 않고!)				
+					// List<Comment> commentList = cService.selectAdoptComment(cmt);
+					
+					//mv.addObject("rList", rList);
+					//mv.addObject("commentList", commentList);
+					mv.addObject("aPost", aPost);
+					mv.setViewName("adoptAnimalPost/modify");
+					
+				} else {
+					mv.addObject("message", "동물 정보 조회 실패").setViewName("common/error");
+				}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			mv.addObject("message", e.getMessage()).setViewName("common/error");
+		}
+		return mv;
+	}
+	
+	
+	/**
+	 * 입양 공고 수정
+	 * @param request
+	 * @param animal
+	 * @param adoptPost
+	 * @param characters
+	 * @param sido
+	 * @param sigungu
+	 * @param reloadFiles
+	 * @param mv
+	 * @return
+	 */
+	@RequestMapping(value = "/adoptAnimal/modify.ztp", method = RequestMethod.POST)
+	public ModelAndView modifyAnimal(
+			HttpServletRequest request
+			, @ModelAttribute Animal animal
+			, @ModelAttribute AdoptPost adoptPost
+			, @RequestParam("characters") List<String> characters
+			, String sido
+			, String sigungu
+			, @RequestParam(value = "reloadFile", required = false) MultipartFile[] reloadFiles
+			, ModelAndView mv) {
+		
+		try {
+				request.setCharacterEncoding("UTF-8");
+				
+				// 작성자 = 임보자
+				animal.setAnimalFosterId(adoptPost.getAdoptWriterId());	
+				
+				// 입력받은 성격들 문자열 하나로 모아서 animal객체에 담기
+				String animalCharacter = String.join(";", characters);
+				animal.setAnimalCharacter(animalCharacter);
+				 
+				// 입력받은 주소 시/군, 시/군/구 문자열 하나로 모아서 animal객체에 담기
+				String animalAddr = sido + " " + sigungu;
+				animal.setAnimalAddr(animalAddr);
+				
+				
+				// 업로드된 이미지가 있다면
+				if (!reloadFiles[0].getOriginalFilename().equals("")) {
+					
+					// 기존 이미지 정보 가져오기
+					String currAdoptImageNames = adoptPost.getAdoptImageName();
+					String[] currAdoptImageNamesArr = currAdoptImageNames.split(";");
+					
+					// 새로 입력받은 이미지 정보 담을 변수
+					StringBuilder fileNames = new StringBuilder();
+					StringBuilder filePaths = new StringBuilder();
+					
+					for (MultipartFile file : reloadFiles) {
+						
+						String fileName = file.getOriginalFilename();
+						// 파일 이름이 공백이 아니면 = 새로 파일이 업로드 됐을 경우
+						if (!fileName.equals("")) {
+							
+							// 기존 업로드된 파일 체크 후
+							for (String currAdoptImageName : currAdoptImageNamesArr) {
+								if (currAdoptImageName != null) {
+									// 기존 파일 삭제
+									deleteFile(currAdoptImageName, request);
+								}
+								
+							}
+							
+							// 파일 이름 문자열에 추가하고
+							fileNames.append(fileName).append(";");
+							
+							// 파일을 업로드한 다음 파일 경로를 가져오고
+							String filePath = saveFile(file, request);
+							
+							// 파일 경로가 공백이 아니면
+							if (filePath != null) {
+								
+								// 파일 경로 문자열에 추가한 다음
+								filePaths.append(filePath).append(";");
+								
+							}
+						}
+					}
+					
+					// 바꿔주고
+					String adoptImageNames = fileNames.toString();
+					String adoptImagePaths = filePaths.toString(); 
+					
+					// 객체에 담아주기!
+					adoptPost.setAdoptImageName(adoptImageNames);
+					adoptPost.setAdoptImagePath(adoptImagePaths);
+				}
+				
+				 
+				AdoptAnimalPost adoptAnimalPost = new AdoptAnimalPost(animal, adoptPost);
+				int result = aService.updatetPost(adoptAnimalPost);
+				
+				if (result > 0) {
+					// 입양 공고 수정 성공 시 해당입양 공고 디테일
+					mv.setViewName("redirect:/adoptAnimal/detailView.ztp?animalNo=" + animal.getAnimalNo());
+				} else {
+					mv.addObject("message", "입양 공고 수정 실패").setViewName("common/error");
+				}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			mv.addObject("message", e.getMessage()).setViewName("common/error");
+		}
+		
+		
+		return mv;
+	}
+	
+	
+	/**
+	 * 파일 삭제 메소드
+	 * @param adoptImageName
+	 * @param request
+	 * @throws Exception
+	 */
+	private void deleteFile(String adoptImageName, HttpServletRequest request) throws Exception {
+		
+		String root = request.getSession().getServletContext().getRealPath("resources");
+		String delPath = root + "\\uploadFiles";
+		String delFilepath = delPath + "\\" + adoptImageName;
+		File delFile = new File(delFilepath);
+		if (delFile.exists()) {
+			delFile.delete();
+		}
+		
+	}
+	
+	
+	
 	// ========== 출력 ========== //
 
 	/**
@@ -213,12 +430,6 @@ public class AdoptAnimalPostController {
 			AnimalPaging paging = new AnimalPaging(currentPage, totalCount);
 			
 			List<AdoptAnimalPost> aPostList = aService.selectAllAnimal(paging);
-			
-			// 페이징 적용하면 15개밖에 못 가져오나??
-			// > 그르네 db데이터문제인가 나중에 해결하기~!~!~
-			for (int i = 0; i < aPostList.size(); i++) {
-				System.out.println(aPostList.get(i));
-			}
 			
 
 			if (!aPostList.isEmpty()) {
@@ -463,5 +674,60 @@ public class AdoptAnimalPostController {
 		return mv;
 	}
 	
+	/**
+	 * 입양 공고 댓글 삭제
+	 * @param commentNo
+	 * @param animalNo
+	 * @param mv
+	 * @return
+	 */
+	@RequestMapping(value = "/adoptAnimal/deleteComment.ztp", method = RequestMethod.GET)
+	public ModelAndView deleteComment(
+//			int commentNo
+			@ModelAttribute Comment cParm
+			, int animalNo
+			, ModelAndView mv) {
+		
+		try {
+			int result = cService.removeComment(cParm);
+			if (result > 0) {
+				mv.setViewName("redirect:/adoptAnimal/detailView.ztp?animalNo=" + animalNo);
+			} else {
+				mv.addObject("message", "댓글 삭제 실패!").setViewName("common/error");
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			mv.addObject("message", e.getMessage()).setViewName("common/error");
+		}
+		
+		return mv;
+	}
 	
+
+	@RequestMapping(value = "/adoptAnimal/updateComment.ztp", method = RequestMethod.POST)
+	public ModelAndView updateComment(
+			int animalNo
+			, @ModelAttribute Comment cParam
+			, ModelAndView mv) {
+		
+		try {
+			
+			System.out.println(cParam.getBoardId());
+			System.out.println(cParam.getPostNo());
+			System.out.println(cParam.getCommentNo());
+			System.out.println(cParam.getCommentContent());
+			
+			int result = cService.updateComment(cParam);
+			if (result > 0) {
+				mv.setViewName("redirect:/adoptAnimal/detailView.ztp?animalNo=" + animalNo);
+			} else {
+				mv.addObject("message", "댓글 수정 실패!").setViewName("common/error");
+			} 
+		} catch (Exception e) {
+			e.printStackTrace();
+			mv.addObject("message", e.getMessage()).setViewName("common/error");
+		}
+		return mv;
+	}
 }

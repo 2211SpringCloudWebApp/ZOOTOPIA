@@ -28,11 +28,20 @@ public class ReservationServiceImpl implements ReservationService{
 	}
 
 	/**
-	 * 입양 상담 예약 등록 ServiceImple
+	 * 입양 상담 예약 등록 ServiceImpl
 	 */
 	@Override
 	public int insertReservation(Reservation reservation) {
 		int result = rStore.insertReservation(session, reservation);
+		return result;
+	}
+
+	/**
+	 * 입양 상담 예약 취소 ServiceImpl
+	 */
+	@Override
+	public int deleteReservation(int reservationNo) {
+		int result = rStore.deleteReservation(session, reservationNo);
 		return result;
 	}
 

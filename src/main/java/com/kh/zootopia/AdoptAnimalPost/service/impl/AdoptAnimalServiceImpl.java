@@ -52,6 +52,19 @@ public class AdoptAnimalServiceImpl implements AdoptAnimalService{
 	
 	
 	
+	// ========== 수정 ========== //
+	
+	/**
+	 * 입양 공고 수정 ServiceImpl
+	 */
+	@Override
+	public int updatetPost(AdoptAnimalPost adoptAnimalPost) {
+		int result = aStore.updatetPost(session, adoptAnimalPost);
+		return result;
+	}
+	
+	
+	
 	// ========== 출력 ========== //
 	/**
 	 * 입양 공고 목록 조회 ServiceImpl
@@ -127,6 +140,10 @@ public class AdoptAnimalServiceImpl implements AdoptAnimalService{
 		int totalCount = aStore.selectMatchingAnimalCount(session, animalInfo);
 		return totalCount;
 	}
+
+
+
+	
 
 
 

@@ -22,4 +22,11 @@ public interface ReservationService {
 	 */
 	int insertReservation(Reservation reservation);
 
+	/**
+	 * 입양 상담 예약 취소 Service
+	 * @param reservationNo
+	 * @return
+	 */
+	int deleteReservation(int reservationNo);
+
 }

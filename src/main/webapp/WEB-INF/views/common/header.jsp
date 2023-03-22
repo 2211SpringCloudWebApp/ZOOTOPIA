@@ -37,7 +37,7 @@
 				
 				<!-- 관리자가 아니라면 마이페이지 -->
 				<c:if test="${loginUser.mAdminYN eq 'N' }">
-					<div onclick="location.href='/member/mypage.ztp'" class="main-header-btn">
+					<div onclick="location.href='/member/mypage.ztp?category=infoList'" class="main-header-btn">
 						<img src="../../resources/img/mypage-icon.png" alt="" class="log-img">
 						<span>${loginUser.memberName } </span>님 마이페이지
 					</div>
@@ -112,7 +112,7 @@
 
 						<c:if test="${sessionScope.loginUser ne null }">
 							<!-- 로그인 상태라면 내 입양 동물 목록으로 -->
-							<div onclick="location.href='/member/animalList.ztp'">입양후기 등록</div>
+							<div onclick="location.href='/member/animalList.ztp?category=animalList'">입양후기 등록</div>
 						</c:if>
 						<c:if test="${sessionScope.loginUser eq null }">
 							<!-- 

@@ -8,6 +8,13 @@
     src : url(../font/BMHANNAAir_ttf.ttf);
     /* unicode-range: U+0020-007F; */
 }
+
+/* 마이페이지 사이드바때문에 추가해달라고한거 */
+footer {
+    position: relative;
+    z-index: 200;
+}
+
 #content-6 {
     /* height: 45vh; */
     height: 270px;

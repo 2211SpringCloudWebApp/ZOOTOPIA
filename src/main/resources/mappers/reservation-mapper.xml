@@ -19,6 +19,9 @@
 	<insert id="insertReservation">
 		INSERT INTO ADOPT_RESERVATION_TBL VALUES (SEQ_RESERVATION_NO.NEXTVAL, #{animalNo }, #{fosterId }, #{adopterId }, DEFAULT, #{reservationTime })
 	</insert>
+	<delete id="deleteReservation">
+		DELETE FROM ADOPT_RESERVATION_TBL WHERE RESERVATION_NO = #{reservationNo}
+	</delete>
 	<!--  ===  -->
 	
 	<!-- 	예약페이지 -->

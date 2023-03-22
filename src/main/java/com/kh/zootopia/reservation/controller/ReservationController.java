@@ -16,6 +16,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.kh.zootopia.reservation.domain.Reservation;
 import com.kh.zootopia.reservation.service.ReservationService;
 
+import oracle.net.aso.p;
+
 @Controller
 public class ReservationController {
 	
@@ -58,14 +60,19 @@ public class ReservationController {
 			, int animalNo
 			, String fosterId
 			, String adopterId
-			, @RequestParam("reservationTime") String reservationTimeStr
+//			, @RequestParam("reservationTime") String reservationTimeStr
+			, String rDate
+			, String rTime
 			, ModelAndView mv) {
 		try {
 			request.setCharacterEncoding("UTF-8");
 			
-			// 받은 값을 timestamp타입으로 바꿔주기
-			Timestamp reservationTime = Timestamp.valueOf(reservationTimeStr.replace('T', ' ').concat(":00"));
 
+			
+			// 받은 값을 timestamp타입으로 바꿔주기
+//			Timestamp reservationTime = Timestamp.valueOf(reservationTimeStr.replace('T', ' ').concat(":00"));
+			Timestamp reservationTime = Timestamp.valueOf(rDate.concat(" " + rTime).concat(":00"));
+			
 			// Reservation 객체에 넣어주기
 			Reservation reservation = new Reservation(animalNo, fosterId, adopterId, reservationTime);
 			
@@ -109,4 +116,24 @@ public class ReservationController {
 		return mv;
 	}
 
+	@RequestMapping(value = "/reservation/delete.ztp", method = RequestMethod.GET)
+	public ModelAndView deleteReservation(
+			int reservationNo
+			, int animalNo
+			, ModelAndView mv) {
+		
+		try {
+			int result = rService.deleteReservation(reservationNo);
+			if (result > 0) {
+				mv.setViewName("redirect:/adoptAnimal/detailView.ztp?animalNo=" + animalNo);
+			} else {
+				mv.addObject("message", "예약 취소 실패").setViewName("common/error");
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			mv.addObject("message", e.getMessage()).setViewName("common/error");
+		}
+		return mv;
+	}
 }

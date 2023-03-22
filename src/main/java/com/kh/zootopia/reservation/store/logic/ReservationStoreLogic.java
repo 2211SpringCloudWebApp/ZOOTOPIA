@@ -29,4 +29,13 @@ public class ReservationStoreLogic implements ReservationStore {
 		return result;
 	}
 
+	/**
+	 * 입양 상담 예약 취소 StoreLogic
+	 */
+	@Override
+	public int deleteReservation(SqlSession session, int reservationNo) {
+		int result = session.delete("ReservationMapper.deleteReservation", reservationNo);
+		return result;
+	}
+
 }
