@@ -6,6 +6,9 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>입양 신청자 목록</title>
+		<style type="text/css">
+			body{ cursor:url("../../../resources/img/cursor.png"), auto;}
+		</style>
 	</head>
 	<body>
 		<c:forEach items="${rList}" var="reservation" varStatus="status">

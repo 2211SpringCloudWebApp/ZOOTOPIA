@@ -34,6 +34,17 @@ public interface AdoptAnimalService {
 	
 	
 	
+	// ========== 수정 ========== //
+	
+	/**
+	 * 입양 공고 수정 Serivce
+	 * @param adoptAnimalPost
+	 * @return
+	 */
+	int updatetPost(AdoptAnimalPost adoptAnimalPost);
+
+	
+	
 	// ========== 출력 ========== //
 	
 	/**
@@ -96,6 +107,9 @@ public interface AdoptAnimalService {
 	 */
 	int selectMatchingAnimalCount(Animal animalInfo);
 
+
+
+	
 
 	
 }

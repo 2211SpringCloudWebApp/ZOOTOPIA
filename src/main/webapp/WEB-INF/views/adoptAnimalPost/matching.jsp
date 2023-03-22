@@ -9,6 +9,9 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 		<link rel="icon" href="../../../resources/img/favicon.png"/>
 		<link rel="apple-touch-icon" href="../../../resources/img/favicon.png"/>
+        <style type="text/css">
+            body{ cursor:url("../../../resources/img/cursor.png"), auto;}
+        </style>
     </head>
     <body>
         <jsp:include page="../common/header.jsp" />

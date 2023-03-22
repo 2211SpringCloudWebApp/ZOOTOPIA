@@ -42,6 +42,14 @@
 	
 	
 	
+	<!-- ========== 유정 수정 ========== -->
+	
+	<!-- 입양 공고 수정 (animal부분 수정, adoptPost부분은 adoptpost매퍼에서 따로 수정함!) -->
+	<update id="updateAnimal">
+		UPDATE ANIMAL_TBL SET ANIMAL_SPECIES = #{animalSpecies}, ANIMAL_GENDER = #{animalGender }, ANIMAL_WEIGHT = #{animalWeight }, NEUTER_YN = #{neuterYN }, ANIMAL_ADDR = #{animalAddr }, ANIMAL_CHARACTER = #{animalCharacter } WHERE ANIMAL_NO = #{animalNo } 
+	</update>
+	
+	
 	<!-- ========== 유정 출력 ========== -->
 	
 	<!-- 입양 공고 목록 조회 (animal부분 출력, adoptPost부분은 adoptpost매퍼에서 따로 출력함!)-->

@@ -24,4 +24,12 @@ public interface ReservationStore {
 	 */
 	int insertReservation(SqlSession session, Reservation reservation);
 
+	/**
+	 * 입양 상담 예약 취소 Store
+	 * @param session
+	 * @param reservationNo
+	 * @return
+	 */
+	int deleteReservation(SqlSession session, int reservationNo);
+
 }

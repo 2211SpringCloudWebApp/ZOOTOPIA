@@ -10,6 +10,9 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
         <link rel="icon" href="../../../resources/img/favicon.png"/>
         <link rel="apple-touch-icon" href="../../../resources/img/favicon.png"/>
+        <style type="text/css">
+          body{ cursor:url("../../../resources/img/cursor.png"), auto;}
+        </style>
     </head>
     <body>
 
@@ -320,6 +323,28 @@
 
 
           // 페이지 스크롤에 따라 상단 베이지 배경 높이 조절
+          // 처음 페이지가 열렸을 때
+          window.addEventListener('load', function() {
+            document.getElementById('section1').style.height = '250px';
+          });
+
+          // 스크롤 할 때 
+          window.addEventListener('scroll', function() {
+            // 스크롤 위치 계산
+            var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            // 스크롤을 내린 경우
+            if (scrollTop > 0 && scrollTop < 250) {
+              document.getElementById('section1').style.height = (250 - scrollTop) + 'px';
+            }
+            // 스크롤을 올린 경우
+            else if (scrollTop <= 0) {
+              document.getElementById('section1').style.height = '250px';
+            }
+            // 스크롤을 더 내린 경우
+            else {
+              document.getElementById('section1').style.height = '0';
+            }
+          });
           
 
         </script>

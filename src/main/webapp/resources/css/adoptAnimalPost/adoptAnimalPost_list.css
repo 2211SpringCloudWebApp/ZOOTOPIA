@@ -51,42 +51,53 @@ main #menu-info {
     width: 100vw;
 }
 
-/* 밝은 색 부분 */
+/* 넓은 부분 */
 main #menu-info>#section1 {
-    height: 340px;
-    /* height: 0; */
+    /* height: 250px; */
+    height: 0;
     background-color: #EEE5C6;
+    background-color: #4E422D;
+    background-color: white;
+    /* background-image: url("../../uploadFiles/dog.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover; */
+    
     /* background-color: transparent; */
 
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;  
+
+    transition: 0.7s;
     
 }   main #menu-info>#section1>div:nth-child(1) {
     /* text : 입양 공고 확인하기 */
-        color: #332a1a;
+        color: #4E422D;
         font-size: 50pt;
-        font-family: 'jua';
+        font-family: 'hanna';
+        font-weight: 900;
 
         text-shadow:
             /* x y 블러 색상 */
-            -1px -1px 1px white,  
-            1px -1px 1px white,
-            -1px 1px 1px white,
-            1px 1px 1px white,
-            3px 3px 3px rgba(0, 0, 0, 0.2);
+            /* -2px -2px 1px #4E422D,  
+            2px -2px 1px #4E422D,
+            -2px 2px 1px #4E422D,
+            2px 2px 1px #4E422D, */
+            0px 0px 5px rgba(255, 255, 255, 1.0);
 
     } main #menu-info>#section1>div:nth-child(2) {
         /* text : 가나다라 마밧 아자차카 타ㅠㅏ하 */
-        color: #4E422D;
+        color: #C6BDAD;
         font-size: 25pt;
         font-family: 'hanna';
     }
-/* 어두운 색 부분 */
+/* 좁은 부분 */
 main #menu-info>#section2 {
     height: 80px;
     background-color: #4E422D;
+    background-color: #EEE5C6;
 
     display: flex;
     justify-content: center;
@@ -100,14 +111,15 @@ main #menu-info>#section2 {
         width: 80px;
         height: 80px;
         background-color: #4E422D;
-        margin-top: 30px;
+        background-color: #EEE5C6;
+        margin-top: 20px;
         transform: rotate(45deg);
-        border-radius: 15px;
+        border-radius: 5px;
 
     }  main #menu-info>#section2>div:nth-child(1) {
         /* 마름모 그림자 */
         z-index: -1;
-        box-shadow: 10px 10px 15px 0px rgba(0, 0, 0, 0.3);
+        box-shadow: 10px 10px 15px 0px rgba(0, 0, 0, 0.5);
 
     }  main #menu-info>#section2>div:nth-child(2) {
         /* 마름모 덮어쓰기 */

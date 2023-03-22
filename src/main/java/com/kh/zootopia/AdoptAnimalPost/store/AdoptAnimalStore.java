@@ -39,6 +39,19 @@ public interface AdoptAnimalStore {
 	
 	
 	
+	// ========== 수정 ========== //
+	
+	/**
+	 * 입양 공고 수정 Store
+	 * @param session
+	 * @param adoptAnimalPost
+	 * @return
+	 */
+	int updatetPost(SqlSession session, AdoptAnimalPost adoptAnimalPost);
+
+	
+	
+	
 	// ========== 출력 ========== //
 	
 	/**
@@ -108,6 +121,9 @@ public interface AdoptAnimalStore {
 	 */
 	int selectMatchingAnimalCount(SqlSession session, Animal animalInfo);
 
+
+
+	
 
 
 }

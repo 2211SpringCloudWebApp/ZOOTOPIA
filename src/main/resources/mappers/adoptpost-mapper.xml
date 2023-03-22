@@ -42,6 +42,13 @@
 	
 	
 	
+	<!-- ========== 유정 수정 ========== -->
+	<!-- 입양 공고 수정 (adoptPost부분 수정, animal부분은 animal매퍼에서 따로 수정함!) -->
+	<update id="updateAdoptPost">
+		UPDATE ADOPT_POST_TBL SET ADOPT_CONTENT = #{adoptContent }, ADOPT_IMAGE_NAME = #{adoptImageName }, ADOPT_IMAGE_PATH = #{adoptImagePath }, ADOPT_CREATE_DATE = DEFAULT WHERE ANIMAL_NO = #{animalNo}
+	</update>
+	
+	
 	<!-- ========== 유정 출력 ========== -->
 	
 	<!-- 입양 공고 목록 조회 (adoptPost부분 출력, animal부분은 animal매퍼에서 따로 출력함!)-->
@@ -102,8 +109,8 @@
 	</delete>
 	
 	<select id="selectAdopt" resultMap="adoptPostResultMap">
-		SELECT ADOPT_POST_NO, ADOPT_WRITER_ID FROM ADOPT_POST_TBL WHERE ADOPT_APPROVAL_YN = 'N'
-	</select>
+        SELECT * FROM ADOPT_POST_TBL WHERE ADOPT_APPROVAL_YN = 'N'
+    </select>
 	
 	<select id="getAdoptListCount" resultType="_int">
 		SELECT COUNT(*) FROM ADOPT_POST_TBL
@@ -136,5 +143,11 @@
 	<select id="selectAdoptPostLikeList" resultMap="adoptPostResultMap">
 		SELECT ADOPT_POST_TBL.* FROM(SELECT * FROM LIKE_TBL WHERE LIKE_MEMBER_ID = #{memberId} AND BOARD_ID = 'A') JOIN ADOPT_POST_TBL ON POST_NO = ADOPT_POST_NO
 	</select>
+	<select id="mypageSelectAdoptPost" resultType="_int">
+		SELECT ANIMAL_NO FROM ADOPT_POST_TBL WHERE ADOPT_POST_NO = #{postNo}
+	</select>
+	<delete id="deleteAdoptPostList">
+		DELETE FROM ADOPT_POST_TBL WHERE ADOPT_POST_NO = #{adoptPostNo }
+	</delete>
 	
 </mapper>
