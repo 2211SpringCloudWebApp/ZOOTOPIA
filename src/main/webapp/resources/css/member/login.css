@@ -40,3 +40,6 @@ main .divider:before {
 	height: 1px;
 	background: #eee;
 }
+main input:focus{
+	outline: none;
+}

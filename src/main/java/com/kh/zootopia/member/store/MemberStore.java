@@ -206,4 +206,29 @@ public interface MemberStore {
 	 */
 	List<AdoptPost> selectAdoptPostLikeList(SqlSession session, PageInfo pageInfo, String memberId);
 
+	/**
+	 * 마이페이지 작성한 댓글 상세페이지
+	 * @param session
+	 * @param memberId
+	 * @return
+	 */
+	int mypageSelectAdoptPost(SqlSession session, int postNo);
+
+	
+	/**
+	 * 마이페이지 후기 게시글 삭제
+	 * @param session
+	 * @param reviewPostNo
+	 * @return
+	 */
+	int deleteCheckedReviewList(SqlSession session, String reviewPostNo);
+
+	/**
+	 * 마이페이지 입양공고 게시글 삭제
+	 * @param session
+	 * @param adoptPostNo
+	 * @return
+	 */
+	int deleteCheckedAdoptPost(SqlSession session, String adoptPostNo);
+
 }

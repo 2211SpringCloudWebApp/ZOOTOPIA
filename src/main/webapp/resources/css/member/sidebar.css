@@ -56,5 +56,9 @@ body {
 :root{
 	    --mdb-link-color: #EEE5C6;
 }
+.list-group{
+    --mdb-list-group-active-bg: #EEE5C6;
+}
+
 
   

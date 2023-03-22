@@ -197,4 +197,25 @@ public class MemberStoreLogic implements MemberStore{
 		return adoptPostLikeList;
 	}
 	
+	// 마이페이지 작성한 댓글 상세페이지
+	@Override
+	public int mypageSelectAdoptPost(SqlSession session, int postNo) {
+		int animalNo = session.selectOne("AdoptPostMapper.mypageSelectAdoptPost", postNo);
+		return animalNo;
+	}
+	
+	// 마이페이지 후기 게시글 삭제
+	@Override
+	public int deleteCheckedReviewList(SqlSession session, String reviewPostNo) {
+		int result = session.delete("ReviewMapper.deleteReview",reviewPostNo);
+		return result;
+	}
+
+	// 마이페이지 입양공고 게시글 삭제
+	@Override
+	public int deleteCheckedAdoptPost(SqlSession session, String adoptPostNo) {
+		int result = session.delete("AdoptPostMapper.deleteAdoptPostList", adoptPostNo);
+		return result;
+	}
+	
 }

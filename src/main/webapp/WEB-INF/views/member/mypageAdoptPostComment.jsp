@@ -29,28 +29,28 @@
 				class="collapse d-lg-block sidebar collapse bg-white">
 				<div class="position-sticky">
 					<div class="list-group list-group-flush mx-3 mt-4">
-						<a href="/member/mypage.ztp?aria-current=true" class="list-group-item list-group-item-action py-2 ripple" onclick="updateSidebar(); return false;">
+						<a href="/member/mypage.ztp?category=infoList" class="list-group-item list-group-item-action py-2 ripple" id="infoList">
 							<i class="fas fa-user-circle fa-fw me-3"></i><span>나의 정보</span>
 						</a>	
-						<a href="/member/animalList.ztp?aria-current=true" class="list-group-item list-group-item-action py-2 ripple" onclick="updateSidebar(); return false;">
+						<a href="/member/animalList.ztp?category=animalList" class="list-group-item list-group-item-action py-2 ripple" id="animalList">
 							<i class="fas fa-paw fa-fw me-3"></i><span>입양한 동물 리스트</span>
 						</a>
-						<a href="/member/mypageAdoptPost.ztp?aria-current=true" class="list-group-item list-group-item-action py-2 ripple" onclick="updateSidebar(); return false;">
+						<a href="/member/mypageAdoptPost.ztp?category=adoptPostList" class="list-group-item list-group-item-action py-2 ripple" id="adoptPostList" >
 							<i class="fas fa-list fa-fw me-3"></i><span>입양공고 게시글</span>
 						</a> 
-						<a href="/member/mypageAdoptPostComment.ztp?aria-current=true" class="list-group-item list-group-item-action py-2 ripple" onclick="updateSidebar(); return false;">
+						<a href="/member/mypageAdoptPostComment.ztp?category=adoptPostComment" class="list-group-item list-group-item-action py-2 ripple" id="adoptPostComment" >
 							<i class="fas fa-comment fa-fw me-3"></i><span>입양공고 댓글</span>
 						</a> 
-						<a href="/member/mypageAdoptPostLike.ztp?aria-current=true" class="list-group-item list-group-item-action py-2 ripple" onclick="updateSidebar(); return false;">
+						<a href="/member/mypageAdoptPostLike.ztp?category=adoptPostLike" class="list-group-item list-group-item-action py-2 ripple" id="adoptPostLike" >
 							<i class="fas fa-heart fa-fw me-3"></i><span>입양공고 좋아요 누른 글</span>
 						</a> 
-						<a href="/member/mypageReview.ztp?aria-current=true" class="list-group-item list-group-item-action py-2 ripple" onclick="updateSidebar(); return false;">
+						<a href="/member/mypageReview.ztp?category=reviewList" class="list-group-item list-group-item-action py-2 ripple" id="reviewList" >
 							<i class="fas fa-list fa-fw me-3"></i><span>입양후기 게시글</span>
 						</a>
-						<a href="/member/mypageReviewComment.ztp?aria-current=true" class="list-group-item list-group-item-action py-2 ripple" onclick="updateSidebar(); return false;">
+						<a href="/member/mypageReviewComment.ztp?category=reviewComment" class="list-group-item list-group-item-action py-2 ripple" id="reviewComment">
 							<i class="fas fa-comment fa-fw me-3"></i><span>입양후기 댓글</span>
 						</a> 
-						<a href="/member/mypageReviewLike.ztp?aria-current=true" class="list-group-item list-group-item-action py-2 ripple" onclick="updateSidebar(); return false;">
+						<a href="/member/mypageReviewLike.ztp?category=reviewLike" class="list-group-item list-group-item-action py-2 ripple" id="reviewLike" >
 							<i class="fas fa-heart fa-fw me-3"></i><span>입양후기 좋아요 누른 글</span>
 						</a> 
 					</div>
@@ -80,6 +80,7 @@
 		<table class="">
 				<thead>
 					<tr>
+						<th><input type="checkbox" name="allcheck" onclick="allCheck()"></th>
 						<th>번호</th>
 						<th>내용</th>
 						<th>작성자</th>
@@ -89,7 +90,7 @@
 					<c:forEach items="${adoptPostCommentList }" var="adoptPostComment">
 					<tr>
 						<td><input type="checkbox" name="rowcheck" value="${adoptPostComment.postNo }">${adoptPostComment.postNo }</td>
-						<td><a href="/review/detail.ztp?postNo=${adoptPostComment.postNo}">${adoptPostComment.commentContent}</a></td>
+						<td><a href="/member/mypageAdoptPostCommentDetailView.ztp?postNo=${adoptPostComment.postNo}">${adoptPostComment.commentContent}</a></td>
 						<td>${adoptPostComment.commentWriterId }</td>
 					</tr>
 					</c:forEach>
@@ -98,7 +99,7 @@
 				</tfoot>			
 			</table>
 			 <div id="buttonTag">
-			        <button type="submit">삭제</button>
+			        <button type="button" onclick="deleteBtn()">삭제</button>
 			  </div>
 			</form>
 				<div class="pageWrap">
@@ -141,34 +142,12 @@
 		<jsp:include page="../common/footer.jsp" />
 		</footer>
 		  <script>
-			  const elements = document.querySelectorAll('.list-group-item');
-			  elements.forEach(element => {
-			    element.addEventListener('click', () => {
-			      // Remove the "selected" class from all elements
-			      elements.forEach(el => {
-			        el.classList.remove('active');
-			      });
-			      // Add the "selected" class to the clicked element
-			      element.classList.add('active');
-			    });
-			  });
 			
-			// 클릭 이벤트 핸들러
-			  function updateSidebar() {
-			    // 현재 URL 가져오기
-			    let currentUrl = window.location.href;
-
-			    // 매개 변수 추가 또는 업데이트
-			    if (currentUrl.indexOf('?') === -1) {
-			      currentUrl += '?aria-current=true';
-			    } else {
-			      currentUrl += '&aria-current=true';
-			    }
-
-			    // URL 업데이트
-			    window.location.href = currentUrl;
-			  }
-
+		  // 클릭 이벤트 핸들러
+			var category = "${category }";
+			document.querySelector("#"+category).classList.add("active");
+			
+	
 	    	function allCheck(){
 	    		var allcheck = document.myform.allcheck;
 	    		var rowcheck = document.myform.rowcheck;

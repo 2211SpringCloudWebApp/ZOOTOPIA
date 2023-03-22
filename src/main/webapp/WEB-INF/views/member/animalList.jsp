@@ -29,28 +29,28 @@
 				class="collapse d-lg-block sidebar collapse bg-white">
 				<div class="position-sticky">
 					<div class="list-group list-group-flush mx-3 mt-4">
-						<a href="/member/mypage.ztp" class="list-group-item list-group-item-action py-2 ripple" id="">
+						<a href="/member/mypage.ztp?category=infoList" class="list-group-item list-group-item-action py-2 ripple" id="infoList">
 							<i class="fas fa-user-circle fa-fw me-3"></i><span>나의 정보</span>
 						</a>	
 						<a href="/member/animalList.ztp?category=animalList" class="list-group-item list-group-item-action py-2 ripple" id="animalList">
 							<i class="fas fa-paw fa-fw me-3"></i><span>입양한 동물 리스트</span>
 						</a>
-						<a href="/member/mypageAdoptPost.ztp" class="list-group-item list-group-item-action py-2 ripple" >
+						<a href="/member/mypageAdoptPost.ztp?category=adoptPostList" class="list-group-item list-group-item-action py-2 ripple" id="adoptPostList" >
 							<i class="fas fa-list fa-fw me-3"></i><span>입양공고 게시글</span>
 						</a> 
-						<a href="/member/mypageAdoptPostComment.ztp" class="list-group-item list-group-item-action py-2 ripple" >
+						<a href="/member/mypageAdoptPostComment.ztp?category=adoptPostComment" class="list-group-item list-group-item-action py-2 ripple" id="adoptPostComment" >
 							<i class="fas fa-comment fa-fw me-3"></i><span>입양공고 댓글</span>
 						</a> 
-						<a href="/member/mypageAdoptPostLike.ztp" class="list-group-item list-group-item-action py-2 ripple" >
+						<a href="/member/mypageAdoptPostLike.ztp?category=adoptPostLike" class="list-group-item list-group-item-action py-2 ripple" id="adoptPostLike" >
 							<i class="fas fa-heart fa-fw me-3"></i><span>입양공고 좋아요 누른 글</span>
 						</a> 
-						<a href="/member/mypageReview.ztp" class="list-group-item list-group-item-action py-2 ripple" >
+						<a href="/member/mypageReview.ztp?category=reviewList" class="list-group-item list-group-item-action py-2 ripple" id="reviewList" >
 							<i class="fas fa-list fa-fw me-3"></i><span>입양후기 게시글</span>
 						</a>
-						<a href="/member/mypageReviewComment.ztp" class="list-group-item list-group-item-action py-2 ripple" >
+						<a href="/member/mypageReviewComment.ztp?category=reviewComment" class="list-group-item list-group-item-action py-2 ripple" id="reviewComment">
 							<i class="fas fa-comment fa-fw me-3"></i><span>입양후기 댓글</span>
 						</a> 
-						<a href="/member/mypageReviewLike.ztp" class="list-group-item list-group-item-action py-2 ripple" >
+						<a href="/member/mypageReviewLike.ztp?category=reviewLike" class="list-group-item list-group-item-action py-2 ripple" id="reviewLike" >
 							<i class="fas fa-heart fa-fw me-3"></i><span>입양후기 좋아요 누른 글</span>
 						</a> 
 					</div>
@@ -100,42 +100,14 @@
 	                </form>
 			    </div>
 
-	        	<%-- <tr align="center">
-	        		<td colspan="4">
-	        			<c:if test="${pageInfo.currentPage > 1}">
-	        				<a href="/review/list.ztp?page=1" class="first-last-page">첫페이지</a>
-	        			</c:if>
-	        			<c:if test="${pageInfo.currentPage > 1}">
-	        				<a href="/review/list.ztp?page=${pageInfo.currentPage - 1}" class="prev-next-page">이전</a>
-	        			</c:if>
-	        			<c:forEach begin="${pageInfo.startNav}" end="${pageInfo.endNav}" var="page">
-	        				<c:url var="pageUrl" value="/review/list.ztp">
-	        					<c:param name="page" value="${page}" />
-	        				</c:url>
-	        				<a href="${pageUrl}" <c:if test="${pageInfo.currentPage == page}">style="font-weight: 400; color: red"</c:if>>${page}</a>
-	        			</c:forEach>
-	        			<c:if test="${pageInfo.currentPage < pageInfo.maxPage}">
-	        				<a href="/review/list.ztp?page=${pageInfo.currentPage + 1}" class="prev-next-page">다음</a>
-	        			</c:if>
-	        			<c:if test="${pageInfo.currentPage < pageInfo.maxPage}">
-	        				<a href="/review/list.ztp?page=${pageInfo.maxPage}" class="first-last-page">마지막페이지</a>
-	        			</c:if>
-	        		</td>
-	        	</tr> --%>
+	        	
 	    </div>
 	    <script>
 	 // 클릭 이벤트 핸들러
 		var category = "${category }";
 		document.querySelector("#"+category).classList.add("active");
-// 		    const elements = document.querySelectorAll('.list-group-item');
-// 			  elements.forEach(element => {
-// 			    element.addEventListener('click', () => {
-//  			      elements.forEach(el => {
-//  			        el.classList.remove('active');
-//  			      });
-// 			      element.classList.add('active');
-// 			    });
-// 			 });
+ 		    
+		
 	    	function allCheck(){
 	    		var allcheck = document.myform.allcheck;
 	    		var rowcheck = document.myform.rowcheck;
