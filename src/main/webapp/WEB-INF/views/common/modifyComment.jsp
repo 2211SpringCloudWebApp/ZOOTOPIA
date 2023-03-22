@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="../../../resources/css/review.css">
 </head>
 <body>
+	<main>
     <div class="comment">
         <div class="commentForm-wrapper" style="width: 800px; height: 180px;">
             <div>
@@ -17,68 +18,66 @@
             </div>
             <c:if test="${sessionScope.loginUser.memberId ne null}">
                 <div class="commentInput-wrapper">
-                    <form name="commentForm" action="/comment/modify.ztp" method="post">
-                        <div class="comment-form" style="width: 600px;">
-                            <%-- <input type="hidden" name="commentWriterId" value="${sessionScope.loginUser.memberId}">
-                            <input type="hidden" name="boardId" value="${comment.boardId}">
-                            <input type="hidden" name="postNo" value="${comment.postNo}">
-                            <input type="hidden" name="url" value="${url}"> --%>
-                            <textarea name="commentContent" placeholder="댓글을 입력해 주세요" class="comment-content">${comment.commentContent}</textarea>
-                        </div>
-                        <div class="comment-button">
-                            <button type="button" onclick="modifyComment(${sessionScope.loginUser.memberId}, ${comment.boardId}, ${comment.postNo});" class="comment-submit-button">수정</button>
-                        </div>
-                    </form>
+                	<div class="comment-form" style="width: 600px;">
+                        <%-- <input type="hidden" name="commentWriterId" value="${sessionScope.loginUser.memberId}">
+                        <input type="hidden" name="boardId" value="${comment.boardId}">
+                        <input type="hidden" name="postNo" value="${comment.postNo}">
+                        <input type="hidden" name="url" value="${url}"> --%>
+                        <textarea class="comment-content">${comment.commentContent}</textarea>
+                    </div>
+                    <div class="comment-button">
+                        <button class="comment-submit-button" type="button" onclick="modifyComment('${sessionScope.loginUser.memberId}', '${comment.boardId}', ${comment.postNo});" class="comment-submit-button">수정</button>
+                    </div>
                 </div>
             </c:if>
         </div>
     </div>
-    
+    </main>
     <script>
     
     	function modifyComment(commentWriterId, boardId, postNo) {
     		
     		var url = '${url}';
-    		var commentContent = document.querySeletor(textarea).innerHTML;
-    		console.log(commentWriterId);
-    		console.log(boardId);
-    		console.log(postNo);
-    		console.log(url);
-    		console.log(commentContent);
+    		var commentContent = document.querySelector('textarea').value;
+    		var commentNo = ${comment.commentNo};
+    		
     		var form = document.createElement("form");
             var object1 = document.createElement('input');
             object1.setAttribute('type', 'hidden');
             object1.setAttribute('name', 'boardId');
             object1.setAttribute('value', boardId);
+            form.appendChild(object1);
             var object2 = document.createElement('input');
             object2.setAttribute('type', 'hidden');
             object2.setAttribute('name', 'postNo');
-            object2.setAttribute('value', '${review.reviewPostNo}');
+            object2.setAttribute('value', postNo);
+            form.appendChild(object2);
             var object3 = document.createElement('input');
             object3.setAttribute('type', 'hidden');
             object3.setAttribute('name', 'commentNo');
             object3.setAttribute('value', commentNo);
+            form.appendChild(object3);
             var object4 = document.createElement('input');
             object4.setAttribute('type', 'hidden');
             object4.setAttribute('name', 'url');
             object4.setAttribute('value', url);
-            var object5 = document.createElement('textarea');
-            object4.setAttribute('display', 'none');
-            object4.setAttribute('name', 'commentContent');
-            object4.setAttribute('value', commentContent);
-            form.appendChild(object1);
-            form.appendChild(object2);
-            form.appendChild(object3);
             form.appendChild(object4);
+            var object5 = document.createElement('input');
+            object5.setAttribute('type', 'hidden');
+            object5.setAttribute('name', 'commentContent');
+            object5.setAttribute('value', commentContent);
             form.appendChild(object5);
+            var object6 = document.createElement('input');
+            object6.setAttribute('type', 'hidden');
+            object6.setAttribute('name', 'commentWriterId');
+            object6.setAttribute('value', commentWriterId);
+            form.appendChild(object6);
             form.setAttribute('method', 'post');
             form.setAttribute('action', '/comment/modify.ztp');
-            document.body.appendChild(form);
+            window.opener.document.body.appendChild(form);
             form.submit();
             
-    		<!--    	document.querySelector('#form').submit();
-			window.opener.location.reload();    //부모창 reload
-    		window.close();    //현재 팝업창 Close -->
+        	window.close();
     		
     	}
     	

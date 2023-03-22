@@ -44,6 +44,15 @@ main button:hover {
     border: 1px solid white;
 }
 
+#background-img {
+	
+	background-image: url(../img/cat-dog.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    opacity: 100%;    
+
+}
 
 .pageWrap {
     margin-top: 50px;
@@ -76,6 +85,31 @@ main button:hover {
 	
 	text-align: center;
 	
+}
+#select-condition {
+	
+	width: 100px;
+	height: 33px;
+    padding-left: 10px;
+    border: 1px solid #4E422D;
+    background: url(../uploadFiles/down-arrow2.png) no-repeat 95% 50%;
+    background-size: 15%;
+    border-radius: 5px;
+    appearance: none;
+    font-family: 'hanna';
+    font-size: 15px;
+    
+}
+#input-keyword {
+	
+	width: 200px;
+    height: 31px;
+    border: 1px solid #4E422D;
+    border-radius: 5px;
+    font-family: 'hanna';
+    padding-left: 10px;
+    font-size: 15px;
+    
 }
 
 /* 후기 페이지들 제목 */
@@ -189,6 +223,50 @@ main button:hover {
     
 }
 
+.review-detail-info-area {
+	
+	width: 1020px;
+    background-color: #fff;
+    border-radius: 30px;
+	
+}
+
+	.review-detail-info-area td {
+		
+		width: 50%;
+		height: 360px;
+		
+	}
+	.review-detail-info-area td:first-child {
+		
+		text-align: center;
+				
+	}
+	#vertical-line {
+	
+	    border-left: 1px solid #4E422D;
+	    height: 300px;
+	    vertical-align: middle;
+	    display: table-cell;
+	    
+	}
+	.review-detail-animalinfo {
+		
+		padding-left: 50px;
+	    font-size: 1.3em;
+	    line-height: 2em;
+	    	    
+	}
+	
+	.review-detail-image {
+	
+	    width: 320px;
+	    height: 320px;
+	    object-fit: contain;
+	    border-radius: 30px;
+	
+	}
+	
 .review-detail-title {
 	
 	width: inherit;
@@ -200,7 +278,7 @@ main button:hover {
 
 .review-detail-info {
 	
-	width: 1000px;
+	width: 960px;
     height: 20px;
     margin: 20px auto;
     
@@ -220,19 +298,27 @@ main button:hover {
 	margin: 0 auto;
 }
 
+#review-detail-content {
+	
+    width: 80%;
+    margin: 50px auto;
+    word-break: break-all;
+    font-size: 1.2em;
+    font-family: 'hanna';
+    
+}
 
-.detail-icons {
+.review-detail-icons {
 
 	width: 50px;
 
 }
 
 
-.review-detail-image {
+.review-detail-buttons-area {
 	
-	width:640px;
-	height: 640px;
-	object-fit: contain;
+	text-align: right;
+    margin: 0 30px 50px 0;
 	
 }
 
@@ -303,9 +389,16 @@ main button:hover {
 
 .comment-output td {
 	
-	height: 30px;
+	border-bottom: 1px solid #ccc;
+    vertical-align: middle;
+    padding: 10px 0;
 		
 } 
+.comment-output tr:last-child td {
+	
+	border: 0px;
+	
+}
 #comment-td1 {
 	width: 15%;
 	font-family: 'jua';
@@ -331,6 +424,7 @@ main button:hover {
     height: 25px;
     opacity: 70%;
     padding: 3px;
+    
 }
 
 

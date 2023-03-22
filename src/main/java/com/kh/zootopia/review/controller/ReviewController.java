@@ -23,6 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.kh.zootopia.AdoptAnimalPost.domain.Animal;
 import com.kh.zootopia.comment.controller.CommentController;
 import com.kh.zootopia.comment.domain.Comment;
+import com.kh.zootopia.comment.service.CommentService;
 import com.kh.zootopia.like.controller.LikeController;
 import com.kh.zootopia.like.domain.Like;
 import com.kh.zootopia.member.domain.Member;
@@ -52,105 +53,6 @@ public class ReviewController {
 		
 	}
 
-//	/**
-//	 * 후기 등록 : write.jsp에서 각각의 name에 해당하는 값을 가져와 객체화 시킴, 파일이 있을 경우 파일을 업로드, 후기 작성일은
-//	 * mapper에서 default(sysdate)로 해줌. 후기는 session이 있는 사용자만 입력가능.
-//	 */
-//	@RequestMapping(value = "/review/write.ztp", method = RequestMethod.POST)
-//	public ModelAndView reviewWrite(String reviewTitle, String reviewContent, HttpSession session,
-//			@RequestParam("reviewImagesName") List<MultipartFile> uploadImageFiles
-////			, @RequestParam("reviewVideoName") MultipartFile uploadVideoFile
-//			, HttpServletRequest request, ModelAndView mv, int animalNo) {
-//
-//		try {
-//
-//			request.setCharacterEncoding("UTF-8");
-//
-//			Member member = (Member) session.getAttribute("loginUser");
-//			String reviewWriterId = member.getMemberId();
-//
-//			Review review = new Review();
-//			review.setReviewTitle(reviewTitle);
-//			review.setReviewContent(reviewContent);
-//			review.setReviewWriterId(reviewWriterId);
-//			review.setAnimalNo(animalNo);
-//
-//			// 파일 업로드 부분
-//			System.out.println(uploadImageFiles);
-//
-//			// path 설정
-//			String root = request.getSession().getServletContext().getRealPath("resources");
-//			String savePath = root + "\\uploadFiles\\review";
-//			
-//			// 폴더가 없으면 생성
-//			File folder = new File(savePath);
-//			if (!folder.exists())
-//				folder.mkdir();
-//
-//			List<Map<String, String>> uploadImageList = new ArrayList<>();
-//
-//			if (uploadImageFiles != null) {
-//				
-//				for (int i = 0; i < uploadImageFiles.size(); i++) {
-//	
-//					String originalFileName = uploadImageFiles.get(i).getOriginalFilename();
-//					String ext = originalFileName.substring(originalFileName.lastIndexOf("."));
-//					String changedFileName = UUID.randomUUID().toString() + ext;
-//	
-//					Map<String, String> map = new HashMap<>();
-//					map.put("originalFileName", originalFileName);
-//					map.put("changedFileName", changedFileName);
-//	
-//					uploadImageList.add(map);
-//	
-//				}
-//				
-//				try {
-//					
-//					for (int i = 0; i < uploadImageFiles.size(); i++) {
-//						
-//						String filePath = savePath + "\\" + uploadImageList.get(i).get("changedFileName");
-//						File file = new File(filePath);
-//						uploadImageFiles.get(i).transferTo(file);
-//						
-//					}
-//						
-//				} catch (Exception e) {
-//	
-//					for (int i = 0; i < uploadImageFiles.size(); i++) {
-//						
-//						String filePath = savePath + "\\" + uploadImageList.get(i).get("changedFileName");
-//						new File(filePath).delete();
-//						
-//					}
-//				
-//				}
-//			}
-//
-//			int result = reviewService.insertReview(review);
-//
-//			if (result > 0) {
-//
-//				mv.setViewName("redirect: /review/list.ztp");
-//
-//			} else {
-//
-//				mv.addObject("message", "등록 오류");
-//				mv.setViewName("common/error");
-//
-//			}
-//
-//		} catch (Exception e) {
-//
-//			mv.addObject("message", e.getMessage());
-//			mv.setViewName("common/error");
-//
-//		}
-//
-//		return mv;
-//
-//	}
-	
 	/**
 	 * 후기 등록
 	 * : write.jsp에서 각각의 name에 해당하는 값을 가져와 객체화 시킴,
@@ -212,56 +114,6 @@ public class ReviewController {
 		
 	}
 	
-	/**
-	 * 파일 저장
-	 */
-	public String saveFile(MultipartFile reviewImageName, HttpServletRequest request) {
-		
-		try {
-			
-			String root = request.getSession().getServletContext().getRealPath("resources");
-			String savePath = root + "\\uploadFiles\\review";
-			
-			File folder = new File(savePath);
-			if (!folder.exists()) {
-				
-				folder.mkdir();
-				
-			}
-			
-			String filePath = savePath + "\\" + reviewImageName.getOriginalFilename();
-			File file = new File(filePath);
-			
-			reviewImageName.transferTo(file);
-			
-			return filePath;
-			
-		} catch (Exception e) {
-
-			e.printStackTrace();
-			
-			return null;
-			
-		}
-		
-	}
-	
-//	/**
-//	 * 파일 삭제
-//	 */
-//	private void deleteFile(String filename, HttpServletRequest request) throws Exception {
-//		
-//		String root = request.getSession().getServletContext().getRealPath("resources");
-//		String deletePath = root + "\\uploadFiles\\review";
-//		String deleteFilepath = deletePath + "\\" + filename;
-//		File deleteFile = new File(deleteFilepath);
-//		
-//		if(deleteFile.exists()) {
-//			
-//			deleteFile.delete();
-//			
-//		}
-//	}	
 	
 	/**
 	 * 후기 목록
@@ -359,17 +211,73 @@ public class ReviewController {
 	}
 	
 	/**
-	 * 후기 수정 (미완성)
+	 * 후기 수정 페이지
 	 */
-	@RequestMapping(value = "/review/modify.ztp", method = RequestMethod.POST)
-	public ModelAndView reviewModify (@ModelAttribute Review review
+	@RequestMapping(value = "/review/modifyView.ztp", method = RequestMethod.POST)
+	public ModelAndView reviewModifyView (@ModelAttribute Review review
 			, HttpSession session, HttpServletRequest request, ModelAndView mv) {
 		
-		System.out.println(review);
+		Review reviewResult = reviewService.selectReview(review.getReviewPostNo());
+		Animal animal = reviewService.selectAnimalByAnimalNo(review.getAnimalNo());
 		
+		mv.addObject("review", reviewResult);
+		mv.addObject("animal", animal);
+		mv.setViewName("review/modify");
 		
 		return mv;
 		
+	}
+	
+	/**
+	 * 후기 수정
+	 */
+	@RequestMapping(value = "/review/modify.ztp", method = RequestMethod.POST)
+	public String reviewModify(
+			@ModelAttribute Review review
+			, @RequestParam(value="reloadFile", required=false) MultipartFile reloadFile
+			, Model model
+			, HttpServletRequest request
+			) {
+		
+		try {
+
+//			if(!reloadFile.isEmpty()) {
+//				
+//				if(review.getReviewImageName() != null) {
+//					
+//					this.deleteFile(review.getReviewImageName(), request);
+//					
+//				}
+//					
+//				String modifyPath = this.saveFile(reloadFile, request);
+//				if (modifyPath != null) {
+//					
+//					review.setReviewImageName(reloadFile.getOriginalFilename());
+//					review.setReviewImagePath(modifyPath);
+//					
+//				}
+//				
+//			}
+				
+			int result = reviewService.modifyReview(review);
+			
+			if (result > 0) {
+				
+				return "redirect:/review/list.ztp";
+				
+			} else {
+				
+				model.addAttribute("message", "수정 오류");
+				return "common/error";
+			}
+			
+		} catch (Exception e) {
+
+			model.addAttribute("message", e.getMessage());
+			return "common/error";
+			
+		}
+			
 	}
 	
 	/**
@@ -383,14 +291,9 @@ public class ReviewController {
 			// 파일을 먼저 삭제하기 위한 부분
 			Review review = reviewService.selectReview(reviewPostNo);
 			
-			String root = request.getSession().getServletContext().getRealPath("resources");
-			String deletePath = root + "\\uploadFiles\\review";
-			String deleteFilepath = deletePath + "\\" + review.getReviewImageName();
-			File deleteFile = new File(deleteFilepath);
-			
-			if(deleteFile.exists()) {
+			if(review.getReviewImageName() != null) {
 				
-				deleteFile.delete();
+				this.deleteFile(review.getReviewImageName(), request);
 				
 			}
 			
@@ -417,10 +320,6 @@ public class ReviewController {
 	
 	/**
 	 * 후기 검색
-	 * @param review
-	 * @param page
-	 * @param model
-	 * @return 
 	 */
 	@RequestMapping(value = "/review/search.ztp", method = RequestMethod.GET)
 	public String reviewSearch(
@@ -459,4 +358,56 @@ public class ReviewController {
 		}
 	}
 	
+	/**
+	 * 파일 저장
+	 */
+	public String saveFile(MultipartFile reviewImageName, HttpServletRequest request) {
+		
+		try {
+			
+			String root = request.getSession().getServletContext().getRealPath("resources");
+			String savePath = root + "\\uploadFiles\\review";
+			
+			File folder = new File(savePath);
+			if (!folder.exists()) {
+				
+				folder.mkdir();
+				
+			}
+			
+			String filePath = savePath + "\\" + reviewImageName.getOriginalFilename();
+			File file = new File(filePath);
+			
+			reviewImageName.transferTo(file);
+			
+			return filePath;
+			
+		} catch (Exception e) {
+
+			e.printStackTrace();
+			
+			return null;
+			
+		}
+		
+	}
+	
+	/**
+	 * 파일 삭제
+	 */
+	private void deleteFile(String filename, HttpServletRequest request) throws Exception {
+		
+		String root = request.getSession().getServletContext().getRealPath("resources");
+		String deletePath = root + "\\uploadFiles\\review";
+		String deleteFilepath = deletePath + "\\" + filename;
+		File deleteFile = new File(deleteFilepath);
+		
+		if(deleteFile.exists()) {
+			
+			deleteFile.delete();
+			
+		}
+	}	
+	
 }
+

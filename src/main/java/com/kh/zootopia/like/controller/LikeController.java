@@ -112,6 +112,17 @@ public class LikeController {
 	}
 	
 	/**
+	 * 좋아요수
+	 */
+	public int getLikeCount(@ModelAttribute Like like) {
+		
+		int result = likeService.getLikeCount(like);
+		
+		return result;
+		
+	}
+	
+	/**
 	 * 유정 좋아요
 	 * @param like
 	 * @param session

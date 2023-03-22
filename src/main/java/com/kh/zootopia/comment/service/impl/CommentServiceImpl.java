@@ -97,4 +97,22 @@ public class CommentServiceImpl implements CommentService {
 		return commentList;
 	}
 
+	/**
+	 * 입양 공고 댓글 삭제 ServiceImpl
+	 */
+	@Override
+	public int removeComment(Comment cParam) {
+		int result = commentStore.removeComment(session, cParam);
+		return result;
+	}
+
+	/**
+	 * 입양 공고 댓글 수정 ServiceImpl
+	 */
+	@Override
+	public int updateComment(Comment cParam) {
+		int result = commentStore.updateComment(session, cParam);
+		return result;
+	}
+
 }

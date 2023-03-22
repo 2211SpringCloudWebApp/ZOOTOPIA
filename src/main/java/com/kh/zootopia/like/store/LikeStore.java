@@ -31,6 +31,14 @@ public interface LikeStore {
 	public int cancelLike(SqlSession session, Like like);
 	
 	/**
+	 * 좋아요수
+	 * @param session
+	 * @param like
+	 * @return int
+	 */
+	public int getLikeCount(SqlSession session, Like like);
+
+	/**
 	 * 유정 좋아요
 	 * @param session
 	 * @param like

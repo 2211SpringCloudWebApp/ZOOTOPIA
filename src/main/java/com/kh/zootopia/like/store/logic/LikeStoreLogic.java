@@ -35,6 +35,14 @@ public class LikeStoreLogic implements LikeStore {
 		return result;
 	}
 	
+	@Override
+	public int getLikeCount(SqlSession session, Like like) {
+		
+		int result = session.selectOne("LikeMapper.likeCount", like);
+		
+		return result;
+	}
+
 	/**
 	 * 유정 좋아요
 	 */

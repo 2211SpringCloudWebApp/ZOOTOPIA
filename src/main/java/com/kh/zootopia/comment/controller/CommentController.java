@@ -88,7 +88,6 @@ public class CommentController {
 		
 		try {
 			
-			System.out.println(comment);
 			int result = commentService.modifyComment(comment);
 			
 			if (result > 0) {

@@ -82,7 +82,7 @@ public class Comment {
 
 	@Override
 	public String toString() {
-		return "Comment [boardId=" + boardId + ", postNo=" + postNo + ", commentNo=" + commentNo + ", parentCommentNo=" + parentCommentNo + ", commentContent=" + commentContent + ", commentWriterId=" + commentWriterId + "commentCreateDate=" + commentCreateDate + "]";
+		return "Comment [boardId=" + boardId + ", postNo=" + postNo + ", commentNo=" + commentNo + ", parentCommentNo=" + parentCommentNo + ", commentContent=" + commentContent + ", commentWriterId=" + commentWriterId + ", commentCreateDate=" + commentCreateDate + "]";
 	}
 
 	

@@ -44,6 +44,14 @@ public class LikeServiceImpl implements LikeService {
 		
 	}
 	
+	@Override
+	public int getLikeCount(Like like) {
+		
+		int result = likeStore.getLikeCount(session, like);
+		
+		return result;
+	}
+
 	/**
 	 * 유정 좋아요
 	 */

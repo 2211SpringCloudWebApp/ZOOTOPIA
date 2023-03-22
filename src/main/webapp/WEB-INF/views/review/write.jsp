@@ -9,13 +9,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>후기 작성</title>
     <link rel="stylesheet" href="../../../resources/css/review.css">
-    <style>
-
-    </style>
+    <style type="text/css">
+		body{ cursor:url("../../../resources/img/cursor.png"), auto;}
+	</style>
 </head>
 <body>
     <jsp:include page="../common/header.jsp" />
-	<main>
+	<main id="background-img">
 	<div></div>
 	<div>
 		<div class="review-page-title" style="width: 600px;">

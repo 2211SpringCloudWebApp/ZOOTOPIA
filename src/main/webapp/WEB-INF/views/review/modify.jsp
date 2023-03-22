@@ -9,9 +9,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>후기 작성</title>
     <link rel="stylesheet" href="../../../resources/css/review.css">
-    <style>
-
-    </style>
+    <style type="text/css">
+		body{ cursor:url("../../../resources/img/cursor.png"), auto;}
+	</style>
 </head>
 <body>
     <jsp:include page="../common/header.jsp" />
@@ -23,6 +23,8 @@
 	    </div>
 	    <hr>
 	    <form action="/review/modify.ztp" method="POST" enctype="multipart/form-data">
+	    <input type="hidden" name="boardId" value=${review.boardId}>
+	    <input type="hidden" name="reviewPostNo" value=${review.reviewPostNo}>
 	    <input type="hidden" name="animalNo" value="${animal.animalNo}">
 	        <table class="review-write-form">
 	        	<tr>
@@ -39,20 +41,21 @@
 	        	</tr>
 	            <tr>
 	                <td class="review-write-name">제목</td>
-	                <td><input type="text" name="reviewTitle" class="review-write-title" placeholder="제목을 입력해 주세요" required></td>
+	                <td><input type="text" name="reviewTitle" class="review-write-title" placeholder="제목을 입력해 주세요" value="${review.reviewTitle}" required></td>
 	            </tr>
 	            <tr>
 	                <td class="review-write-name">내용</td>
-	                <td><textarea name="reviewContent" class="review-write-content" cols="30" rows="10" placeholder="내용을 입력해 주세요" required></textarea></td>
+	                <td><textarea name="reviewContent" class="review-write-content" cols="30" rows="10" placeholder="내용을 입력해 주세요" required>${review.reviewContent}</textarea></td>
 	            </tr>
 	            <tr>
 	                <td class="review-write-name">사진첨부</td>
 	                <td>
 	                	<div style="float: left; width: 30px; text-align: center;">
 			                <img src="../../../resources/img/notice-file.png" class="attachment_image" style="width: 15px;  cursor: pointer;" onclick="document.getElementById('file').click();">
-			                <input type="file" id="file" name="reviewImageName" accept="image/*" style="display:none">
 	                	</div>
-	                	<div id="upload-file">사진 파일을 업로드해 주세요</div>
+	                	<div id="upload-file">
+			                <input type="file" id="file" name="reloadFile" accept="image/*" style="display:none">${review.reviewImageName}
+	                	</div>
 	                </td>
 	            </tr>
 	            <tr>

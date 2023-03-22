@@ -82,5 +82,22 @@ public interface CommentStore {
 	 * @return
 	 */
 	public List<Comment> selectAdoptComment(SqlSession session, Comment cmt);
+
+	/**
+	 * 입양 공고 댓글 삭제 Store
+	 * @param session
+	 * @param commentNo
+	 * @return
+	 */
+	public int removeComment(SqlSession session, Comment cParam);
+
+	/**
+	 * 입양 공고 댓글 수정 Store
+	 * @param session
+	 * @param cParam
+	 * @return
+	 */
+	public int updateComment(SqlSession session, Comment cParam);
+
 	
 }

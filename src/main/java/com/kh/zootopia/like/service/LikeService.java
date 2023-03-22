@@ -26,6 +26,13 @@ public interface LikeService {
 	public int cancelLike(Like like);
 	
 	/**
+	 * 좋아요수
+	 * @param like
+	 * @return int
+	 */
+	public int getLikeCount(Like like);
+
+	/**
 	 * 유정 좋아요
 	 * @param like
 	 * @return

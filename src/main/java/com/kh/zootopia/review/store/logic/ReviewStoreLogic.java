@@ -74,6 +74,7 @@ public class ReviewStoreLogic implements ReviewStore {
 	public int deleteReview(SqlSession session, int reviewPostNo) {
 
 		int result = session.delete("ReviewMapper.deleteReview", reviewPostNo);
+		session.delete("CommentMapper.deleteAllCommentsFromReview", reviewPostNo); // 리뷰글이 지워지면 그 글에 대한 댓글도 모두 삭제
 		
 		return result;
 		
@@ -81,7 +82,7 @@ public class ReviewStoreLogic implements ReviewStore {
 
 	@Override
 	public Review selectReview(SqlSession session, int reviewPostNo) {
-
+		
 		Review review = session.selectOne("ReviewMapper.selectReview", reviewPostNo);
 
 		return review;
@@ -143,6 +144,14 @@ public class ReviewStoreLogic implements ReviewStore {
 		
 		return reviewList;
 		
+	}
+
+	@Override
+	public int modifyReview(SqlSession session, Review review) {
+		
+		int result = session.update("ReviewMapper.modifyReview", review);
+		
+		return result;
 	}
 	
 }

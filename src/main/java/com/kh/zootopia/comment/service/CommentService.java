@@ -71,5 +71,19 @@ public interface CommentService {
 	 * @return
 	 */
 	public List<Comment> selectAdoptComment(Comment cmt);
+
+	/**
+	 * 입양 공고 댓글 삭제 Service
+	 * @param commentNo
+	 * @return
+	 */
+	public int removeComment(Comment cParam);
+	
+	/**
+	 * 입양 공고 댓글 수정 Service
+	 * @param cParam
+	 * @return
+	 */
+	public int updateComment(Comment cParam);
 	
 }

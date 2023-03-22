@@ -93,5 +93,12 @@ public interface ReviewService {
 	 * @return
 	 */
 	public List<Review> mypageSearchReview(PageInfo pageInfo, Search search);
+
+	/**
+	 * 후기 수정 Service
+	 * @param review
+	 * @return int
+	 */
+	public int modifyReview(Review review);
 	
 }

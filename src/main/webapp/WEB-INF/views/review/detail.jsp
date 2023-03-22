@@ -10,6 +10,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>후기 디테일 페이지</title>
     <link rel="stylesheet" href="../../../resources/css/review.css">
+    <style type="text/css">
+		body{ cursor:url("../../../resources/img/cursor.png"), auto;}
+	</style>
 </head>
 <body>
     <jsp:include page="../common/header.jsp" />
@@ -26,34 +29,51 @@
 					</div>
 				</div>
 				<div class="review-detail-upper review-detail-upper-right">
-					<c:if test="${like == 1 && sessionScope.loginUser.memberId ne null}"><img class="detail-icons" src="../../../resources/img/button_like_on.png" alt="좋아요 on" onclick="like()"></c:if> 
-                    <c:if test="${like == 0 && sessionScope.loginUser.memberId ne null}"><img class="detail-icons" src="../../../resources/img/button_like_off.png" alt="좋아요 off" onclick="like()"></c:if> 
+					<c:if test="${like == 1 && sessionScope.loginUser.memberId ne null}"><img class="review-detail-icons" src="../../../resources/img/button_like_on.png" alt="좋아요 on" onclick="like()"></c:if> 
+                    <c:if test="${like == 0 && sessionScope.loginUser.memberId ne null}"><img class="review-detail-icons" src="../../../resources/img/button_like_off.png" alt="좋아요 off" onclick="like()"></c:if> 
                     <c:if test="${like == 0 && sessionScope.loginUser.memberId ne null}"></c:if> 
-                    <img class="detail-icons" src="../../../resources/img/button_share.png" alt="공유"> 
-                    <img class="detail-icons" src="../../../resources/img/button_comment.png" alt="댓글" onclick="location.href='#target';"> 
+                    <img class="review-detail-icons" src="../../../resources/img/button_share.png" alt="공유"> 
+                    <img class="review-detail-icons" src="../../../resources/img/button_comment.png" alt="댓글" onclick="location.href='#target';"> 
 				</div>
 				<!-- 입양한 동물에 대한 내용 -->
-                <ul>
-                    <li><img class="review-detail-image" src="../../../resources/uploadFiles/review/${review.reviewImageName}"></li>
-                    <li>종류 : ${Animal.animalSpecies}</li>
-                    <li>성별 : ${Animal.animalGender}</li>
-                    <li>나이 : ${Animal.animalAge}</li>
-                    <li>성격 : ${Animal.animalCharacter}</li>
-                    <li>분양자 : ${Animal.animalFosterId}</li>
-                </ul>
-
+				<table class="review-detail-info-area">
+					<tr>
+						<td>
+							<img class="review-detail-image" src="../../../resources/uploadFiles/review/${review.reviewImageName}">
+						</td>
+						<td>
+							<div id="vertical-line">
+								<ul class="review-detail-animalinfo">
+				                    <li>종류 : ${Animal.animalSpecies}</li>
+				                    <li>성별 : ${Animal.animalGender}</li>
+				                    <li>나이 : ${Animal.animalAge}</li>
+				                    <li>성격 : ${Animal.animalCharacter}</li>
+				                    <li>분양자 : ${Animal.animalFosterId}</li>
+				                </ul>
+			                </div>
+						</td>
+				</table>
+                <div class="review-detail-image-area">
+                	
+                </div>
+                <div class="review-detail-info-area">
+	                
+                </div>
+                
 	            <!-- 후기 내용 -->
-	            <form role="form" action="/review/modify.ztp" method="post">
+	            <form role="form" action="/review/modifyView.ztp" method="post">
 	                <div id="review-detail-content" style="white-space: pre-wrap;"><c:out value="${review.reviewContent}" /></div>
-	            <!-- 수정, 삭제버튼 위치 -->
-	            <div>
-	            	<input type="hidden" name="animalNo" value="${Animal.animalNo}"><br>
-	            	<input type="hidden" name="reviewPostNo" value="${review.reviewPostNo}">
-	                <c:if test="${review.reviewWriterId eq sessionScope.loginUser.memberId}">
-	                <button type="submit">수정</button>
-	                <button type="button" onclick="deleteReview()">삭제</button>
-	                </c:if>
-	            </div>
+
+		            <!-- 수정, 삭제버튼 위치 -->
+		            <div class="review-detail-buttons-area">
+			            <c:if test="${review.reviewWriterId eq sessionScope.loginUser.memberId}">
+							<hr>
+			            	<input type="hidden" name="animalNo" value="${Animal.animalNo}"><br>
+			            	<input type="hidden" name="reviewPostNo" value="${review.reviewPostNo}">
+			                <button type="submit">수정</button>
+			                <button type="button" onclick="deleteReview()">삭제</button>
+			            </c:if>
+		            </div>
 	            </form>
 	            
 	            <!-- 댓글 -->

@@ -94,4 +94,22 @@ public class CommentStoreLogic implements CommentStore {
 		return commentList;
 	}
 
+	/**
+	 * 입양 공고 댓글 삭제 StoreLogic
+	 */
+	@Override
+	public int removeComment(SqlSession session, Comment cParam) {
+		int result = session.delete("CommentMapper.removeComment", cParam);
+		return result;
+	}
+
+	/**
+	 * 입양 공고 댓글 수정 StoreLogic
+	 */
+	@Override
+	public int updateComment(SqlSession session, Comment cParam) {
+		int result = session.update("CommentMapper.updateComment", cParam);
+		return result;
+	}
+
 }

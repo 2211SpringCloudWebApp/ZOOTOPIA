@@ -18,7 +18,7 @@
 	</select>
 	
 	<select id="getListCount" resultType="_int">
-		SELECT COUNT(*) FROM COMMENT_TBL WHERE BOARD_ID = #{boardId} AND POST_NO = #{postNo}
+		SELECT COUNT(*) FROM COMMENT_TBL WHERE BOARD_ID = #{boardId} AND POST_NO = #{postNo} ORDER BY COMMENT_CREATE_DATE ASC
 	</select>
 	
 	<insert id="insertComment" parameterType="comment">
@@ -27,6 +27,10 @@
 	
 	<delete id="deleteComment" parameterType="comment">
 		DELETE FROM COMMENT_TBL WHERE BOARD_ID = #{boardId} AND POST_NO = #{postNo} AND COMMENT_NO = #{commentNo}
+	</delete>
+	
+	<delete id="deleteAllCommentsFromReview">
+		DELETE FROM COMMENT_TBL WHERE BOARD_ID = 'R' AND POST_NO = #{reviewPostNo}
 	</delete>
 	
 	<select id="selectComment" parameterType="comment" resultMap="commentResultMap">
@@ -59,6 +63,14 @@
     <select id="selectAdoptComment" resultMap="commentResultMap">
         SELECT * FROM COMMENT_TBL WHERE BOARD_ID = #{boardId } AND POST_NO = #{postNo } ORDER BY COMMENT_NO DESC
     </select>
+    <!-- 유정 입양 공고 댓글 삭제 -->
+    <delete id="removeComment">
+    	DELETE FROM COMMENT_TBL WHERE BOARD_ID = #{boardId} AND POST_NO = #{postNo} AND COMMENT_NO = #{commentNo}
+    </delete>
+    <!-- 유정 입양 공고 댓글 수정 -->
+    <update id="updateComment">
+    	UPDATE COMMENT_TBL SET COMMENT_CONTENT = #{commentContent} WHERE BOARD_ID = #{boardId} AND POST_NO = #{postNo} AND COMMENT_NO = #{commentNo} 
+    </update>
     
     <!--     소현 -->
     <select id="selectComments" resultMap="commentResultMap">

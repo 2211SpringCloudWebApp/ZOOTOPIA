@@ -123,4 +123,12 @@ public class ReviewServiceImpl implements ReviewService {
 		
 	}
 
+	@Override
+	public int modifyReview(Review review) {
+		
+		int result = reviewStore.modifyReview(session, review);
+		
+		return result;
+	}
+
 }

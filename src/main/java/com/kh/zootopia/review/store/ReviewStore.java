@@ -108,4 +108,12 @@ public interface ReviewStore {
 	 */
 	public List<Review> mypageSearchReview(SqlSession session, PageInfo pageInfo, Search search);
 
+	/**
+	 * 후기 수정 Store
+	 * @param session
+	 * @param review
+	 * @return int
+	 */
+	public int modifyReview(SqlSession session, Review review);
+
 }

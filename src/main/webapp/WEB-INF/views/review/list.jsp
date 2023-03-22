@@ -11,6 +11,9 @@
     <title>후기 리스트</title>
 	<link rel="stylesheet" href="../../../resources/css/review.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+	<style type="text/css">
+		body{ cursor:url("../../../resources/img/cursor.png"), auto;}
+	</style>
 </head>
 <body>
 	<jsp:include page="../common/header.jsp" />
@@ -41,7 +44,7 @@
 		     									</c:if>
 		     								</td>
 		     								<!-- 후기글 제목 -->
-		     								<th class="post post-th" onclick="location.href='/review/detail.ztp?reviewPostNo=${reviewList.reviewPostNo}';">${reviewList.reviewTitle}</th>
+		     								<th class="post post-th" onclick="location.href='/review/detail.ztp?reviewPostNo=${reviewList.reviewPostNo}';"><img src="../../../resources/img/manager-icon2.png" style="width: 15px; margin-right: 10px;"> ${reviewList.reviewTitle}</th>
 		     							</tr>
 		     							<tr>
 		     								<td class="post post-writer-info" onclick="location.href='/review/detail.ztp?reviewPostNo=${reviewList.reviewPostNo}';">
@@ -65,7 +68,8 @@
 					</c:otherwise>
 				</c:choose>
 				</tbody>
-					        <!-- 관리자로 로그인해서 들어온 경우 전체삭제 가능 -->
+				
+				<!-- 관리자로 로그인해서 들어온 경우 전체삭제 가능 -->
 		        <c:if test="${member.mAdminYN eq 'Y'}">
 					<tr>
 						<td colspan="2" style="text-align: right;"><button type="button" onclick="deleteBtn()">전체삭제</button></td>
@@ -73,6 +77,8 @@
 				</c:if>
 			</table>
 			</form>
+			
+			<!-- 페이징 -->
 			<div class="pageWrap">
 	            <div class="pageNation">
 	                <c:if test="${pageInfo.currentPage > 1}">
@@ -96,21 +102,20 @@
 	            </div>
 	        </div>
 	        
-	      	<!-- 검색 -->
-	        <div class="searchBar">
+			<!-- 검색 -->
+	        <div class="searchBar" style="margin-top: 10px;">
 				<form action="/review/search.ztp" method="get">
-					<select name="condition">
+					<select name="condition" id="select-condition">
 						<option value="all">전체</option>
 						<option value="writer">작성자</option>
 						<option value="title">제목</option>
 						<option value="content">내용</option>
 					</select>
-					<input type="text" name="keyword" placeholder="검색어 입력">
+					<input id="input-keyword" type="text" name="keyword" placeholder="검색어 입력">
 					<button type="submit">검색</button>
 				</form>
 			</div>
-		            
-
+        
 	    </div>
     
     <div></div>
@@ -119,9 +124,9 @@
     <jsp:include page="../common/footer.jsp" />
 
 <script>
+
 	// 버튼클릭 시 confirm창
 	function deleteBtn(){
-// 		document.deleteReviews.action=
 		var checkRow = "";
 		  $( "input[name='checkRow']:checked" ).each (function (){
 		    checkRow = checkRow + $(this).val()+"," ;
@@ -136,6 +141,7 @@
 			location.href="/manager/deleteReviews.ztp?reviewPostNo="+checkRow;					
 		  }
 	}
+
 
 </script>
 </body>

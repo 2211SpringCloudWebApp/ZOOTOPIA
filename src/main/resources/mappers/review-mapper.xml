@@ -87,5 +87,9 @@
     <select id="getReviewCount" resultType="_int">
     	SELECT COUNT(*) FROM REVIEW_POST_TBL WHERE REVIEW_WRITER_ID = #{memberId} 
     </select>
+    
+    <update id="modifyReview" parameterType="review">
+    	UPDATE REVIEW_POST_TBL SET REVIEW_TITLE = #{reviewTitle}, REVIEW_CONTENT = #{reviewContent}, REVIEW_IMAGE_NAME = #{reviewImageName}, REVIEW_IMAGE_PATH = #{reviewImagePath}, REVIEW_UPDATE_DATE = DEFAULT WHERE REVIEW_POST_NO = #{reviewPostNo}
+    </update>
 	
 </mapper>
