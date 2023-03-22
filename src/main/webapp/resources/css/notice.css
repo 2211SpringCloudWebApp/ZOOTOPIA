@@ -91,7 +91,7 @@ main form input[type=submit]:hover, input[type=reset]:hover {
 
 main #registerArea {
     text-align: right;
-    margin-right: 120px;
+    margin-right: 15vw;
     margin-bottom: 30px;
 }
 
@@ -102,7 +102,7 @@ main table a:link, a:visited {
 
 main table {
     margin: auto;
-    width: 90%;
+    width: 80vw;
     /*border-top: 1px solid #EEE5C6;*/
     border-collapse: collapse;
     text-align: center;
@@ -111,7 +111,7 @@ main table {
 main th,td {
     border-bottom: 1px solid #C6BDAD;
     /*border-left: 1px solid #EEE5C6;*/
-    padding: 10px;
+    padding: 18px;
 }
 
 main th:first-child {
@@ -154,11 +154,11 @@ main .pageNation a {
     color: #4E422D;
     text-decoration: none;
 }
-main .pageNation a:active {
-    background-color: #C6BDAD;
-    color: #C6BDAD;
-    border: 1px solid #C6BDAD;
-}
+/* main .pageNation a:active { */
+/*     background-color: #C6BDAD; */
+/*     color: #C6BDAD; */
+/*     border: 1px solid #C6BDAD; */
+/* } */
 
 main select {
     height: 25px;
@@ -172,6 +172,29 @@ main .searchBar {
     text-align: center;
 }
 
+main #select-condition {
+    width: 100px;
+    height: 33px;
+    padding-left: 10px;
+    border: 1px solid #4E422D;
+    background: url(../uploadFiles/down-arrow2.png) no-repeat 95% 50%;
+    background-size: 15%;
+    border-radius: 5px;
+    appearance: none;
+    font-family: 'hanna';
+    font-size: 15px;
+}
+
+main #input-keyword {
+    width: 200px;
+    height: 31px;
+    border: 1px solid #4E422D;
+    border-radius: 5px;
+    font-family: 'hanna';
+    padding-left: 10px;
+    font-size: 15px;
+}
+
 main .area {
 	margin-bottom: 20px;
 }
@@ -181,13 +204,15 @@ main .area {
 main h1 {
     text-align: center;
 /*     margin-left: 400px; */
+	margin-bottom: 20px;
+	font-size: 35px;
 }
 
 main hr {
-	width: 42%;
+	width: 53vw;
     margin: auto;
     margin-top: 20px;
-    margin-bottom: 20px;
+    margin-bottom: 50px;
     color: #C6BDAD;
 }
 
@@ -244,7 +269,7 @@ main .removeArea {
     display: flex;
     justify-content: right;
     margin-top: 30px;
-    margin-right: 550px;
+    margin-right: 25vw;
     margin-bottom: 30px;
 }
 
@@ -375,13 +400,33 @@ main .comment-output button {
 /* detail, register 페이지 공통 */
 
 
-main .uploadArea {
-	margin-bottom: 10px;
+main .uploadArea div{
+	display: inline-block;
+    float: center;
 }
 
 /* register 페이지 */
 
-main #registerTxt {
-	border: 1px solid black;
+
+main #registerForm label {
+	display:inline-block;
+	text-align:center;
+	width:80px;
+	font-weight:bold;
+	margin-bottom: 20px;
+	font-size: 20px;
+}
+
+main #registerForm input[type=text] {
+	width: 300px;
+	height: 30px;
+	border: 1px solid #4E422D;
+	border-radius: 10px;
+}
+
+main #registerForm textarea {
+	border: 1px solid #4E422D;
+	border-radius: 10px;
+	padding: 10px 0;
 }
 

@@ -8,7 +8,9 @@
 		<meta charset="UTF-8">
 		<title>공지사항 목록</title>
 		<link rel="stylesheet" href="../../../resources/css/notice.css">
-		<style>
+<!-- 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script> -->
+		<style type="text/css">
+			body{ cursor:url("../../../resources/img/cursor.png"), auto;}
 		</style>
 	</head>
 	<body>
@@ -17,20 +19,21 @@
 		</header>
 		<main>
 			<div></div>
+			<h1>공지사항</h1>
 			<div id="registerArea">
 				<c:if test="${sessionScope.loginUser.memberId eq 'admin' }">
 					<button id="" onclick="location.href='/notice/registerView.ztp'">글쓰기</button>
 				</c:if>	
 			</div>
-			<table class="">
+			<table class="" style="table-layout: fixed">
 				<thead>
 					<tr>
-						<th>번호</th>
-						<th>제목</th>
-						<th>작성자</th>
-						<th>작성날짜</th>
-						<th>첨부파일</th>
-						<th>조회수</th>
+						<th style="width:5%;">번호</th>
+						<th style="width:40%;">제목</th>
+						<th style="width:10%;">작성자</th>
+						<th style="width:25%;">작성날짜</th>
+						<th style="width:10%;">첨부파일</th>
+						<th style="width:10%;">조회수</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -73,16 +76,16 @@
 				        </c:if>
 			        </div>
 		        </div>
-		        <div class="searchBar">
+		        <div class="searchBar" style="margin-top: 10px;">
 		        	<form action="/notice/search.ztp" method="get">
-						<select id="selectBtn" name="condition">
+						<select id="select-condition" name="condition">
 							<option value="all">전체</option>
 							<option value="writer">작성자</option>
 							<option value="title">제목</option>
 							<option value="content">내용</option>
 						</select>
-						<input type="text" name="keyword" placeholder="검색어를 입력해주세요">
-						<input type="submit" id="searchBtn" value="검색">
+						<input type="text" id="input-keyword" name="keyword" placeholder="검색어를 입력해주세요">
+						<input type="submit" id="" value="검색">
 					</form>
 		        </div>
 		        <div class="area"></div>

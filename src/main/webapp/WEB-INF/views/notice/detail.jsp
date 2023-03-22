@@ -9,7 +9,8 @@
 		<title>공지사항 상세 조회</title>
 <!-- 		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">		 -->
 		<link rel="stylesheet" href="../../../resources/css/notice.css">
-		<style>
+		<style type="text/css">
+			body{ cursor:url("../../../resources/img/cursor.png"), auto;}
 		</style>
 	</head>
 	<body>
@@ -42,11 +43,28 @@
 					</div>
 					<hr>
 					<textarea name="noticeContent" id=""  rows="15" cols="70">${notice.noticeContent }</textarea><br>
-					<label class="fileBtn" for="inputFile">
-						<img src="../../../resources/img/notice-file.png" alt="" >
-					</label>
-					<input type="file" id="inputFile" name="reloadFile" value="" style="display:none">${notice.noticeImageName }
-					<br>
+					<c:if test="${!empty notice.noticeImageName}">
+						<div class="uploadArea">
+							<div>
+								<label class="fileBtn" for="inputFile">
+									<img src="../../../resources/img/notice-file.png" alt="" style="cursor: pointer;">
+									<input type="file" id="inputFile" name="reloadFile" value="" style="display:none;" onclick="document.getElementById('inputFile').click();">
+								</label>
+							</div>
+							<div id="upload-file">${notice.noticeImageName }</div>
+						</div>
+					</c:if>
+					<c:if test="${empty notice.noticeImageName}">
+						<div class="uploadArea">
+							<div>
+								<label class="fileBtn" for="inputFile">
+									<img src="../../../resources/img/notice-file.png" alt="" style="cursor: pointer;">
+									<input type="file" id="inputFile" name="reloadFile" value="" style="display:none;" onclick="document.getElementById('inputFile').click();">
+								</label>
+							</div>
+							<div id="upload-file">파일 업로드</div>
+						</div>
+					</c:if>
 					<input type="hidden" name="noticeNo" value="${notice.noticeNo }">
 					<input type="hidden" name="noticeImageName" value="${notice.noticeImageName }">
 					<input type="hidden" name="noticeImagePath" value="${notice.noticeImagePath }">
@@ -66,16 +84,40 @@
 				</div>
 				<form action="/notice/modify.ztp" method="post" enctype="multipart/form-data">
 					<div id="detailInput">
-						<input type="text" class="subjectInput" name="noticeSubject" value="${notice.noticeSubject }" readonly>
-						<input type="text" class = "writerInput" name="noticeWriter" value="${notice.noticeWriter }" readonly><br>
+						<div id="detailS">
+							<input type="text" class="subjectInput" name="noticeSubject" value="${notice.noticeSubject }" readonly>
+						</div>
+						<div id="detailW">
+							<input type="text" class = "writerInput" name="noticeWriter" value="${notice.noticeWriter }" readonly><br>
+						</div>
+						<div id="detailC">
+							<fmt:formatDate pattern="yyyy-MM-dd" value="${notice.noticeCreateDate }"/>
+						</div>
 					</div>
+					<hr>
 					<textarea name="noticeContent" id=""  rows="15" cols="70" readonly>${notice.noticeContent }</textarea><br>
-					<div class="uploadArea">
-						<label class="fileBtn" for="inputFile">
-							<img src="../../../resources/img/notice-file.png" alt="" >
-						</label>
-					</div>
-					<input type="file" id="inputFile" name="reloadFile" value="" style="display:none"><a href="/notice/download.ztp?noticeNo=${notice.noticeNo }">${notice.noticeImageName }</a><br>
+					<c:if test="${!empty notice.noticeImageName}">
+						<div class="uploadArea">
+							<div>
+								<label class="fileBtn" for="inputFile">
+									<img src="../../../resources/img/notice-file.png" alt="" style="cursor: pointer;">
+									<input type="file" id="inputFile" name="reloadFile" value="" style="display:none;" onclick="document.getElementById('inputFile').click();">
+								</label>
+							</div>
+							<div id="upload-file">${notice.noticeImageName }</div>
+						</div>
+					</c:if>
+					<c:if test="${empty notice.noticeImageName}">
+						<div class="uploadArea">
+							<div>
+								<label class="fileBtn" for="inputFile">
+									<img src="../../../resources/img/notice-file.png" alt="" style="cursor: pointer;">
+									<input type="file" id="inputFile" name="reloadFile" value="" style="display:none;" onclick="document.getElementById('inputFile').click();">
+								</label>
+							</div>
+							<div id="upload-file">첨부된 파일이 없습니다</div>
+						</div>
+					</c:if>
 					<input type="hidden" name="noticeNo" value="${notice.noticeNo }">
 					<input type="hidden" name="noticeImageName" value="${notice.noticeImageName }">
 					<input type="hidden" name="noticeImagePath" value="${notice.noticeImagePath }">
@@ -110,7 +152,7 @@
 			                    <c:forEach items="${commentList}" var="commentList">
 			                        <tr>
 			                            <td id="comment-td1">${commentList.commentWriterId}</td>
-			                            <td id="comment-td2">${commentList.commentContent}</td>
+			                            <td id="comment-td2" style="white-space: pre-wrap;">${commentList.commentContent}</td>
 			                            <td id="comment-td3"><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${commentList.commentCreateDate}"/></td>
 			                            <c:if test="${sessionScope.loginUser.memberId eq commentList.commentWriterId}">
 			                            	<td id="comment-td4">
@@ -145,8 +187,39 @@
 		 		}
 		 	}
 		 	
+			<!-- 첨부파일 수정 -->
+			
+			window.onload = function() {
+		    	
+		        target = document.getElementById('inputFile');
+		        target.addEventListener('change', function() {
+		        	
+		            fileList = "";
+		            for(i = 0; i < target.files.length; i++) {
+		                
+		            	fileList += target.files[i].name + '<br>';
+		                
+		            }
+		            
+		            target2 = document.getElementById('upload-file');
+		            target2.innerHTML = fileList;
+		        	
+		        });
+		        
+		    };
+			
+			<!-- 공지사항 댓글 수정 -->
+			var url = "/notice/detail.ztp?noticeNo=";
+			function modifyComment(commentNo, boardId) {
+
+	            window.open(
+	                    "/comment/modifyView.ztp?boardId="+boardId+"&postNo="+${notice.noticeNo}+"&commentNo="+commentNo+"&url="+url
+	                    , "댓글 수정"
+	                    , "directories=no, titlebar=no, toolbar=no, status=no, menubar=no, location=no,width=820, height=200, scrollbars=no");
+
+	        }
+			
 			<!-- 공지사항 댓글 삭제 -->
-		 	var url = "/notice/detail.ztp?noticeNo=";
 		 	
 		 	function deleteComment(commentNo) {
 				

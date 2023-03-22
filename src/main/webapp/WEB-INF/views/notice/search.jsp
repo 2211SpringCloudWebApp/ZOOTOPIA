@@ -9,7 +9,8 @@
 		<title>공지사항 목록</title>
 <!-- 		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">		 -->
 		<link rel="stylesheet" href="../../../resources/css/notice.css">
-		<style>
+		<style type="text/css">
+			body{ cursor:url("../../../resources/img/cursor.png"), auto;}
 		</style>
 	</head>
 	<body>
@@ -74,16 +75,16 @@
 				        </c:if>
 			        </div>
 		        </div>
-		        <div class="searchBar">
+		        <div class="searchBar" style="margin-top: 10px;">
 		        	<form action="/notice/search.ztp" method="get">
-						<select id="selectBtn" name="condition">
+						<select id="select-condition" name="condition">
 							<option value="all">전체</option>
 							<option value="writer">작성자</option>
 							<option value="title">제목</option>
 							<option value="content">내용</option>
 						</select>
-						<input type="text" name="keyword" placeholder="검색어를 입력해주세요">
-						<input type="submit" id="searchBtn" value="검색">
+						<input type="text" id="input-keyword" name="keyword" placeholder="검색어를 입력해주세요">
+						<input type="submit" id="" value="검색">
 					</form>
 		        </div>					
 		</main>
