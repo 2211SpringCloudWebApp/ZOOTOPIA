@@ -188,6 +188,30 @@ public interface MemberService {
 	 * @return
 	 */
 	List<AdoptPost> selectAdoptPostLikeList(PageInfo pageInfo, String memberId);
+
+	/**
+	 * 마이페이지 작성한 댓글 상세 페이지
+	 * @param memberId
+	 * @return
+	 */
+	int mypageSelectAdoptPost(int postNo);
+
+	
+	/**
+	 * 마이페이지 후기 게시글 삭제
+	 * @param reviewPostNo
+	 * @return
+	 */
+	int deleteCheckedReviewList(String reviewPostNo);
+
+	/**
+	 * 마이페이지 입양공고 게시글 삭제
+	 * @param adoptPostNo
+	 * @return
+	 */
+	int deleteCheckedAdoptPost(String adoptPostNo);
+
+
 	
 
 }

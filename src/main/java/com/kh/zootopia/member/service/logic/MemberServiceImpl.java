@@ -187,6 +187,28 @@ public class MemberServiceImpl implements MemberService{
 		List<AdoptPost> adoptPostLikeList = mStore.selectAdoptPostLikeList(session, pageInfo, memberId);
 		return adoptPostLikeList;
 	}
+
+	
+	// 마이페이지 작성한 댓글 상세페이지
+	@Override
+	public int mypageSelectAdoptPost(int postNo) {
+		int animalNo = mStore.mypageSelectAdoptPost(session, postNo);
+		return animalNo;
+	}
+
+	// 마이페이지 후기 게시글 삭제
+	@Override
+	public int deleteCheckedReviewList(String reviewPostNo) {
+		int result = mStore.deleteCheckedReviewList(session, reviewPostNo);
+		return result;
+	}
+
+	// 마이페이지 입양공고 게시글 삭제
+	@Override
+	public int deleteCheckedAdoptPost(String adoptPostNo) {
+		int result = mStore.deleteCheckedAdoptPost(session, adoptPostNo);
+		return result;
+	}
 	
 
 	

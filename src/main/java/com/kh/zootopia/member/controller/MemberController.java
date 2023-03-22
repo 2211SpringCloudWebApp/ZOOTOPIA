@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
+import com.kh.zootopia.AdoptAnimalPost.controller.AdoptAnimalPostController;
 import com.kh.zootopia.AdoptAnimalPost.domain.AdoptPost;
 import com.kh.zootopia.AdoptAnimalPost.domain.Animal;
 import com.kh.zootopia.comment.domain.Comment;
@@ -41,6 +43,8 @@ public class MemberController {
 	private ReviewController reviewController;
 	@Autowired
 	private ReviewService reviewService;
+	@Autowired
+	private AdoptAnimalPostController adoptAnimalPostController;
 
 	// 로그인 페이지 출력
 	@RequestMapping(value = "/member/loginView.ztp", method = RequestMethod.GET)
@@ -240,10 +244,14 @@ public class MemberController {
 	
 	// 마이페이지로 이동
 	@RequestMapping(value="/member/mypage.ztp" , method = RequestMethod.GET)
-	public String MypageInfo(HttpSession session, Model model) {
+	public String MypageInfo(
+			HttpSession session
+			, @RequestParam("category") String category
+			, Model model) {
 		Member member = (Member)session.getAttribute("loginUser");
 		System.out.println(member);
 		model.addAttribute("member", member);
+		model.addAttribute("category", category);
 		return "member/mypageInfo";
 	}
 	
@@ -252,6 +260,7 @@ public class MemberController {
 	public String mypageAdoptPostList(
 			HttpSession session
 			,@RequestParam(value = "page", required = false, defaultValue = "1") Integer page
+			, @RequestParam("category") String category
 			,Model model
 			) {
 		String memberId = ((Member)session.getAttribute("loginUser")).getMemberId();
@@ -260,6 +269,7 @@ public class MemberController {
 		List<AdoptPost> adoptPostList = mService.mypageSelectAdoptPostList(pageInfo, memberId);
 		model.addAttribute("pageInfo", pageInfo);
 		model.addAttribute("adoptPostList", adoptPostList);
+		model.addAttribute("category", category);
 		return "/member/mypageAdoptPostList";
 	}
 	
@@ -291,6 +301,7 @@ public class MemberController {
 			HttpSession session
 			,@ModelAttribute Comment comment
 			,@RequestParam(value = "page", required = false, defaultValue = "1") Integer page
+			, @RequestParam("category") String category
 			,Model model
 			) {
 		String memberId = ((Member)session.getAttribute("loginUser")).getMemberId();
@@ -299,7 +310,20 @@ public class MemberController {
 		List<Comment> adoptPostCommentList= mService.selectAdoptPostCommentList(pageInfo, memberId);
 		model.addAttribute("pageInfo", pageInfo);
 		model.addAttribute("adoptPostCommentList", adoptPostCommentList);
+		model.addAttribute("category", category);
 		return "/member/mypageAdoptPostComment";
+	}
+	
+	// 마이페이지 입양공고 게시판 작성한 댓글 상세페이지
+	@RequestMapping(value="/member/mypageAdoptPostCommentDetailView.ztp", method = RequestMethod.GET)
+	public ModelAndView mypageAdoptPostCommentDetailView(
+			@RequestParam("postNo") int postNo
+			,ModelAndView mv
+			,Model model
+			) {
+		int animalNo = mService.mypageSelectAdoptPost(postNo);
+		ModelAndView mv1 = adoptAnimalPostController.animalDetailView(animalNo, mv);
+		return mv1;
 	}
 	
 	// 마이페이지 입양공고 게시판 좋아요
@@ -308,6 +332,7 @@ public class MemberController {
 			HttpSession session
 			,@ModelAttribute Like like
 			,@RequestParam(value = "page", required = false, defaultValue = "1") Integer page
+			, @RequestParam("category") String category
 			,Model model
 			) {
 		String memberId = ((Member)session.getAttribute("loginUser")).getMemberId();
@@ -316,7 +341,7 @@ public class MemberController {
 		List<AdoptPost> adoptPostLikeList =  mService.selectAdoptPostLikeList(pageInfo ,memberId);
 		model.addAttribute("pageInfo", pageInfo);
 		model.addAttribute("adoptPostLikeList", adoptPostLikeList);
-		
+		model.addAttribute("category", category);
 		return "/member/mypageAdoptPostLike";
 	}
 	
@@ -326,6 +351,7 @@ public class MemberController {
 	public String mypageReviewList(
 			HttpSession session
 			,@RequestParam(value = "page", required = false, defaultValue = "1") Integer page
+			, @RequestParam("category") String category
 			,Model model
 			) {
 		String memberId = ((Member)session.getAttribute("loginUser")).getMemberId();
@@ -335,6 +361,7 @@ public class MemberController {
 		System.out.println(reviewList);
 		model.addAttribute("pageInfo", pageInfo);
 		model.addAttribute("reviewList", reviewList);
+		model.addAttribute("category", category);
 		return "member/mypageReviewList";
 	}
 	
@@ -371,14 +398,17 @@ public class MemberController {
 			HttpSession session
 			,@ModelAttribute Comment comment
 			,@RequestParam(value = "page", required = false, defaultValue = "1") Integer page
+			, @RequestParam("category") String category
 			,Model model
 			) {
 		String memberId = ((Member)session.getAttribute("loginUser")).getMemberId();
 		int totalCount = mService.getReviewCommentCount(memberId);
 		PageInfo pageInfo = reviewController.getPageInfo(page, totalCount);
 		List<Comment> reviewCommentList= mService.selectReviewCommentList(pageInfo, memberId);
+		System.out.println(reviewCommentList);
 		model.addAttribute("pageInfo", pageInfo);
 		model.addAttribute("reviewCommentList", reviewCommentList);
+		model.addAttribute("category", category);
 		return "member/mypageReviewComment";
 	}
 	
@@ -388,6 +418,7 @@ public class MemberController {
 			HttpSession session
 			,@ModelAttribute Like like
 			,@RequestParam(value = "page", required = false, defaultValue = "1") Integer page
+			, @RequestParam("category") String category
 			,Model model
 			) {
 		String memberId = ((Member)session.getAttribute("loginUser")).getMemberId();
@@ -396,18 +427,61 @@ public class MemberController {
 		List<Review> reviewLikeList =  mService.selectReviewLikeList(pageInfo ,memberId);
 		model.addAttribute("pageInfo", pageInfo);
 		model.addAttribute("reviewLikeList", reviewLikeList);
+		model.addAttribute("category", category);
 		return "member/mypageReviewLike";
 	}
 	
-	// 마이페이지 후기 게시글  댓글 삭제
-	@RequestMapping(value="/member/deleteComment.ztp" , method = RequestMethod.POST)
-	public String MypageDelete(
-			@RequestParam("reviewComment") Review review
-
+	
+	// 마이페이지 입양공고 게시글 삭제
+		@RequestMapping(value="/member/mypageDeleteAdoptPost.ztp" , method = RequestMethod.GET)
+		public String mypageDeleteAdoptPost(
+				@RequestParam("adoptPostNo") List<String> adoptPostNos
+				,Model model
+				) {
+			try {
+				for(String adoptPostNo : adoptPostNos) {
+					int result = mService.deleteCheckedAdoptPost(adoptPostNo);
+					System.out.println(result);
+					if(result > 0) {
+						return "redirect:/member/mypageAdoptPost.ztp?category=adoptPostList";
+					}else {
+						model.addAttribute("message" , "입양공고 게시글 삭제 실패");
+						return "common/error";
+					}
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+				model.addAttribute("message", e.getMessage());
+				return "common/error";
+			}
+			return "member/mypageAdoptPostList";
+		}
+	
+	
+	// 마이페이지 후기 게시글 삭제
+	@RequestMapping(value="/member/mypageDeleteReviewList.ztp" , method = RequestMethod.GET)
+	public String mypageDeleteReviewList(
+			@RequestParam("reviewPostNo") List<String> reviewPostNos
+			,Model model
 			) {
-		int result = mService.deleteReviewComment(review);
 		
-		return "";
+		try {
+			for(String reviewPostNo : reviewPostNos) {
+				int result = mService.deleteCheckedReviewList(reviewPostNo);
+				System.out.println(result);
+				if(result > 0) {
+					return "member/mypageReviewList";
+				}else {
+					model.addAttribute("message" , "후기 게시글 삭제 실패");
+					return "common/error";
+				}
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			model.addAttribute("message", e.getMessage());
+			return "common/error";
+		}
+		return "member/mypageReviewList";
 	}
 	
 	
