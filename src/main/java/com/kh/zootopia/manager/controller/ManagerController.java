@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kh.zootopia.AdoptAnimalPost.domain.AdoptAnimalPost;
 import com.kh.zootopia.AdoptAnimalPost.domain.AdoptPost;
 import com.kh.zootopia.comment.controller.CommentController;
 import com.kh.zootopia.comment.domain.Comment;
@@ -194,6 +195,19 @@ public class ManagerController {
 		return "redirect:/adoptAnimal/list.ztp";
 	}
 	
+	// 미승인 입양공고디테일 Controller
+	@RequestMapping(value="/manager/detailAdopt.ztp", method=RequestMethod.GET)
+	public String detailAdopt(@RequestParam("animalNo") Integer animalNo, Model model) {
+		try {
+			AdoptAnimalPost aPost = mService.detailAdopt(animalNo);
+			model.addAttribute("aPost", aPost);
+			return "manager/adoptDetail";			
+		} catch (Exception e) {
+			model.addAttribute("message", e.getMessage());
+			return "common/error";
+		}
+	}
+	
 	
 	// ** 예약관리
 	// 예약페이지 View Controller
@@ -301,7 +315,7 @@ public class ManagerController {
 	
 	// 댓글삭제 Controller
 	@RequestMapping(value="/manager/deleteComment.ztp", method=RequestMethod.GET)
-	public String deleteMember(@RequestParam("commentNo") int commentNo, Model model) {
+	public String deleteComment(@RequestParam("commentNo") int commentNo, Model model) {
 		try {
 			int result = mService.deleteComment(commentNo);
 			if(result > 0) {

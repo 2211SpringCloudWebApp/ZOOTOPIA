@@ -7,14 +7,16 @@
 		<title>회원가입</title>
 		<link rel="icon" href="./images/images2/favicon.png">
 		<link rel="stylesheet" href="../../../resources/css/member/register.css">
+		<script defer
+			src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 	</head>
 	<body>
-		<form action="/member/register.ztp" method="post"></form>
+		<form action="/member/register.ztp" method="post">
 		<div class="member">
 			<!-- 1. 로고 -->
 			<div id="main_logo">
-			<img class="logo" src="../../../resources/img/logo-img-white.png">
-			<span id ="main_font">zootopia</span>
+				<img class="logo" src="../../../resources/img/logo-img-white.png">
+				<span id ="main_font">ZOOTOPIA</span>
 			</div>
 			<!-- 2. 필드 -->
 			<div class="field">
@@ -90,6 +92,7 @@
 	
 			<!-- 6. 가입하기 버튼 -->
 			<input type="submit" value="가입하기">
+			</div>
 			</form>
 			<!-- 7. 푸터 -->
 			<div class="member-footer">
@@ -99,9 +102,7 @@
 				</div>
 				<span><a href="#none">NAVER Corp.</a></span>
 			</div>
-		</div>
-		<script
-			src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+
 		<script>
 	        //본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
 	        function sample4_execDaumPostcode() {

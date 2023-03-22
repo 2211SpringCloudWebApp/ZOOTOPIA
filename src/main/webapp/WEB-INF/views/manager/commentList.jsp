@@ -5,18 +5,21 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>댓글리스트</title>
+		<title>댓글리스트❤️</title>
 		<link rel="stylesheet" href="../../../resources/css/manager/commentList.css">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+		<style type="text/css">
+			body{ cursor:url("../../../resources/img/cursor.png"), auto;}
+		</style>
 	</head>
 	<body>
 		<jsp:include page="../common/header.jsp"></jsp:include>
 		
 		<main>
 			<div class="titleTag">
+				<img alt="" src="../../../resources/img/manager-icon2.png">
 				<h1>댓글리스트</h1>
 			</div>
-			<form action="/manager/deleteComments.ztp" name="myform" method="get">
 
 				<div class="commentList">
 					<table>
@@ -73,7 +76,6 @@
 						</div>
 				    </div>
 				</div>
-			</form>
 		</main>
 		
 		<jsp:include page="../common/footer.jsp" />

@@ -41,17 +41,17 @@ main .titleTag{
 	margin-left: auto;
 	margin-right: auto;
 	margin-bottom: 20px;
+	display: flex;
+}
+main .titleTag img{
+	width: 35px;
+	text-align: center;
+	margin-right: 15px;
 }
 
 
 
-table {
-	font-family : 'hanna';
-/* 	font-size: 20px; */
-	margin-left: auto;
-	margin-right: auto;	
-	
-}
+
 main input[type=text] {
     width: 200px;
     height: 25px;
@@ -84,7 +84,13 @@ main .buttonTag{
 }
 
 /* 리스트부분 */
-
+table {
+	font-family : 'hanna';
+/* 	font-size: 20px; */
+	margin-left: auto;
+	margin-right: auto;	
+	
+}
 main table a:link, a:visited {
     color: #4E422D;
     text-decoration: none;
@@ -109,6 +115,9 @@ main th:first-child {
 main td:first-child {
     border-left: none;
     border-top: none;
+}
+main tbody tr:hover{
+	background-color: #dcd7cd;
 }
 
 /* 페이징처리부분 */

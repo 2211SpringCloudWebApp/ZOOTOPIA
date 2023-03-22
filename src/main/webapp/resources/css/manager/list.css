@@ -45,6 +45,7 @@ main .titleTag {
 	margin-left: auto;
 	margin-right: auto;
 	margin-bottom: 20px;
+	display: flex;
 }
 
 table {
@@ -59,6 +60,11 @@ main input[type=text] {
 	height: 25px;
 	border: 1px solid #4E422D;
 	border-radius: 3px;
+}
+main .titleTag img{
+	width: 35px;
+	text-align: center;
+	margin-right: 15px;
 }
 
 /* 버튼부분 */
@@ -119,6 +125,9 @@ main td:first-child {
 	border-left: none;
 	border-top: none;
 }
+main tbody tr:hover{
+	background-color: #dcd7cd;
+}
 
 /* 페이징처리부분 */
 main .pageWrap {
@@ -146,8 +155,8 @@ main .pageNation a {
 	text-decoration: none;
 }
 
-main .pageNation a.active {
-	background-color: #C6BDAD;
+main .pageNation a.focus {
+	background: #C6BDAD;
 	color: #C6BDAD;
 	border: 1px solid #C6BDAD;
 }
@@ -159,8 +168,31 @@ main select {
 	border-radius: 3px;
 }
 
+/* 검색박스 */
 main #searchTag {
-	margin-top: 30px;
-	text-align: center;
+	margin-top: 10px;
+    text-align: center;
 }
+main #memberId-select {
+    width: 100px;
+    height: 33px;
+    padding-left: 10px;
+    border: 1px solid #4E422D;
+    background: url(../../uploadFiles/down-arrow2.png) no-repeat 95% 50%;
+    background-size: 15%;
+    border-radius: 5px;
+    appearance: none;
+    font-family: 'hanna';
+    font-size: 15px;
+}
+main #searchTag input {
 
+    width: 200px;
+    height: 31px;
+    border: 1px solid #4E422D;
+    border-radius: 5px;
+    font-family: 'hanna';
+    padding-left: 10px;
+    font-size: 15px;
+
+}

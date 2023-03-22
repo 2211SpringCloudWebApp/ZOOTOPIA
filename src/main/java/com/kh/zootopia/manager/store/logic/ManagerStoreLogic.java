@@ -6,6 +6,7 @@ import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import com.kh.zootopia.AdoptAnimalPost.domain.AdoptAnimalPost;
 import com.kh.zootopia.AdoptAnimalPost.domain.AdoptPost;
 import com.kh.zootopia.comment.domain.Comment;
 import com.kh.zootopia.manager.domain.DateDTO;
@@ -137,6 +138,12 @@ public class ManagerStoreLogic implements ManagerStore{
 	public int deleteComment(SqlSession session, int commentNo) {
 		int result = session.delete("CommentMapper.deleteCheckedComments", commentNo);
 		return result;
+	}
+
+	@Override
+	public AdoptAnimalPost detailAdopt(SqlSession session, Integer animalNo) {
+		AdoptAnimalPost aPost = session.selectOne("AnimalMapper.detailAdopt", animalNo);
+		return aPost;
 	}
 
 }

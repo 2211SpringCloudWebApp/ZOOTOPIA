@@ -1,5 +1,11 @@
+
 /* Google web font CDN*/
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700&display=swap'); */
+@font-face{
+    font-family: 'jua';
+    src: url(../../font/BMJUA_ttf.ttf);
+}
+
 
 *{
     box-sizing: border-box; /*전체에 박스사이징*/
@@ -7,7 +13,7 @@
 }
 
 body{
-    font-family: 'Noto Sans KR', sans-serif;
+    font-family: 'jua';
     font-size:14px;
     background-color: #fff7d8;
     line-height: 1.5em;
@@ -40,7 +46,8 @@ a{
      margin-right: 10px;    
 }
 .member #main_logo #main_font{
-            font-size: 60pt;
+	font-family: 'jua';
+    font-size: 50pt;
         }
 
 .member .field{

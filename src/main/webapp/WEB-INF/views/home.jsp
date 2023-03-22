@@ -52,7 +52,7 @@
 						<!-- 위에 헤더를 위한 공간 빼둘 div -->
 						<div></div>
 						<!-- 입양 공고 관련 내용이 들어갈 자리 -->
-						<div>
+						<div id="background-img2">
 							<c:if test="${sessionScope.loginUser ne null }">
 								<!-- 로그인 상태라면 입양 공고 등록 폼으로 -->
 								<h1 onclick="location.href='/adoptAnimal/registerView.ztp'">입양 공고 등록하기</h1>
