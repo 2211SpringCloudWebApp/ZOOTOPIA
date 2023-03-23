@@ -16,7 +16,7 @@
 			<jsp:include page="../common/header.jsp" />
 		</header>
 		<main>
-		<div style="height: 125px;margin-bottom: 100px; margin-top: 100px;"></div>
+		<div style="height: 150px;margin-bottom: 100px; margin-top: 100px;"></div>
 		<div id="wrap">
 		<h1>비밀번호 찾기</h1>
 		<h2>비밀번호는 이름,가입한 아이디,이메일을 통해 찾으실 수 있습니다.</h2>

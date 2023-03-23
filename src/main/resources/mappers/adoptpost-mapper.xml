@@ -128,17 +128,17 @@
 	</select>
 	<select id="mypageGetAdoptPostListCount" resultType="_int">
 		SELECT COUNT(*) FROM ADOPT_POST_TBL
-		<if test="condition == 'all'">WHERE ADOPT_POST_NO LIKE '%'  #{keyword}  '%' OR   '%' OR ADOPT_CONTENT LIKE '%'  #{keyword}  '%'</if>
-        <if test="condition == 'no'">WHERE ADOPT_POST_NO LIKE '%'  #{keyword}  '%'</if>
-        <if test="condition == 'content'">WHERE ADOPT_CONTENT LIKE '%'  #{keyword}  '%'</if>
-        <if test="condition == 'writer'">WHERE  ADOPT_WRITER_ID LIKE '%' #{keyword} '%'</if>
+		<if test="condition == 'all'">WHERE ADOPT_POST_NO LIKE '%' || #{keyword} || '%' OR ADOPT_CONTENT LIKE '%'|| #{keyword} || '%'</if>
+        <if test="condition == 'no'">WHERE ADOPT_POST_NO LIKE '%' || #{keyword} || '%'</if>
+        <if test="condition == 'content'">WHERE ADOPT_CONTENT LIKE '%' ||  #{keyword} || '%'</if>
+        <if test="condition == 'writer'">WHERE  ADOPT_WRITER_ID LIKE '%' || #{keyword} || '%'</if>
 	</select>
 	<select id="mypageSearchAdoptPost" resultMap="adoptPostResultMap">
 		SELECT * FROM ADOPT_POST_TBL 
-		<if test="condition == 'all'">WHERE ADOPT_POST_NO LIKE '%'  #{keyword}  '%' OR   '%' OR ADOPT_CONTENT LIKE '%'  #{keyword}  '%'</if>
-        <if test="condition == 'no'">WHERE ADOPT_POST_NO LIKE '%'  #{keyword}  '%'</if>
-        <if test="condition == 'content'">WHERE ADOPT_CONTENT LIKE '%'  #{keyword}  '%'</if>
-        <if test="condition == 'writer'">WHERE  ADOPT_WRITER_ID LIKE '%' #{keyword} '%'</if>
+		<if test="condition == 'all'">WHERE ADOPT_POST_NO LIKE '%'|| #{keyword} || '%' OR ADOPT_CONTENT LIKE '%' || #{keyword} || '%'</if>
+        <if test="condition == 'no'">WHERE ADOPT_POST_NO LIKE '%' || #{keyword} || '%'</if>
+        <if test="condition == 'content'">WHERE ADOPT_CONTENT LIKE '%' || #{keyword} || '%'</if>
+        <if test="condition == 'writer'">WHERE  ADOPT_WRITER_ID LIKE '%' || #{keyword} || '%'</if>
 	</select>
 	<select id="selectAdoptPostLikeList" resultMap="adoptPostResultMap">
 		SELECT ADOPT_POST_TBL.* FROM(SELECT * FROM LIKE_TBL WHERE LIKE_MEMBER_ID = #{memberId} AND BOARD_ID = 'A') JOIN ADOPT_POST_TBL ON POST_NO = ADOPT_POST_NO

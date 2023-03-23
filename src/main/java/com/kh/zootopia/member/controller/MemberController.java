@@ -85,7 +85,6 @@ public class MemberController {
 				String birthDay = year + "-" + month + "-" + day;
 				Date birthDate = Date.valueOf(birthDay);
 				member.setMemberBirthday(birthDate);
-				System.out.println(member);
 				request.setCharacterEncoding("UTF-8");
 				int result = mService.insertMember(member);
 				if(result> 0) {
@@ -112,7 +111,6 @@ public class MemberController {
 			,Model model
 			) {
 			try {
-				System.out.println(member);
 				int result = mService.updateMember(member);
 				if(result > 0 ) {
 					Member mParam = new Member(memberId, memberPw);
@@ -137,7 +135,6 @@ public class MemberController {
 			String memberId
 			,Model model
 			) {
-		System.out.println(memberId);
 			try {
 				int result = mService.deleteMember(memberId);
 				if(result > 0) {

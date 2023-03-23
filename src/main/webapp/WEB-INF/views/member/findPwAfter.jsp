@@ -9,13 +9,14 @@
 		<style type="text/css">
 			body{ cursor:url("../../../resources/img/cursor.png"), auto;}
 		</style>
+			<link rel="stylesheet" href="../../../resources/css/notice.css">
 	</head>
 	<body>
 		<header>
 			<jsp:include page="../common/header.jsp" />
 		</header>
 		<main>
-		<div style="height: 125px;margin-bottom: 100px;"></div>
+		<div style="height: 150px;margin-bottom: 100px;"></div>
 		<h1>비밀번호 찾기</h1>
 		<c:if test="${member ne null }">
 	    <h2>회원가입 시 사용한 비밀번호는${member.memberPw}입니다</h2>
@@ -23,7 +24,7 @@
 	    <c:if test="${member eq null }">
 	    <h2>등록된 정보가 없습니다.</h2>
 	    </c:if>
-	    <button type="button" onclick="location.href='/member/loginView.ztp'" >로그인 화면으로 돌아가기</button>
+	    <button type="button" onclick="location.href='/member/loginView.ztp'" style="height: 35px">로그인 화면으로 돌아가기</button>
 		</main>
 			<footer>
 				<jsp:include page="../common/footer.jsp" />

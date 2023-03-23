@@ -108,6 +108,7 @@
 		</div>
 		<!--Main Navigation-->
 		<!--Main layout-->
+			<form name="myform">
 		<table class="">
 				<thead>
 					<tr>
@@ -135,6 +136,7 @@
 			  <div id="buttonTag" style="padding-left: 1150px; padding-top:20px">
 			        <button type="button" onclick="deleteBtn()">삭제</button>
 			  </div>
+			  </form>
 				<div class="pageWrap">
 					<div class="pageNation">
 			    		<c:if test="${pageInfo.currentPage > 1}">

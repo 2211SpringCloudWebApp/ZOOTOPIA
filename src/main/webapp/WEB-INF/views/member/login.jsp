@@ -27,7 +27,7 @@
 			<div class="container py-5 h-100">
 				<div class="row d-flex align-items-center justify-content-center h-100">
 					<div class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
-						<h1>LOG IN</h1>
+						<h1 style="font-family: 'jua'; color: #4E422D;">LOG IN</h1>
 						<form action="/member/login.ztp" method="post">
 							<!-- Email input -->
 							<div class="form-outline mb-4">
@@ -41,7 +41,7 @@
 								<label class="form-label" for="form1Example23">비밀번호</label>
 							</div>
 
-							<div class="d-flex justify-content-around align-items-center mb-4">
+							<div class="d-flex justify-content-around align-items-center mb-4" style="font-family: 'hanna'; color: #4E422D;">
 								<!-- a태크 -->
 								<a href="/member/findIdPage.ztp" id ="tagA1">아이디 찾기</a>|
 								<a href="/member/findPwPage.ztp" id ="tagA2">비밀번호 찾기</a>|
@@ -49,7 +49,7 @@
 							</div>
 
 							<!-- Submit button -->
-							<button type="submit" class="btn btn-primary btn-lg btn-block" id="login_btn">로그인</button>
+							<button type="submit" class="btn btn-primary btn-lg btn-block" id="login_btn" style="font-family: 'jua';">로그인</button>
 							<div class="divider d-flex align-items-center my-4">
 								<p class="text-center fw-bold mx-3 mb-0 text-muted">OR</p>
 							</div>

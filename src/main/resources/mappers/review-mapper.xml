@@ -74,10 +74,10 @@
 
     <select id="selectMypageReviewCount" resultType="_int">
         SELECT COUNT(*) FROM REVIEW_POST_TBL
-        <if test="condition == 'all'">WHERE REVIEW_POST_NO LIKE '%'  #{keyword}  '%' OR REVIEW_TITLE LIKE '%'  #{keyword}  '%' OR REVIEW_CONTENT LIKE '%'  #{keyword}  '%'</if>
-        <if test="condition == 'no'">WHERE REVIEW_POST_NO LIKE '%'  #{keyword}  '%'</if>
-        <if test="condition == 'title'">WHERE REVIEW_TITLE LIKE '%'  #{keyword}  '%'</if>
-        <if test="condition == 'content'">WHERE REVIEW_CONTENT LIKE '%'  #{keyword}  '%'</if>
+        <if test="condition == 'all'">WHERE REVIEW_POST_NO LIKE '%' ||  #{keyword} || '%' OR REVIEW_TITLE LIKE '%' || #{keyword} || '%' OR REVIEW_CONTENT LIKE '%' || #{keyword} || '%'</if>
+        <if test="condition == 'no'">WHERE REVIEW_POST_NO LIKE '%' || #{keyword} || '%'</if>
+        <if test="condition == 'title'">WHERE REVIEW_TITLE LIKE '%' ||  #{keyword} || '%'</if>
+        <if test="condition == 'content'">WHERE REVIEW_CONTENT LIKE '%' ||  #{keyword} || '%'</if>
     </select>
     <!-- 여기서 부터 0317 -->
     <select id="selectReviewLikeList" resultMap="reviewResultMap">
