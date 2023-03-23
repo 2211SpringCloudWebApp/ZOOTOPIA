@@ -5,6 +5,9 @@
 <head>
 	<meta charset="UTF-8">
 	<title>마이페이지 회원탈퇴</title>
+	<style type="text/css">
+			body{ cursor:url("../../../resources/img/cursor.png"), auto;}
+		</style>
 </head>
 	<body>
 	<h1>회원 탈퇴</h1>

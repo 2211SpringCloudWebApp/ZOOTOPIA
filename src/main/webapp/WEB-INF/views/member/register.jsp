@@ -5,12 +5,20 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>회원가입</title>
+		<style type="text/css">
+			body{ cursor:url("../../../resources/img/cursor.png"), auto;}
+		</style>
 		<link rel="icon" href="./images/images2/favicon.png">
 		<link rel="stylesheet" href="../../../resources/css/member/register.css">
 		<script defer
 			src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 	</head>
 	<body>
+		<header>
+		<jsp:include page="../common/header.jsp" />
+		</header>
+		<main>
+		<div style="height: 125px;margin-bottom: 100px;"></div>
 		<form action="/member/register.ztp" method="post">
 		<div class="member">
 			<!-- 1. 로고 -->
@@ -37,7 +45,8 @@
 			<div class="field birth">
 				<b>생년월일</b>
 				<div>
-					<input type="text" name="year" placeholder="년(4자)"> <select name="month">
+					<input type="text" name="year" placeholder="년(4자)">
+					<select name="month">
 						<option value="">월</option>
 						<option value="1">1월</option>
 						<option value="2">2월</option>
@@ -51,7 +60,8 @@
 						<option value="10">10월</option>
 						<option value="11">11월</option>
 						<option value="12">12월</option>
-					</select> <input type="number" name="day" placeholder="일">
+					</select> 
+					<input type="number" name="day" placeholder="일">
 				</div>
 			</div>
 	
@@ -100,9 +110,13 @@
 					<a href="#none">이용약관</a> <a href="#none">개인정보처리방침</a> <a
 						href="#none">책임의 한계와 법적고지</a> <a href="#none">회원정보 고객센터</a>
 				</div>
-				<span><a href="#none">NAVER Corp.</a></span>
+				<span><a href="#none">ZOOTOPIA.</a></span>
 			</div>
-
+			</main>
+			<div style="height: 70px;margin-bottom: 100px;"></div>
+			<footer>
+				<jsp:include page="../common/footer.jsp" />
+			</footer>
 		<script>
 	        //본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
 	        function sample4_execDaumPostcode() {

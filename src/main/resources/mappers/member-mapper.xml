@@ -39,4 +39,9 @@
 	<select id="getMemberListCount" resultType="_int">
 		SELECT COUNT(*) FROM MEMBER_TBL
 	</select>
+	<select id="getSearchMemberCount" resultType="_int">
+        SELECT COUNT(*) FROM MEMBER_TBL WHERE
+        <if test="condition == 'id'">MEMBER_ID LIKE '%' || #{keyword} || '%' </if>
+        <if test="condition == 'name'">MEMBER_NAME LIKE '%' || #{keyword} || '%' </if>
+    </select>
 </mapper>

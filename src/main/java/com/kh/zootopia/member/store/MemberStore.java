@@ -10,6 +10,8 @@ import com.kh.zootopia.AdoptAnimalPost.domain.Animal;
 import com.kh.zootopia.comment.domain.Comment;
 import com.kh.zootopia.like.domain.Like;
 import com.kh.zootopia.member.domain.Member;
+import com.kh.zootopia.member.domain.MyComment;
+import com.kh.zootopia.member.domain.MyLike;
 import com.kh.zootopia.review.domain.PageInfo;
 import com.kh.zootopia.review.domain.Review;
 import com.kh.zootopia.review.domain.Search;
@@ -230,5 +232,37 @@ public interface MemberStore {
 	 * @return
 	 */
 	int deleteCheckedAdoptPost(SqlSession session, String adoptPostNo);
+
+	/**
+	 * 마이페이지 입양공고 댓글 삭제
+	 * @param session
+	 * @param postNo
+	 * @return
+	 */
+	int deleteCheckedAdoptPostComment(SqlSession session, MyComment myComment);
+
+	/**
+	 * 마이페이지 입양공고 좋아요 삭제
+	 * @param session
+	 * @param adoptPostNo
+	 * @return
+	 */
+	int deleteCheckedAdoptPostLike(SqlSession session, MyLike myLike);
+
+	/**
+	 * 마이페이지 후기 댓글 삭제
+	 * @param session
+	 * @param postNo
+	 * @return
+	 */
+	int deleteCheckedReviewComment(SqlSession session, MyComment myComment);
+
+	/**
+	 * 마이페이지 후기 좋아요 삭제
+	 * @param session
+	 * @param reviewPostNo
+	 * @return
+	 */
+	int deleteCheckedReviewLike(SqlSession session, MyLike myLike);
 
 }

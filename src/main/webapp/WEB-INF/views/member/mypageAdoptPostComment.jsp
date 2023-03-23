@@ -6,6 +6,38 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>Document</title>
+		<style type="text/css">
+		body {
+			cursor: url("../../../resources/img/cursor.png"), auto;
+		}
+		
+		.searchBar {
+			text-align: center;
+		}
+		
+		#select-condition {
+			width: 100px;
+			height: 33px;
+			padding-left: 10px;
+			border: 1px solid #4E422D;
+			background: url(../uploadFiles/down-arrow2.png) no-repeat 95% 50%;
+			background-size: 15%;
+			border-radius: 5px;
+			appearance: none;
+			font-family: 'hanna';
+			font-size: 15px;
+		}
+		
+		#input-keyword {
+			width: 200px;
+			height: 31px;
+			border: 1px solid #4E422D;
+			border-radius: 5px;
+			font-family: 'hanna';
+			padding-left: 10px;
+			font-size: 15px;
+		}
+		</style>
 		<link rel="stylesheet" href="../../../resources/css/member/login.css">
 		<!-- Font Awesome -->
 		<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet"/>
@@ -89,7 +121,8 @@
 				<tbody>
 					<c:forEach items="${adoptPostCommentList }" var="adoptPostComment">
 					<tr>
-						<td><input type="checkbox" name="rowcheck" value="${adoptPostComment.postNo }">${adoptPostComment.postNo }</td>
+						<td><input type="checkbox" name="checkRow" value="${adoptPostComment.postNo }"></td>
+						<td>${adoptPostComment.postNo }</td>
 						<td><a href="/member/mypageAdoptPostCommentDetailView.ztp?postNo=${adoptPostComment.postNo}">${adoptPostComment.commentContent}</a></td>
 						<td>${adoptPostComment.commentWriterId }</td>
 					</tr>
@@ -98,7 +131,7 @@
 				<tfoot>
 				</tfoot>			
 			</table>
-			 <div id="buttonTag">
+			 <div id="buttonTag" style="padding-left: 1150px; padding-top:20px">
 			        <button type="button" onclick="deleteBtn()">삭제</button>
 			  </div>
 			</form>
@@ -124,19 +157,18 @@
 				        </c:if>
 			        </div>
 		        </div>
-		        <div class="searchBar">
-		        	<form action="/member/adoptPostSearch.ztp" method="post">
-						<select id="selectBtn" name="condition">
+		        <div class="searchBar" style="margin-top: 10px;">
+		        	<form action="/member/reviewSearch.ztp" method="post">
+						<select id="select-condition" name="condition" style="height: 41px">
 							<option value="all">전체</option>
 							<option value="no">게시글 번호</option>
 							<option value="content">내용</option>
-							<option value="writer">작성자</option>
 						</select>
-						<input type="text" name="keyword" placeholder="검색어를 입력해주세요">
-						<input type="hidden" name="category" value="comment">
-						<input type="submit" id="searchBtn" value="검색">
+						<input id="input-keyword" type="text" name="keyword" placeholder="검색어 입력" style="height: 39px">
+						<input type="hidden" name="category" value="list">
+						<button type="submit" style="height: 41px">검색</button>
 					</form>
-		        </div>
+            	</div>
 		</main>
 		<footer>
 		<jsp:include page="../common/footer.jsp" />
@@ -148,9 +180,10 @@
 			document.querySelector("#"+category).classList.add("active");
 			
 	
+			// 체크박스 전체선택
 	    	function allCheck(){
 	    		var allcheck = document.myform.allcheck;
-	    		var rowcheck = document.myform.rowcheck;
+	    		var rowcheck = document.myform.checkRow;
 	    		
 	    		if(allcheck.checked == true){
 	    			for(i=0; i<rowcheck.length; i++){
@@ -162,9 +195,25 @@
 	    			}
 	    		}
 	    	}
+			
+	    	// 버튼 클릭시 삭제
+			function deleteBtn(){
+				var checkRow = "";
+				  $( "input[name='checkRow']:checked" ).each (function (){
+				    checkRow = checkRow + $(this).val()+"," ; //32,43,22,33,
+				  });
+				  checkRow = checkRow.substring(0,checkRow.lastIndexOf( ",")); //맨끝 콤마 지우기
+				  if(checkRow == ''){
+					    alert("삭제할 대상을 선택하세요.");
+					    return false;
+				  }
+				  if(confirm("삭제하시겠습니까?")){
+					location.href="/member/mypageDeleteAdoptPostComment.ztp?postNo="+checkRow;					
+				  }
+			}
 	    	
 	    </script>
-		<option value=""></option>
+	    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 		<script type="text/javascript"
 			src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.2.0/mdb.min.js"></script>
 	</body>
