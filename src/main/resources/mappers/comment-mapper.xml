@@ -14,11 +14,11 @@
 	</resultMap>
 	
 	<select id="selectCommentList" parameterType="comment" resultMap="commentResultMap">
-		SELECT * FROM COMMENT_TBL WHERE BOARD_ID = #{boardId} AND POST_NO = #{postNo}
+		SELECT * FROM COMMENT_TBL WHERE BOARD_ID = #{boardId} AND POST_NO = #{postNo} ORDER BY COMMENT_CREATE_DATE ASC
 	</select>
 	
 	<select id="getListCount" resultType="_int">
-		SELECT COUNT(*) FROM COMMENT_TBL WHERE BOARD_ID = #{boardId} AND POST_NO = #{postNo} ORDER BY COMMENT_CREATE_DATE ASC
+		SELECT COUNT(*) FROM COMMENT_TBL WHERE BOARD_ID = #{boardId} AND POST_NO = #{postNo}
 	</select>
 	
 	<insert id="insertComment" parameterType="comment">

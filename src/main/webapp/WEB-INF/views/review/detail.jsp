@@ -45,8 +45,8 @@
 							<div id="vertical-line">
 								<ul class="review-detail-animalinfo">
 				                    <li>종류 : ${Animal.animalSpecies}</li>
-				                    <li>성별 : ${Animal.animalGender}</li>
-				                    <li>나이 : ${Animal.animalAge}</li>
+				                    <li>성별 : <c:if test="${Animal.animalGender == 'M'}">수컷</c:if><c:if test="${Animal.animalGender == 'F'}">암컷</c:if><c:if test="${Animal.animalGender eq null}"><span style="color: #ccc;">(알 수 없음)</span></c:if></li>
+				                    <li>나이 : ${Animal.animalAge}세</li>
 				                    <li>성격 : ${Animal.animalCharacter}</li>
 				                    <li>분양자 : ${Animal.animalFosterId}</li>
 				                </ul>

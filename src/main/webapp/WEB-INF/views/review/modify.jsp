@@ -33,7 +33,7 @@
 	        	</tr>
 	        	<tr>
 	        		<td class="review-write-name">성별</td>
-	        		<td class="review-write-info"><c:if test="${animal.animalGender eq 'M'}">남</c:if><c:if test="${animal.animalGender eq 'F'}">여</c:if></td>
+	        		<td class="review-write-info"><c:if test="${animal.animalGender eq 'M'}">수컷</c:if><c:if test="${animal.animalGender eq 'F'}">암컷</c:if><c:if test="${animal.animalGender eq null}"><span style="color: #ccc;">(알 수 없음)</span></c:if></td>
 	        	</tr>
 	        	<tr>
 	        		<td class="review-write-name">나이</td>

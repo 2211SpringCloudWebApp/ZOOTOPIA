@@ -32,7 +32,7 @@
 					<div>
 						<label class="fileBtn" for="inputFile" style="width:20px;">
 							<img src="../../../resources/img/notice-file.png" alt="" style="cursor: pointer;">
-							<input type="file" id="inputFile" name="reloadFile" value="" style="display:none;" onclick="document.getElementById('inputFile').click();">
+							<input type="file" id="inputFile" name="uploadFile" value="" style="display:none;" onclick="document.getElementById('inputFile').click();">
 						</label>
 					</div>
 					<div id="upload-file">파일 업로드</div>
