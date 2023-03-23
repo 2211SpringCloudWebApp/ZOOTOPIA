@@ -11,13 +11,13 @@
 			<div id="footer-up-list">
 				<ul>
 					<li>
-						<a href="#">이용약관</a>
+						<a href="/notice/detail.ztp?noticeNo=1">이용약관</a>
 					</li>
 					<li>
 						<div>|</div>
 					</li>
 					<li>
-						<a href="#">개인정보취급방침</a>
+						<a href="/notice/detail.ztp?noticeNo=2">개인정보취급방침</a>
 					</li>
 				</ul>
 			</div>
