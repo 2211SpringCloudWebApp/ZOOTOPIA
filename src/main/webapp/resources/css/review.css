@@ -223,6 +223,18 @@ main button:hover {
     
 }
 
+.review-detail-upper-right {
+	
+	text-align: right;
+    padding-bottom: 20px;
+	
+}
+	.review-detail-icons {
+	
+		width: 30px;
+	
+	}
+	
 .review-detail-info-area {
 	
 	width: 1020px;
@@ -308,13 +320,6 @@ main button:hover {
     
 }
 
-.review-detail-icons {
-
-	width: 50px;
-
-}
-
-
 .review-detail-buttons-area {
 	
 	text-align: right;
@@ -340,7 +345,9 @@ main button:hover {
 .commentForm-wrapper > div:nth-child(1) > span {
 	
 	font-family: 'hanna';
-	font-size: 1em;
+	font-size: 1.2em;
+	font-weight: 600;
+	margin-left: 10px;
 		
 }
 	.comment-form {

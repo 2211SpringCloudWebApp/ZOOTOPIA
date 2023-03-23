@@ -47,17 +47,34 @@
 	                <td class="review-write-name">내용</td>
 	                <td><textarea name="reviewContent" class="review-write-content" cols="30" rows="10" placeholder="내용을 입력해 주세요" required>${review.reviewContent}</textarea></td>
 	            </tr>
+	            
 	            <tr>
-	                <td class="review-write-name">사진첨부</td>
-	                <td>
-	                	<div style="float: left; width: 30px; text-align: center;">
-			                <img src="../../../resources/img/notice-file.png" class="attachment_image" style="width: 15px;  cursor: pointer;" onclick="document.getElementById('file').click();">
-	                	</div>
-	                	<div id="upload-file">
-			                <input type="file" id="file" name="reloadFile" accept="image/*" style="display:none">${review.reviewImageName}
-	                	</div>
-	                </td>
-	            </tr>
+	            	<td class="review-write-name">사진첨부</td>
+	            	<td>
+		 	            <c:if test="${!empty review.reviewImageName}">
+							<div class="uploadArea">
+								<div>
+									<label class="fileBtn" for="file">
+										<img src="../../../resources/img/notice-file.png" class="attachment_image" style="width: 15px;  cursor: pointer;" onclick="document.getElementById('file').click();">
+										<input type="file" id="file" name="reloadFile" value="" style="display:none;">
+									</label>
+								</div>
+								<div id="upload-file">${review.reviewImageName }</div>
+							</div>
+						</c:if>
+						<c:if test="${empty review.reviewImageName}">
+							<div class="uploadArea">
+								<div>
+									<label class="fileBtn" for="file">
+										<img src="../../../resources/img/notice-file.png" class="attachment_image" style="width: 15px;  cursor: pointer;" onclick="document.getElementById('file').click();">
+										<input type="file" id="file" name="reloadFile" value="" style="display:none;">
+									</label>
+								</div>
+								<div id="upload-file">첨부된 파일이 없습니다</div>
+							</div>
+						</c:if>
+					</td>
+				</tr>
 	            <tr>
 	            	<td colspan="2" style="text-align: center;">
 	            		<button type="submit">등록</button>

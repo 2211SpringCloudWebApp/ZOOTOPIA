@@ -65,7 +65,6 @@ public class ReviewController {
 			String reviewTitle, String reviewContent
 			, HttpSession session
 			, @RequestParam("reviewImageName") MultipartFile uploadImageFile
-//			, @RequestParam("reviewVideoName") MultipartFile uploadVideoFile
 			, HttpServletRequest request, ModelAndView mv, int animalNo
 			) {
 		
@@ -82,10 +81,14 @@ public class ReviewController {
 			review.setReviewWriterId(reviewWriterId);
 			review.setAnimalNo(animalNo);
 			
+//			UUID uuid = UUID.randomUUID();
+			
 			if (!uploadImageFile.getOriginalFilename().equals("")) {
 				
+//				String imageFileName = uuid.toString() + "_" + uploadImageFile.getOriginalFilename();
+				String imageFileName = uploadImageFile.getOriginalFilename();
 				String filePath = saveFile(uploadImageFile, request);
-				review.setReviewImageName(uploadImageFile.getOriginalFilename());
+				review.setReviewImageName(imageFileName);
 				review.setReviewImagePath(filePath);
 				
 			}
@@ -179,7 +182,7 @@ public class ReviewController {
 			}
 			
 			Review review = reviewService.selectReview(reviewPostNo); // 해당 review게시물 내용 가져오기
-			int animalNo = review.getReviewPostNo(); // 
+			int animalNo = review.getAnimalNo(); // 
 			Animal animal = reviewService.selectAnimalByAnimalNo(animalNo);
 			
 			Like like = new Like("R", reviewPostNo, memberId);
@@ -217,6 +220,7 @@ public class ReviewController {
 	public ModelAndView reviewModifyView (@ModelAttribute Review review
 			, HttpSession session, HttpServletRequest request, ModelAndView mv) {
 		
+		System.out.println(review);
 		Review reviewResult = reviewService.selectReview(review.getReviewPostNo());
 		Animal animal = reviewService.selectAnimalByAnimalNo(review.getAnimalNo());
 		
@@ -241,23 +245,23 @@ public class ReviewController {
 		
 		try {
 
-//			if(!reloadFile.isEmpty()) {
-//				
-//				if(review.getReviewImageName() != null) {
-//					
-//					this.deleteFile(review.getReviewImageName(), request);
-//					
-//				}
-//					
-//				String modifyPath = this.saveFile(reloadFile, request);
-//				if (modifyPath != null) {
-//					
-//					review.setReviewImageName(reloadFile.getOriginalFilename());
-//					review.setReviewImagePath(modifyPath);
-//					
-//				}
-//				
-//			}
+			if(!reloadFile.isEmpty()) {
+				
+				if(review.getReviewImageName() != null) {
+					
+					this.deleteFile(review.getReviewImageName(), request);
+					
+				}
+					
+				String modifyPath = this.saveFile(reloadFile, request);
+				if (modifyPath != null) {
+					
+					review.setReviewImageName(reloadFile.getOriginalFilename());
+					review.setReviewImagePath(modifyPath);
+					
+				}
+				
+			}
 				
 			int result = reviewService.modifyReview(review);
 			

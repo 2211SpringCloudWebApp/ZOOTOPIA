@@ -32,7 +32,6 @@
 					<c:if test="${like == 1 && sessionScope.loginUser.memberId ne null}"><img class="review-detail-icons" src="../../../resources/img/button_like_on.png" alt="좋아요 on" onclick="like()"></c:if> 
                     <c:if test="${like == 0 && sessionScope.loginUser.memberId ne null}"><img class="review-detail-icons" src="../../../resources/img/button_like_off.png" alt="좋아요 off" onclick="like()"></c:if> 
                     <c:if test="${like == 0 && sessionScope.loginUser.memberId ne null}"></c:if> 
-                    <img class="review-detail-icons" src="../../../resources/img/button_share.png" alt="공유"> 
                     <img class="review-detail-icons" src="../../../resources/img/button_comment.png" alt="댓글" onclick="location.href='#target';"> 
 				</div>
 				<!-- 입양한 동물에 대한 내용 -->
@@ -80,7 +79,7 @@
 	            <div class="comment" id="target">
 	            	<div class="commentForm-wrapper">
 		            	<div>
-	                    	<span>댓글</span> <img src="../../../resources/img/icon-comment.png" style="width: 20px; height: 20px;">
+	                    	<span>댓글 <img src="../../../resources/img/icon-comment.png" style="width: 15px; height: 15px;"></span>
 	                    </div>
 	            		<c:if test="${sessionScope.loginUser.memberId ne null}">
 		            		<div class="commentInput-wrapper">

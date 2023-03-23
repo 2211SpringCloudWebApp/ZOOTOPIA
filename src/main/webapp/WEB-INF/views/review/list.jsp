@@ -20,8 +20,12 @@
 	
 	<main>
 		<div></div>
-	    <div class="list">
+		
+	    <div class="review-page-title"">
+	    <div style="width: 70%; margin: 10px auto;">
 	    <h1>입양 후기</h1>
+	    </div>
+	    <hr>
 	    <form action="/manager/deleteReviews.ztp" method="get" name="deleteReviews">
 	 		<table class="review-table wrapper-table">
 		 		<tbody>
