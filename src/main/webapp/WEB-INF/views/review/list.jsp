@@ -42,7 +42,7 @@
 	     							<table class="review-table inner-table">
 		     							<tr>
 		     								<!-- 썸네일 -->
-		     								<td rowspan="3" class="thumnail-td"style="background-image: url(../../../resources/uploadFiles/review/${reviewList.reviewImageName});" >
+		     								<td rowspan="3" class="thumnail-td" <c:if test="${reviewList.reviewImageName ne null}">style="background-image: url(../../../resources/uploadFiles/review/${reviewList.reviewImageName});"</c:if><c:if test="${reviewList.reviewImageName eq null}">style="background-image: url(../../../resources/img/logo-img-white.png);"</c:if>>
 		     									<c:if test="${member.mAdminYN eq 'Y'}">
 		     										<input type="checkbox" style="width: 20px; height: 20px;" name="checkRow" value="${reviewList.reviewPostNo}">
 		     									</c:if>

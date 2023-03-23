@@ -38,7 +38,8 @@
 				<table class="review-detail-info-area">
 					<tr>
 						<td>
-							<img class="review-detail-image" src="../../../resources/uploadFiles/review/${review.reviewImageName}">
+							<c:if test="${review.reviewImageName ne null}"><img class="review-detail-image" src="../../../resources/uploadFiles/review/${review.reviewImageName}"></c:if>
+							<c:if test="${review.reviewImageName eq null}"><img class="review-detail-image" src="../../../resources/img/logo-img-white.png"></c:if>
 						</td>
 						<td>
 							<div id="vertical-line">
