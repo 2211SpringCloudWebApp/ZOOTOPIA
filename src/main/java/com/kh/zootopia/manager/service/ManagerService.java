@@ -47,10 +47,10 @@ public interface ManagerService {
 	void approveAdopts(int adoptPostNo);
 
 	// 입양공고리스트 내 여러개 삭제 Controller
-	void deleteAdopts(int adoptPostNo);
+//	void deleteAdopts(int adoptPostNo);
 	
 	// 미승인 입양공고디테일 Controller
-	AdoptAnimalPost detailAdopt(Integer animalNo);
+//	AdoptAnimalPost detailAdopt(Integer animalNo);
 
 
 	// ** 예약관리

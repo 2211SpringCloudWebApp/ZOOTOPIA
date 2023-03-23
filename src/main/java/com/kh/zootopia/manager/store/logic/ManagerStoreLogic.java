@@ -103,17 +103,17 @@ public class ManagerStoreLogic implements ManagerStore{
 	}
 
 	// 입양공고리스트 내 여러개 삭제 Controller
-	@Override
-	public void deleteAdopts(SqlSession session, int adoptPostNo) {
-		session.delete("AdoptPostMapper.deleteAdopts", adoptPostNo);
-	}
+//	@Override
+//	public void deleteAdopts(SqlSession session, int adoptPostNo) {
+//		session.delete("AdoptPostMapper.deleteAdopts", adoptPostNo);
+//	}
 	
 	// 미승인 입양공고디테일 Controller
-	@Override
-	public AdoptAnimalPost detailAdopt(SqlSession session, Integer animalNo) {
-		AdoptAnimalPost aPost = session.selectOne("AnimalMapper.detailAdopt", animalNo);
-		return aPost;
-	}
+//	@Override
+//	public AdoptAnimalPost detailAdopt(SqlSession session, Integer animalNo) {
+//		AdoptAnimalPost aPost = session.selectOne("AnimalMapper.detailAdopt", animalNo);
+//		return aPost;
+//	}
 
 
 	// ** 예약관리

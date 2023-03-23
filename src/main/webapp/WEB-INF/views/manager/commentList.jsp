@@ -20,39 +20,40 @@
 				<img alt="" src="../../../resources/img/manager-icon2.png">
 				<h1>댓글리스트</h1>
 			</div>
-
 				<div class="commentList">
-					<table>
-						<thead>
-							<tr>
-			                    <th><input type="checkbox" name="allcheck" onclick="allCheck()"></th>
-			                    <th>게시판</th>
-			                    <th>댓글내용</th>
-			                    <th>댓글작성자</th>
-							</tr>
-						</thead>
-			            <tbody>
-			            	<c:forEach items="${cList }" var="comment">
-				                <tr>
-				                    <td><input type="checkbox" id="checkRow" name="checkRow" value="${comment.commentNo }"></td>
-				                    <c:if test="${comment.boardId  eq 'A'}">
-					                    <td>입양공고</td>
-				                    </c:if>
-				                    <c:if test="${comment.boardId  eq 'R'}">
-					                    <td>입양후기</td>
-				                    </c:if>
-				                    <c:if test="${comment.boardId  eq 'N'}">
-					                    <td>공지사항</td>
-				                    </c:if>
-				                    <td><a href="/manager/detailComment.ztp?commentNo=${comment.commentNo }">${comment.commentContent }</a></td>
-				                    <td>${comment.commentWriterId }</td>
-				                </tr>	            	
-			            	</c:forEach>
-			            </tbody>
-					</table>
-					<div class="buttonTag">
-						<button type="button" onclick="deleteBtn()">삭제</button>
-					</div>
+					<form action="#" name="myform">
+						<table>
+							<thead>
+								<tr>
+				                    <th><input type="checkbox" name="allcheck" onclick="allCheck()"></th>
+				                    <th>게시판</th>
+				                    <th>댓글내용</th>
+				                    <th>댓글작성자</th>
+								</tr>
+							</thead>
+				            <tbody>
+				            	<c:forEach items="${cList }" var="comment">
+					                <tr>
+					                    <td><input type="checkbox" id="checkRow" name="checkRow" value="${comment.commentNo }"></td>
+					                    <c:if test="${comment.boardId  eq 'A'}">
+						                    <td>입양공고</td>
+					                    </c:if>
+					                    <c:if test="${comment.boardId  eq 'R'}">
+						                    <td>입양후기</td>
+					                    </c:if>
+					                    <c:if test="${comment.boardId  eq 'N'}">
+						                    <td>공지사항</td>
+					                    </c:if>
+					                    <td><a href="/manager/detailComment.ztp?commentNo=${comment.commentNo }">${comment.commentContent }</a></td>
+					                    <td>${comment.commentWriterId }</td>
+					                </tr>	            	
+				            	</c:forEach>
+				            </tbody>
+						</table>
+						<div class="buttonTag">
+							<button type="button" onclick="deleteBtn()">삭제</button>
+						</div>
+					</form>
 			        <div class="pageWrap">
 			        	<div class="pageNation">
 		        			<c:if test="${pi.currentPage > 1}">

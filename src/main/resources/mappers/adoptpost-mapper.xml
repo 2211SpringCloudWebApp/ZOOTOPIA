@@ -118,7 +118,7 @@
     </select>
 	
 	<select id="getAdoptListCount" resultType="_int">
-		SELECT COUNT(*) FROM ADOPT_POST_TBL
+		SELECT COUNT(*) FROM ADOPT_POST_TBL WHERE ADOPT_APPROVAL_YN = 'N'
 	</select>
 	<!-- 	여기까지 -->
 

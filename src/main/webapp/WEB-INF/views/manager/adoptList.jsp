@@ -21,6 +21,7 @@
 				<h1>미승인 입양공고 리스트</h1>
 			</div>
 			<div>
+				<form action="#" name="myform">
 					<table>
 						<thead>
 							<tr>
@@ -42,6 +43,7 @@
 					<div id="buttonTag">
 						<button type="button" onclick="approveBtn()">승인</button>
 					</div>
+				</form>
 				    <div class="pageWrap">
 				    	<div class="pageNation">
 		        			<c:if test="${pi.currentPage > 1}">

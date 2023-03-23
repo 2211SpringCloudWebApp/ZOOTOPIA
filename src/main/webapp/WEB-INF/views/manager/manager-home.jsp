@@ -36,6 +36,11 @@
 				    <h1 onclick="location.href='/member/list.ztp'">회원관리</h1>
 				    <img alt="" src="../../../resources/img/manager-icon2.png">
 				</div>
+				<div class="menuTap">
+					<img alt="" src="../../../resources/img/manager-icon2.png">
+				    <h1 onclick="location.href='/member/mypage.ztp?category=infoList'">마이페이지</h1>
+				    <img alt="" src="../../../resources/img/manager-icon2.png">
+				</div>
 			</main>
 			
 		<jsp:include page="../common/footer.jsp" />

@@ -190,24 +190,24 @@ public class ManagerController {
 	}
 
 	// 입양공고리스트 내 여러개 삭제 Controller
-	@RequestMapping(value="/manager/deleteAdopts.ztp", method=RequestMethod.POST)
-	public String deleteAdopts(@RequestParam("adoptPostNo") List<Integer> adoptPostNos) {
-		for(int adoptPostNo : adoptPostNos) mService.deleteAdopts(adoptPostNo);
-		return "redirect:/adoptAnimal/list.ztp";
-	}
+//	@RequestMapping(value="/manager/deleteAdopts.ztp", method=RequestMethod.POST)
+//	public String deleteAdopts(@RequestParam("adoptPostNo") List<Integer> adoptPostNos) {
+//		for(int adoptPostNo : adoptPostNos) mService.deleteAdopts(adoptPostNo);
+//		return "redirect:/adoptAnimal/list.ztp";
+//	}
 	
 	// 미승인 입양공고디테일 Controller
-	@RequestMapping(value="/manager/detailAdopt.ztp", method=RequestMethod.GET)
-	public String detailAdopt(@RequestParam("animalNo") Integer animalNo, Model model) {
-		try {
-			AdoptAnimalPost aPost = mService.detailAdopt(animalNo);
-			model.addAttribute("aPost", aPost);
-			return "manager/adoptDetail";			
-		} catch (Exception e) {
-			model.addAttribute("message", e.getMessage());
-			return "common/error";
-		}
-	}
+//	@RequestMapping(value="/manager/detailAdopt.ztp", method=RequestMethod.GET)
+//	public String detailAdopt(@RequestParam("animalNo") Integer animalNo, Model model) {
+//		try {
+//			AdoptAnimalPost aPost = mService.detailAdopt(animalNo);
+//			model.addAttribute("aPost", aPost);
+//			return "manager/adoptDetail";			
+//		} catch (Exception e) {
+//			model.addAttribute("message", e.getMessage());
+//			return "common/error";
+//		}
+//	}
 	
 	
 	// ** 예약관리

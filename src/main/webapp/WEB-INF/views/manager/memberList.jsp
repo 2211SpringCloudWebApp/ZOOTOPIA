@@ -25,29 +25,31 @@
 			    
 
 				    <div id="memberList">
-				        <table>
-				            <thead>
-				                <tr>
-				                    <th><input type="checkbox" name="allcheck" onclick="allCheck()"></th>
-				                    <th>아이디</th>
-				                    <th>이름</th>
-				                    <th>가입일자</th>
-				                </tr>
-				            </thead>
-				            <tbody>
-				            	<c:forEach items="${mList }" var="member">
+				    	<form action="#" name="myform">
+					        <table>
+					            <thead>
 					                <tr>
-					                    <td><input type="checkbox" name="checkRow" value="${member.memberId }"></td>
-					                    <td><a href="/member/detail.ztp?memberId=${member.memberId }">${member.memberId }</a></td>
-					                    <td>${member.memberName }</td>
-					                    <td>${member.mEnrollDate }</td>
-					                </tr>	            	
-				            	</c:forEach>
-				            </tbody>
-				        </table>
-					    <div id="buttonTag">
-					        <button type="button" onclick="deleteBtn()">삭제</button>
-					    </div>
+					                    <th><input type="checkbox" name="allcheck" onclick="allCheck()"></th>
+					                    <th>아이디</th>
+					                    <th>이름</th>
+					                    <th>가입일자</th>
+					                </tr>
+					            </thead>
+					            <tbody>
+					            	<c:forEach items="${mList }" var="member">
+						                <tr>
+						                    <td><input type="checkbox" name="checkRow" value="${member.memberId }"></td>
+						                    <td><a href="/member/detail.ztp?memberId=${member.memberId }">${member.memberId }</a></td>
+						                    <td>${member.memberName }</td>
+						                    <td>${member.mEnrollDate }</td>
+						                </tr>	            	
+					            	</c:forEach>
+					            </tbody>
+					        </table>
+						    <div id="buttonTag">
+						        <button type="button" onclick="deleteBtn()">삭제</button>
+						    </div>
+					    </form>
 				        <div class="pageWrap">
 				        	<div class="pageNation">
 			        			<c:if test="${pi.currentPage > 1}">
