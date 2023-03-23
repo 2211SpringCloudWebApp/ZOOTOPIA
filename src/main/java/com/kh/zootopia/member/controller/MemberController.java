@@ -23,6 +23,8 @@ import com.kh.zootopia.AdoptAnimalPost.domain.Animal;
 import com.kh.zootopia.comment.domain.Comment;
 import com.kh.zootopia.like.domain.Like;
 import com.kh.zootopia.member.domain.Member;
+import com.kh.zootopia.member.domain.MyComment;
+import com.kh.zootopia.member.domain.MyLike;
 import com.kh.zootopia.member.service.MemberService;
 import com.kh.zootopia.review.controller.ReviewController;
 import com.kh.zootopia.review.domain.PageInfo;
@@ -56,7 +58,7 @@ public class MemberController {
 
 	// 회원가입 페이지 출력
 	@RequestMapping(value = "/member/registerView" , method = RequestMethod.GET)
-	public String RegisterView() {
+	public String registerView() {
 		return "member/register";
 	}
 	
@@ -432,7 +434,7 @@ public class MemberController {
 	}
 	
 	
-	// 마이페이지 입양공고 게시글 삭제
+		// 마이페이지 입양공고 게시글 삭제
 		@RequestMapping(value="/member/mypageDeleteAdoptPost.ztp" , method = RequestMethod.GET)
 		public String mypageDeleteAdoptPost(
 				@RequestParam("adoptPostNo") List<String> adoptPostNos
@@ -441,7 +443,6 @@ public class MemberController {
 			try {
 				for(String adoptPostNo : adoptPostNos) {
 					int result = mService.deleteCheckedAdoptPost(adoptPostNo);
-					System.out.println(result);
 					if(result > 0) {
 						return "redirect:/member/mypageAdoptPost.ztp?category=adoptPostList";
 					}else {
@@ -454,10 +455,68 @@ public class MemberController {
 				model.addAttribute("message", e.getMessage());
 				return "common/error";
 			}
-			return "member/mypageAdoptPostList";
+			return "redirect:/member/mypageAdoptPost.ztp?category=adoptPostList";
 		}
 	
+	// 마이페이지 입양공고 댓글 삭제
+		@RequestMapping(value="/member/mypageDeleteAdoptPostComment.ztp" , method = RequestMethod.GET)
+		public String mypageDeleteAdoptPostComment(
+				@RequestParam("postNo") List<String> postNos
+				,HttpSession session
+				,@ModelAttribute MyComment myComment
+				,Model model
+				) {
+			try {
+				String memberId = ((Member)session.getAttribute("loginUser")).getMemberId();
+				for(String postNo : postNos) {
+					myComment.setCommentWriterId(memberId);
+					myComment.setPostNo(postNo);
+					int result = mService.deleteCheckedAdoptPostComment(myComment);
+					if(result > 0) {
+						return "redirect:/member/mypageAdoptPostComment.ztp?category=adoptPostComment";
+					}else {
+						model.addAttribute("message" , "입양공고 게시글 삭제 실패");
+						return "common/error";
+					}
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+				model.addAttribute("message", e.getMessage());
+				return "common/error";
+			}
+			return "redirect:/member/mypageAdoptPostComment.ztp?category=adoptPostComment";
+		}
 	
+	// 마이페이지 입양공고 좋아요 삭제
+		@RequestMapping(value="/member/mypageDeleteAdoptPostLike.ztp" , method = RequestMethod.GET)
+		public String mypageDeleteAdoptPostLike(
+				@RequestParam("adoptPostNo") List<String> adoptPostNos
+				,@ModelAttribute MyLike myLike
+				,HttpSession session
+				,Model model
+				) {
+			try {
+				String memberId = ((Member)session.getAttribute("loginUser")).getMemberId();
+				for(String adoptPostNo : adoptPostNos) {
+					myLike.setLikeMemberId(memberId);
+					myLike.setPostNo(adoptPostNo);
+					int result = mService.deleteCheckedAdoptPostLike(myLike);
+					if(result > 0) {
+						return "redirect:/member/mypageAdoptPostLike.ztp?category=adoptPostLike";
+					}else {
+						model.addAttribute("message" , "입양공고 게시글 삭제 실패");
+						return "common/error";
+					}
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+				model.addAttribute("message", e.getMessage());
+				return "common/error";
+			}
+			return "redirect:/member/mypageAdoptPostLike.ztp?category=adoptPostLike";
+		}
+		
+		
 	// 마이페이지 후기 게시글 삭제
 	@RequestMapping(value="/member/mypageDeleteReviewList.ztp" , method = RequestMethod.GET)
 	public String mypageDeleteReviewList(
@@ -470,7 +529,7 @@ public class MemberController {
 				int result = mService.deleteCheckedReviewList(reviewPostNo);
 				System.out.println(result);
 				if(result > 0) {
-					return "member/mypageReviewList";
+					return "redirect:/member/mypageReview.ztp?category=reviewList";
 				}else {
 					model.addAttribute("message" , "후기 게시글 삭제 실패");
 					return "common/error";
@@ -481,8 +540,69 @@ public class MemberController {
 			model.addAttribute("message", e.getMessage());
 			return "common/error";
 		}
-		return "member/mypageReviewList";
+		return "redirect:/member/mypageReview.ztp?category=reviewList";
 	}
+	
+	// 마이페이지 후기 댓글 삭제
+		@RequestMapping(value="/member/mypageDeleteReviewComment.ztp" , method = RequestMethod.GET)
+		public String mypageDeleteReviewComment(
+				@RequestParam("postNo") List<String> postNos
+				,HttpSession session
+				,@ModelAttribute MyComment myComment
+				,Model model
+				) {
+			String memberId = ((Member)session.getAttribute("loginUser")).getMemberId();
+			try {
+				for(String postNo : postNos) {
+					myComment.setCommentWriterId(memberId);
+					myComment.setPostNo(postNo);
+					int result = mService.deleteCheckedReviewComment(myComment);
+					System.out.println(result);
+					if(result > 0) {
+						return "redirect:/member/mypageReviewComment.ztp?category=reviewComment";
+					}else {
+						model.addAttribute("message" , "후기 게시글 삭제 실패");
+						return "common/error";
+					}
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+				model.addAttribute("message", e.getMessage());
+				return "common/error";
+			}
+			return "redirect:/member/mypageReviewComment.ztp?category=reviewComment";
+		}
+		
+		// 마이페이지 후기 좋아요 삭제
+		@RequestMapping(value="/member/mypageDeleteReviewLike.ztp" , method = RequestMethod.GET)
+		public String mypageDeleteReviewLike(
+				@RequestParam("reviewPostNo") List<String> reviewPostNos
+				,HttpSession session
+				,@ModelAttribute MyLike myLike
+				,Model model
+				) {
+			
+			try {
+				String memberId = ((Member)session.getAttribute("loginUser")).getMemberId();
+				for(String reviewPostNo : reviewPostNos) {
+					myLike.setLikeMemberId(memberId);
+					myLike.setPostNo(reviewPostNo);
+					int result = mService.deleteCheckedReviewLike(myLike);
+					System.out.println(result);
+					if(result > 0) {
+						return "redirect:/member/mypageReviewLike.ztp?category=reviewLike";
+					}else {
+						model.addAttribute("message" , "후기 게시글 삭제 실패");
+						return "common/error";
+					}
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+				model.addAttribute("message", e.getMessage());
+				return "common/error";
+			}
+			return "redirect:/member/mypageReviewLike.ztp?category=reviewLike";
+		}
 	
 	
 	 //마이페이지 본인이 입양한 동물들 출력 (return형식과 return값 추가해주세요)
@@ -494,9 +614,7 @@ public class MemberController {
 		
 		Member member = (Member)session.getAttribute("loginUser");
 		String memberId = member.getMemberId();
-		
 		List<Animal> animalList = mService.selectAnimalbyAnimalAdopterId(memberId);
-		
 		model.addAttribute("animalList", animalList);
 		model.addAttribute("category", category);
 		return "member/animalList";

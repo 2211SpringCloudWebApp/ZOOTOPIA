@@ -11,6 +11,8 @@ import com.kh.zootopia.AdoptAnimalPost.domain.Animal;
 import com.kh.zootopia.comment.domain.Comment;
 import com.kh.zootopia.like.domain.Like;
 import com.kh.zootopia.member.domain.Member;
+import com.kh.zootopia.member.domain.MyComment;
+import com.kh.zootopia.member.domain.MyLike;
 import com.kh.zootopia.member.service.MemberService;
 import com.kh.zootopia.member.store.MemberStore;
 import com.kh.zootopia.review.domain.PageInfo;
@@ -207,6 +209,34 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public int deleteCheckedAdoptPost(String adoptPostNo) {
 		int result = mStore.deleteCheckedAdoptPost(session, adoptPostNo);
+		return result;
+	}
+
+	// 마이페이지 입양공고 댓글 삭제 
+	@Override
+	public int deleteCheckedAdoptPostComment(MyComment myComment) {
+		int result = mStore.deleteCheckedAdoptPostComment(session, myComment);
+		return result;
+	}
+
+	// 마이페이지 입양공고 좋아요 삭제
+	@Override
+	public int deleteCheckedAdoptPostLike(MyLike myLike) {
+		int result = mStore.deleteCheckedAdoptPostLike(session, myLike);
+		return result;
+	}
+
+	// 마이페이지 후기 댓글 삭제
+	@Override
+	public int deleteCheckedReviewComment(MyComment myComment) {
+		int result = mStore.deleteCheckedReviewComment(session, myComment);
+		return result;
+	}
+
+	// 마이페이지 후기 좋아요 삭제
+	@Override
+	public int deleteCheckedReviewLike(MyLike myLike) {
+		int result = mStore.deleteCheckedReviewLike(session, myLike);
 		return result;
 	}
 	

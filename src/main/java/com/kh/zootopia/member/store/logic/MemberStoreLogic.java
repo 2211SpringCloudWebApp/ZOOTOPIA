@@ -12,6 +12,8 @@ import com.kh.zootopia.AdoptAnimalPost.domain.Animal;
 import com.kh.zootopia.comment.domain.Comment;
 import com.kh.zootopia.like.domain.Like;
 import com.kh.zootopia.member.domain.Member;
+import com.kh.zootopia.member.domain.MyComment;
+import com.kh.zootopia.member.domain.MyLike;
 import com.kh.zootopia.member.store.MemberStore;
 import com.kh.zootopia.review.domain.PageInfo;
 import com.kh.zootopia.review.domain.Review;
@@ -215,6 +217,34 @@ public class MemberStoreLogic implements MemberStore{
 	@Override
 	public int deleteCheckedAdoptPost(SqlSession session, String adoptPostNo) {
 		int result = session.delete("AdoptPostMapper.deleteAdoptPostList", adoptPostNo);
+		return result;
+	}
+
+	// 마이페이지 입양공고 댓글 삭제
+	@Override
+	public int deleteCheckedAdoptPostComment(SqlSession session, MyComment myComment) {
+		int result = session.delete("CommentMapper.deleteCheckedAdoptPostComment", myComment);
+		return result;
+	}
+	
+	// 마이페이지 입양공고 좋아요 삭제
+	@Override
+	public int deleteCheckedAdoptPostLike(SqlSession session, MyLike myLike) {
+		int result = session.delete("LikeMapper.deleteCheckedAdoptPostLike", myLike);
+		return result;
+	}
+
+	// 마이페이지 후기 댓글 삭제
+	@Override
+	public int deleteCheckedReviewComment(SqlSession session, MyComment myComment) {
+		int result = session.delete("CommentMapper.deleteCheckedReviewComment", myComment);
+		return result;
+	}
+
+	// 마이페이지 후기 좋아요 삭제
+	@Override
+	public int deleteCheckedReviewLike(SqlSession session, MyLike myLike) {
+		int result = session.delete("LikeMapper.deleteCheckedReviewLike", myLike);
 		return result;
 	}
 	

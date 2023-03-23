@@ -6,6 +6,9 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>Document</title>
+		<style type="text/css">
+			body{ cursor:url("../../../resources/img/cursor.png"), auto;}
+		</style>
 		<link rel="stylesheet" href="../../../resources/css/member/login.css">
 		<!-- Font Awesome -->
 		<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet"/>

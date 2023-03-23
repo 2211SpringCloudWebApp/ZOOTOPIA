@@ -27,7 +27,12 @@
 	<select id="getAdoptPostLikeCount" resultType="_int">
 		SELECT COUNT(*) FROM LIKE_TBL WHERE LIKE_MEMBER_ID = #{memberId} AND BOARD_ID = 'A'
 	</select>
-	
+	<delete id="deleteCheckedAdoptPostLike">
+		DELETE FROM LIKE_TBL WHERE BOARD_ID = 'A' AND POST_NO = #{myLike.postNo} AND "LIKE_MEMBER_ID" = #{myLike.likeMemberId} 
+	</delete>
+	<delete id="deleteCheckedReviewLike">
+		DELETE FROM LIKE_TBL WHERE BOARD_ID = 'R' AND POST_NO = #{myLike.postNo} AND "LIKE_MEMBER_ID" = #{myLike.likeMemberId}
+	</delete>
 	
 	<!-- 유정 -->
 	<select id="checkLikeYJ" resultType="_int">

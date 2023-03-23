@@ -6,6 +6,38 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>Document</title>
+		<style type="text/css">
+		body {
+			cursor: url("../../../resources/img/cursor.png"), auto;
+		}
+		
+		.searchBar {
+			text-align: center;
+		}
+		
+		#select-condition {
+			width: 100px;
+			height: 33px;
+			padding-left: 10px;
+			border: 1px solid #4E422D;
+			background: url(../uploadFiles/down-arrow2.png) no-repeat 95% 50%;
+			background-size: 15%;
+			border-radius: 5px;
+			appearance: none;
+			font-family: 'hanna';
+			font-size: 15px;
+		}
+		
+		#input-keyword {
+			width: 200px;
+			height: 31px;
+			border: 1px solid #4E422D;
+			border-radius: 5px;
+			font-family: 'hanna';
+			padding-left: 10px;
+			font-size: 15px;
+		}
+		</style>
 		<link rel="stylesheet" href="../../../resources/css/member/login.css">
 		<!-- Font Awesome -->
 		<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet"/>
@@ -100,7 +132,7 @@
 				<tfoot>
 				</tfoot>			
 			</table>
-				 <div id="buttonTag">
+				 <div id="buttonTag" style="padding-left: 1150px; padding-top:20px">
 			        <button type="button" onclick="deleteBtn()">삭제</button>
 			  	</div>
 				<div class="pageWrap">
@@ -125,17 +157,18 @@
 				        </c:if>
 			        </div>
 		        </div>
-		        <div class="searchBar">
-		        	<form action="/member/adoptPostSearch.ztp" method="post">
-						<select id="selectBtn" name="condition">
+		        <div class="searchBar" style="margin-top: 10px;">
+		        	<form action="/member/reviewSearch.ztp" method="post">
+						<select id="select-condition" name="condition" style="height: 41px">
 							<option value="all">전체</option>
 							<option value="no">게시글 번호</option>
 							<option value="content">내용</option>
 						</select>
-						<input type="text" name="keyword" placeholder="검색어를 입력해주세요">
-						<input type="submit" id="searchBtn" value="검색">
+						<input id="input-keyword" type="text" name="keyword" placeholder="검색어 입력" style="height: 39px">
+						<input type="hidden" name="category" value="list">
+						<button type="submit" style="height: 41px">검색</button>
 					</form>
-		        </div>
+            	</div>
 		</main>
 		<footer>
 		<jsp:include page="../common/footer.jsp" />
@@ -173,7 +206,7 @@
 					    return false;
 				  }
 				  if(confirm("삭제하시겠습니까?")){
-					location.href="/member/mypageDeleteAdoptPost.ztp?adoptPostNo="+checkRow;					
+					location.href="/member/mypageDeleteAdoptPostLike.ztp?adoptPostNo="+checkRow;					
 				  }
 			}
 	    </script>

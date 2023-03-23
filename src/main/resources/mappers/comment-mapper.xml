@@ -54,6 +54,12 @@
 	<select id="selectAdoptPostCommentList" resultMap="commentResultMap">
 		SELECT * FROM COMMENT_TBL WHERE BOARD_ID = 'A' AND COMMENT_WRITER_ID = #{memberId}
 	</select>
+	<delete id="deleteCheckedAdoptPostComment">
+		DELETE FROM COMMENT_TBL WHERE BOARD_ID = 'A' AND POST_NO = #{myComment.postNo} AND COMMENT_WRITER_ID = #{myComment.commentWriterId}
+	</delete>
+	<delete id="deleteCheckedReviewComment">
+		DELETE FROM COMMENT_TBL WHERE BOARD_ID = 'R' AND POST_NO = #{myComment.postNo} AND COMMENT_WRITER_ID = #{myComment.commentWriterId}
+	</delete>
 	
 	<!-- 유정 입양 공고 댓글 -->
     <insert id="insertAdoptComment">
