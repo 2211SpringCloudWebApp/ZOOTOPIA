@@ -22,7 +22,89 @@ main {
 }
 
 main #title{
-    width: 100vw;
-    height: 100px;
-    background-color: red;
+    /* width값 먹이면 가로스크롤 생김 ㄴㄴ함 */
+    width: 100%;
+    height: 70px;
+    /* background-color: #ccc; */
+    padding-bottom: 5px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    font-family: 'jua';
+    color: #fff7d8;
+    background-color: #4E422D;
+    font-size: 20pt;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.2);
+
+    position: fixed;
+    top: 0;
+    z-index: 100;
+}
+
+main #title>div:nth-child(2) {
+    font-family: 'hanna';
+    font-size: 13pt;
+
+}
+
+main #applicantList{
+    margin-top: 80px;
+    position: relative;
+    z-index: 0;
+
+    width: 100%;
+
+
+}
+
+main .oneApplicant {
+    border-bottom: 1px dashed #4E422D;
+
+    height: 80px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.oneApplicant>div {
+    margin-bottom: 5px;
+}
+
+.reservationNo {
+
+    font-family: 'hanna';
+    font-weight: bold;
+    color: #4E422D;
+    font-size: 16pt;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+}
+
+.adopterId, .reservationTimeStamp {
+    font-family: 'hanna';
+}
+
+#notice {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 150px;
+
+    font-size: 14pt;
+    font-family: 'hanna';
+    color: #4E422D;
+
+}
+
+#notice>div:nth-child(4) {
+    font-family: 'jua';
+    font-size: 16pt;
+    font-weight: bold;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+    margin-top: 10px;
 }

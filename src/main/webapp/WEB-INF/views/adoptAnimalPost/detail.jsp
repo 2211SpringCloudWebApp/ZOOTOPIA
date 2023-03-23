@@ -29,6 +29,12 @@
 		<h1>입양 공고 디테일 페이지입니다</h1>
 		<div>
 			<div>축종 : ${aPost.animal.animalSpecies }</div>
+			<c:if test="${aPost.animal.animalGender eq null}">
+				알 수 없음
+			</c:if>
+			<c:if test="${aPost.animal.animalGender eq null}">
+				
+			</c:if>
 			<div>성별 : ${aPost.animal.animalGender }</div>
 			<div>체중 : ${aPost.animal.animalWeight }</div>
 			<div>나이 : ${aPost.animal.animalAge }</div>
@@ -66,12 +72,6 @@
 				<!-- 작성자라면 신청자List확인할 수 있는 btn + 수정삭제 -->
 				<c:if test="${aPost.adoptPost.adoptWriterId eq loginUser.memberId }">
 					<input type="button" value="신청자 정보 확인" onclick="applicantList('${aPost.animal.animalNo }')">
-
-					<!-- 모달창으로 바꿀 신청자 리스트, 내용 알아서 수정해 -->
-					<c:forEach items="${rList}" var="reservation" varStatus="status">
-						<div>예약번호 : ${reservation.reservationNo } / 예약자Id : ${reservation.adopterId }</div>
-					</c:forEach>
-					<div>예약자 선정은 고객센터로 연락주시면 처리해드림</div>
 
 					<button onclick="location.href='/adoptAnimal/modifyView.ztp?animalNo=${aPost.animal.animalNo }'">수정하기</button>
 					<button onclick="(
