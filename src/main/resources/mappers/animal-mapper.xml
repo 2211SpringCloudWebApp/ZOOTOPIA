@@ -153,7 +153,9 @@
 	<!-- ====================== -->
 	
 	
-	
-	
+	<!-- ========== 소현 시작!! ========== -->
+	<update id="updateAdopterId">
+		UPDATE ANIMAL_TBL SET ANIMAL_ADOPTER_ID = #{adopterId} WHERE ANIMAL_NO = #{animalNo}
+	</update>
 	
 </mapper>

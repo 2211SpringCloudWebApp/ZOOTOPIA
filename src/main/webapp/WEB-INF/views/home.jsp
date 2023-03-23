@@ -17,6 +17,11 @@
 			<!-- 정훈님이 추가해달라고 하신 거, 로그인 알림 -->
 			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.min.css">
 			<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.all.min.js"></script>
+			
+			<!-- 마우스커서 -->
+			<style type="text/css">
+				body{ cursor:url("../../../resources/img/cursor.png"), auto;}
+			</style>
 
 		</head>
 
@@ -85,7 +90,7 @@
 					비로그인 상태라면 로그인해야 이용할 수 있다고 팝업 띄우고
 					로그인 페이지로 이동
 				-->
-						<div>
+						<div id="background-img3">
 							<c:if test="${sessionScope.loginUser ne null }">
 								<!-- 로그인 상태라면 내 입양 동물 목록으로 -->
 								<h1 onclick="location.href='/'">입양 후기 등록하기</h1>
@@ -112,7 +117,7 @@
 						<!-- 위에 헤더를 위한 공간 빼둘 div -->
 						<div></div>
 						<!-- 매칭 관련 내용이 들어갈 자리 -->
-						<div>
+						<div id="background-img4">
 							<h1 onclick="location.href='/matching/mainView.ztp'">매칭 페이지로 이동하기</h1>
 						</div>
 					</section>

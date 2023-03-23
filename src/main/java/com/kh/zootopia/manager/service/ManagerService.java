@@ -8,52 +8,80 @@ import com.kh.zootopia.comment.domain.Comment;
 import com.kh.zootopia.manager.domain.DateDTO;
 import com.kh.zootopia.manager.domain.Search;
 import com.kh.zootopia.member.domain.Member;
+import com.kh.zootopia.reservation.domain.Reservation;
 import com.kh.zootopia.review.domain.PageInfo;
 
 public interface ManagerService {
-
+	
+	// **회원관리
+	// 멤버리스트 Controller
 	List<Member> selectMembers(PageInfo pi);
 
-	Member selectOneById(String memberId);
-
-	int deleteMember(String memberId);
-
-	List<Member> searchMember(Search search, PageInfo pi);
-
-	void deleteCheckedMembers(String memberId);
-
-	List<AdoptPost> selectAdopt(PageInfo pi);
-
-	void approveAdopts(int adoptPostNo);
-
-	void deleteAdopts(int adoptPostNo);
-	
-	AdoptAnimalPost detailAdopt(Integer animalNo);
-
-//	예약페이지
-	List<AdoptPost> viewReservation(DateDTO dateDTO);
-
-	int approveReserv(int reservationNo);
-
-//	페이징처리
+	// 멤버리스트 페이징처리
 	int getMemberListCount();
 
-	int getAdoptListCount();
+	// 멤버검색 Controller
+	List<Member> searchMember(Search search, PageInfo pi);
 
-	void deleteCheckedReviews(int reviewPostNo);
+	// 멤버검색 페이징처리
+	int getSearchMemberCount(Search search);
 
-//	댓글리스트
-	List<Comment> selectComments(PageInfo pi);
+	// 멤버디테일 Controller
+	Member selectOneById(String memberId);
 
-	int getCommentListCount();
+	// 멤버삭제 Controller
+	int deleteMember(String memberId);
 
-	void deleteCheckedComments(int commentNo);
-
-	Comment detailComment(int commentNo);
-
-	int deleteComment(int commentNo);
+	// 체크된멤버삭제 Controller
+	void deleteCheckedMembers(String memberId);
 
 	
+	// ** 입양공고관리
+	// 미승인 입양공고리스트 Controller
+	List<AdoptAnimalPost> selectAdopt(PageInfo pi);
+
+	// 미승인 입양공고리스트 페이징처리
+	int getAdoptListCount();
+
+	// 미승인 입양공고리스트에서 승인 Controller
+	void approveAdopts(int adoptPostNo);
+
+	// 입양공고리스트 내 여러개 삭제 Controller
+	void deleteAdopts(int adoptPostNo);
+	
+	// 미승인 입양공고디테일 Controller
+	AdoptAnimalPost detailAdopt(Integer animalNo);
+
+
+	// ** 예약관리
+	// 예약페이지 Detail Controller
+	List<AdoptPost> viewReservation(DateDTO dateDTO);
+
+	// 예약승인 Controller
+	int approveReserv(Reservation rParam);
+	Reservation selectOneByReservationNo(int reservationNo);
+
+
+	// ** 리뷰관리
+	// 체크된 리뷰삭제 Controller
+	void deleteCheckedReviews(int reviewPostNo);
+
+
+	// **댓글관리
+	// 댓글리스트 Controller
+	List<Comment> selectComments(PageInfo pi);
+
+	// 댓글리스트 페이징처리
+	int getCommentListCount();
+
+	// 체크된댓글삭제 Controller
+	void deleteCheckedComments(int commentNo);
+
+	// 댓글디테일 Controller
+	Comment detailComment(int commentNo);
+
+	// 댓글삭제 Controller
+	int deleteComment(int commentNo);
 
 
 }

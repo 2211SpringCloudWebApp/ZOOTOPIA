@@ -32,5 +32,9 @@
 	<update id="approveReserv">
 		UPDATE ADOPT_RESERVATION_TBL SET ADOPTED_YN = 'Y' WHERE RESERVATION_NO = #{reservationNo}
 	</update>
+	
+	<select id="selectOneByReservationNo" resultMap="reservationResultMap" >
+		SELECT * FROM ADOPT_RESERVATION_TBL WHERE RESERVATION_NO = #{reservationNo }
+	</select>
 
 </mapper>
