@@ -26,39 +26,247 @@
 		<div></div>
 
 
-		<h1>입양 공고 디테일 페이지입니다</h1>
-		<div>
-			<div>축종 : ${aPost.animal.animalSpecies }</div>
-			<c:if test="${aPost.animal.animalGender eq null}">
-				알 수 없음
-			</c:if>
-			<c:if test="${aPost.animal.animalGender eq null}">
-				
-			</c:if>
-			<div>성별 : ${aPost.animal.animalGender }</div>
-			<div>체중 : ${aPost.animal.animalWeight }</div>
-			<div>나이 : ${aPost.animal.animalAge }</div>
-			<div>중성화여부 : ${aPost.animal.neuterYN }</div>
-			<div>지역 : ${aPost.animal.animalAddr }</div>
-			<div>ㅡㅡㅡㅡㅡㅡ</div>
-			<div>작성자아이디 : ${aPost.adoptPost.adoptWriterId }</div>
-			<div>작성일 : ${aPost.adoptPost.adoptCreateDate }</div>
-			<div>게시글내용 : ${aPost.adoptPost.adoptContent }</div>
-			<div>ㅇㅣ미지 출력 : ${aPost.adoptPost.adoptImageName }</div>
-			<c:set var="imageNames" value="${aPost.adoptPost.adoptImageName}" />
-			<c:set var="imageNameArr" value="${fn:split(imageNames, ';')}" />
-			<c:forEach var="imageName" items="${imageNameArr}">
-				<img src="../../../resources/uploadFiles/${imageName }" alt="" class="modal-trigger" data-modal-target="#modal-${imageName }">
-				<div id="modal-${imageName }" class="modal">
-					<div class="modal-content">
-						<img src="" alt="모달 이미지" />
-						<span class="close">&times;</span>
+		<div id="adoptPost-area">
+
+			<div id="writer-and-date">
+				<div>작성자 ${aPost.adoptPost.adoptWriterId }</div>
+				<c:set var="adoptCreateTimeStamp" value="${aPost.adoptPost.adoptCreateDate }" />
+				<c:set var="aTime" value="${fn:substring(adoptCreateTimeStamp, 0, 16)}" />	
+				<div>${aTime }</div>
+			</div>
+
+			<div id="modify-remove-btn-area">
+				<!-- 로그인 상태일 경우 -->
+				<c:if test="${loginUser.memberId ne null}">
+					<!-- 로그인 아이디가 작성자라면 수정삭제 btn -->
+					<c:if test="${aPost.adoptPost.adoptWriterId eq loginUser.memberId }">
+						<button onclick="(
+							function() { 
+								var bool = confirm('정말로 삭제하시겠습니까?');
+								if (bool) {
+									location.href = '/adoptAnimal/delete.ztp?animalNo=${aPost.animal.animalNo }';
+								}
+								return bool
+							}
+							)();">삭 제</button>
+						<button onclick="location.href='/adoptAnimal/modifyView.ztp?animalNo=${aPost.animal.animalNo }'">수 정</button>
+					</c:if>
+				</c:if>
+			</div>
+
+			<div id="ivory-area">
+				<!-- 이미지 -->
+				<div id="ivory-image-area">
+
+					<c:if test="${aPost.adoptPost.adoptImageName eq null}">
+						<div>이미지 없음</div>
+					</c:if>
+
+					<c:if test="${aPost.adoptPost.adoptImageName ne null}">
+
+						<c:set var="imageNames" value="${aPost.adoptPost.adoptImageName}" />
+						<c:set var="imageNameArr" value="${fn:split(imageNames, ';')}" />
+
+						<table>
+							<c:forEach var="imageName" items="${imageNameArr}" varStatus="status">
+								<c:if test="${status.index % 2 == 0}">
+									<tr>
+								</c:if>
+										<td>
+											<img src="../../../resources/uploadFiles/${imageName }" alt="" class="modal-trigger" data-modal-target="#modal-${imageName }">
+											<div id="modal-${imageName }" class="modal">
+												<div class="modal-content">
+													<img src="" alt="모달 이미지" />
+													<span class="close">&times;</span>
+												</div>
+											</div>
+										</td>
+								<c:if test="${status.index % 2 == 1 || status.last}">
+									</tr>
+								</c:if>
+							</c:forEach>
+						</table>
+					</c:if>
+					<!-- 이미지가 있는 경우 if문 끝 -->
+				</div>
+
+				<div id="ivory-info-area">
+					<div>
+						<div>축종 : ${aPost.animal.animalSpecies }</div>
+						<div>지역 : ${aPost.animal.animalAddr }</div>
+	
+						<!-- 성별 -->
+						<c:if test="${aPost.animal.animalGender eq null}">	
+							<div>성별 : 알 수 없음</div>
+						</c:if>
+						<c:if test="${aPost.animal.animalGender ne null}">
+							<div>성별 : ${aPost.animal.animalGender }</div>				
+						</c:if>
+	
+						<!-- 체중 -->
+						<c:if test="${aPost.animal.animalWeight eq 0}">
+							<div>체중 : 알 수 없음</div>
+						</c:if>
+						<c:if test="${aPost.animal.animalWeight ne 0}">
+							<div>체중 : ${aPost.animal.animalWeight }</div>
+						</c:if>
+	
+						<!-- 나이 -->
+						<c:if test="${aPost.animal.animalAge eq 0}">
+							<div>나이 : 알 수 없음</div>
+						</c:if>
+						<c:if test="${aPost.animal.animalAge ne 0}">
+							<div>나이 : ${aPost.animal.animalAge }</div>
+						</c:if>
+	
+						<!-- 중성화 여부 -->
+						<c:if test="${aPost.animal.neuterYN eq null}">	
+							<div>중성화 여부 : 알 수 없음</div>
+						</c:if>
+						<c:if test="${aPost.animal.neuterYN ne null}">
+							<div>중성화 여부 : ${aPost.animal.neuterYN }</div>				
+						</c:if>
+						
+						<div>게시글내용 : ${aPost.adoptPost.adoptContent }</div>
 					</div>
 				</div>
-			</c:forEach>
+			</div>	
+			
+			<div id="grey-area">
+				<div>
+					<img src="../../../resources/img/icon-comment.png" alt="">
+					<div>&nbsp;댓글</div>
+				</div>
+				<div id="comment-area">
+					<div id="comment-n-replyComment-area">
+		
+						<!-- 댓글 등록하는 폼태그 시작 -->
+						<form action="/adoptAnimal/addComment.ztp" method="post" id="commentForm">
+							<input type="hidden" name="boardId" value="${aPost.adoptPost.boardId }">
+							<input type="hidden" name="postNo" value="${aPost.adoptPost.adoptPostNo }">
+							<input type="hidden" name="parentCommentNo" value="0">
+							<input type="hidden" name="commentWriterId" value="${loginUser.memberId }">
+							<!-- animalNo에 해당하는 aPost를 다시 가져오기 위함 -->
+							<input type="hidden" name="animalNo" value="${aPost.animal.animalNo }">
+							<input type="text" name="commentContent" placeholder="&nbsp;&nbsp;&nbsp;댓글을 입력해주세요!">
+		
+							<!-- 로그인이 된 상태일 경우 -->
+							<c:if test="${loginUser.memberId ne null}">
+								<button type="submit" id="comment-btn">등록</button>
+							</c:if>
+							<!-- 로그인이 안 된 상태일 경우 -->
+							<c:if test="${loginUser.memberId eq null}">
+								<button type="submit" onclick="return checkLogin()">댓글 등록(로그인 ㄴㄴ)</button>
+							</c:if>
+						</form>
+						<!-- 댓글 등록하는 폼태그 종료 -->
+		
+						<!-- 여기부터 댓글 리스트 출력 -->
+						<!-- parentCommentNo = 0인 댓글만 가져와서 출력함 -->
+						<c:forEach var="comment" items="${commentList }">
+							<!-- 부모댓글번호가 0인 댓글 = 대댓글이 아닌 댓글만!  -->
+							<c:if test="${comment.parentCommentNo == 0}">
+								<div class="comment">
+									<div>작성자 : ${comment.commentWriterId }
+										<button class="replyCommentBtn" data-comment-no="${comment.commentNo }">답글작성</button>
+										<c:if test="${comment.commentWriterId eq loginUser.memberId}">
+											<button class="updateCommentBtn" data-comment-no="${comment.commentNo }" id="updateCommentBtn-${comment.commentNo }">수정</button>
+											<button onclick="(
+												function() { 
+													var bool = confirm('정말로 삭제하시겠습니까?');
+													if (bool) {
+														location.href = '/adoptAnimal/deleteComment.ztp?commentNo=${comment.commentNo }&boardId=${comment.boardId }&postNo=${comment.postNo }&animalNo=${aPost.animal.animalNo }';
+													}
+													return bool
+												}
+											)();">삭제</button>
+										</c:if>
+									</div>
+									<div id="commentContent-${comment.commentNo }">${comment.commentContent }</div>
+									<form action="/adoptAnimal/updateComment.ztp" method="post" id="commentContentUpadteArea-${comment.commentNo }">
+		
+										<!-- 다시 해당 디테일로 돌아오기 위해 animalNo 전달 -->
+										<input type="hidden" name="animalNo" value="${aPost.animal.animalNo }">
+		
+										<!-- 쿼리문에 이용할 것들 -->
+										<input type="hidden" name="boardId" value="${comment.boardId }">
+										<input type="hidden" name="postNo" value="${comment.postNo }">
+										<input type="hidden" name="commentNo" value="${comment.commentNo }">
+										<input type="text" name="commentContent" value="${comment.commentContent }">
+										<button type="submit">수정하기</button>
+									</form>
+									<br>
+								</div>
+							</c:if>
+		
+							<!-- 대댓글 등록하는 폼태그 시작 -->
+							<form action="/adoptAnimal/addComment.ztp" method="post" class="commentReplyForm"
+								id="commentReplyForm-${comment.commentNo}">
+								<input type="hidden" name="boardId" value="${aPost.adoptPost.boardId }">
+								<input type="hidden" name="postNo" value="${aPost.adoptPost.adoptPostNo }">
+								<input type="hidden" name="parentCommentNo" value="${comment.commentNo }">
+								<input type="hidden" name="commentWriterId" value="${loginUser.memberId }">
+								<!-- animalNo에 해당하는 aPost를 다시 가져오기 위함 -->
+								<input type="hidden" name="animalNo" value="${aPost.animal.animalNo }">
+								<input type="text" name="commentContent" placeholder="댓글을 입력해주세요!">
+								<br>
+		
+								<!-- 로그인이 된 상태일 경우 -->
+								<c:if test="${loginUser.memberId ne null}">
+									<input type="submit" value="댓글 등록">
+								</c:if>
+								<!-- 로그인이 안 된 상태일 경우 -->
+								<c:if test="${loginUser.memberId eq null}">
+									<button type="submit" onclick="return checkLogin()">댓글 등록(로그인 ㄴㄴ)</button>
+								</c:if>
+							</form>
+							<!-- 대댓글 등록하는 폼태그 종료 -->
+		
+							<!-- 대댓글 리스트 출력 -->
+							<c:forEach var="replyComment" items="${commentList }">
+								<c:if test="${replyComment.parentCommentNo eq comment.commentNo}">
+									<div class="replyComment">
+										<div>작성자 : ${replyComment.commentWriterId }
+											<c:if test="${replyComment.commentWriterId eq loginUser.memberId}">
+												<button class="updateCommentBtn" data-comment-no="${replyComment.commentNo }" id="updateCommentBtn-${replyComment.commentNo }">수정</button>
+												<button onclick="(
+													function() { 
+														var bool = confirm('정말로 삭제하시겠습니까?');
+														if (bool) {
+															location.href = '/adoptAnimal/deleteComment.ztp?commentNo=${replyComment.commentNo }&boardId=${replyComment.boardId }&postNo=${replyComment.postNo }&animalNo=${aPost.animal.animalNo }';
+														}
+														return bool
+													}
+												)();">삭제</button>
+											</c:if>
+										</div>
+										<div id="commentContent-${replyComment.commentNo }">${replyComment.commentContent }</div>
+										<form action="/adoptAnimal/updateComment.ztp" method="post" id="commentContentUpadteArea-${replyComment.commentNo }">
+											<!-- 다시 해당 디테일로 돌아오기 위해 animalNo 전달 -->
+											<input type="hidden" name="animalNo" value="${aPost.animal.animalNo }">
+		
+											<!-- 쿼리문에 이용할 것들 -->
+											<input type="hidden" name="boardId" value="${replyComment.boardId }">
+											<input type="hidden" name="postNo" value="${replyComment.postNo }">
+											<input type="hidden" name="commentNo" value="${replyComment.commentNo }">
+											<textarea name="commentContent" cols="30" rows="10">${replyComment.commentContent }</textarea>
+		
+											<button type="submit">수정하기</button>
+										</form>
+										<br>
+									</div>
+								</c:if>
+							</c:forEach>
+		
+						</c:forEach>
+		
+					</div>
+				</div>
+			</div>
 			
 		</div>
 
+		<!-- 관심, 공유, 예약, 신청자정보 버튼 공간 시작 -->
 		<div>
 			<button type="button" class="like-button" data-board-id="${aPost.adoptPost.boardId }"
 				data-post-no="${aPost.adoptPost.adoptPostNo }">관심</button>
@@ -66,23 +274,17 @@
 
 			<br>
 
+			<!-- 로그인이 안 된 상태일 경우 -->
+			<c:if test="${loginUser.memberId eq null}">
+				<!-- 예약신청버튼 : 누르면 로그인 alert와 함께 로그인 페이지로 이동-->
+				<input type="button" value="예약하기" onclick="checkLogin()">
+			</c:if>
+
 			<!-- 로그인이 된 상태일 경우 -->
 			<c:if test="${loginUser.memberId ne null}">
-
-				<!-- 작성자라면 신청자List확인할 수 있는 btn + 수정삭제 -->
+				<!-- 작성자라면 신청자List확인할 수 있는 btn -->
 				<c:if test="${aPost.adoptPost.adoptWriterId eq loginUser.memberId }">
 					<input type="button" value="신청자 정보 확인" onclick="applicantList('${aPost.animal.animalNo }')">
-
-					<button onclick="location.href='/adoptAnimal/modifyView.ztp?animalNo=${aPost.animal.animalNo }'">수정하기</button>
-					<button onclick="(
-						function() { 
-							var bool = confirm('정말로 삭제하시겠습니까?');
-							if (bool) {
-								location.href = '/adoptAnimal/delete.ztp?animalNo=${aPost.animal.animalNo }';
-							}
-							return bool
-						}
-					)();">삭제하기</button>
 				</c:if>
 
 				<!-- 작성자가 아니라면 예약신청 or 예약취소-->
@@ -125,159 +327,10 @@
 						</c:if>
 
 					</c:if> <!-- 신청자가 있다면 끝 -->
-
 				</c:if>  <!-- 작성자가 아니라면 끝 -->
-
 			</c:if>  <!-- 로그인 상태일 경우 끝 -->
-
-			<!-- 로그인이 안 된 상태일 경우 -->
-			<c:if test="${loginUser.memberId eq null}">
-
-				<!-- 예약신청버튼 : 누르면 로그인 alert와 함께 로그인 페이지로 이동-->
-				<input type="button" value="예약하기" onclick="checkLogin()">
-
-			</c:if>
-
-
-
 		</div>
-
-		<div>
-			댓글
-
-			<h1>댓글 등록 부분</h1>
-			<h3>boardId : ${aPost.adoptPost.boardId }</h3>
-			<h3>postNo : ${aPost.adoptPost.adoptPostNo }</h3>
-			<h3>commentWriterId : ${loginUser.memberId }</h3>
-
-			<div id="comment-n-replyComment-area">
-
-				<!-- 댓글 등록하는 폼태그 시작 -->
-				<form action="/adoptAnimal/addComment.ztp" method="post" id="commentForm">
-					<input type="hidden" name="boardId" value="${aPost.adoptPost.boardId }">
-					<input type="hidden" name="postNo" value="${aPost.adoptPost.adoptPostNo }">
-					<input type="hidden" name="parentCommentNo" value="0">
-					<input type="hidden" name="commentWriterId" value="${loginUser.memberId }">
-					<!-- animalNo에 해당하는 aPost를 다시 가져오기 위함 -->
-					<input type="hidden" name="animalNo" value="${aPost.animal.animalNo }">
-					<textarea name="commentContent" rows="3"></textarea>
-					<br>
-
-					<!-- 로그인이 된 상태일 경우 -->
-					<c:if test="${loginUser.memberId ne null}">
-						<input type="submit" value="댓글 등록">
-					</c:if>
-					<!-- 로그인이 안 된 상태일 경우 -->
-					<c:if test="${loginUser.memberId eq null}">
-						<button type="submit" onclick="return checkLogin()">댓글 등록(로그인 ㄴㄴ)</button>
-					</c:if>
-				</form>
-				<!-- 댓글 등록하는 폼태그 종료 -->
-
-				<h1>댓글 리스트 출력</h1>
-				<!-- parentCommentNo = 0인 댓글만 가져와서 출력함 -->
-				<c:forEach var="comment" items="${commentList }">
-					<!-- 부모댓글번호가 0인 댓글 = 대댓글이 아닌 댓글만!  -->
-					<c:if test="${comment.parentCommentNo == 0}">
-						<div class="comment">
-							<div>작성자 : ${comment.commentWriterId }
-								<button class="replyCommentBtn" data-comment-no="${comment.commentNo }">답글작성</button>
-								<c:if test="${comment.commentWriterId eq loginUser.memberId}">
-									<button class="updateCommentBtn" data-comment-no="${comment.commentNo }" id="updateCommentBtn-${comment.commentNo }">수정</button>
-									<button onclick="(
-										function() { 
-											var bool = confirm('정말로 삭제하시겠습니까?');
-											if (bool) {
-												location.href = '/adoptAnimal/deleteComment.ztp?commentNo=${comment.commentNo }&boardId=${comment.boardId }&postNo=${comment.postNo }&animalNo=${aPost.animal.animalNo }';
-											}
-											return bool
-										}
-									)();">삭제</button>
-								</c:if>
-							</div>
-							<div id="commentContent-${comment.commentNo }">${comment.commentContent }</div>
-							<form action="/adoptAnimal/updateComment.ztp" method="post" id="commentContentUpadteArea-${comment.commentNo }">
-
-								<!-- 다시 해당 디테일로 돌아오기 위해 animalNo 전달 -->
-								<input type="hidden" name="animalNo" value="${aPost.animal.animalNo }">
-
-								<!-- 쿼리문에 이용할 것들 -->
-								<input type="hidden" name="boardId" value="${comment.boardId }">
-								<input type="hidden" name="postNo" value="${comment.postNo }">
-								<input type="hidden" name="commentNo" value="${comment.commentNo }">
-								<textarea name="commentContent" cols="30" rows="10">${comment.commentContent }</textarea>
-
-								<button type="submit">수정하기</button>
-							</form>
-							<br>
-						</div>
-					</c:if>
-
-					<!-- 대댓글 등록하는 폼태그 시작 -->
-					<form action="/adoptAnimal/addComment.ztp" method="post" class="commentReplyForm"
-						id="commentReplyForm-${comment.commentNo}">
-						<input type="hidden" name="boardId" value="${aPost.adoptPost.boardId }">
-						<input type="hidden" name="postNo" value="${aPost.adoptPost.adoptPostNo }">
-						<input type="hidden" name="parentCommentNo" value="${comment.commentNo }">
-						<input type="hidden" name="commentWriterId" value="${loginUser.memberId }">
-						<!-- animalNo에 해당하는 aPost를 다시 가져오기 위함 -->
-						<input type="hidden" name="animalNo" value="${aPost.animal.animalNo }">
-						<textarea name="commentContent" rows="3"></textarea>
-						<br>
-
-						<!-- 로그인이 된 상태일 경우 -->
-						<c:if test="${loginUser.memberId ne null}">
-							<input type="submit" value="댓글 등록">
-						</c:if>
-						<!-- 로그인이 안 된 상태일 경우 -->
-						<c:if test="${loginUser.memberId eq null}">
-							<button type="submit" onclick="return checkLogin()">댓글 등록(로그인 ㄴㄴ)</button>
-						</c:if>
-					</form>
-					<!-- 대댓글 등록하는 폼태그 종료 -->
-
-					<!-- 대댓글 리스트 출력 -->
-					<c:forEach var="replyComment" items="${commentList }">
-						<c:if test="${replyComment.parentCommentNo eq comment.commentNo}">
-							<div class="replyComment">
-								<div>작성자 : ${replyComment.commentWriterId }
-									<c:if test="${replyComment.commentWriterId eq loginUser.memberId}">
-										<button class="updateCommentBtn" data-comment-no="${replyComment.commentNo }" id="updateCommentBtn-${replyComment.commentNo }">수정</button>
-										<button onclick="(
-											function() { 
-												var bool = confirm('정말로 삭제하시겠습니까?');
-												if (bool) {
-													location.href = '/adoptAnimal/deleteComment.ztp?commentNo=${replyComment.commentNo }&boardId=${replyComment.boardId }&postNo=${replyComment.postNo }&animalNo=${aPost.animal.animalNo }';
-												}
-												return bool
-											}
-										)();">삭제</button>
-									</c:if>
-								</div>
-								<div id="commentContent-${replyComment.commentNo }">${replyComment.commentContent }</div>
-								<form action="/adoptAnimal/updateComment.ztp" method="post" id="commentContentUpadteArea-${replyComment.commentNo }">
-									<!-- 다시 해당 디테일로 돌아오기 위해 animalNo 전달 -->
-									<input type="hidden" name="animalNo" value="${aPost.animal.animalNo }">
-
-									<!-- 쿼리문에 이용할 것들 -->
-									<input type="hidden" name="boardId" value="${replyComment.boardId }">
-									<input type="hidden" name="postNo" value="${replyComment.postNo }">
-									<input type="hidden" name="commentNo" value="${replyComment.commentNo }">
-									<textarea name="commentContent" cols="30" rows="10">${replyComment.commentContent }</textarea>
-
-									<button type="submit">수정하기</button>
-								</form>
-								<br>
-							</div>
-						</c:if>
-					</c:forEach>
-
-				</c:forEach>
-
-			</div>
-
-
-		</div>
+		<!-- 관심, 공유, 예약, 신청자정보 버튼 공간 끝 -->
 
 	</main>
 
@@ -423,6 +476,30 @@
 					}
 				});
 			});
+		});
+
+		// 페이지 스크롤에 따라 상단 베이지 배경 높이 조절
+        // 처음 페이지가 열렸을 때
+		window.addEventListener('load', function() {
+		document.getElementById('section1').style.height = '250px';
+		});
+
+		// 스크롤 할 때 
+		window.addEventListener('scroll', function() {
+		// 스크롤 위치 계산
+		var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+		// 스크롤을 내린 경우
+		if (scrollTop > 0 && scrollTop < 250) {
+			document.getElementById('section1').style.height = (250 - scrollTop) + 'px';
+		}
+		// 스크롤을 올린 경우
+		else if (scrollTop <= 0) {
+			document.getElementById('section1').style.height = '250px';
+		}
+		// 스크롤을 더 내린 경우
+		else {
+			document.getElementById('section1').style.height = '0';
+		}
 		});
 
 	</script>

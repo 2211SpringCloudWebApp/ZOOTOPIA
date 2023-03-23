@@ -61,11 +61,13 @@
 					<li>
 						<label for="" class="postContentLabel">체중</label>
 						<input type="number" name="animalWeight"> kg
+						<div>체중을 알 수 없을 경우 '0'입력</div>
 					</li>
 
 					<li>
 						<label for="" class="postContentLabel">추정 나이</label>
 						<input type="number" name="animalAge"> 살
+						<div>나이를 알 수 없을 경우 '0'입력</div>
 					</li>
 
 					<li>
