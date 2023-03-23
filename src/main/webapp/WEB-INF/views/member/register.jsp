@@ -37,7 +37,7 @@
 			<div class="field birth">
 				<b>생년월일</b>
 				<div>
-					<input type="text" name="year" placeholder="년(4자)"> <select>
+					<input type="text" name="year" placeholder="년(4자)"> <select name="month">
 						<option value="">월</option>
 						<option value="1">1월</option>
 						<option value="2">2월</option>
