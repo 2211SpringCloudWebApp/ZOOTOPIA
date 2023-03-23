@@ -1,10 +1,10 @@
 @font-face{
     font-family: 'jua';
-    src: url(../font/BMJUA_ttf.ttf);
+    src: url(../../font/BMJUA_ttf.ttf);
 }
 @font-face{
     font-family: 'hanna';
-    src: url(../font/BMHANNAAir_ttf.ttf);
+    src: url(../../font/BMHANNAAir_ttf.ttf);
     /* unicode-range: U+0020-007F; */
 }
 * {
