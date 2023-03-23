@@ -23,6 +23,7 @@ import com.kh.zootopia.manager.domain.DateDTO;
 import com.kh.zootopia.manager.domain.Search;
 import com.kh.zootopia.manager.service.ManagerService;
 import com.kh.zootopia.member.domain.Member;
+import com.kh.zootopia.reservation.domain.Reservation;
 import com.kh.zootopia.review.controller.ReviewController;
 import com.kh.zootopia.review.domain.PageInfo;
 
@@ -95,7 +96,7 @@ public class ManagerController {
 		try {
 			String adminYN = checkAdmin(session, model);
 			if(adminYN.equals("Y")) {
-				int totalCount = mService.getMemberListCount();
+				int totalCount = mService.getSearchMemberCount(search);
 				PageInfo pi = reviewController.getPageInfo(page, totalCount);
 				
 				List<Member> mList = mService.searchMember(search, pi);
@@ -167,7 +168,7 @@ public class ManagerController {
 			if(adminYN.equals("Y")) {
 				int totalCount = mService.getAdoptListCount();
 				PageInfo pi = reviewController.getPageInfo(page, totalCount);
-				List<AdoptPost> aList = mService.selectAdopt(pi);
+				List<AdoptAnimalPost> aList = mService.selectAdopt(pi);
 				model.addAttribute("pi", pi);
 				model.addAttribute("aList", aList);
 				return "manager/adoptList";	
@@ -246,7 +247,10 @@ public class ManagerController {
 	@RequestMapping(value="/manager/approveReserv.ztp", method=RequestMethod.POST)
 	public String approveReserv(@RequestParam("reservationNo") int reservationNo, Model model) {
 		try {
-			int result = mService.approveReserv(reservationNo);
+			// 예약 번호에 맞는 reservation객체 가져오기
+			Reservation rParam = mService.selectOneByReservationNo(reservationNo);
+			//SELECT * FROM ADOPT_RESERVATION_TBL WHERE ANIMAL_NO = #{aniamlNo }
+			int result = mService.approveReserv(rParam);
 			if(result > 0) {
 				return "redirect:/manager/viewReservation.ztp";
 			}else {
@@ -254,6 +258,7 @@ public class ManagerController {
 				return "common/error";
 			}
 		} catch (Exception e) {
+			e.printStackTrace();
 			model.addAttribute("message", e.getMessage());
 			return "common/error";
 		}

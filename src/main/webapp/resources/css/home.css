@@ -129,7 +129,7 @@ main #background-img {
 
 /* section2 */
 main #background-img2 {
-/*     background-image: linear-gradient(rgba(0, 0, 0, 0.0), rgba(0, 0, 0, 0.0)), url(../img/cat-dog2.jpg); */
+    background-image: url(../img/cat-dog2.png);
     background-repeat: no-repeat;
     background-size: cover;
     /* 창 크기가 어떻든 이미지의 가운데를 보여주는 설정임 */
@@ -137,25 +137,59 @@ main #background-img2 {
 /*     position: absolute;    */
 /*     opacity: 0.5;  */
 }
-    main #background-img2 h1 {
-        /* 배경보다 글자 올리려고 한 건데 필요 없을 듯? */
-/*         z-index: 1; */
-        color: #332a1a;
-    }
-    
-  #wrapper:after {
-    content : "";                           
-    display: block;                         
-    position: absolute;                     
-    top: 0;                                 
-    left: 0;                               
-    height: 100%;                           
-    width: 100%;                            
-    background-image: url(../img/cat-dog2.jpg); 	
-    background-repeat: no-repeat;                   
-    background-position: center;                    
-    opacity:0.25!important;                         
-    filter:alpha(opacity=25);                      
-    z-index: -1;                            
-  }
-    
+main #background-img2 h1 {
+	margin-bottom: 40px;
+/*   	color: #332a1a; */
+  	font-size: 40px;
+	color: white;	
+}
+main #background-img2 h1:hover{
+}
+
+main #background-img2 h1:hover {
+	margin-bottom: 40px;
+ 	color: #fff;
+  	text-shadow: 5px 5px #332a1a, 8px 8px #6d5b38, 11px 11px #C6BDAD, 14px 14px #dad3c9;
+}
+
+/* section3     */
+main #background-img3 {
+    background-image: url(../img/cat-dog3.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    /* 창 크기가 어떻든 이미지의 가운데를 보여주는 설정임 */
+    background-position: center center;
+/*     position: absolute;    */
+/*     opacity: 0.5;  */
+} 
+main #background-img3 h1 {
+	margin-bottom: 40px;
+  	color: #fff;
+  	font-size: 40px;
+}
+main #background-img3 h1:hover {
+	margin-bottom: 40px;
+ 	color: #fff;
+  	text-shadow: 5px 5px #332a1a, 8px 8px #6d5b38, 11px 11px #C6BDAD, 14px 14px #dad3c9;
+}
+
+/* section4     */
+main #background-img4 {
+    background-image: url(../img/cat-dog4.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    /* 창 크기가 어떻든 이미지의 가운데를 보여주는 설정임 */
+    background-position: center center;
+/*     position: absolute;    */
+/*     opacity: 0.5;  */
+} 
+main #background-img4 h1 {
+	margin-bottom: 40px;
+  	color: #fff;
+  	font-size: 40px;
+}
+main #background-img4 h1:hover {
+	margin-bottom: 40px;
+ 	color: #fff;
+  	text-shadow: 5px 5px #332a1a, 8px 8px #6d5b38, 11px 11px #C6BDAD, 14px 14px #dad3c9;
+}
