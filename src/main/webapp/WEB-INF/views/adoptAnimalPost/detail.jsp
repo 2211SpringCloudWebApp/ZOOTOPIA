@@ -76,8 +76,8 @@
 											<img src="../../../resources/uploadFiles/${imageName }" alt="" class="modal-trigger" data-modal-target="#modal-${imageName }">
 											<div id="modal-${imageName }" class="modal">
 												<div class="modal-content">
-													<img src="" alt="모달 이미지" />
-													<span class="close">&times;</span>
+													<div class="close">&times;</div>
+													<img src="" alt="모달 이미지" style="width: auto; height: 500px;" />
 												</div>
 											</div>
 										</td>
@@ -100,7 +100,10 @@
 							<div>성별 : 알 수 없음</div>
 						</c:if>
 						<c:if test="${aPost.animal.animalGender ne null}">
-							<div>성별 : ${aPost.animal.animalGender }</div>				
+							<div>성별 : 
+								<c:if test="${aPost.animal.animalGender eq 'F'}">암컷</c:if>
+								<c:if test="${aPost.animal.animalGender eq 'M'}">수컷</c:if>
+							</div>				
 						</c:if>
 	
 						<!-- 체중 -->
@@ -124,13 +127,83 @@
 							<div>중성화 여부 : 알 수 없음</div>
 						</c:if>
 						<c:if test="${aPost.animal.neuterYN ne null}">
-							<div>중성화 여부 : ${aPost.animal.neuterYN }</div>				
+							<div>중성화 여부 : 
+								<c:if test="${aPost.animal.neuterYN eq 'Y'}">중성화O</c:if>
+								<c:if test="${aPost.animal.neuterYN eq 'N'}">중성화X</c:if>
+							</div>				
 						</c:if>
 						
 						<div>게시글내용 : ${aPost.adoptPost.adoptContent }</div>
 					</div>
 				</div>
-			</div>	
+			</div>
+			
+			
+			<!-- 관심, 공유, 예약, 신청자정보 버튼 공간 시작 -->
+			<div>
+				<button type="button" class="like-button" data-board-id="${aPost.adoptPost.boardId }"
+					data-post-no="${aPost.adoptPost.adoptPostNo }">관심</button>
+
+				<br>
+
+				<!-- 로그인이 안 된 상태일 경우 -->
+				<c:if test="${loginUser.memberId eq null}">
+					<!-- 예약신청버튼 : 누르면 로그인 alert와 함께 로그인 페이지로 이동-->
+					<input type="button" value="상담 예약하기" onclick="checkLogin()">
+				</c:if>
+
+				<!-- 로그인이 된 상태일 경우 -->
+				<c:if test="${loginUser.memberId ne null}">
+					<!-- 작성자라면 신청자List확인할 수 있는 btn -->
+					<c:if test="${aPost.adoptPost.adoptWriterId eq loginUser.memberId }">
+						<input type="button" value="신청자 정보 확인" onclick="applicantList('${aPost.animal.animalNo }')">
+					</c:if>
+
+					<!-- 작성자가 아니라면 예약신청 or 예약취소-->
+					<c:if test="${aPost.adoptPost.adoptWriterId ne loginUser.memberId }">
+
+						<!-- 신청자가 없다면 바로 예약 하기 버튼 -->
+						<c:if test="${empty rList }">
+							<input type="button" value="상담 예약하기" onclick="openReservation('${aPost.animal.animalNo}', '${aPost.animal.animalFosterId}')">
+						</c:if>
+
+						<!-- 신청자가 있다면 신청자 중에 로그인한 본인이 있는지 확인 후 있다면 취소 없다면 예약버튼 -->
+						<c:if test="${not empty rList }">
+
+							<!-- 로그인 회원이 예약자라면 true = 취소버튼 -->
+							<c:set var="flag" value="false" />
+							<c:set var="reservationNo" value="" />
+							<c:forEach items="${rList}" var="reservation" varStatus="status">
+								<c:if test="${reservation.adopterId eq loginUser.memberId }">
+									<c:set var="flag" value="true" />
+									<c:set var="reservationNo" value="${reservation.reservationNo}" />
+									<!-- break;와 같은 역할을 함 -->
+									<c:set var="status" value="${status.last}" />
+								</c:if>
+							</c:forEach>
+							<c:if test="${flag}">
+								<!-- flag가 true일 때 수행할 코드 -->
+								<input type="button" value="예약취소" onclick="(
+									function() { 
+										var bool = confirm('정말로 취소하시겠습니까?');
+										if (bool) {
+											location.href = '/reservation/delete.ztp?reservationNo=${reservationNo }&animalNo=${aPost.animal.animalNo }';
+										}
+										return bool
+									}
+								)();">
+							</c:if>
+							<c:if test="${not flag}">
+								<!-- flag가 false일 때 수행할 코드 -->
+								<input type="button" value="예약하기" onclick="openReservation('${aPost.animal.animalNo}', '${aPost.animal.animalFosterId}')">
+							</c:if>
+
+						</c:if> <!-- 신청자가 있다면 끝 -->
+					</c:if>  <!-- 작성자가 아니라면 끝 -->
+				</c:if>  <!-- 로그인 상태일 경우 끝 -->
+			</div>
+			<!-- 관심, 공유, 예약, 신청자정보 버튼 공간 끝 -->
+
 			
 			<div id="grey-area">
 				<div>
@@ -152,11 +225,11 @@
 		
 							<!-- 로그인이 된 상태일 경우 -->
 							<c:if test="${loginUser.memberId ne null}">
-								<button type="submit" id="comment-btn">등록</button>
+								<button type="submit" class="comment-btn">등록</button>
 							</c:if>
 							<!-- 로그인이 안 된 상태일 경우 -->
 							<c:if test="${loginUser.memberId eq null}">
-								<button type="submit" onclick="return checkLogin()">댓글 등록(로그인 ㄴㄴ)</button>
+								<button type="submit" onclick="return checkLogin()" class="comment-btn">등록</button>
 							</c:if>
 						</form>
 						<!-- 댓글 등록하는 폼태그 종료 -->
@@ -166,9 +239,10 @@
 						<c:forEach var="comment" items="${commentList }">
 							<!-- 부모댓글번호가 0인 댓글 = 대댓글이 아닌 댓글만!  -->
 							<c:if test="${comment.parentCommentNo == 0}">
-								<div class="comment">
-									<div>작성자 : ${comment.commentWriterId }
-										<button class="replyCommentBtn" data-comment-no="${comment.commentNo }">답글작성</button>
+								<div class="comment" >
+									<div class="id-and-btns">
+										<div class="comment-writer-id">${comment.commentWriterId }</div>
+										<button class="replyCommentBtn" data-comment-no="${comment.commentNo }">답글달기</button>
 										<c:if test="${comment.commentWriterId eq loginUser.memberId}">
 											<button class="updateCommentBtn" data-comment-no="${comment.commentNo }" id="updateCommentBtn-${comment.commentNo }">수정</button>
 											<button onclick="(
@@ -193,7 +267,7 @@
 										<input type="hidden" name="postNo" value="${comment.postNo }">
 										<input type="hidden" name="commentNo" value="${comment.commentNo }">
 										<input type="text" name="commentContent" value="${comment.commentContent }">
-										<button type="submit">수정하기</button>
+										<button type="submit" class="comment-btn">수정</button>
 									</form>
 									<br>
 								</div>
@@ -208,16 +282,15 @@
 								<input type="hidden" name="commentWriterId" value="${loginUser.memberId }">
 								<!-- animalNo에 해당하는 aPost를 다시 가져오기 위함 -->
 								<input type="hidden" name="animalNo" value="${aPost.animal.animalNo }">
-								<input type="text" name="commentContent" placeholder="댓글을 입력해주세요!">
-								<br>
-		
+								<input type="text" name="commentContent" placeholder="&nbsp;&nbsp;&nbsp;댓글을 입력해주세요!">
+
 								<!-- 로그인이 된 상태일 경우 -->
 								<c:if test="${loginUser.memberId ne null}">
-									<input type="submit" value="댓글 등록">
+									<button type="submit" class="comment-btn">등록</button>
 								</c:if>
 								<!-- 로그인이 안 된 상태일 경우 -->
 								<c:if test="${loginUser.memberId eq null}">
-									<button type="submit" onclick="return checkLogin()">댓글 등록(로그인 ㄴㄴ)</button>
+									<button type="submit" onclick="return checkLogin()" class="comment-btn">등록</button>
 								</c:if>
 							</form>
 							<!-- 대댓글 등록하는 폼태그 종료 -->
@@ -226,7 +299,8 @@
 							<c:forEach var="replyComment" items="${commentList }">
 								<c:if test="${replyComment.parentCommentNo eq comment.commentNo}">
 									<div class="replyComment">
-										<div>작성자 : ${replyComment.commentWriterId }
+										<div class="id-and-btns">
+											<div>ㄴ&nbsp;${replyComment.commentWriterId }</div>
 											<c:if test="${replyComment.commentWriterId eq loginUser.memberId}">
 												<button class="updateCommentBtn" data-comment-no="${replyComment.commentNo }" id="updateCommentBtn-${replyComment.commentNo }">수정</button>
 												<button onclick="(
@@ -249,9 +323,9 @@
 											<input type="hidden" name="boardId" value="${replyComment.boardId }">
 											<input type="hidden" name="postNo" value="${replyComment.postNo }">
 											<input type="hidden" name="commentNo" value="${replyComment.commentNo }">
-											<textarea name="commentContent" cols="30" rows="10">${replyComment.commentContent }</textarea>
+											<input type="text" name="commentContent" value="${replyComment.commentContent }">
 		
-											<button type="submit">수정하기</button>
+											<button type="submit" class="comment-btn">수정</button>
 										</form>
 										<br>
 									</div>
@@ -266,71 +340,7 @@
 			
 		</div>
 
-		<!-- 관심, 공유, 예약, 신청자정보 버튼 공간 시작 -->
-		<div>
-			<button type="button" class="like-button" data-board-id="${aPost.adoptPost.boardId }"
-				data-post-no="${aPost.adoptPost.adoptPostNo }">관심</button>
-			<input type="button" value="공유">
-
-			<br>
-
-			<!-- 로그인이 안 된 상태일 경우 -->
-			<c:if test="${loginUser.memberId eq null}">
-				<!-- 예약신청버튼 : 누르면 로그인 alert와 함께 로그인 페이지로 이동-->
-				<input type="button" value="예약하기" onclick="checkLogin()">
-			</c:if>
-
-			<!-- 로그인이 된 상태일 경우 -->
-			<c:if test="${loginUser.memberId ne null}">
-				<!-- 작성자라면 신청자List확인할 수 있는 btn -->
-				<c:if test="${aPost.adoptPost.adoptWriterId eq loginUser.memberId }">
-					<input type="button" value="신청자 정보 확인" onclick="applicantList('${aPost.animal.animalNo }')">
-				</c:if>
-
-				<!-- 작성자가 아니라면 예약신청 or 예약취소-->
-				<c:if test="${aPost.adoptPost.adoptWriterId ne loginUser.memberId }">
-
-					<!-- 신청자가 없다면 바로 예약 하기 버튼 -->
-					<c:if test="${empty rList }">
-						<input type="button" value="예약하기" onclick="openReservation('${aPost.animal.animalNo}', '${aPost.animal.animalFosterId}')">
-					</c:if>
-
-					<!-- 신청자가 있다면 신청자 중에 로그인한 본인이 있는지 확인 후 있다면 취소 없다면 예약버튼 -->
-					<c:if test="${not empty rList }">
-
-						<!-- 로그인 회원이 예약자라면 true = 취소버튼 -->
-						<c:set var="flag" value="false" />
-						<c:set var="reservationNo" value="" />
-						<c:forEach items="${rList}" var="reservation" varStatus="status">
-							<c:if test="${reservation.adopterId eq loginUser.memberId }">
-								<c:set var="flag" value="true" />
-								<c:set var="reservationNo" value="${reservation.reservationNo}" />
-								<!-- break;와 같은 역할을 함 -->
-								<c:set var="status" value="${status.last}" />
-							</c:if>
-						</c:forEach>
-						<c:if test="${flag}">
-							<!-- flag가 true일 때 수행할 코드 -->
-							<input type="button" value="예약취소" onclick="(
-								function() { 
-									var bool = confirm('정말로 취소하시겠습니까?');
-									if (bool) {
-										location.href = '/reservation/delete.ztp?reservationNo=${reservationNo }&animalNo=${aPost.animal.animalNo }';
-									}
-									return bool
-								}
-							)();">
-						</c:if>
-						<c:if test="${not flag}">
-							<!-- flag가 false일 때 수행할 코드 -->
-							<input type="button" value="예약하기" onclick="openReservation('${aPost.animal.animalNo}', '${aPost.animal.animalFosterId}')">
-						</c:if>
-
-					</c:if> <!-- 신청자가 있다면 끝 -->
-				</c:if>  <!-- 작성자가 아니라면 끝 -->
-			</c:if>  <!-- 로그인 상태일 경우 끝 -->
-		</div>
-		<!-- 관심, 공유, 예약, 신청자정보 버튼 공간 끝 -->
+		
 
 	</main>
 

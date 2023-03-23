@@ -18,13 +18,40 @@
             <main>
                 <!-- 헤더 부분 피하기 위한 div -->
                 <div></div>
-
+                
                 <div id="selectArea">
-                    <div onclick="loadPersonalities('강아지')">강아지</div>
-                    <div onclick="loadPersonalities('고양이')">고양이</div>
-                    <div onclick="loadPersonalities('소동물')">소동물</div>
-                    <div onclick="loadPersonalities('기타')">기타</div>
+
+                    <div onclick="loadPersonalities('강아지')">
+                        <div class="img-area">
+                            <img src="../../../resources/img/matching-3d-dog.png" alt="" id="dog-img">
+                        </div>
+                        <div class="txt-area">강아지</div>
+                    </div>
+
+                    <div onclick="loadPersonalities('고양이')">
+                        <div class="img-area">
+                            <img src="../../../resources/img/matching-3d-cat.png" alt="" id="cat-img">
+                        </div>
+                        <div class="txt-area">고양이</div>
+                    </div>
+                    
+                    <div onclick="loadPersonalities('소동물')">
+                        <div class="img-area">
+                            <img src="../../../resources/img/matching-3d-duck.png" alt="" id="duck-img">
+                        </div>
+                        <div class="txt-area">소동물</div>                 
+                    </div>
+                    
+                    <div onclick="loadPersonalities('기타')">
+                        <div class="img-area">
+                            <img src="../../../resources/img/matching-3d-ghost.png" alt="" id="ghost-img">
+                        </div>
+                        <div class="txt-area">기타</div>                 
+                    </div>
                 </div>
+
+                Illustration by <a href="https://icons8.com/illustrations/author/zD2oqC8lLBBA">Icons 8</a> from <a href="https://icons8.com/illustrations">Ouch!</a>
+
             </main>
         <jsp:include page="../common/footer.jsp" />
 

@@ -8,6 +8,12 @@ body {
 main {
     width: 100vw;
     min-height: 100vh;
+    background-color: #FFFAF0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 main>div:nth-child(1) {
 
@@ -18,6 +24,26 @@ main>div:nth-child(1) {
         헤더가 차지하는 125px보다 더 띄우고 싶은 만큼 
         margin-bottom값을 임의로 조절해서 쓰시면 됩니다.
     */
-    margin-bottom: 100px;
+    margin-bottom: 0px;
 
+}
+
+main #title {
+    font-family: 'jua';
+    font-size: 30pt;
+}
+main img {
+
+    height: 450px;
+
+    border-radius: 30px;
+}
+main #info {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    font-family: 'hanna';
+    font-size: 20pt;
 }

@@ -8,6 +8,7 @@ body {
 main {
     width: 100vw;
     min-height: 100vh;
+    background-color: #FFFAF0;
 }
 main>div:nth-child(1) {
 
@@ -18,14 +19,148 @@ main>div:nth-child(1) {
         헤더가 차지하는 125px보다 더 띄우고 싶은 만큼 
         margin-bottom값을 임의로 조절해서 쓰시면 됩니다.
     */
-    margin-bottom: 100px;
+    margin-bottom: 0px;
 
 }
 
 main #selectArea {
+
     display: flex;
+    justify-content: center;
+    align-items: center;
+
+    height: 80vh;
+
+    /* background-color: blue; */
 }
 main #selectArea>div {
+    /* 동그라미 */
+
     cursor: pointer;
-    color: red;
+
+    width: 300px;
+    height: 300px;
+
+    border-radius: 50%;
+
+    background-color: #EEE5C6;
+
+    box-shadow: 
+        inset 5px 5px 5px rgba(255, 255, 255, 0.5),
+        2px 2px 5px rgba(0, 0, 0, 0.5);
+
+    margin-inline: 20px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    transition: 0.3s;
+} main #selectArea>div:hover {
+    width: 320px;
+    height: 320px;
+    box-shadow: 
+        inset 10px 10px 10px rgba(0, 0, 0, 0.5),
+        2px 2px 5px rgba(0, 0, 0, 0.5);    
+}
+
+main #selectArea>div .img-area{
+    position: absolute;
+} main #selectArea>div .txt-area{
+    position: relative;
+
+    margin-top: 200px;
+
+    font-family: 'jua';
+    font-size: 25pt;
+    color: #4E422D;
+}
+
+
+
+main #selectArea>div #dog-img {
+    width: 180px;
+    margin-left: 40px;
+}
+main #selectArea>div #cat-img {
+    width: 200px;
+}
+main #selectArea>div #duck-img {
+    width: 100px;
+    margin-bottom: 20px;
+}
+main #selectArea>div #ghost-img {
+    width: 140px;
+    margin-bottom: 20px;
+}
+
+
+/* ========= */
+
+main #selectArea-char {
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    height: 80vh;
+
+    /* background-color: blue; */
+}
+
+main #selectArea-char>[id*=section] {
+    display: flex;
+}
+
+main #selectArea-char>[id*=section]>div {
+    /* 동그라미 */
+
+    cursor: pointer;
+
+    width: 300px;
+    height: 300px;
+
+    border-radius: 50%;
+
+    background-color: #ffffff;
+
+    box-shadow: 
+        inset 5px 5px 5px rgba(255, 255, 255, 0.5),
+        2px 2px 5px rgba(0, 0, 0, 0.5);
+
+    margin-inline: 20px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    transition: 0.3s;
+} main #selectArea-char>[id*=section]>div:hover {
+    width: 320px;
+    height: 320px;
+    box-shadow: 
+        inset 10px 10px 10px rgba(0, 0, 0, 0.5),
+        2px 2px 5px rgba(0, 0, 0, 0.5);    
+}
+
+main #selectArea-char>[id*=section]>div .img-area{
+    position: absolute;
+} main #selectArea-char>[id*=section]>div .txt-area{
+    position: relative;
+
+    margin-top: 200px;
+
+    font-family: 'jua';
+    font-size: 20pt;
+    color: #4E422D;
+}
+
+
+
+main #selectArea-char>[id*=section]>div #dog-img {
+    width: 180px;
+    margin-left: 40px;
 }
