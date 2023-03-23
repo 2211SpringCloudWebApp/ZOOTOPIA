@@ -93,7 +93,14 @@
                         </c:if>
                         <td onclick="location.href='/adoptAnimal/detailView.ztp?animalNo=${aPost.animal.animalNo }'">
                             <div>
-                                <img src="../../../resources/uploadFiles/${aPost.adoptPost.adoptImageName }" onerror="this.onerror=null; this.src='../../../resources/uploadFiles/no-img.png';" alt="" class="animal-img">
+                              <!-- 입양자가 있다면 -->
+                                <c:if test="${aPost.animal.animalAdopterId ne null}">
+                                  <img src="../../../resources/uploadFiles/adopted.png" onerror="this.onerror=null; this.src='../../../resources/uploadFiles/no-img.png';" alt="" class="animal-img">
+                                </c:if>
+                                <c:if test="${aPost.animal.animalAdopterId eq null}">
+                                  <img src="../../../resources/uploadFiles/${aPost.adoptPost.adoptImageName }" onerror="this.onerror=null; this.src='../../../resources/uploadFiles/no-img.png';" alt="" class="animal-img">
+
+                                </c:if>
                                 <!-- <img src="${pageContext.request.contextPath}/resources/uploadFiles/${aPost.adoptPost.adoptImageName}" alt="이미지 없음"> -->
                             </div>
                             <div>
