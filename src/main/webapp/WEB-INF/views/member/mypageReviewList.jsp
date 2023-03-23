@@ -140,22 +140,22 @@
 				<div class="pageWrap">
 					<div class="pageNation">
 			    		<c:if test="${pageInfo.currentPage > 1}">
-				        	<a href="/member/mypageReview.ztp?page=1" class="first-last-page"><<</a>
+				        	<a href="/member/mypageReview.ztp?page=1&category=reviewList" class="first-last-page"><<</a>
 				        </c:if>
 				        <c:if test="${pageInfo.currentPage > 1}">
-				        	<a href="/member/mypageReview.ztp?page=${pageInfo.currentPage - 1}" class="prev-next-page"><</a>
+				        	<a href="/member/mypageReview.ztp?page=${pageInfo.currentPage - 1}&category=reviewList" class="prev-next-page"><</a>
 				        </c:if>
 				        <c:forEach begin="${pageInfo.startNav}" end="${pageInfo.endNav}" var="page">
-				        	<c:url var="pageUrl" value="/member/mypageReview.ztp">
+				        	<c:url var="pageUrl" value="/member/mypageReview.ztp?category=reviewList">
 				        		<c:param name="page" value="${page}" />
 				        	</c:url>
 				        		<a href="${pageUrl}" >${page}</a>
 				        </c:forEach>
 				        <c:if test="${pageInfo.currentPage < pageInfo.maxPage}">
-				        	<a href="/member/mypageReview.ztp?page=${pageInfo.currentPage + 1}" class="prev-next-page">></a>
+				        	<a href="/member/mypageReview.ztp?page=${pageInfo.currentPage + 1}&category=reviewList" class="prev-next-page">></a>
 				        </c:if>
 				        <c:if test="${pageInfo.currentPage < pageInfo.maxPage}">
-				        	<a href="/member/mypageReview.ztp?page=${pageInfo.maxPage}" class="first-last-page">>></a>
+				        	<a href="/member/mypageReview.ztp?page=${pageInfo.maxPage}&category=reviewList" class="first-last-page">>></a>
 				        </c:if>
 			        </div>
 		        </div>

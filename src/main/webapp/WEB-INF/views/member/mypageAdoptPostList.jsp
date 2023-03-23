@@ -140,22 +140,22 @@
 				<div class="pageWrap">
 					<div class="pageNation">
 			    		<c:if test="${pageInfo.currentPage > 1}">
-				        	<a href="/member/mypageAdoptPost.ztp?page=1" class="first-last-page"><<</a>
+				        	<a href="/member/mypageAdoptPost.ztp?page=1&category=adoptPostList" class="first-last-page"><<</a>
 				        </c:if>
 				        <c:if test="${pageInfo.currentPage > 1}">
-				        	<a href="/member/mypageAdoptPost.ztp?page=${pageInfo.currentPage - 1}" class="prev-next-page"><</a>
+				        	<a href="/member/mypageAdoptPost.ztp?page=${pageInfo.currentPage - 1}&category=adoptPostList" class="prev-next-page"><</a>
 				        </c:if>
 				        <c:forEach begin="${pageInfo.startNav}" end="${pageInfo.endNav}" var="page">
-				        	<c:url var="pageUrl" value="/member/mypageAdoptPost.ztp">
+				        	<c:url var="pageUrl" value="/member/mypageAdoptPost.ztp?category=adoptPostList">
 				        		<c:param name="page" value="${page}" />
 				        	</c:url>
 				        		<a href="${pageUrl}" <c:if test="${pageInfo.currentPage == page}">style="color: #EEE5C6; background-color: #4E422D"</c:if>>${page}</a>
 				        </c:forEach>
 				        <c:if test="${pageInfo.currentPage < pageInfo.maxPage}">
-				        	<a href="/member/mypageAdoptPost.ztp?page=${pageInfo.currentPage + 1}" class="prev-next-page">></a>
+				        	<a href="/member/mypageAdoptPost.ztp?page=${pageInfo.currentPage + 1}&category=adoptPostList" class="prev-next-page">></a>
 				        </c:if>
 				        <c:if test="${pageInfo.currentPage < pageInfo.maxPage}">
-				        	<a href="/member/mypageAdoptPost.ztp?page=${pageInfo.maxPage}" class="first-last-page">>></a>
+				        	<a href="/member/mypageAdoptPost.ztp?page=${pageInfo.maxPage}&category=adoptPostList" class="first-last-page">>></a>
 				        </c:if>
 			        </div>
 		        </div>
