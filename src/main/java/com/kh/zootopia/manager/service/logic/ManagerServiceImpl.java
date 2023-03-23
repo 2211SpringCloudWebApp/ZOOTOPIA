@@ -98,17 +98,17 @@ public class ManagerServiceImpl implements ManagerService{
 	}
 
 	// 입양공고리스트 내 여러개 삭제 Controller
-	@Override
-	public void deleteAdopts(int adoptPostNo) {
-		mStore.deleteAdopts(session, adoptPostNo);
-	}
+//	@Override
+//	public void deleteAdopts(int adoptPostNo) {
+//		mStore.deleteAdopts(session, adoptPostNo);
+//	}
 	
 	// 미승인 입양공고디테일 Controller
-	@Override
-	public AdoptAnimalPost detailAdopt(Integer animalNo) {
-		AdoptAnimalPost aPost = mStore.detailAdopt(session, animalNo);
-		return aPost;
-	}
+//	@Override
+//	public AdoptAnimalPost detailAdopt(Integer animalNo) {
+//		AdoptAnimalPost aPost = mStore.detailAdopt(session, animalNo);
+//		return aPost;
+//	}
 
 
 	// ** 예약관리

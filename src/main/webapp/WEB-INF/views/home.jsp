@@ -93,7 +93,7 @@
 						<div id="background-img3">
 							<c:if test="${sessionScope.loginUser ne null }">
 								<!-- 로그인 상태라면 내 입양 동물 목록으로 -->
-								<h1 onclick="location.href='/'">입양 후기 등록하기</h1>
+								<h1 onclick="location.href='/member/animalList.ztp?category=animalList'">입양 후기 등록하기</h1>
 							</c:if>
 							<c:if test="${sessionScope.loginUser eq null }">
 								<!-- 

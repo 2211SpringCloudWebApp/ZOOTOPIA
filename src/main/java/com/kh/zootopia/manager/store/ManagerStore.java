@@ -49,10 +49,10 @@ public interface ManagerStore {
 	void approveAdopts(SqlSession session, int adoptPostNo);
 
 	// 입양공고리스트 내 여러개 삭제 Controller
-	void deleteAdopts(SqlSession session, int adoptPostNo);
+//	void deleteAdopts(SqlSession session, int adoptPostNo);
 
 	// 미승인 입양공고디테일 Controller
-	AdoptAnimalPost detailAdopt(SqlSession session, Integer animalNo);
+//	AdoptAnimalPost detailAdopt(SqlSession session, Integer animalNo);
 
 
 	// ** 예약관리
