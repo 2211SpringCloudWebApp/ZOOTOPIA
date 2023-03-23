@@ -42,6 +42,13 @@ public interface AdoptAnimalService {
 	 * @return
 	 */
 	int updatetPost(AdoptAnimalPost adoptAnimalPost);
+	
+	/**
+	 * 수정 페이지에서 첨부 이미지만 삭제하기
+	 * @param animalNo
+	 * @return
+	 */
+	int removeImg(int animalNo);
 
 	
 	
@@ -106,6 +113,18 @@ public interface AdoptAnimalService {
 	 * @return
 	 */
 	int selectMatchingAnimalCount(Animal animalInfo);
+
+
+	/**
+	 * 매칭 조건에 맞는 입양 공고 랜덤으로 하나 조회 Servie
+	 * @param animalInfo
+	 * @return
+	 */
+	AdoptAnimalPost selectRandOneMatchingAnimal(Animal animalInfo);
+
+
+
+	
 
 
 

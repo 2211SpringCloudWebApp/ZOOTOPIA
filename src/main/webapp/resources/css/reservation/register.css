@@ -1,0 +1,107 @@
+/* body {
+    width: 100vw;
+    overflow: hidden;
+}
+ul li {
+    list-style: none;
+    margin-block: 10px;
+} */
+
+@font-face{
+    font-family: 'jua';
+    src: url(../../font/BMJUA_ttf.ttf);
+}
+@font-face{
+    font-family: 'hanna';
+    src: url(../../font/BMHANNAAir_ttf.ttf);
+    /* unicode-range: U+0020-007F; */
+}
+* {
+    margin: 0;
+    padding: 0;
+    /* background-color: #EEE5C6; */
+}
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    box-shadow: inset 0px 5px 5px rgba(0, 0, 0, 0.2);
+}
+main #title {
+    /* background-color: red; */
+    font-family: 'jua';
+    font-size: 20pt;
+    
+}
+main #content {
+    font-family: 'hanna';
+    font-size: 12pt;
+    font-weight: bolder;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+
+    margin-top: 15px;
+    margin-bottom: 10px;
+    color: #4E422D;
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+}
+main li {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-block: 5px;
+}
+
+main [name=rDate],[name=rTime] {
+    
+    font-size: 16pt;
+    font-family: 'hanna';
+    
+    color: #4E422D;
+    border: 1px solid #4e422d5e;
+    border-radius: 8px;
+    /* outline: 2px solid red; */
+
+    height: 30px;
+    width: 200px;
+
+    text-align: center;
+    
+    background-color: white;
+    box-shadow: inset 2px 2px 2px rgba(0, 0, 0, 0.2);
+    
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+main [name=rTime] {
+    background-image: url("../../uploadFiles/down-arrow2.png");
+    background-repeat: no-repeat;
+    background-position: right center;
+    background-size: contain;
+}
+main button{
+    border: 0;
+    background-color: #4E422D;
+    color: #EEE5C6;
+    /* padding: 5px; */
+    border-radius: 8px;
+    font-family: 'jua';
+    font-size: 16pt;
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2);
+    height: 30px;
+    width: 200px;
+    padding-top: 3px;
+}
+main button:hover {
+    color: #EEE5C6;
+    background-color: white;
+    box-shadow: inset 3px 3px 5px rgba(0, 0, 0, 0.2);
+
+}

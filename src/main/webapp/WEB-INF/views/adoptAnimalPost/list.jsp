@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -46,20 +47,13 @@
           <!-- 현재 메뉴 정보 div 끝 -->
           <!-- 이거 공통으로 쓰자고 얘기해보기 -->
 
-          
-          <!-- <h3>${paging.currentPage}</h3>
-            <h3>${paging.totalCount}</h3>
-            <h3>${paging.animalPostLimit}</h3>
-            <h3>${paging.startNavi}</h3>
-            <h3>${paging.endNavi}</h3>    
-            <h3>${paging.maxPage}</h3> -->
             
             <!-- main-content : 내용 시작, filter, list, pageNation -->
             <div id="main-content">
               <h4><a href="/adoptAnimal/registerView.ztp">입양 공고 등록하기</a></h4>
             
               <!-- 조건 필터링 -->
-              <form id="filter">
+              <form action="/adoptAnimal/list.ztp" method="post" id="filter">
                   <ul>
                     <li>
                       <label for=animalSpecies"">축종</label>
@@ -86,6 +80,7 @@
                       <input type="date" name="adoptCreateDateEnd">
                     </li>
                   </ul>
+                  <button type="submit">검색</button>
               </form>
   
   
@@ -102,7 +97,10 @@
                                 <!-- <img src="${pageContext.request.contextPath}/resources/uploadFiles/${aPost.adoptPost.adoptImageName}" alt="이미지 없음"> -->
                             </div>
                             <div>
-                                <span>${aPost.animal.animalSpecies }</span> <span>${aPost.adoptPost.adoptCreateDate }</span>
+                              <!-- timestamp에서 시간부분 잘라내기 -->
+                                <c:set var="adoptCreateTimeStamp" value="${aPost.adoptPost.adoptCreateDate }" />
+                                <c:set var="adoptCreateDate" value="${fn:split(adoptCreateTimeStamp, ' ')[0]}" />
+                                <span>${aPost.animal.animalSpecies }</span> <span>${adoptCreateDate }</span>
                                 <br>
                                 <span>${aPost.animal.animalAddr }</span><span>에서 보호중</span>
                             </div>
@@ -157,35 +155,66 @@
 
 
         <script>
-          // animalList.js
-          // 필터링 함수
-          $(document).on("change", "#filter select, #filter input", function(e) {
-            e.preventDefault();
-            var formData = $(this).serialize();
+
+          // 검색 버튼 클릭할 경우
+          $('#filter button[type="submit"]').on('click', function(e) {
+            // 폼 전송 막기
+            e.preventDefault(); 
+
+            var animalSpecies = $('#animalSpecies').val();
+            var sido = $('#sido').val();
+            var sigungu = $('#sigugun').val();
+            var adoptCreateDateStart = $('input[name="adoptCreateDateStart"]').val();
+            var adoptCreateDateEnd = $('input[name="adoptCreateDateEnd"]').val();
+
             $.ajax({
-              url: "/adoptAnimal/filteredList.ztp",
-              type: "GET",
-              data: formData,
-              dataType: "html",
+              url: '/adoptAnimal/list.ztp',
+              type: 'POST',
+              data: {
+                animalSpecies: animalSpecies,
+                sido: sido,
+                sigungu: sigungu,
+                adoptCreateDateStart: adoptCreateDateStart,
+                adoptCreateDateEnd: adoptCreateDateEnd,
+              },
+              dataType: 'html',
               success: function(data) {
-                var postList = $(data).find("#animalList").html();
-                var paging = $(data).find(".paging").html();
-                if (!postList || postList.trim() === "") {
-                  $("#animalList").empty();
-                  $(".paging").empty();
-                } else {
-                  $("#animalList").html(postList);
-                  $(".paging").html(paging);
-                }
+                // 서버로부터 받은 HTML 데이터에서 동물 목록과 페이징 정보 추출
+                var postList = $(data).find('#animalList').html();
+                var paging = $(data).find('.paging').html();
+
+                // 동물 목록과 페이징 정보 업데이트
+                $('#animalList').html(postList);
+                $('.paging').html(paging);
+              },
+              error: function(xhr, status, error) {
+                alert('동물 목록 가져오기 실패: ' + error);
               }
             });
+
           });
+
 
           // 페이지 이동 함수
           function getAnimalList(page) {
+
+            var animalSpecies = $('#animalSpecies').val();
+            var sido = $('#sido').val();
+            var sigungu = $('#sigugun').val();
+            var adoptCreateDateStart = $('input[name="adoptCreateDateStart"]').val();
+            var adoptCreateDateEnd = $('input[name="adoptCreateDateEnd"]').val();
+
             $.ajax({
-              url: "/adoptAnimal/list.ztp?page=" + page,
-              type: "GET",
+              url: "/adoptAnimal/list.ztp",
+              type: "POST",
+              data: {
+                animalSpecies: animalSpecies,
+                sido: sido,
+                sigungu: sigungu,
+                adoptCreateDateStart: adoptCreateDateStart,
+                adoptCreateDateEnd: adoptCreateDateEnd,
+                page: page
+              },
               dataType: "html",
               success: function(data) {
 

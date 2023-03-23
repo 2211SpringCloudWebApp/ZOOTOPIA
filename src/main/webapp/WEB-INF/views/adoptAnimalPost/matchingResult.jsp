@@ -21,10 +21,7 @@
             <div></div>
             <h1>매칭결과입니다</h1>
             <table id="animalList">
-                <c:forEach items="${aPostList}" var="aPost" varStatus="status">
-                    <c:if test="${status.index % 4 == 0}">
-                        <tr>
-                    </c:if>
+                <tr>
                     <td onclick="location.href='/adoptAnimal/detailView.ztp?animalNo=${aPost.animal.animalNo }'">
                         <div>
                             <img src="../../../resources/uploadFiles/${aPost.adoptPost.adoptImageName }" alt="" class="animal-img">
@@ -36,10 +33,7 @@
                             <span>${aPost.animal.animalAddr }</span><span>에서 보호중</span>
                         </div>
                     </td>
-                    <c:if test="${status.index % 4 == 3 || status.last}">
-                        </tr>
-                    </c:if>
-                </c:forEach>
+                </tr>
             </table>
         </main>
         <jsp:include page="../common/footer.jsp" />

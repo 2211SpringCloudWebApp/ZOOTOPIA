@@ -6,7 +6,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>입양 신청 정보❤️</title>
-		<link rel="stylesheet" href="../../../resources/css/reservation/applicantList.css">
+		<link rel="stylesheet" href="../../../resources/css/reservation/noApplicant.css">
 		<link rel="icon" href="../../../resources/img/favicon.png" />
 		<link rel="apple-touch-icon" href="../../../resources/img/favicon.png" />
 		<style type="text/css">
@@ -14,19 +14,14 @@
 		</style>
 	</head>
 	<body>
-		<main>
-			<div id="title">
-				입양 신청 정보
-			</div>
-			<c:forEach items="${rList}" var="reservation" varStatus="status">
-					<div>${reservation.reservationNo }</div>
-					<div>${reservation.animalNo }</div>
-					<div>${reservation.fosterId }</div>
-					<div>${reservation.adopterId }</div>
-					<div>${reservation.adoptedYN }</div>
-					<div>${reservation.reservationTime }</div>
-			</c:forEach>
+        <main>
+            <div id="circle">●&nbsp;&nbsp;●&nbsp;&nbsp;●</div>
+            <img src="../../../resources/img/sad-dog.png" alt="">
+            <div id="text">
+                <div>신청자가</div>
+                <div>아직 없습니다!</div>
+            </div>
 
-		</main>
+        </main>
 	</body>
 </html>

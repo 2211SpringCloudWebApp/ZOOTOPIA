@@ -48,18 +48,23 @@
 		UPDATE ADOPT_POST_TBL SET ADOPT_CONTENT = #{adoptContent }, ADOPT_IMAGE_NAME = #{adoptImageName }, ADOPT_IMAGE_PATH = #{adoptImagePath }, ADOPT_CREATE_DATE = DEFAULT WHERE ANIMAL_NO = #{animalNo}
 	</update>
 	
+	<!-- 수정페이지에서 첨부 이미지만 삭제 -->
+	<update id="updateRemoveImg">
+		UPDATE ADOPT_POST_TBL SET ADOPT_IMAGE_NAME = NULL, ADOPT_IMAGE_PATH = NULL WHERE ANIMAL_NO = #{animalNo }
+	</update>
+	
 	
 	<!-- ========== 유정 출력 ========== -->
 	
 	<!-- 입양 공고 목록 조회 (adoptPost부분 출력, animal부분은 animal매퍼에서 따로 출력함!)-->
 	<select id="selectAllPost" resultMap="adoptPostResultMap">
-		SELECT * FROM ADOPT_POST_TBL ORDER BY ANIMAL_NO DESC
+		SELECT * FROM ADOPT_POST_TBL INNER JOIN ANIMAL_TBL USING(ANIMAL_NO) ORDER BY ANIMAL_NO DESC
 	</select>
 
 	
 	<!-- 필터링된 입양 공고 목록 조회 (animal부분 출력, adoptPost부분은 adoptpost매퍼에서 따로 출력함!) -->
 	<select id="selectFilteredPost" resultMap="adoptPostResultMap">
-		SELECT * FROM (SELECT * FROM ANIMAL_TBL a LEFT OUTER JOIN ADOPT_POST_TBL p ON a.ANIMAL_NO = p.ANIMAL_NO ORDER BY a.ANIMAL_NO DESC)
+		SELECT * FROM (SELECT * FROM ADOPT_POST_TBL INNER JOIN ANIMAL_TBL USING(ANIMAL_NO) ORDER BY ANIMAL_NO DESC)
 		  <where>
 		    <if test="animalSpecies != null and animalSpecies != ''">
 		    	<if test="animalSpecies !=  '전체'">
@@ -67,13 +72,13 @@
 		    	</if>
 		    </if>
 		    <if test="animalAddr != null and animalAddr != ''">
-		      AND ANIMAL_ADDR LIKE '%' || #{animalAddr } || '%'
+		      AND ANIMAL_ADDR = #{animalAddr }
 		    </if>
 		    <if test="adoptCreateDateStart != null and adoptCreateDateStart != ''">
-		      AND ADOPT_CREATE_DATE &gt;= #{adoptCreateDateStart }
+		      AND ADOPT_CREATE_DATE &gt;= #{adoptCreateDateStart,jdbcType=TIMESTAMP}
 		    </if>
 		    <if test="adoptCreateDateEnd != null and adoptCreateDateEnd != ''">
-		      AND ADOPT_CREATE_DATE &lt;= #{adoptCreateDateEnd }
+		      AND ADOPT_CREATE_DATE &lt;= #{adoptCreateDateEnd,jdbcType=TIMESTAMP}
 		    </if>
 		  </where>
 	</select>

@@ -63,6 +63,15 @@ public class AdoptAnimalServiceImpl implements AdoptAnimalService{
 		return result;
 	}
 	
+	/**
+	 * 수정 페이지에서 첨부 이미지만 삭제하기
+	 */
+	@Override
+	public int removeImg(int animalNo) {
+		int result = aStore.removeImg(session, animalNo);
+		return result;
+	}
+	
 	
 	
 	// ========== 출력 ========== //
@@ -140,6 +149,19 @@ public class AdoptAnimalServiceImpl implements AdoptAnimalService{
 		int totalCount = aStore.selectMatchingAnimalCount(session, animalInfo);
 		return totalCount;
 	}
+
+
+	/**
+	 * 매칭 조건에 맞는 입양 공고 랜덤으로 하나 조회 ServieImpl
+	 */
+	@Override
+	public AdoptAnimalPost selectRandOneMatchingAnimal(Animal animalInfo) {
+		AdoptAnimalPost aPost = aStore.selectRandOneMatchingAnimal(session, animalInfo);
+		return aPost;
+	}
+
+
+	
 
 
 

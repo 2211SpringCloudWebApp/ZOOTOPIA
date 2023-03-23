@@ -118,7 +118,8 @@
 						<h3>이미지 새로 입력받을 경우 ㅇ이미지 업데이트</h3>
 						<label for="" class="postContentLabel">이미지</label>
 						<br>
-						<button onclick="removeImg('${aPost.adoptPost.adoptImageName}')">업로드된 사진 삭제</button>
+						<!-- 삭제버튼은 이름이 널값이 아닐 때만 뜨도록 하기! -->
+						<div onclick="removeImg('${aPost.animal.animalNo }')">업로드된 사진 삭제</div>
 						<input type="file" name="reloadFile" id="uploadFile" accept="image/*" multiple>
 						<div id="uploadFileBtn">이미지 등록하기!!</div>
 						<div id="preview-area"></div>
@@ -153,8 +154,8 @@
 		<script>
 
 			// 이미지 삭제 
-			function removeImg(adoptImageName) {
-				
+			function removeImg(animalNo) {
+				location.href = '/adoptAnimal/removeImg.ztp?animalNo=${aPost.animal.animalNo }';
 			}
 
 

@@ -98,12 +98,6 @@ public class AdoptAnimalStoreLogic implements AdoptAnimalStore {
 
 		List<AdoptAnimalPost> aPostList = new ArrayList<AdoptAnimalPost>();
 		
-		// 15개 나오는거 어디서 잘못됐는지 찾기 위함
-//		for (int i = 0; i < aList.size(); i++) {
-//			System.out.println(aList.get(i));
-//		}
-		
-		// 찾앗다 여기서 잘못됏네 ~~~!~! db에서 짝 안 맞는 게 잇느듯 !
 		for (Animal animal : aList) {
 			for (AdoptPost adoptPost : pList) {
 				if (animal.getAnimalNo() == adoptPost.getAnimalNo()) {
@@ -232,6 +226,36 @@ public class AdoptAnimalStoreLogic implements AdoptAnimalStore {
 	public int selectMatchingAnimalCount(SqlSession session, Animal animalInfo) {
 		int totalCount = session.selectOne("AnimalMapper.selectMatchingAnimalCount", animalInfo);
 		return totalCount;
+	}
+
+
+
+	/**
+	 * 매칭 조건에 맞는 입양 공고 랜덤으로 하나 조회 StoreLogi
+	 */
+	@Override
+	public AdoptAnimalPost selectRandOneMatchingAnimal(SqlSession session, Animal animalInfo) {
+		
+		// 랜덤뽑기하고
+		Animal animal = session.selectOne("AnimalMapper.selectRandOneMatchingAnimal", animalInfo);
+		
+		// 그거에 맞는 게시글 정보 가져오고
+		AdoptPost post = session.selectOne("AdoptPostMapper.selectOneByAnimalNo", animal.getAnimalNo());
+		
+		// 둘이 합체!
+		AdoptAnimalPost aPost = new AdoptAnimalPost(animal, post);
+
+		return aPost;
+	}
+
+
+	/**
+	 * 수정 페이지에서 첨부 이미지만 삭제하기
+	 */
+	@Override
+	public int removeImg(SqlSession session, int animalNo) {
+		int result = session.update("AdoptPostMapper.updateRemoveImg", animalNo);
+		return result;
 	}
 
 

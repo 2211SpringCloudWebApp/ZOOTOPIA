@@ -79,7 +79,7 @@ public class ReservationController {
 			int result = rService.insertReservation(reservation);
 			if (result > 0) {
 				// 예약 성공 시
-				mv.addObject("message", "예약 성공").setViewName("common/success");
+				mv.setViewName("reservation/success");
 			} else {
 				mv.addObject("message", "예약 실패").setViewName("common/error");
 			}
@@ -106,7 +106,7 @@ public class ReservationController {
 			if (!rList.isEmpty()) {
 				mv.addObject("rList", rList).setViewName("reservation/applicantList");
 			} else {
-				mv.addObject("message", "신청자 없음").setViewName("common/error");
+				mv.setViewName("reservation/noApplicant");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

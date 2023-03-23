@@ -48,6 +48,15 @@ public interface AdoptAnimalStore {
 	 * @return
 	 */
 	int updatetPost(SqlSession session, AdoptAnimalPost adoptAnimalPost);
+	
+	/**
+	 * 수정 페이지에서 첨부 이미지만 삭제하기
+	 * @param session
+	 * @param animalNo
+	 * @return
+	 */
+	int removeImg(SqlSession session, int animalNo);
+
 
 	
 	
@@ -120,6 +129,19 @@ public interface AdoptAnimalStore {
 	 * @return
 	 */
 	int selectMatchingAnimalCount(SqlSession session, Animal animalInfo);
+
+
+
+	/**
+	 * 매칭 조건에 맞는 입양 공고 랜덤으로 하나 조회 Store
+	 * @param session
+	 * @param animalInfo
+	 * @return
+	 */
+	AdoptAnimalPost selectRandOneMatchingAnimal(SqlSession session, Animal animalInfo);
+
+
+
 
 
 
