@@ -20,7 +20,7 @@
 		<main>
 			<div></div>
 			<h1>공지사항</h1>
-				<c:if test="${sessionScope.loginUser.memberId eq 'admin' }">
+				<c:if test="${sessionScope.loginUser.mAdminYN eq 'Y' }">
 					<div class="removeArea">
 						<c:url var="nList" value="/notice/list.ztp">
 							<c:param name="noticeNo" value="${notice.noticeNo }"/>
@@ -42,7 +42,7 @@
 						</div>
 					</div>
 					<hr>
-					<textarea name="noticeContent" id=""  rows="15" cols="70">${notice.noticeContent }</textarea><br>
+					<textarea name="noticeContent" id=""  rows="35" cols="85">${notice.noticeContent }</textarea><br>
 					<c:if test="${!empty notice.noticeImageName}">
 						<div class="uploadArea">
 							<div>
@@ -75,7 +75,7 @@
 <%-- 						<c:param name="noticeNo" value="${notice.noticeNo }"/>   --%>
 <%-- 					</c:url>													 --%>
 			</c:if>
-			<c:if test="${sessionScope.loginUser.memberId ne 'admin' }">
+			<c:if test="${sessionScope.loginUser.mAdminYN eq 'N' || sessionScope.loginUser.memberId eq null }">
 				<div class="removeArea">
 					<c:url var="nList" value="/notice/list.ztp">
 						<c:param name="noticeNo" value="${notice.noticeNo }"/>
@@ -95,7 +95,7 @@
 						</div>
 					</div>
 					<hr>
-					<textarea name="noticeContent" id=""  rows="15" cols="70" readonly>${notice.noticeContent }</textarea><br>
+					<textarea name="noticeContent" id=""  rows="35" cols="85" readonly>${notice.noticeContent }</textarea><br>
 					<c:if test="${!empty notice.noticeImageName}">
 						<div class="uploadArea">
 							<div>

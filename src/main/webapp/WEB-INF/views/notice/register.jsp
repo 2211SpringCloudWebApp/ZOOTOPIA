@@ -30,10 +30,12 @@
 <!-- 				</div> -->
 				<div class="uploadArea">
 					<div>
-						<img src="../../../resources/img/notice-file.png" alt="" style="width: 15px; cursor: pointer;" onclick="document.getElementById('inputFile').click();">
-						<input type="file" id="inputFile" name="uploadFile" style="display:none">
+						<label class="fileBtn" for="inputFile" style="width:20px;">
+							<img src="../../../resources/img/notice-file.png" alt="" style="cursor: pointer;">
+							<input type="file" id="inputFile" name="reloadFile" value="" style="display:none;" onclick="document.getElementById('inputFile').click();">
+						</label>
 					</div>
-					<div id="upload-file" style="font-size: 20px;">파일 업로드</div>
+					<div id="upload-file">파일 업로드</div>
 				</div>
 				<input type="submit" value="등록">
 				<input type="reset" value="초기화">

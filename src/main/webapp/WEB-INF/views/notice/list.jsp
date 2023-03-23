@@ -21,7 +21,7 @@
 			<div></div>
 			<h1>공지사항</h1>
 			<div id="registerArea">
-				<c:if test="${sessionScope.loginUser.memberId eq 'admin' }">
+				<c:if test="${sessionScope.loginUser.mAdminYN eq 'Y'}">
 					<button id="" onclick="location.href='/notice/registerView.ztp'">글쓰기</button>
 				</c:if>	
 			</div>

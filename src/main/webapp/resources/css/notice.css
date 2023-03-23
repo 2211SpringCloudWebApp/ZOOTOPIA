@@ -224,7 +224,7 @@ main #detailInput {
 
 main #detailInput input {
 /* 	margin: 5px; */
-	margin-left: 80px;
+	margin-left: 30px;
 /*     height: 30px; */
     border: none;
     font-size: 20px;
@@ -235,9 +235,12 @@ main #detailInput input {
 
 main #detailS {
 /* 	text-align: center; */
+	margin-left: 30px;
+	margin-right: 60px;
+}
 
-	margin-left: 120px;
-	margin-right: 50px;
+main #detailS input {
+	width: 400px;
 }
 
 main #detailW {
@@ -247,7 +250,8 @@ main #detailW {
 }
 
 main #detailC {
-	margin-right: 50px;
+	margin-left: 50px;
+	margin-right: 30px;
 	line-height: 20px;
 	font-size: 20px;
 }
