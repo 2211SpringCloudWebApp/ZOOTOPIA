@@ -67,15 +67,15 @@
     </insert>
     <!-- 정렬 시간컬럼으로 나중에 바꾸기 -->
     <select id="selectAdoptComment" resultMap="commentResultMap">
-        SELECT * FROM COMMENT_TBL WHERE BOARD_ID = #{boardId } AND POST_NO = #{postNo } ORDER BY COMMENT_NO DESC
+        SELECT * FROM COMMENT_TBL WHERE BOARD_ID = #{boardId } AND POST_NO = #{postNo } ORDER BY COMMENT_CREATE_DATE ASC
     </select>
     <!-- 유정 입양 공고 댓글 삭제 -->
     <delete id="removeComment">
-    	DELETE FROM COMMENT_TBL WHERE BOARD_ID = #{boardId} AND POST_NO = #{postNo} AND COMMENT_NO = #{commentNo}
+        DELETE FROM COMMENT_TBL WHERE BOARD_ID = #{boardId} AND POST_NO = #{postNo} AND COMMENT_NO = #{commentNo}
     </delete>
     <!-- 유정 입양 공고 댓글 수정 -->
     <update id="updateComment">
-    	UPDATE COMMENT_TBL SET COMMENT_CONTENT = #{commentContent} WHERE BOARD_ID = #{boardId} AND POST_NO = #{postNo} AND COMMENT_NO = #{commentNo} 
+        UPDATE COMMENT_TBL SET COMMENT_CONTENT = #{commentContent} WHERE BOARD_ID = #{boardId} AND POST_NO = #{postNo} AND COMMENT_NO = #{commentNo} 
     </update>
     
     <!--     소현 -->
