@@ -50,7 +50,7 @@
             
             <!-- main-content : 내용 시작, filter, list, pageNation -->
             <div id="main-content">
-              <h4><a href="/adoptAnimal/registerView.ztp">입양 공고 등록하기</a></h4>
+              <!-- <h4><a href="/adoptAnimal/registerView.ztp">입양 공고 등록하기</a></h4> -->
             
               <!-- 조건 필터링 -->
               <form action="/adoptAnimal/list.ztp" method="post" id="filter">
@@ -80,7 +80,7 @@
                       <input type="date" name="adoptCreateDateEnd">
                     </li>
                   </ul>
-                  <button type="submit">검색</button>
+                  <button type="submit" id="search-btn">검색</button>
               </form>
   
   

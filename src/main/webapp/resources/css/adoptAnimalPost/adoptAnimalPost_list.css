@@ -55,9 +55,7 @@ main #menu-info {
 main #menu-info>#section1 {
     /* height: 250px; */
     height: 0;
-    background-color: #EEE5C6;
-    background-color: #4E422D;
-    background-color: white;
+    background-color: #FFFAF0;
     /* background-image: url("../../uploadFiles/dog.png");
     background-repeat: no-repeat;
     background-position: center;
@@ -97,7 +95,6 @@ main #menu-info>#section1 {
 main #menu-info>#section2 {
     height: 80px;
     background-color: #4E422D;
-    background-color: #EEE5C6;
 
     display: flex;
     justify-content: center;
@@ -111,7 +108,6 @@ main #menu-info>#section2 {
         width: 80px;
         height: 80px;
         background-color: #4E422D;
-        background-color: #EEE5C6;
         margin-top: 20px;
         transform: rotate(45deg);
         border-radius: 5px;
@@ -153,6 +149,31 @@ main #animalListArea {
 }
 
 /* filtering 부분 */
+
+main #search-btn {
+    background-color: #4E422D;
+    color: #EEE5C6;
+
+    font-family: 'jua';
+    font-size: 15pt;
+
+    box-shadow: inset 3px 3px 3px rgba(255, 255, 255, 0.2);
+
+    /* width: 80px; */
+    padding-inline: 10px;
+    height: 35px;
+
+    border: 0;
+    border-radius: 10px;
+
+    padding-top: 2px;
+
+    margin-inline-end: 10px;
+
+    cursor: pointer;
+} main #search-btn:hover {
+    box-shadow: inset 3px 3px 3px rgba(0, 0, 0, 0.2);
+}
 
 main #filter {
     /* 필터 부분과 리스트 부분 간격2  - 필터와 직선 간격 */
@@ -239,6 +260,9 @@ main td {
 
 
 /* pageNation 디자인 */
+main .paging {
+    margin-block: 20px;
+}
 main .paging a, main .paging span {
     display: inline-block;
     margin: 0 3px;
@@ -255,6 +279,6 @@ main .paging a, main .paging span {
     /* border-radius: 7px; */
 
 } main .paging span, main .paging a:hover {
-    color: red;
+    color: #EEE5C6;
     font-weight: 900;
 } 

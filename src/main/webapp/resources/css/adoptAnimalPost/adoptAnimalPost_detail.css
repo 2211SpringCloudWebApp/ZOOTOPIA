@@ -170,10 +170,11 @@ main #ivory-info-area>div {
 /* 회색 댓글 부분 시작!! */
 main #grey-area {
 
-    margin-top: 50px;
+    margin-block: 50px;
+    
     
     width: 1000px;
-    min-height: 200px;
+    min-height: 140px;
 
     border-radius: 20px;
 
@@ -209,8 +210,12 @@ main #grey-area {
     /* 댓글 입력 창! */
     margin-left: 25px;
     margin-top: 15px;
+    
+    /* 등록버튼과 간격 */
+    margin-right: 10px;
 
-    width: 800px;
+    /* 댓글 입력창 너비 */
+    width: 880px;
     height: 40px;
 
     border: 0;
@@ -221,18 +226,20 @@ main #grey-area {
     font-family: 'hanna';
     font-size: 13pt;
 
-} main #grey-area #comment-btn {
-
+} main #grey-area .comment-btn {
+    /* 등록버튼 */
     background-color: #4E422D;
     color: #EEE5C6;
 
     font-family: 'jua';
     font-size: 15pt;
 
-    box-shadow: inset 3px 3px 3px rgba(0, 0, 0, 0.2);
+    box-shadow: inset 3px 3px 3px rgba(255, 255, 255, 0.2);
 
-    width: 80px;
-    height: 40px;
+    /* width: 80px; */
+    padding-inline: 10px;
+    height: 35px;
+
     border: 0;
     border-radius: 10px;
 
@@ -241,13 +248,73 @@ main #grey-area {
     margin-inline-end: 10px;
     
 }
-main #grey-area #comment-btn:hover {
-    color: #4E422D;
-    background-color: white;
+main #grey-area .comment-btn:hover {
+    /* color: #4E422D; */
+    /* background-color: #EEE5C6; */
     box-shadow: inset 3px 3px 5px rgba(0, 0, 0, 0.2);
 
 }
+main #commentForm {
+    /* 댓글입력창 아래 여백 */
+    margin-bottom: 20px;
+}
+main .comment {
+    /* 댓글 왼쪽 여백 */
+    padding-left: 40px;
 
+    /* 작성자+댓글내용 부분 높이 */
+    min-height: 60px;
+}
+main .comment .id-and-btns{
+    /* 작성자아이디 답글달기 수정 삭제 버튼 있는 부분 */
+    display: flex;
+
+    
+
+    /* 작성자 아이디 폰트 */
+    font-family: 'jua';
+    font-size: 15pt;
+}
+main .comment [id*=commentContent] {
+
+    /* 작성자랑 내용이랑 간격 */
+    margin-top: 10px;
+
+    /* 댓글내용폰트 */
+    font-family: 'hanna';
+    font-size: 13pt;
+}
+
+main [id^=commentContentUpadteArea] input[name=commentContent] {
+    /* 수정내용입력창 너비 */
+    width: 400px;
+    height: 40px;
+}
+main .replyComment .id-and-btns{
+    /* 답댓에서 작성자아이디 답글달기 수정 삭제 버튼 있는 부분 */
+    display: flex;
+
+    
+
+    /* 작성자 아이디 폰트 */
+    font-family: 'jua';
+    font-size: 15pt;
+}
+main .replyComment {
+    /* 댓글 왼쪽 여백 */
+    padding-left: 80px;
+
+    /* 작성자+댓글내용 부분 높이 */
+    min-height: 60px;
+}
+
+.comment, .replyComment {
+    border-top: 2px dashed rgba(0, 0, 0, 0.1);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
 
 
 

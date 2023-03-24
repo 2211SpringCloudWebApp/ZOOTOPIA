@@ -32,8 +32,11 @@
 		<main>
 			<!-- 헤더 부분 피하기 위한 div -->
 			<div></div>
-			<h1>입양공고등록하기</h1>
-			<h3>아이디 : ${loginUser.memberId } / 이름 : ${loginUser.memberName }</h3>
+
+			<div id="title">
+				<div>입양 공고 등록하기</div>
+				<div></div>
+			</div>
 
 			<form action="/adoptAnimal/register.ztp" method="post" enctype="multipart/form-data" id="form">
 				<input type="hidden" name="adoptWriterId" value="${loginUser.memberId }">
@@ -100,10 +103,8 @@
 					</li>
 
 					<li>
-						<label for="" class="postContentLabel">이미지</label>
-						<br>
-						<input type="file" name="uploadFile" id="uploadFile" accept="image/*" multiple>
-						<div id="uploadFileBtn">이미지 등록하기!!</div>
+						<input type="file" name="uploadFile" id="uploadFile" accept="image/*" style="display: none;" multiple>
+						<div id="uploadFileBtn"><div>이미지 등록!</div></div>
 						<div id="preview-area"></div>
 					</li>
 
@@ -115,8 +116,7 @@
 
 
 				</ul>
-
-				<input type="submit" value="등록하기">
+				<button type="submit">입양 공고 등록하기</button>
 			</form>
 		</main>
 
