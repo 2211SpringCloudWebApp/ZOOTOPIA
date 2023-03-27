@@ -420,7 +420,7 @@
 <li>DB, Server <img src="https://img.shields.io/badge/Oracle-F80000?style=flat&logo=React&logoColor=white"/><img src="https://img.shields.io/badge/Tomcat-F8DC75?style=flat&logo=React&logoColor=white"/><br>
 
 <br>
-<h2>:computer: 시연화면</h2><br>
+<h2>:computer: 시연화면</h2>
 
 ![zootopia (1)](https://user-images.githubusercontent.com/120631985/227816639-2f397a8e-58fa-4e52-b599-015897b89214.png)
 ![zootopia (2)](https://user-images.githubusercontent.com/120631985/227816641-3eeb273e-17ac-4675-904a-f6856ca1ecc2.png)
