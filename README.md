@@ -420,7 +420,8 @@
 <li>DB, Server <img src="https://img.shields.io/badge/Oracle-F80000?style=flat&logo=React&logoColor=white"/><img src="https://img.shields.io/badge/Tomcat-F8DC75?style=flat&logo=React&logoColor=white"/><br>
 
 <br>
-<h2>:computer: 시연화면</h2>
+<h2>:computer: 시연화면</h2><br>
+
 ![1 메인화면](https://user-images.githubusercontent.com/120631985/227823910-045b19fe-2bd4-4028-96e1-7be40357ec57.png)
 ![2 로그인](https://user-images.githubusercontent.com/120631985/227823917-4995f2eb-309f-457b-84cd-7e0c637a63f2.png)
 ![3 마이페이지1](https://user-images.githubusercontent.com/120631985/227823919-48a0f339-6828-4df2-89d9-f3a411246c03.png)
