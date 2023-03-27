@@ -421,6 +421,7 @@
 
 <br>
 <h2>:computer: 시연화면</h2><br>
+    
 ### 1. 메인화면
 
 <img src="https://user-images.githubusercontent.com/120631985/227823910-045b19fe-2bd4-4028-96e1-7be40357ec57.png">
