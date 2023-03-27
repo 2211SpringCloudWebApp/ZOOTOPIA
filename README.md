@@ -50,7 +50,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr style="height: 20px">
+            <tr>
                 <th id="0R0" style="height: 20px;" class="row-headers-background">
                     <div class="row-header-wrapper" style="line-height: 20px">1</div>
                 </th>
@@ -60,7 +60,7 @@
                 <td class="s0" dir="ltr">Member</td>
                 <td class="s0" dir="ltr">Manager</td>
             </tr>
-            <tr style="height: 20px">
+            <tr>
                 <th id="0R1" style="height: 20px;" class="row-headers-background">
                     <div class="row-header-wrapper" style="line-height: 20px">2</div>
                 </th>
@@ -71,7 +71,7 @@
                 <td class="s0"></td>
                 <td class="s0"></td>
             </tr>
-            <tr style="height: 20px">
+            <tr>
                 <th id="0R2" style="height: 20px;" class="row-headers-background">
                     <div class="row-header-wrapper" style="line-height: 20px">3</div>
                 </th>
@@ -81,7 +81,7 @@
                 <td class="s0"></td>
                 <td class="s0"></td>
             </tr>
-            <tr style="height: 20px">
+            <tr>
                 <th id="0R3" style="height: 20px;" class="row-headers-background">
                     <div class="row-header-wrapper" style="line-height: 20px">4</div>
                 </th>
@@ -92,7 +92,7 @@
                 <td class="s0" dir="ltr">✔</td>
                 <td class="s0"></td>
             </tr>
-            <tr style="height: 20px">
+            <tr>
                 <th id="0R4" style="height: 20px;" class="row-headers-background">
                     <div class="row-header-wrapper" style="line-height: 20px">5</div>
                 </th>
@@ -102,7 +102,7 @@
                 <td class="s0" dir="ltr">✔</td>
                 <td class="s0"></td>
             </tr>
-            <tr style="height: 20px">
+            <tr>
                 <th id="0R5" style="height: 20px;" class="row-headers-background">
                     <div class="row-header-wrapper" style="line-height: 20px">6</div>
                 </th>
@@ -117,7 +117,7 @@
                 <td class="s0" dir="ltr">✔</td>
                 <td class="s0" dir="ltr">✔</td>
             </tr>
-            <tr style="height: 20px">
+            <tr>
                 <th id="0R6" style="height: 20px;" class="row-headers-background">
                     <div class="row-header-wrapper" style="line-height: 20px">7</div>
                 </th>
@@ -131,7 +131,7 @@
                 <td class="s0" dir="ltr">✔</td>
                 <td class="s0" dir="ltr">✔</td>
             </tr>
-            <tr style="height: 20px">
+            <tr>
                 <th id="0R7" style="height: 20px;" class="row-headers-background">
                     <div class="row-header-wrapper" style="line-height: 20px">8</div>
                 </th>
@@ -144,7 +144,7 @@
                 <td class="s0" dir="ltr">✔</td>
                 <td class="s0" dir="ltr">✔</td>
             </tr>
-            <tr style="height: 20px">
+            <tr>
                 <th id="0R8" style="height: 20px;" class="row-headers-background">
                     <div class="row-header-wrapper" style="line-height: 20px">9</div>
                 </th>
@@ -154,7 +154,7 @@
                 <td class="s0" dir="ltr">◎</td>
                 <td class="s0" dir="ltr"></td>
             </tr>
-            <tr style="height: 20px">
+            <tr>
                 <th id="0R9" style="height: 20px;" class="row-headers-background">
                     <div class="row-header-wrapper" style="line-height: 20px">10</div>
                 </th>
@@ -164,7 +164,7 @@
                 <td class="s0" dir="ltr">◎</td>
                 <td class="s0" dir="ltr">✔</td>
             </tr>
-            <tr style="height: 20px">
+            <tr>
                 <th id="0R10" style="height: 20px;" class="row-headers-background">
                     <div class="row-header-wrapper" style="line-height: 20px">11</div>
                 </th>
@@ -174,7 +174,7 @@
                 <td class="s0" dir="ltr">✔</td>
                 <td class="s0" dir="ltr">✔</td>
             </tr>
-            <tr style="height: 20px">
+            <tr>
                 <th id="0R11" style="height: 20px;" class="row-headers-background">
                     <div class="row-header-wrapper" style="line-height: 20px">12</div>
                 </th>
@@ -187,7 +187,7 @@
                 <td class="s0" dir="ltr">✔</td>
                 <td class="s0" dir="ltr">✔</td>
             </tr>
-            <tr style="height: 20px">
+            <tr>
                 <th id="0R12" style="height: 20px;" class="row-headers-background">
                     <div class="row-header-wrapper" style="line-height: 20px">13</div>
                 </th>
@@ -197,7 +197,7 @@
                 <td class="s0" dir="ltr">✔</td>
                 <td class="s0" dir="ltr">✔</td>
             </tr>
-            <tr style="height: 20px">
+            <tr>
                 <th id="0R13" style="height: 20px;" class="row-headers-background">
                     <div class="row-header-wrapper" style="line-height: 20px">14</div>
                 </th>
@@ -207,7 +207,7 @@
                 <td class="s0" dir="ltr">◎</td>
                 <td class="s0" dir="ltr">✔</td>
             </tr>
-            <tr style="height: 20px">
+            <tr>
                 <th id="0R14" style="height: 20px;" class="row-headers-background">
                     <div class="row-header-wrapper" style="line-height: 20px">15</div>
                 </th>
@@ -217,7 +217,7 @@
                 <td class="s0" dir="ltr">◎</td>
                 <td class="s0" dir="ltr">✔</td>
             </tr>
-            <tr style="height: 20px">
+            <tr>
                 <th id="0R15" style="height: 20px;" class="row-headers-background">
                     <div class="row-header-wrapper" style="line-height: 20px">16</div>
                 </th>
@@ -227,7 +227,7 @@
                 <td class="s0" dir="ltr">✔</td>
                 <td class="s0" dir="ltr">✔</td>
             </tr>
-            <tr style="height: 20px">
+            <tr>
                 <th id="0R16" style="height: 20px;" class="row-headers-background">
                     <div class="row-header-wrapper" style="line-height: 20px">17</div>
                 </th>
@@ -240,7 +240,7 @@
                 <td class="s0" dir="ltr">✔</td>
                 <td class="s0" dir="ltr">✔</td>
             </tr>
-            <tr style="height: 20px">
+            <tr>
                 <th id="0R17" style="height: 20px;" class="row-headers-background">
                     <div class="row-header-wrapper" style="line-height: 20px">18</div>
                 </th>
@@ -253,7 +253,7 @@
                 <td class="s0" dir="ltr">✔</td>
                 <td class="s0" dir="ltr">✔</td>
             </tr>
-            <tr style="height: 20px">
+            <tr>
                 <th id="0R18" style="height: 20px;" class="row-headers-background">
                     <div class="row-header-wrapper" style="line-height: 20px">19</div>
                 </th>
@@ -265,7 +265,7 @@
                 <td class="s0" dir="ltr">✔</td>
                 <td class="s0" dir="ltr">✔</td>
             </tr>
-            <tr style="height: 20px">
+            <tr>
                 <th id="0R19" style="height: 20px;" class="row-headers-background">
                     <div class="row-header-wrapper" style="line-height: 20px">20</div>
                 </th>
@@ -275,7 +275,7 @@
                 <td class="s0" dir="ltr">◎</td>
                 <td class="s0" dir="ltr">✔</td>
             </tr>
-            <tr style="height: 20px">
+            <tr>
                 <th id="0R20" style="height: 20px;" class="row-headers-background">
                     <div class="row-header-wrapper" style="line-height: 20px">21</div>
                 </th>
@@ -285,7 +285,7 @@
                 <td class="s0" dir="ltr">◎</td>
                 <td class="s0" dir="ltr">✔</td>
             </tr>
-            <tr style="height: 20px">
+            <tr>
                 <th id="0R21" style="height: 20px;" class="row-headers-background">
                     <div class="row-header-wrapper" style="line-height: 20px">22</div>
                 </th>
@@ -295,7 +295,7 @@
                 <td class="s0" dir="ltr">✔</td>
                 <td class="s0" dir="ltr">✔</td>
             </tr>
-            <tr style="height: 20px">
+            <tr>
                 <th id="0R22" style="height: 20px;" class="row-headers-background">
                     <div class="row-header-wrapper" style="line-height: 20px">23</div>
                 </th>
@@ -308,7 +308,7 @@
                 <td class="s0" dir="ltr">✔</td>
                 <td class="s0" dir="ltr">✔</td>
             </tr>
-            <tr style="height: 20px">
+            <tr>
                 <th id="0R23" style="height: 20px;" class="row-headers-background">
                     <div class="row-header-wrapper" style="line-height: 20px">24</div>
                 </th>
@@ -318,7 +318,7 @@
                 <td class="s0" dir="ltr">✔</td>
                 <td class="s0" dir="ltr">✔</td>
             </tr>
-            <tr style="height: 20px">
+            <tr>
                 <th id="0R24" style="height: 20px;" class="row-headers-background">
                     <div class="row-header-wrapper" style="line-height: 20px">25</div>
                 </th>
@@ -328,7 +328,7 @@
                 <td class="s0" dir="ltr">◎</td>
                 <td class="s0" dir="ltr">✔</td>
             </tr>
-            <tr style="height: 20px">
+            <tr>
                 <th id="0R25" style="height: 20px;" class="row-headers-background">
                     <div class="row-header-wrapper" style="line-height: 20px">26</div>
                 </th>
@@ -339,7 +339,7 @@
                 <td class="s0" dir="ltr">◎</td>
                 <td class="s0" dir="ltr">✔</td>
             </tr>
-            <tr style="height: 20px">
+            <tr>
                 <th id="0R26" style="height: 20px;" class="row-headers-background">
                     <div class="row-header-wrapper" style="line-height: 20px">27</div>
                 </th>
@@ -349,7 +349,7 @@
                 <td class="s0" dir="ltr">✔</td>
                 <td class="s0" dir="ltr">✔</td>
             </tr>
-            <tr style="height: 20px">
+            <tr>
                 <th id="0R27" style="height: 20px;" class="row-headers-background">
                     <div class="row-header-wrapper" style="line-height: 20px">28</div>
                 </th>
@@ -361,7 +361,7 @@
                 <td class="s0" dir="ltr">✔</td>
                 <td class="s0" dir="ltr">✔</td>
             </tr>
-            <tr style="height: 20px">
+            <tr>
                 <th id="0R28" style="height: 20px;" class="row-headers-background">
                     <div class="row-header-wrapper" style="line-height: 20px">29</div>
                 </th>
@@ -374,7 +374,7 @@
                 <td class="s0"></td>
                 <td class="s0" dir="ltr">✔</td>
             </tr>
-            <tr style="height: 20px">
+            <tr>
                 <th id="0R29" style="height: 20px;" class="row-headers-background">
                     <div class="row-header-wrapper" style="line-height: 20px">30</div>
                 </th>
@@ -386,7 +386,7 @@
                 <td class="s0"></td>
                 <td class="s0" dir="ltr">✔</td>
             </tr>
-            <tr style="height: 20px">
+            <tr>
                 <th id="0R30" style="height: 20px;" class="row-headers-background">
                     <div class="row-header-wrapper" style="line-height: 20px">31</div>
                 </th>
@@ -396,7 +396,7 @@
                 <td class="s0"></td>
                 <td class="s0" dir="ltr">✔</td>
             </tr>
-            <tr style="height: 20px">
+            <tr>
                 <th id="0R31" style="height: 20px;" class="row-headers-background">
                     <div class="row-header-wrapper" style="line-height: 20px">32</div>
                 </th>
