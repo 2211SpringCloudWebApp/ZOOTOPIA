@@ -421,6 +421,6 @@
 
 <br>
 <h2>:computer: 시연화면</h2>
-    #<h1>메인화면</h1>
+    #메인화면
 ![zootopia (1)](https://user-images.githubusercontent.com/120631985/227816639-2f397a8e-58fa-4e52-b599-015897b89214.png)
 
